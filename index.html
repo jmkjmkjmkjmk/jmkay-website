@@ -177,14 +177,19 @@
   .wm-sub-seg:first-of-type { text-align: right; }  /* ST right-aligns toward dot */
   .wm-sub-seg:last-of-type { text-align: left; }    /* DUCER left-aligns from dot */
   .wm-sub-o {
-    font-family: 'Josefin Sans', sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-top: 12px;
+  }
+  .wm-sub-o::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--terracotta);
+    border: 0.5px solid var(--ink);
+    display: block;
   }
   .wm-sub-mid {
     font-family: 'Josefin Sans', sans-serif;
@@ -480,7 +485,9 @@
     .wm-dw { width: 14px; }
     .wm-dp { width: 7px; height: 7px; left: 3.5px; top: 15px; }
     .wm-kay { margin-left: -3px; }
-    .wm-sub-seg, .wm-sub-o, .wm-sub-mid { font-size: 9px; padding-top: 8px; }
+    .wm-sub-seg, .wm-sub-mid { font-size: 9px; padding-top: 8px; }
+    .wm-sub-o { padding-top: 8px; }
+    .wm-sub-o::after { width: 6px; height: 6px; }
     .hero-intro { font-size: 17px; }
 
     .approach { padding: 56px 28px; }
@@ -521,11 +528,11 @@
     <span class="wm-l">M</span>
     <span class="wm-dw"><span class="wm-dp"></span></span>
     <span class="wm-kay">KAY</span>
-    <!-- Row 2: Subtitle — O's share dot columns -->
+    <!-- Row 2: Subtitle — O's are terracotta circles with ink border -->
     <span class="wm-sub-seg">ST</span>
-    <span class="wm-sub-o">O</span>
+    <span class="wm-sub-o"></span>
     <span class="wm-sub-mid">RY&ensp;PR</span>
-    <span class="wm-sub-o">O</span>
+    <span class="wm-sub-o"></span>
     <span class="wm-sub-seg">DUCER</span>
   </div>
   <div class="hero-intro">I find the human narrative inside work that matters — then produce the content that carries it.</div>
