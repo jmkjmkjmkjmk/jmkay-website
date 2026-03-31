@@ -827,6 +827,14 @@
     .credits-grid { grid-template-columns: 1fr; }
     .hero-title { font-size: 30px; }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1104,6 +1112,13 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section style="padding: 80px 60px; text-align: center; background: var(--cream);">
+  <div style="font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--ink); margin-bottom: 12px;">This is the kind of story I produce.</div>
+  <div style="font-size: 15px; color: var(--ink-muted); margin-bottom: 28px;">Have a complex story that needs telling? Let&rsquo;s talk about yours.</div>
+  <a href="index.html#contact" style="display: inline-block; padding: 14px 32px; border: 1.5px solid var(--terracotta); border-radius: 6px; color: var(--terracotta); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all 0.2s ease;">Get in Touch &rarr;</a>
 </section>
 
 <!-- ═══ FOOTER ═══ -->
