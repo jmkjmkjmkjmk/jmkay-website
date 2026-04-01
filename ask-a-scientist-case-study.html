@@ -18,8 +18,14 @@
 <meta name="twitter:image" content="https://jmkay.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&family=Josefin+Sans:wght@300..400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
   :root {
     --warm-white: #FDFBF7;
     --cream: #F5F0E8;
@@ -74,11 +80,12 @@
   nav.scrolled .nav-links a:hover { color: var(--cream); }
   .nav-brand {
     display: inline-flex;
-    align-items: flex-start;
+    align-items: center;
     text-decoration: none;
     line-height: 1;
-    font-family: 'Josefin Sans', sans-serif;
-    font-weight: 350;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
     font-size: 20px;
     text-transform: uppercase;
     color: var(--ink);
@@ -86,21 +93,21 @@
   }
   .nav-brand .nav-dw {
     position: relative;
-    width: 7px;
+    width: 10px;
     flex-shrink: 0;
     align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .nav-brand .nav-dp {
-    position: absolute;
-    width: 3.5px;
-    height: 3.5px;
-    border-radius: 50%;
+    width: 4.5px;
+    height: 4.5px;
     background: var(--terracotta);
-    top: 6px;
-    left: 1.75px;
+    transform: rotate(45deg);
+    border-radius: 1px;
   }
   .nav-brand .nav-kay {
-    margin-left: -1.5px;
     letter-spacing: 0.04em;
   }
   .nav-links { display: flex; gap: 32px; }
