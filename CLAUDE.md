@@ -12,15 +12,34 @@ Always save files to logical subfolders — never dump loose files at the top le
 | **JMKay launch/Strategy/** | Prompt engine, project description, strategic planning docs |
 | **JMKay launch/Tracker/** | Launch Command Center (.xlsx), any tracking/status tools |
 | **JMKay launch/Resources/** | Source material — LinkedIn data export, Goodreads, Authory portfolio |
-| **jmkay-website/** | Live site files (index.html, case studies) |
+| **JMKay launch/Site Files/** | Staging area for website files before they go into the repo |
+| **GitHub/jmkay-website/** | Live site repo (deployed via Netlify). Connect with `~/Documents/GitHub` |
 
 When creating new files: pick the right subfolder. If none fits, create a new named subfolder rather than saving at root.
+
+## Website Infrastructure (jmkay.com)
+| Item | Detail |
+|------|--------|
+| Hosting | Netlify (site name: `jmkaydotcom`) |
+| Repo | `~/Documents/GitHub/jmkay-website` (GitHub → Netlify auto-deploys) |
+| Domain registrar | Squarespace (DNS only — not hosting) |
+| Deploy workflow | Edit files locally → commit in GitHub Desktop → push → live in ~30 seconds |
+| GA4 Measurement ID | `G-6XM6RT038M` (in all 6 HTML pages) |
+| Google Search Console | Verified via DNS/CNAME. Sitemap submitted. |
+| Perspectives section | `writing.html` index + `writing/` folder for essay pages |
+| Nav order | Work, Perspectives, Services, About, Contact |
+| CSS font stack | Kay Display (wordmark), Instrument Serif (headlines), DM Sans (body), Space Mono (labels) |
+| Warm White | #FDFBF7 (site background — note: slightly different from earlier brand docs) |
+
+**Published Perspectives pages:**
+- Post 01 "The Work Had a Name" → `writing/jmkay.html` (published Mar 12)
+- Post 02 "A Cancer Pioneer Whose Life Was Tragically Cut Short" → `writing/baselga-documentary.html` (published Apr 6)
 
 ## Brand
 | Term | Meaning |
 |------|---------|
 | Terracotta | #C2603F — primary brand color |
-| Warm White | #F7F3EC — background |
+| Warm White | #F7F3EC — background (brand docs). Note: site CSS uses #FDFBF7 as `--warm-white`. |
 | Ink | #1C1917 — body text |
 | Teal | #1A4A4A — accent |
 | The dots | Structural, not decorative — brand principle |
@@ -63,12 +82,28 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 | Name | What |
 |------|------|
 | **LinkedIn Activation** | 27-post editorial calendar, Mar–Dec 2026. Weekly then biweekly. |
+| **jmkay.com Perspectives** | Essay pages synced from published LinkedIn posts. 2 live (Post 01, Post 02). Deployed via Netlify from GitHub repo. |
 | **Spotlight the Process** | Testimonial strand — collaborator quotes on methodology |
 | **FDMlife** | Production partnership with Nick Szpara |
 | **Aradhana Award** | First client project ($15K budget, 16% to J.M.Kay) |
 
 ## Voice Rules
-Warm but not soft. Confident but not boastful. Precise but not cold. Short sentences that land, then breathe. No exclamation points. No "excited to announce," "thrilled to share," "journey," "leverage," "pivot," "synergy." The restraint IS the statement.
+Warm but not soft. Confident but not boastful. Precise but not cold. Short sentences that land, then breathe. The restraint IS the statement.
+
+### Non-Negotiable Rules (locked after Post 02 iteration)
+1. **Own the leadership.** "I led a team that produced..." is stronger than "We produced..."
+2. **No straw-man comparisons.** Never write "most people would..." to make Jonathan look better by contrast. Show what he does, not what others don't.
+3. **No exclamation points.** Ever.
+4. **No marketing clichés.** Banned: "excited," "leverage," "pivot," "synergy," "passionate," "thrilled," "game-changer," "deep dive," "journey."
+5. **Minimize em dashes.** Max 2 per post. Heavy em dash usage reads as AI-generated. Use commas, semicolons, periods, or restructure.
+6. **Humanize institutions.** AstraZeneca isn't a faceless corporation; it's a group of people who cared about a colleague.
+7. **Define technical terms.** LinkedIn audiences are general. "Precision oncology" needs a plain-language gloss in the same sentence.
+8. **Name collaborators.** Credit directors, editors, partners by first and last name. It's generous and builds goodwill.
+9. **Center the people.** Families, colleagues, subjects of the stories. Human stakes are always the lead, not production logistics.
+10. **Be precise about production realities.** Don't say "we filmed in three countries" if the pandemic meant virtual interviews and archival footage.
+11. **Fact-check all specific claims.** Drug approvals, award credits, institutional roles — verify before including. If uncertain, soften or flag.
+12. **Soft CTAs only.** Never "the full case study is on my site." Instead: "Hear more about how we worked across..." or "Here's how the story developed..."
+13. **Semicolons for rhythm.** Can replace periods when two thoughts are closely linked. Paragraphs beginning with "And" are fine for emotional beats. Closing should connect back to Story Producer positioning without repeating it verbatim.
 
 ## Preferences
 - Word (.docx) for all text deliverables — no .md files for final outputs
