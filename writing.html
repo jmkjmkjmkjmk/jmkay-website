@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Writing — J. M. Kay</title>
+<meta name="description" content="Essays on story production, documentary filmmaking, and narrative strategy — by Jonathan Kay.">
+<meta property="og:title" content="Writing — J. M. Kay">
+<meta property="og:description" content="Essays on story production, documentary filmmaking, and narrative strategy.">
+<meta property="og:image" content="https://jmkay.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jmkay.com/writing.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Writing — J. M. Kay">
+<meta name="twitter:description" content="Essays on story production, documentary filmmaking, and narrative strategy.">
+<meta name="twitter:image" content="https://jmkay.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 — Replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+    --deep-teal-light: #2D7A7A;
+    --sage: #7A8F6D;
+    --warm-slate: #3D4F5F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ NAV ═══ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.3s ease;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    gap: 0;
+  }
+  .nav-brand .nav-dw {
+    position: relative;
+    width: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-brand .nav-dp {
+    width: 4.5px;
+    height: 4.5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+  }
+  .nav-brand .nav-kay {
+    letter-spacing: 0.04em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+  }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+  /* ═══ PAGE HEADER ═══ */
+  .page-header {
+    padding: 140px 48px 60px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .page-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 14px;
+  }
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 42px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .page-intro {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* ═══ ESSAY LIST ═══ */
+  .essay-list {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px 100px;
+  }
+  .essay-item {
+    display: block;
+    text-decoration: none;
+    padding: 36px 0;
+    border-top: 1px solid rgba(212,197,169,0.4);
+    transition: opacity 0.2s ease;
+  }
+  .essay-item:last-child {
+    border-bottom: 1px solid rgba(212,197,169,0.4);
+  }
+  .essay-item:hover { opacity: 0.75; }
+  .essay-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 10px;
+  }
+  .essay-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--stone);
+  }
+  .essay-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+  .essay-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 26px;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .essay-desc {
+    font-size: 15px;
+    color: var(--ink-light);
+    line-height: 1.65;
+  }
+  .essay-read {
+    display: inline-block;
+    margin-top: 12px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--deep-teal);
+    text-transform: uppercase;
+  }
+  .essay-item:hover .essay-read { color: var(--terracotta); }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    background: var(--ink);
+    padding: 40px 48px;
+    text-align: center;
+  }
+  .footer-brand {
+    font-family: 'Kay Display', serif;
+    font-size: 16px;
+    color: var(--stone);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .footer-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .footer-sub a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .page-header { padding: 120px 24px 48px; }
+    .page-title { font-size: 32px; }
+    .essay-list { padding: 0 24px 80px; }
+    .essay-title { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="index.html#work">Work</a>
+    <a href="writing.html" class="active">Writing</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ PAGE HEADER ═══ -->
+<div class="page-header">
+  <div class="page-label">Essays</div>
+  <h1 class="page-title">Writing</h1>
+  <p class="page-intro">Notes on story production, documentary filmmaking, and the work of finding human narratives inside complex organizations.</p>
+</div>
+
+<!-- ═══ ESSAY LIST ═══ -->
+<div class="essay-list">
+
+  <a href="writing/baselga-documentary.html" class="essay-item">
+    <div class="essay-meta">
+      <span class="essay-date">April 6, 2026</span>
+      <span class="essay-tag">Case Study</span>
+    </div>
+    <h2 class="essay-title">A Cancer Pioneer Whose Life Was Cut Short: How We Told the Story</h2>
+    <p class="essay-desc">How I led the production of a feature documentary honoring Jos&eacute; Baselga, navigating science, family, and cinematic storytelling across two continents during a pandemic.</p>
+    <span class="essay-read">Read &rarr;</span>
+  </a>
+
+  <a href="writing/jmkay.html" class="essay-item">
+    <div class="essay-meta">
+      <span class="essay-date">March 12, 2026</span>
+      <span class="essay-tag">Origin</span>
+    </div>
+    <h2 class="essay-title">The Reveal</h2>
+    <p class="essay-desc">After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.</p>
+    <span class="essay-read">Read &rarr;</span>
+  </a>
+
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+</body>
+</html>

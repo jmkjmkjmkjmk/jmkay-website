@@ -1,87 +1,59 @@
-# Deploying jmkay.com to Vercel
+# jmkay.com — Deploy & Setup Guide
 
-## What's in this folder
+## How the site works
 
-This is a clean deploy package — only the files that should go live:
+jmkay.com is a static site hosted on **Netlify** (site name: `neon-crostata-b5ef97`), deployed automatically from this GitHub repo. Domain registered through **Squarespace** (DNS only — Squarespace is not hosting anything).
 
-```
-index.html                  ← your homepage (jmkay.com)
-baselga-case-study.html     ← the case study subpage
-baselga-thumb.jpg           ← homepage thumbnail for Baselga project
-aas-thumb.jpg               ← homepage thumbnail for Ask a Scientist
-img/baselga/                ← all case study images (11 files)
-```
-
-There's also a `jmkay-live-deploy.zip` in this folder if you want to drag-and-drop deploy.
+**Deploy workflow:** Edit files locally → commit in GitHub Desktop → push → Netlify auto-deploys within ~30 seconds.
 
 
-## Option A: Vercel (Recommended — free, fast, custom domain support)
-
-### First-time setup
-
-1. Go to **vercel.com** and click **Sign Up** → sign in with your **GitHub** account (or email)
-2. Once logged in, click **"Add New…" → "Project"**
-3. Instead of connecting a Git repo, scroll down and look for **"Or import a third-party Git repository"** — skip that too
-4. Actually the easiest way: just go to **vercel.com/new** and look for the option to **deploy without a repo**
-
-### The drag-and-drop method (easiest)
-
-1. Go to **vercel.com/new**
-2. You should see an area that says **"Import Project"**
-3. At the bottom, click **"Browse for files"** or just drag the entire `jmkay-live-deploy` folder onto the page
-4. Vercel will auto-detect it as a static site (no framework)
-5. Click **Deploy**
-6. In about 30 seconds you'll get a live URL like `jmkay-live-deploy.vercel.app`
-
-### Connecting your custom domain (jmkay.com)
-
-1. In your Vercel project dashboard, go to **Settings → Domains**
-2. Type `jmkay.com` and click **Add**
-3. Vercel will show you DNS records to add. You'll need to go to wherever you bought `jmkay.com` (GoDaddy, Namecheap, Google Domains, Squarespace, etc.)
-4. In your domain registrar's DNS settings, add the records Vercel gives you. Typically:
-   - **A Record**: `@` → `76.76.21.21`
-   - **CNAME Record**: `www` → `cname.vercel-dns.com`
-5. DNS can take 5 minutes to a few hours to propagate
-6. Vercel auto-provisions HTTPS (SSL certificate) — no action needed
-
-
-## Option B: Netlify (also free, also easy)
-
-1. Go to **app.netlify.com** → sign up or log in
-2. Look for **"Deploy manually"** or the drag-and-drop area
-3. Drag the `jmkay-live-deploy` folder onto it
-4. Same custom domain process: Settings → Domain management → Add custom domain → update DNS
-
-
-## Future updates
-
-When you want to update the site:
-
-- **Vercel**: Go to your project → Deployments → drag the updated folder again (or connect a Git repo for automatic deploys)
-- **Netlify**: Go to Deploys → drag to redeploy
-
-The key thing is: always deploy the entire folder, not individual files.
-
-
-## File structure reference
+## File structure
 
 ```
-jmkay-live-deploy/
-├── index.html                          ← Homepage
-├── baselga-case-study.html             ← Case study
-├── baselga-thumb.jpg                   ← Thumbnail (homepage)
-├── aas-thumb.jpg                       ← Thumbnail (homepage)
+jmkay-website/
+├── index.html                      ← Homepage (jmkay.com)
+├── writing.html                    ← Writing section index
+├── writing/
+│   ├── the-reveal.html             ← Post 01 essay
+│   └── baselga-documentary.html    ← Post 02 essay
+├── baselga-case-study.html         ← Baselga documentary case study
+├── ask-a-scientist-case-study.html ← Ask a Scientist case study
+├── sitemap.xml                     ← For Google indexing
+├── robots.txt                      ← For Google indexing
+├── KayDisplay-Regular.otf          ← Custom wordmark font
+├── og-image.png                    ← Social sharing image
+├── linkedin-featured-thumbnail.png
+├── baselga-thumb.jpg               ← Homepage thumbnail
+├── aas-thumb.jpg                   ← Homepage thumbnail
+├── aas-thumb-new.jpg               ← Updated AAS thumbnail
+├── JK profile.jpg                  ← About section photo
 └── img/
-    └── baselga/
-        ├── hero-title.png              ← Hero background
-        ├── jk-silvia-candid.jpg        ← Photo grid
-        ├── premiere-screens.jpg        ← Photo grid
-        ├── premiere-auditorium.jpg     ← Photo grid (wide)
-        ├── jk-silvia-aacr.jpg         ← AACR inline photo
-        ├── premiere-frontrow.jpg       ← Premiere inline photo
-        ├── laurel-selection-white.png  ← BIFF laurel
-        ├── laurel-honorable-white.png  ← BIFF laurel
-        ├── laurel-winner-white.png     ← BIFF laurel
-        ├── laurel-spain-iff.png        ← Spain IFF logo
-        └── filmmakerlife-feature.png   ← Magazine feature
+    └── baselga/                    ← Case study images (10 files)
 ```
+
+
+## Adding a new Writing post
+
+1. Create a new HTML file in `writing/` (use an existing essay as template)
+2. Add the essay entry to `writing.html` (newest first)
+3. Add the URL to `sitemap.xml`
+4. Commit and push via GitHub Desktop
+
+
+## Google Analytics 4
+
+All pages include a GA4 snippet with placeholder `G-XXXXXXXXXX`. To activate:
+
+1. Go to analytics.google.com → create account → create property → choose "Web"
+2. Enter https://jmkay.com → copy your Measurement ID (G-XXXXXXX)
+3. Find-and-replace `G-XXXXXXXXXX` across all HTML files with your real ID
+4. Commit and push
+
+
+## Google Search Console (indexing)
+
+1. Go to search.google.com/search-console
+2. Add property → URL prefix → https://jmkay.com
+3. Verify ownership (HTML file method or DNS)
+4. Go to Sitemaps → submit "sitemap.xml"
+5. Google will begin indexing within a few days

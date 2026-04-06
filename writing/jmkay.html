@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reveal — J. M. Kay</title>
+<meta name="description" content="After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.">
+<meta property="og:title" content="The Reveal — J. M. Kay">
+<meta property="og:description" content="After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.">
+<meta property="og:image" content="https://jmkay.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jmkay.com/writing/jmkay.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Reveal — J. M. Kay">
+<meta name="twitter:description" content="After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.">
+<meta name="twitter:image" content="https://jmkay.com/og-image.png">
+<link rel="canonical" href="https://jmkay.com/writing/jmkay.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 — Replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Reveal",
+  "author": {
+    "@type": "Person",
+    "name": "Jonathan Michael Kay",
+    "url": "https://jmkay.com"
+  },
+  "datePublished": "2026-03-12",
+  "description": "After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.",
+  "publisher": {
+    "@type": "Person",
+    "name": "J. M. Kay"
+  },
+  "mainEntityOfPage": "https://jmkay.com/writing/jmkay.html"
+}
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+    --deep-teal-light: #2D7A7A;
+    --sage: #7A8F6D;
+    --warm-slate: #3D4F5F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ═══ NAV ═══ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    gap: 0;
+  }
+  .nav-brand .nav-dw {
+    position: relative;
+    width: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-brand .nav-dp {
+    width: 4.5px;
+    height: 4.5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+  }
+  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+  /* ═══ ARTICLE ═══ */
+  .article-header {
+    padding: 140px 48px 48px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .article-back {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--deep-teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s ease;
+  }
+  .article-back:hover { color: var(--terracotta); }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .article-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--stone);
+  }
+  .article-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+  .article-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .article-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+  .article-body p {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.85;
+    margin-bottom: 24px;
+  }
+  .article-body p:first-child {
+    font-size: 19px;
+    color: var(--ink);
+    line-height: 1.75;
+  }
+  .article-divider {
+    width: 40px;
+    height: 1px;
+    background: var(--sand);
+    margin: 40px 0;
+  }
+  .article-body .hashtag {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--deep-teal);
+  }
+  .article-body a {
+    color: var(--deep-teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(26,74,74,0.3);
+    transition: border-color 0.2s ease;
+  }
+  .article-body a:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* ═══ ORIGINALLY PUBLISHED ═══ */
+  .originally {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px 80px;
+  }
+  .originally-box {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .originally-box a {
+    color: var(--deep-teal);
+    text-decoration: none;
+  }
+  .originally-box a:hover { color: var(--terracotta); }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    background: var(--ink);
+    padding: 40px 48px;
+    text-align: center;
+  }
+  .footer-brand {
+    font-family: 'Kay Display', serif;
+    font-size: 16px;
+    color: var(--stone);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .footer-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .footer-sub a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .article-header { padding: 120px 24px 40px; }
+    .article-title { font-size: 32px; }
+    .article-body { padding: 0 24px 60px; }
+    .originally { padding: 0 24px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../writing.html" class="active">Writing</a>
+    <a href="../index.html#services">Services</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ═══ ARTICLE HEADER ═══ -->
+<div class="article-header">
+  <a href="../writing.html" class="article-back">&larr; All Writing</a>
+  <div class="article-meta">
+    <span class="article-date">March 12, 2026</span>
+    <span class="article-tag">Origin</span>
+  </div>
+  <h1 class="article-title">The Reveal</h1>
+  <p class="article-subtitle">After fifteen years of producing documentaries, building video series, and advising leaders across four continents, the work finally had a name.</p>
+</div>
+
+<!-- ═══ ARTICLE BODY ═══ -->
+<div class="article-body">
+
+  <p>I've been independent for over a year now. This is the first time I've named it publicly.</p>
+
+  <p>Some of you knew. In late 2024 I shared that my role at AstraZeneca was being made redundant&thinsp;&mdash;&thinsp;and that I was treating it as a positive, values-affirming experience. I meant that.</p>
+
+  <p>But I didn't announce what came next. What I had was a question: across fifteen years of producing documentaries, building video series, advising CEOs, working with PhD scientists and agency leaders across four continents&thinsp;&mdash;&thinsp;what is the actual work I keep getting asked to do?</p>
+
+  <p>So I spent a year finding out. I took on projects, said yes to things that felt right, and paid attention to what they had in common.</p>
+
+  <p>Every engagement started the same way. Someone had a story worth telling&thinsp;&mdash;&thinsp;a scientist's legacy, a company in transition, a complicated subject that needed a human entry point&thinsp;&mdash;&thinsp;and no clear plan for how to produce it. Not the messaging. The actual narrative: who's the audience, what do they need to understand, and how do we build backward from there?</p>
+
+  <p>That was true when I produced a feature documentary about Jos&eacute; Baselga at AstraZeneca. It was true when I created Ask a Scientist during the pandemic. It was true when I was building a health practice from scratch in Singapore for Edelman.</p>
+
+  <p>The work has a name: Story Production. And the practice has a name: J.&nbsp;M.&nbsp;Kay.</p>
+
+  <p>I'm still working out what this looks like. But over the next few months I'll be sharing the process, the methodology, and some of the projects that shaped how I think about narrative.</p>
+
+  <p>If you've ever had that moment where you realized the work you'd been doing for years finally had a name&thinsp;&mdash;&thinsp;I'd love to hear what that was.</p>
+
+  <p><a href="https://jmkay.com">jmkay.com</a></p>
+
+  <p><span class="hashtag">#storyproducer</span></p>
+
+</div>
+
+<!-- ═══ ORIGINALLY PUBLISHED ═══ -->
+<div class="originally">
+  <div class="originally-box">
+    Originally published on <a href="https://www.linkedin.com/posts/jmkaystory_j-m-kay-story-producer-activity-743788" target="_blank" rel="noopener">LinkedIn</a> on March 12, 2026.
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+</body>
+</html>
