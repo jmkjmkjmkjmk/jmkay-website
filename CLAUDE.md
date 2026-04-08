@@ -43,10 +43,10 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 | Ink | #1C1917 — body text |
 | Teal | #1A4A4A — accent |
 | The dots | Structural, not decorative — brand principle |
-| Wordmark font | Josefin Sans 350 (variable axis 300..400). Locked Mar 11. |
+| Wordmark font | KayDisplay v2 (custom CFF OpenType). Upgraded from v1 Apr 8. Equalized diagonals, 48 GPOS kern pairs, soft diamond dots baked in. |
 | J tail | Option B (+5 units left). Locked Mar 12. |
 | Dot position | top: 22px, centered in 20px well (left: 5.5px). 9px diameter. Locked Mar 11. |
-| Dot radius | r=4.0 (SVG units), with 0.6 stroke ring matching letter color. |
+| Dot radius | r=4.0 (SVG units), with 0.6 stroke ring matching letter color. Font dots: soft diamond (r=44, corner=7 bezier). |
 | K correction | KAY margin-left: −4px (optical fix for M/K side bearing asymmetry) |
 | KAY kerning | Tightened ~14% (K +11, A +10, Y +9 net shift). |
 | Subtitle | "STORY PRODUCER" — Josefin Sans 350, letter-spacing 0.22em, 72% opacity. O's in terracotta with ring. |
@@ -57,11 +57,12 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 | LinkedIn banners | Should use wordmark (not lockup). Can be abstracted/inspired rather than literal. |
 | Full-name rule | "Jonathan Michael Kay" is STATIC ONLY — never animated. Only abbreviated J.M.Kay gets sting. |
 
-### Still OPEN (as of Mar 12)
+### Still OPEN (as of Apr 8)
 - Ghost Michael vs. Dots-Carry-It (static cold-open lockup)
 - Sting v4 sign-off (typebar-cursor hybrid at 120%)
 - Services & Rate Card confirmation
 - STORY PRODUCER subtitle weight — currently 350 (same as wordmark). Consider 400–500 for more visual mass at small size, especially next to the fully opaque O rings. Compare side by side when ready.
+- M inner diagonals (20–25u) — thinnest in the set, may need widening to match v2 equalization logic
 
 ### Locked (Mar 12)
 - J tail: Option B (+5 units left)
@@ -69,6 +70,12 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 - KAY kerning: tightened ~14%
 - STORY/PRODUCER opacity: 0.72
 - O rings: outer r=5.8, inner r=4.0, terracotta fill
+
+### Locked (Apr 8)
+- KayDisplay v2: equalized diagonal weights across K, A, Y, V, X, W, N
+- Soft diamond dots baked into font (period, comma, exclam, question)
+- 48 GPOS kern pairs (AV, AW, AY, AT, FA, KA, LT, LV, etc.)
+- Font file: KayDisplay-Regular.otf (v2 replaces v1 in-place; original archived in CLAUDIUS/KayDisplay/)
 
 ## Key People
 | Who | Role |
