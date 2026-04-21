@@ -11,6 +11,9 @@
   gtag('js', new Date());
   gtag('config', 'G-6XM6RT038M');
 </script>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>J. M. Kay — Story Producer</title>
 <meta name="description" content="Jonathan Kay is a story producer who helps organizations find the human narrative inside complex work — then produces the content that carries it.">
 <meta property="og:title" content="J. M. Kay — Story Producer">
@@ -114,18 +117,18 @@
   }
   .nav-brand .nav-dw {
     position: relative;
-    width: 10px;
+    width: 9px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .nav-brand .nav-dp {
-    width: 4.5px;
-    height: 4.5px;
+    width: 5px;
+    height: 5px;
     background: var(--terracotta);
     transform: rotate(45deg);
-    border-radius: 1px;
+    border-radius: 0.8px;
   }
   .nav-brand .nav-kay {
     letter-spacing: 0.04em;
@@ -186,12 +189,12 @@
     gap: 0;
   }
   .wm-main .jmk-d {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     background: var(--terracotta);
     transform: rotate(45deg);
-    border-radius: 2.5px;
-    margin: 0 8px;
+    border-radius: 2px;
+    margin: 0 5px;
     flex-shrink: 0;
   }
   .wm-sub {
@@ -205,16 +208,22 @@
     margin-top: 14px;
     gap: 0;
   }
+  /* Subtitle diamond O replacement — D2 spec (locked Apr 14, 2026)
+     Base class defines shape; per-position modifiers allow independent fine-tuning. */
   .wm-sub .sub-dot {
-    width: 8px;
-    height: 8px;
+    width: 8.5px;
+    height: 8.5px;
     background: var(--terracotta);
     transform: rotate(45deg);
-    border-radius: 1.5px;
-    margin: 0 2px;
+    border-radius: 2px;                  /* softer corners */
+    margin: 0 3px 0 1px;                 /* shifts 2px left to optically center against heavy R / D */
+    vertical-align: middle;
     flex-shrink: 0;
     display: inline-block;
   }
+  /* Per-position modifiers — currently identical, but scaffolded for future divergence */
+  .wm-sub .sub-dot[data-pos="story"]    { /* margin: 0 3px 0 1px; */ }
+  .wm-sub .sub-dot[data-pos="producer"] { /* margin: 0 3px 0 1px; */ }
   .wm-sub .sub-spacer {
     width: 20px;
     display: inline-block;
@@ -646,9 +655,9 @@
 
     .hero { padding: 100px 28px 60px; min-height: 90vh; }
     .wm-main { font-size: 48px; }
-    .wm-main .jmk-d { width: 8px; height: 8px; margin: 0 5px; border-radius: 2px; }
+    .wm-main .jmk-d { width: 9px; height: 9px; margin: 0 3px; border-radius: 1.5px; }
     .wm-sub { font-size: 10px; margin-top: 10px; }
-    .wm-sub .sub-dot { width: 6px; height: 6px; border-radius: 1px; }
+    .wm-sub .sub-dot { width: 6.5px; height: 6.5px; border-radius: 1.5px; margin: 0 2px 0 1px; }
     .hero-intro { font-size: 17px; }
 
     .approach { padding: 56px 28px; }
@@ -687,13 +696,100 @@
     .sub-ch { opacity: 0.65; }
     .wm-sub .sub-dot { opacity: 1; }
   }
+
+  /* ═══ DIAMOND DOT DESIGN SYSTEM ═══ */
+  /* Reusable brand atom. The diamond dot is structural, not decorative.
+     Use these classes anywhere the brand needs a visual breath or separator. */
+
+  /* 1. Section divider — full-width rule with centred terracotta diamond */
+  .dot-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 64px 0;
+    width: 100%;
+  }
+  .dot-divider::before,
+  .dot-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+  .dot-divider-gem {
+    width: 7px;
+    height: 7px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  /* 2. Inline separator — between nav items, credits, metadata lists */
+  .dot-sep {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+  .dot-sep::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+
+  /* 3. List bullet — replaces default markers on branded lists */
+  ul.dot-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.dot-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  ul.dot-list li::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+
+  /* 4. Footer / byline dot separator — small, muted */
+  .dot-byline {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 8px;
+    vertical-align: middle;
+    opacity: 0.45;
+  }
+  .dot-byline::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: var(--ink);
+    transform: rotate(45deg);
+    border-radius: 0.5px;
+  }
 </style>
 </head>
 <body>
 
 <!-- ═══ NAV ═══ -->
 <nav>
-  <a href="#" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <a href="index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
   <div class="nav-links">
     <a href="#work">Work</a>
     <a href="writing.html">Perspectives</a>
@@ -718,13 +814,13 @@
     <div class="wm-sub">
       <span class="sub-ch" id="s01">S</span>
       <span class="sub-ch" id="s02">T</span>
-      <span class="sub-dot" id="s03"></span>
+      <span class="sub-dot" id="s03" data-pos="story"></span>
       <span class="sub-ch" id="s04">R</span>
       <span class="sub-ch" id="s05">Y</span>
       <span class="sub-spacer"></span>
       <span class="sub-ch" id="s06">P</span>
       <span class="sub-ch" id="s07">R</span>
-      <span class="sub-dot" id="s08"></span>
+      <span class="sub-dot" id="s08" data-pos="producer"></span>
       <span class="sub-ch" id="s09">D</span>
       <span class="sub-ch" id="s10">U</span>
       <span class="sub-ch" id="s11">C</span>

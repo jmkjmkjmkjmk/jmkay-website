@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>Perspectives — J. M. Kay</title>
 <meta name="description" content="Essays on story production, documentary filmmaking, and narrative strategy — by Jonathan Kay.">
 <meta property="og:title" content="Perspectives — J. M. Kay">
@@ -95,18 +98,18 @@
   }
   .nav-brand .nav-dw {
     position: relative;
-    width: 10px;
+    width: 9px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .nav-brand .nav-dp {
-    width: 4.5px;
-    height: 4.5px;
+    width: 5px;
+    height: 5px;
     background: var(--terracotta);
     transform: rotate(45deg);
-    border-radius: 1px;
+    border-radius: 0.8px;
   }
   .nav-brand .nav-kay {
     letter-spacing: 0.04em;
@@ -247,6 +250,84 @@
     .essay-list { padding: 0 24px 80px; }
     .essay-title { font-size: 22px; }
   }
+
+  /* ═══ DIAMOND DOT DESIGN SYSTEM ═══ */
+  .dot-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 64px 0;
+    width: 100%;
+  }
+  .dot-divider::before,
+  .dot-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+  .dot-divider-gem {
+    width: 7px;
+    height: 7px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+  .dot-sep {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+  .dot-sep::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+  ul.dot-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.dot-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  ul.dot-list li::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .dot-byline {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 8px;
+    vertical-align: middle;
+    opacity: 0.45;
+  }
+  .dot-byline::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: var(--ink);
+    transform: rotate(45deg);
+    border-radius: 0.5px;
+  }
+
 </style>
 </head>
 <body>
@@ -271,6 +352,16 @@
 
 <!-- ═══ ESSAY LIST ═══ -->
 <div class="essay-list">
+
+  <a href="writing/story-i-couldnt-hold.html" class="essay-item">
+    <div class="essay-meta">
+      <span class="essay-date">April 21, 2026</span>
+      <span class="essay-tag">Methodology</span>
+    </div>
+    <h2 class="essay-title">I Started With a Story I Couldn't Hold</h2>
+    <p class="essay-desc">On excavating a life archive, asking better questions, and why story has to come before format.</p>
+    <span class="essay-read">Read &rarr;</span>
+  </a>
 
   <a href="writing/baselga-documentary.html" class="essay-item">
     <div class="essay-meta">

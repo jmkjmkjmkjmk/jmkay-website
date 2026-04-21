@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<title>I Started With a Story I Couldn't Hold &mdash; J. M. Kay</title>
+<meta name="description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
+<meta property="og:title" content="I Started With a Story I Couldn't Hold &mdash; J. M. Kay">
+<meta property="og:description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
+<meta property="og:image" content="https://jmkay.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jmkay.com/writing/story-i-couldnt-hold.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="I Started With a Story I Couldn't Hold &mdash; J. M. Kay">
+<meta name="twitter:description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
+<meta name="twitter:image" content="https://jmkay.com/og-image.png">
+<link rel="canonical" href="https://jmkay.com/writing/story-i-couldnt-hold.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6XM6RT038M');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "I Started With a Story I Couldn't Hold",
+  "author": {
+    "@type": "Person",
+    "name": "Jonathan Michael Kay",
+    "url": "https://jmkay.com"
+  },
+  "datePublished": "2026-04-21",
+  "description": "On excavating a life archive, asking better questions, and why story has to come before format.",
+  "publisher": {
+    "@type": "Person",
+    "name": "J. M. Kay"
+  },
+  "mainEntityOfPage": "https://jmkay.com/writing/story-i-couldnt-hold.html"
+}
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+    --deep-teal-light: #2D7A7A;
+    --sage: #7A8F6D;
+    --warm-slate: #3D4F5F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    gap: 0;
+  }
+  .nav-brand .nav-dw {
+    position: relative;
+    width: 9px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-brand .nav-dp {
+    width: 5px;
+    height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+  /* ARTICLE */
+  .article-header {
+    padding: 140px 48px 48px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .article-back {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--deep-teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s ease;
+  }
+  .article-back:hover { color: var(--terracotta); }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .article-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--stone);
+  }
+  .article-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+  }
+  .article-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 44px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .article-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px 40px;
+  }
+  .article-body p {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.85;
+    margin-bottom: 24px;
+  }
+  .article-body p:first-of-type {
+    font-size: 19px;
+    color: var(--ink);
+    line-height: 1.75;
+  }
+  .article-body h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+  .article-body a {
+    color: var(--deep-teal);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(26,74,74,0.3);
+    transition: border-color 0.2s ease;
+  }
+  .article-body a:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+  /* FIGURE */
+  .article-body figure {
+    margin: 48px 0;
+  }
+  .article-body figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 8px 28px rgba(28,25,23,0.08);
+  }
+  .article-body figcaption {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-muted);
+    margin-top: 14px;
+    line-height: 1.6;
+    padding-left: 2px;
+    border-left: 2px solid var(--sand);
+    padding-left: 12px;
+  }
+
+  /* BLOCKQUOTE (taxi driver line) */
+  .article-body blockquote {
+    margin: 40px 0;
+    padding: 28px 32px;
+    background: var(--cream);
+    border-left: 3px solid var(--terracotta);
+    border-radius: 0 8px 8px 0;
+  }
+  .article-body blockquote p {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+
+  /* FOOTNOTE tease */
+  .article-body .footnote {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-muted);
+    padding: 16px 0 8px;
+    border-top: 1px solid rgba(212,197,169,0.5);
+    margin-top: 8px;
+  }
+
+  /* ORIGINALLY PUBLISHED */
+  .originally {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 48px 80px;
+  }
+  .originally-box {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 24px 28px;
+    font-size: 14px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .originally-box a {
+    color: var(--deep-teal);
+    text-decoration: none;
+  }
+  .originally-box a:hover { color: var(--terracotta); }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    padding: 40px 48px;
+    text-align: center;
+  }
+  .footer-brand {
+    font-family: 'Kay Display', serif;
+    font-size: 16px;
+    color: var(--stone);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .footer-sub {
+    font-size: 12px;
+    color: var(--ink-muted);
+  }
+  .footer-sub a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .article-header { padding: 120px 24px 40px; }
+    .article-title { font-size: 30px; }
+    .article-body { padding: 0 24px 40px; }
+    .article-body h2 { font-size: 24px; margin-top: 40px; }
+    .article-body blockquote { padding: 20px 24px; }
+    .article-body blockquote p { font-size: 18px; }
+    .article-body figure { margin: 32px 0; }
+    .originally { padding: 32px 24px 60px; }
+  }
+
+  /* ═══ DIAMOND DOT DESIGN SYSTEM ═══ */
+  .dot-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 64px 0;
+    width: 100%;
+  }
+  .dot-divider::before,
+  .dot-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+  .dot-divider-gem {
+    width: 7px;
+    height: 7px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+  .dot-sep {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+  .dot-sep::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+  ul.dot-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  ul.dot-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  ul.dot-list li::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .dot-byline {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 8px;
+    vertical-align: middle;
+    opacity: 0.45;
+  }
+  .dot-byline::before {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 4px;
+    background: var(--ink);
+    transform: rotate(45deg);
+    border-radius: 0.5px;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../writing.html" class="active">Perspectives</a>
+    <a href="../index.html#services">Services</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ARTICLE HEADER -->
+<div class="article-header">
+  <a href="../writing.html" class="article-back">&larr; All Perspectives</a>
+  <div class="article-meta">
+    <span class="article-date">April 21, 2026</span>
+    <span class="article-tag">Methodology</span>
+  </div>
+  <h1 class="article-title">I Started With a Story I Couldn't Hold</h1>
+  <p class="article-subtitle">On excavating a life archive, asking better questions, and why story has to come before format.</p>
+</div>
+
+<!-- ARTICLE BODY -->
+<div class="article-body">
+
+  <p>A few months ago I started excavating my own archive. Not to get organized. Because there was a story I could feel but couldn't yet articulate.</p>
+
+  <p>Here's what turned out to be in there. More than forty thousand photographs spanning three decades. Close to seventy digitized home video tapes, roughly forty gigabytes of footage, from childhood birthday parties to trips across Asia to scenes I have no memory of at all. Over a hundred audio recordings: late-night fragments, travel observations, scene ideas, things I said to myself at 2am that I wanted to remember. Scanned physical prints. Family documents. Genealogy records. Correspondence I'd never organized.</p>
+
+  <p>I'm still going through it.</p>
+
+  <p>That last part matters. The version of this story I see told most often, the &ldquo;AI helped someone inventory their life&rdquo; version, misses what actually happened. I didn't ask AI to take stock of what I had. I asked it to help me find the thing I was already looking for.</p>
+
+  <p>That distinction is the whole thing.</p>
+
+  <h2>Starting from the story, not the format</h2>
+
+  <p>The project started because of a creative impulse. There's something I want to make. A novel, maybe, or a film, or something I don't have a name for yet. The format is genuinely undecided. But the material. The emotional center of it, the era, the people, the texture of certain years. I could feel all of that before I could see it clearly.</p>
+
+  <p>So I worked backward. Instead of asking &ldquo;what do I have?&rdquo; I asked: what would this story need? What moments, what voices, what evidence of a particular kind of life would actually matter?</p>
+
+  <p>It was a better question.</p>
+
+  <figure>
+    <img src="../img/story-i-couldnt-hold/01-home-videos-dashboard.png" alt="Home Videos dashboard screenshot showing the archive organized by narrative arc and memoir-spine priority.">
+    <figcaption>Home Videos dashboard. The archive organized by narrative arc and memoir-spine priority.</figcaption>
+  </figure>
+
+  <h2>What the excavation actually looked like</h2>
+
+  <p>For the home videos, I built a searchable dashboard covering all the tapes. Visual storyboards for each one, scene-by-scene frame grids with timecodes, organized into tiers I'm calling Essential, Important, and Atmosphere. The Essential tapes contain scenes I already knew I needed. The Atmosphere ones I hadn't thought to prioritize: the tapes where nothing &ldquo;important&rdquo; happens, but they set the texture of an era &mdash; background noise, ambient life, the way a room looked in a particular decade. They mattered more than I'd expected.</p>
+
+  <p>For the audio recordings, I ran everything through a transcription pipeline and built a running index of narrative threads across all of them. Recurring people, recurring preoccupations, questions I kept returning to in different forms across different years. There's a separate document of just the passages that landed on their own terms, the ones that already had sentences in them.</p>
+
+  <p>The recordings span a decade. Late-night reflections recorded alone in an apartment. Ambient captures from cities I was only briefly passing through. Work meetings from the pharmaceutical industry that held entire scenes inside them. Travel recordings from Myanmar, Perth, and Chennai. A lot of it I'd forgotten I'd made until I started going through it again.</p>
+
+  <p>The photographs are in a searchable database I'm still building. More than four thousand rows so far, indexed by geography, date, people, and source. There's still a backlog.</p>
+
+  <p>What I learned from building these tools: I didn't know what I had until I could navigate it. The inventory wasn't the goal. The inventory made navigation possible. Navigation made the story visible.</p>
+
+  <figure>
+    <img src="../img/story-i-couldnt-hold/02-hhi-singapore-merlion.png" alt="Singapore archive contact sheet showing a mid-decade stretch captured from an HGTV real estate series.">
+    <figcaption>From the archive: a Singapore stretch captured mid-decade.</figcaption>
+  </figure>
+
+  <p class="footnote">(One footnote here, for those who know the reference: some of that Singapore archive comes from a certain cable television real estate show. More on that soon.)</p>
+
+  <h2>What AI was actually useful for</h2>
+
+  <p>Not for summarizing. Not for organizing automatically. Not for telling me what mattered.</p>
+
+  <p>It was useful for refining questions. For building tools I couldn't build myself; I'm not a coder. For being a thinking partner when I had a half-formed instinct about something and needed to stress-test it.</p>
+
+  <p>The most productive sessions were the ones where I came in with something specific. &ldquo;What do these five tapes have in common?&rdquo; &ldquo;What places show up most across the audio recordings?&rdquo; &ldquo;Help me design a storyboard format that shows both the scene and its potential significance.&rdquo; The least productive were the ones where I was fishing. Where I didn't yet have a point of view.</p>
+
+  <p>This is not a criticism of the tool. It's a description of how this kind of work actually goes. You need to come with something. The AI helps you develop it, sharpen it, see it from an angle you hadn't considered. But &ldquo;something&rdquo; is your job.</p>
+
+  <p>A lot of the current discourse treats the prompt as the skill. Get the prompt right and the output follows. In my experience, the skill is upstream of the prompt. It's knowing what you're looking for before you look. It's having a point of view on the material before you ask anyone, or anything, to help you develop it.</p>
+
+  <h2>Why this connects to client work</h2>
+
+  <p>Story first, format later is not a slogan. It's the actual process.</p>
+
+  <p>When I work with clients, the most common mistake I see is leading with format. We need a video, we need a campaign, we need a launch. What they usually mean is: something happened here that matters, and we need people to feel that. The format is downstream. The story has to come first.</p>
+
+  <p>What I've been doing in my own archive is a version of the same thing. I don't know yet if what I'm making is a novel or a film or something else. But I know the story. And that's enough to keep going.</p>
+
+  <figure>
+    <img src="../img/story-i-couldnt-hold/03-1986-disneyland.png" alt="A frame from the earliest tape in the archive: a birthday afternoon in 1986.">
+    <figcaption>The earliest tape in the archive. A birthday afternoon, 1986.</figcaption>
+  </figure>
+
+</div>
+
+<!-- ORIGINALLY PUBLISHED -->
+<div class="originally">
+  <div class="originally-box">
+    Originally published as a LinkedIn Article on April 21, 2026.
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+</body>
+</html>
