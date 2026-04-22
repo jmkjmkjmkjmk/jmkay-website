@@ -253,9 +253,12 @@
     padding-left: 12px;
   }
 
-  /* HERO FIGURE — full-width triad at top of article */
+  /* HERO FIGURES — stacked collages at top of article */
   .article-body figure.hero-figure {
-    margin: 0 0 48px;
+    margin: 0 0 28px;
+  }
+  .article-body figure.hero-figure:last-of-type {
+    margin-bottom: 48px;
   }
   .article-body figure.hero-figure img {
     box-shadow: 0 8px 28px rgba(28,25,23,0.08);
@@ -514,7 +517,15 @@
 <div class="article-body">
 
   <figure class="hero-figure">
-    <img src="../img/excavating-a-life/00-hero-triad.png" alt="Three frames across three eras: 2010 Shanghai home video, 1986 SoCal infant JK, 2013 Singapore arrival.">
+    <img src="../img/excavating-a-life/00a-collage-socal-1x.png"
+         srcset="../img/excavating-a-life/00a-collage-socal-1x.png 1x, ../img/excavating-a-life/00a-collage-socal.png 2x"
+         alt="Southern California, 1986 to 2000. Mother and baby, kids around a CRT, a child asleep, a station wagon, a scout uniform, a mountain hike.">
+  </figure>
+
+  <figure class="hero-figure">
+    <img src="../img/excavating-a-life/00b-collage-asia-1x.png"
+         srcset="../img/excavating-a-life/00b-collage-asia-1x.png 1x, ../img/excavating-a-life/00b-collage-asia.png 2x"
+         alt="Shanghai and Singapore, 2010 to 2013. A Haibao mascot, the Pudong skyline, Jin Mao Tower, the Merlion fountain, Marina Bay Sands at night.">
   </figure>
 
   <p>A few months ago I started excavating my own archive. Not to get organized &mdash; though it looked that way from the outside. I was excavating because there was a story I could feel somewhere in the material without being able to name it yet.</p>
