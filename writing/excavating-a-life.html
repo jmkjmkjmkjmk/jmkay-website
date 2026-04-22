@@ -6,20 +6,20 @@
 <link rel="icon" type="image/x-icon" href="../favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-<title>I Started With a Story I Couldn't Hold &mdash; J. M. Kay</title>
+<title>Excavating a Life Before I Knew What to Build &mdash; J. M. Kay</title>
 <meta name="description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
-<meta property="og:title" content="I Started With a Story I Couldn't Hold &mdash; J. M. Kay">
+<meta property="og:title" content="Excavating a Life Before I Knew What to Build &mdash; J. M. Kay">
 <meta property="og:description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
-<meta property="og:image" content="https://jmkay.com/og-image.png">
+<meta property="og:image" content="https://jmkay.com/img/excavating-a-life/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://jmkay.com/writing/story-i-couldnt-hold.html">
+<meta property="og:url" content="https://jmkay.com/writing/excavating-a-life.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="I Started With a Story I Couldn't Hold &mdash; J. M. Kay">
+<meta name="twitter:title" content="Excavating a Life Before I Knew What to Build &mdash; J. M. Kay">
 <meta name="twitter:description" content="On excavating a life archive, asking better questions, and why story has to come before format.">
-<meta name="twitter:image" content="https://jmkay.com/og-image.png">
-<link rel="canonical" href="https://jmkay.com/writing/story-i-couldnt-hold.html">
+<meta name="twitter:image" content="https://jmkay.com/img/excavating-a-life/og-image.png">
+<link rel="canonical" href="https://jmkay.com/writing/excavating-a-life.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -37,7 +37,7 @@
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "I Started With a Story I Couldn't Hold",
+  "headline": "Excavating a Life Before I Knew What to Build",
   "author": {
     "@type": "Person",
     "name": "Jonathan Michael Kay",
@@ -49,7 +49,7 @@
     "@type": "Person",
     "name": "J. M. Kay"
   },
-  "mainEntityOfPage": "https://jmkay.com/writing/story-i-couldnt-hold.html"
+  "mainEntityOfPage": "https://jmkay.com/writing/excavating-a-life.html"
 }
 </script>
 
@@ -251,6 +251,74 @@
     padding-left: 12px;
   }
 
+  /* HERO FIGURE — full-width triad at top of article */
+  .article-body figure.hero-figure {
+    margin: 0 0 48px;
+  }
+  .article-body figure.hero-figure img {
+    box-shadow: 0 8px 28px rgba(28,25,23,0.08);
+    border-radius: 4px;
+  }
+
+  /* F4 BODY FIGURE — cream frame + captioned block (HHI Merlion on jmkay.com only) */
+  .article-body figure.body-fig-captioned {
+    margin: 48px 0;
+    background: var(--cream);
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+    border-radius: 4px;
+  }
+  .article-body figure.body-fig-captioned img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--ink);
+    filter: grayscale(0.1) contrast(0.98);
+    min-height: 260px;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .article-body figure.body-fig-captioned .fig-capblock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .article-body figure.body-fig-captioned .fig-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .article-body figure.body-fig-captioned .fig-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 22px;
+    line-height: 1.25;
+    color: var(--ink);
+    margin: 0 0 14px;
+  }
+  .article-body figure.body-fig-captioned .fig-desc {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    font-style: normal;
+  }
+  @media (max-width: 700px) {
+    .article-body figure.body-fig-captioned {
+      grid-template-columns: 1fr;
+      padding: 18px;
+      gap: 18px;
+    }
+    .article-body figure.body-fig-captioned img {
+      min-height: 200px;
+    }
+  }
+
   /* BLOCKQUOTE (taxi driver line) */
   .article-body blockquote {
     margin: 40px 0;
@@ -436,16 +504,20 @@
     <span class="article-date">April 21, 2026</span>
     <span class="article-tag">Methodology</span>
   </div>
-  <h1 class="article-title">I Started With a Story I Couldn't Hold</h1>
+  <h1 class="article-title">Excavating a Life Before I Knew What to Build</h1>
   <p class="article-subtitle">On excavating a life archive, asking better questions, and why story has to come before format.</p>
 </div>
 
 <!-- ARTICLE BODY -->
 <div class="article-body">
 
-  <p>A few months ago I started excavating my own archive. Not to get organized. Because there was a story I could feel but couldn't yet articulate.</p>
+  <figure class="hero-figure">
+    <img src="../img/excavating-a-life/00-hero-triad.png" alt="Three frames across three eras: 2010 Shanghai home video, 1986 SoCal infant JK, 2013 Singapore arrival.">
+  </figure>
 
-  <p>Here's what turned out to be in there. More than forty thousand photographs spanning three decades. Close to seventy digitized home video tapes, roughly forty gigabytes of footage, from childhood birthday parties to trips across Asia to scenes I have no memory of at all. Over a hundred audio recordings: late-night fragments, travel observations, scene ideas, things I said to myself at 2am that I wanted to remember. Scanned physical prints. Family documents. Genealogy records. Correspondence I'd never organized.</p>
+  <p>A few months ago I started excavating my own archive. Not to get organized &mdash; though it looked that way from the outside. I was excavating because there was a story I could feel somewhere in the material without being able to name it yet.</p>
+
+  <p>Here's what turned out to be in there. More than forty thousand photographs spanning three decades. Close to seventy digitized home video tapes &mdash; roughly forty gigabytes of footage, from childhood birthday parties to trips across Asia to scenes I have no memory of at all. Over a hundred audio recordings spanning a decade: late-night fragments, observations dictated on the road, scene ideas, half-formed thoughts recorded before I could lose them. Scanned physical prints. Family documents. Genealogy records. Correspondence I'd never organized.</p>
 
   <p>I'm still going through it.</p>
 
@@ -461,14 +533,9 @@
 
   <p>It was a better question.</p>
 
-  <figure>
-    <img src="../img/story-i-couldnt-hold/01-home-videos-dashboard.png" alt="Home Videos dashboard screenshot showing the archive organized by narrative arc and memoir-spine priority.">
-    <figcaption>Home Videos dashboard. The archive organized by narrative arc and memoir-spine priority.</figcaption>
-  </figure>
-
   <h2>What the excavation actually looked like</h2>
 
-  <p>For the home videos, I built a searchable dashboard covering all the tapes. Visual storyboards for each one, scene-by-scene frame grids with timecodes, organized into tiers I'm calling Essential, Important, and Atmosphere. The Essential tapes contain scenes I already knew I needed. The Atmosphere ones I hadn't thought to prioritize: the tapes where nothing &ldquo;important&rdquo; happens, but they set the texture of an era &mdash; background noise, ambient life, the way a room looked in a particular decade. They mattered more than I'd expected.</p>
+  <p>For the home videos, I built a searchable dashboard covering all the tapes. Visual storyboards for each one, scene-by-scene frame grids with timecodes, organized into tiers I'm calling Essential, Important, and Atmosphere. The Essential tapes contain scenes I already knew I needed. The Atmosphere ones I hadn't thought to prioritize: the tapes where nothing &ldquo;important&rdquo; happens. They turned out to be where half the real information lived &mdash; background noise, ambient life, the carpets, the kitchen clutter, the fact that in any given shot from 1993 nobody in the room was looking at a screen.</p>
 
   <p>For the audio recordings, I ran everything through a transcription pipeline and built a running index of narrative threads across all of them. Recurring people, recurring preoccupations, questions I kept returning to in different forms across different years. There's a separate document of just the passages that landed on their own terms, the ones that already had sentences in them.</p>
 
@@ -476,20 +543,22 @@
 
   <p>The photographs are in a searchable database I'm still building. More than four thousand rows so far, indexed by geography, date, people, and source. There's still a backlog.</p>
 
-  <p>What I learned from building these tools: I didn't know what I had until I could navigate it. The inventory wasn't the goal. The inventory made navigation possible. Navigation made the story visible.</p>
+  <p>What I learned from building these tools is that inventory on its own is useless. Knowing you own forty thousand photographs isn't the same as being able to move through them &mdash; and until you can move through the material, query it, cross-reference it, the story you're looking for stays hidden. The tools were never the point. They were the precondition.</p>
 
-  <figure>
-    <img src="../img/story-i-couldnt-hold/02-hhi-singapore-merlion.png" alt="Singapore archive contact sheet showing a mid-decade stretch captured from an HGTV real estate series.">
-    <figcaption>From the archive: a Singapore stretch captured mid-decade.</figcaption>
+  <figure class="body-fig-captioned">
+    <img src="../img/excavating-a-life/02-hhi-singapore-merlion.png" alt="Singapore frame from the HHI archive.">
+    <div class="fig-capblock">
+      <div class="fig-label">2013 &middot; Singapore &middot; source frame</div>
+      <h3 class="fig-title">A decade of footage, one frame.</h3>
+      <p class="fig-desc">From the HHI archive &mdash; my Singapore arrival, captured for television. One of the few moments of my Singapore years that lives on professional film. Everything else lives in photos, voice memos, half-drafts.</p>
+    </div>
   </figure>
 
   <p class="footnote">(One footnote here, for those who know the reference: some of that Singapore archive comes from a certain cable television real estate show. More on that soon.)</p>
 
   <h2>What AI was actually useful for</h2>
 
-  <p>Not for summarizing. Not for organizing automatically. Not for telling me what mattered.</p>
-
-  <p>It was useful for refining questions. For building tools I couldn't build myself; I'm not a coder. For being a thinking partner when I had a half-formed instinct about something and needed to stress-test it.</p>
+  <p>AI wasn't useful for the things the current discourse assumes it is &mdash; summarizing material, organizing it automatically, or telling me what in the archive actually mattered. It was useful for something narrower and more specific: refining the questions I was asking of the material, building tools I couldn't build myself, and being a thinking partner when I had a half-formed instinct and needed to stress-test it.</p>
 
   <p>The most productive sessions were the ones where I came in with something specific. &ldquo;What do these five tapes have in common?&rdquo; &ldquo;What places show up most across the audio recordings?&rdquo; &ldquo;Help me design a storyboard format that shows both the scene and its potential significance.&rdquo; The least productive were the ones where I was fishing. Where I didn't yet have a point of view.</p>
 
@@ -504,11 +573,6 @@
   <p>When I work with clients, the most common mistake I see is leading with format. We need a video, we need a campaign, we need a launch. What they usually mean is: something happened here that matters, and we need people to feel that. The format is downstream. The story has to come first.</p>
 
   <p>What I've been doing in my own archive is a version of the same thing. I don't know yet if what I'm making is a novel or a film or something else. But I know the story. And that's enough to keep going.</p>
-
-  <figure>
-    <img src="../img/story-i-couldnt-hold/03-1986-disneyland.png" alt="A frame from the earliest tape in the archive: a birthday afternoon in 1986.">
-    <figcaption>The earliest tape in the archive. A birthday afternoon, 1986.</figcaption>
-  </figure>
 
 </div>
 
