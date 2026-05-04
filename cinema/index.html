@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Bethesda Cinematheque</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --bg-card: #FFFFFF;
+    --bg-cream: #F5F0E8;
+    --bg-stone: #EDE7DC;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --ink-faint: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-soft: #E8A88C;
+    --teal: #1A4A4A;
+    --teal-soft: #5C7E7E;
+    --line: #DCD7CB;
+    --line-soft: #EDE7DC;
+    --shadow-card: 0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,0.08), 0 12px 28px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* === Top bar — minimal, light brand touch === */
+  .topbar {
+    border-bottom: 1px solid var(--line);
+    padding: 14px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-cream);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .topbar a:hover { color: var(--terracotta); }
+  .topbar-brand { font-weight: 600; }
+  .topbar-brand .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--terracotta);
+    border-radius: 1px;
+    transform: rotate(45deg);
+    margin: 0 4px 2px 1px;
+    vertical-align: middle;
+  }
+
+  /* === Hero / masthead === */
+  .masthead {
+    text-align: center;
+    padding: 80px 32px 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .masthead .kicker {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 20px;
+  }
+  .masthead h1 {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: clamp(48px, 9vw, 96px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .masthead .tagline {
+    font-style: italic;
+    color: var(--ink-light);
+    margin-top: 24px;
+    font-size: 19px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .masthead .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-top: 32px;
+    letter-spacing: 0.04em;
+  }
+  .masthead .meta a {
+    color: var(--terracotta);
+    border-bottom: 1px solid var(--terracotta-soft);
+    transition: color 0.2s;
+  }
+  .masthead .meta a:hover { color: var(--teal); border-bottom-color: var(--teal-soft); }
+
+  /* === Filter strip === */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 32px 32px 0;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    color: var(--ink-muted);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover {
+    border-color: var(--ink-muted);
+    color: var(--ink);
+  }
+  .filter-btn.active {
+    background: var(--ink);
+    color: var(--bg-card);
+    border-color: var(--ink);
+  }
+
+  /* === Month section === */
+  .month-section {
+    max-width: 1100px;
+    margin: 64px auto 0;
+    padding: 0 32px;
+  }
+  .month-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* === Event card === */
+  .event {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 32px;
+    background: var(--bg-card);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 24px;
+    border-left: 3px solid var(--line);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
+    scroll-margin-top: 24px;
+  }
+  .event:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-1px);
+  }
+  .event[data-type="OUR PLACE"] { border-left-color: var(--terracotta); }
+  .event[data-type="EVERYWHERE ELSE"], .event[data-type="ELSEWHERE"] { border-left-color: var(--teal); }
+
+  .event-poster {
+    aspect-ratio: 2 / 3;
+    background: var(--bg-stone);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .event-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .event-body {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .event-meta-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .type-tag {
+    font-weight: 600;
+  }
+  .event[data-type="OUR PLACE"] .type-tag { color: var(--terracotta); }
+  .event[data-type="EVERYWHERE ELSE"] .type-tag, .event[data-type="ELSEWHERE"] .type-tag { color: var(--teal); }
+  .status-tag.confirmed {
+    color: #1E5E1E;
+    background: #DFF0D8;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+  }
+  .status-tag.tentative {
+    color: var(--ink-muted);
+    font-style: normal;
+  }
+
+  .event-title {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .event-by {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-style: italic;
+    color: var(--ink-light);
+    font-size: 17px;
+    margin-bottom: 16px;
+  }
+  .event-when {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: baseline;
+    margin-bottom: 18px;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .event-when .date { font-weight: 600; }
+  .event-when .time { color: var(--ink-light); }
+  .event-when .length { color: var(--ink-muted); font-style: italic; }
+  .event-when .cost {
+    color: var(--ink-light);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 2px 8px;
+    background: var(--bg-cream);
+    border-radius: 999px;
+  }
+  .event-when .cost.free { color: var(--terracotta); font-weight: 600; }
+  .event-venue {
+    color: var(--ink-light);
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+  .event-venue .neighborhood {
+    color: var(--ink-muted);
+    font-size: 13px;
+    margin-left: 8px;
+    font-style: italic;
+  }
+  .event-desc {
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    font-size: 17px;
+  }
+  .event-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .action-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    transition: all 0.2s;
+  }
+  .action-link:hover {
+    background: var(--ink);
+    color: var(--bg-card);
+    border-color: var(--ink);
+  }
+  .action-link.primary {
+    background: var(--ink);
+    color: var(--bg-card);
+    border-color: var(--ink);
+  }
+  .action-link.primary:hover {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+  }
+  .tally {
+    margin-left: auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+  .tally .yes-count {
+    color: var(--terracotta);
+    font-weight: 600;
+    font-size: 16px;
+    margin-right: 4px;
+    font-family: 'EB Garamond', serif;
+  }
+  .tally .yes-names {
+    color: var(--ink-light);
+    margin-left: 6px;
+    font-style: italic;
+  }
+
+  /* === Letterboxd embed section === */
+  .letterboxd-section {
+    max-width: 1100px;
+    margin: 96px auto 0;
+    padding: 64px 32px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .letterboxd-section h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .letterboxd-section p {
+    color: var(--ink-light);
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+  .letterboxd-embed {
+    background: var(--bg-cream);
+    padding: 32px;
+    border-radius: 4px;
+    color: var(--ink-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+
+  /* === Footer === */
+  footer {
+    text-align: center;
+    padding: 48px 32px 64px;
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+  }
+  footer a {
+    color: var(--terracotta);
+    border-bottom: 1px solid var(--terracotta-soft);
+  }
+  footer a:hover { color: var(--teal); border-bottom-color: var(--teal-soft); }
+
+  /* === Loading + empty states === */
+  .loading {
+    text-align: center;
+    padding: 80px 32px;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 64px 32px;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  /* === Responsive === */
+  @media (max-width: 720px) {
+    .event {
+      grid-template-columns: 110px 1fr;
+      gap: 20px;
+      padding: 18px;
+    }
+    .event-title { font-size: 22px; }
+    .event-by { font-size: 15px; }
+    .masthead { padding: 56px 24px 40px; }
+    .month-section { padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <a href="/">J<span class="dot"></span>M<span class="dot"></span>KAY</a>
+  </div>
+  <div>Bethesda Cinematheque · Unlisted</div>
+</div>
+
+<!-- Masthead -->
+<div class="masthead">
+  <div class="kicker">A KAYMART Events Pilot</div>
+  <h1>Bethesda Cinematheque</h1>
+  <p class="tagline">A rolling calendar of films worth seeing — at our place in Bethesda, and elsewhere across the DMV.</p>
+  <p class="meta">
+    Vote in <a id="sheet-link" href="#" target="_blank">the Google Sheet</a> ·
+    Running list on <a id="letterboxd-link" href="#" target="_blank">Letterboxd</a>
+  </p>
+</div>
+
+<!-- Filter strip -->
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="our-place">Our Place</button>
+  <button class="filter-btn" data-filter="everywhere">Elsewhere</button>
+  <button class="filter-btn" data-filter="this-week">This Week</button>
+</div>
+
+<!-- Calendar / events -->
+<main id="calendar">
+  <div class="loading">Loading the calendar…</div>
+</main>
+
+<!-- Letterboxd section -->
+<section class="letterboxd-section" id="letterboxd-section" style="display:none">
+  <h2>The running list</h2>
+  <p>Every film we've programmed, on Letterboxd.</p>
+  <div class="letterboxd-embed">
+    Letterboxd list URL pending. Once Jonathan creates the empty list,<br>
+    this section will link to it directly.
+  </div>
+</section>
+
+<footer>
+  <div>Bethesda Cinematheque is unlisted by design — share the link only with people you'd want at your screening.</div>
+  <div style="margin-top: 12px;">
+    Curated by <a href="/">J.M.Kay</a>
+  </div>
+</footer>
+
+<!-- Embedded event data (server-rendered fallback if API is offline) -->
+<script id="bootstrap-data" type="application/json">
+[
+  {
+    "title": "TOKYO STORY",
+    "director": "Yasujiro Ozu",
+    "year": 1953,
+    "length": "2h 16m",
+    "type": "OUR PLACE",
+    "date": "2026-05-14",
+    "time": null,
+    "venue": "Our Place",
+    "neighborhood": "Bethesda",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/pe/e6/w2/os/tokyo%20story-1200-1200-675-675-crop-000000.jpg",
+    "description": "Often cited as one of the greatest films ever made. Elderly parents travel from the countryside to visit their grown children in Tokyo, who are too busy to be bothered. Slow, observed, almost unbearably tender by the end.",
+    "letterboxd": "https://letterboxd.com/film/tokyo-story/",
+    "booking": ""
+  },
+  {
+    "title": "IN THE MOOD FOR LOVE",
+    "director": "Wong Kar-wai",
+    "year": 2000,
+    "length": "1h 38m",
+    "type": "ELSEWHERE",
+    "date": "2026-05-16",
+    "time": "21:30",
+    "venue": "NGA · East Building Auditorium",
+    "neighborhood": "National Mall",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/1a/ox/ht/6y/in-the-mood-for-love-1200-1200-675-675-crop-000000.jpg",
+    "description": "Hong Kong, 1962. Two neighbors realize their spouses are having an affair with each other. What happens next is one of the most beautiful films ever made. Slow, gorgeous, almost no dialogue.",
+    "letterboxd": "https://letterboxd.com/film/in-the-mood-for-love/",
+    "booking": "https://www.nga.gov/calendar"
+  },
+  {
+    "title": "LATE AUTUMN",
+    "director": "Yasujiro Ozu",
+    "year": 1960,
+    "length": "2h 8m",
+    "type": "OUR PLACE",
+    "date": "2026-05-20",
+    "time": null,
+    "venue": "Our Place",
+    "neighborhood": "Bethesda",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/5c/2x/4x/d7/lateautumn-1200-1200-675-675-crop-000000.jpg",
+    "description": "A widow and her grown daughter, neither willing to leave the other for fear of leaving her alone. Late color Ozu, softer and funnier than the earlier work. A loose remake of his own LATE SPRING with the genders flipped.",
+    "letterboxd": "https://letterboxd.com/film/late-autumn/",
+    "booking": ""
+  },
+  {
+    "title": "UNDER THE SKIN",
+    "director": "Jonathan Glazer",
+    "year": 2013,
+    "length": "1h 48m",
+    "type": "ELSEWHERE",
+    "date": "2026-05-23",
+    "time": "00:30",
+    "venue": "Landmark Bethesda Row · Screen 3",
+    "neighborhood": "Bethesda",
+    "cost": 15,
+    "status": "Confirmed",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/96/g8/tb/lm/under-the-skin-1200-1200-675-675-crop-000000.jpg",
+    "description": "Scarlett Johansson drives around Glasgow at night picking up men. You won't quite know what you're watching for the first half hour. Then it lands. Strange, hypnotic, scored like nothing else.",
+    "letterboxd": "https://letterboxd.com/film/under-the-skin-2013/",
+    "booking": "https://www.landmarktheatres.com"
+  },
+  {
+    "title": "2046",
+    "director": "Wong Kar-wai",
+    "year": 2004,
+    "length": "2h 9m",
+    "type": "OUR PLACE",
+    "date": "2026-05-28",
+    "time": null,
+    "venue": "Our Place",
+    "neighborhood": "Bethesda",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/na/yt/9c/et/5TekXYqvqQOxt9y3RvAykddDo8i-1200-1200-675-675-crop-000000.jpg",
+    "description": "The companion piece to IN THE MOOD FOR LOVE. A writer in 1960s Hong Kong, the lover he lost, and a science-fiction novel he writes about a place where nothing ever changes. Slower, sadder, stranger than ITMFL, and impossibly gorgeous.",
+    "letterboxd": "https://letterboxd.com/film/2046/",
+    "booking": ""
+  },
+  {
+    "title": "DEVI",
+    "director": "Satyajit Ray",
+    "year": 1960,
+    "length": "1h 33m",
+    "type": "ELSEWHERE",
+    "date": "2026-05-29",
+    "time": "22:00",
+    "venue": "Smithsonian NMAA · Eaton Theater",
+    "neighborhood": "National Mall",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/ur/mj/rm/cy/hepIIa9TkcX0ccqoID8zeF04oLC-1200-1200-675-675-crop-000000.jpg",
+    "description": "4K restoration of Ray's quietly devastating film. A young woman in 19th-century rural Bengal is told by her father-in-law that she's the incarnation of a goddess, and the village starts to believe it. Free admission.",
+    "letterboxd": "https://letterboxd.com/film/devi-1960/",
+    "booking": "https://asia.si.edu/whats-on/events/event-series/satyajit-ray-two-restored-masterpieces/"
+  },
+  {
+    "title": "DAYS AND NIGHTS IN THE FOREST",
+    "director": "Satyajit Ray",
+    "year": 1970,
+    "length": "1h 55m",
+    "type": "ELSEWHERE",
+    "date": "2026-05-31",
+    "time": "17:00",
+    "venue": "Smithsonian NMAA · Eaton Theater",
+    "neighborhood": "National Mall",
+    "cost": 0,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/m4/ec/nn/fi/DaysAndNights-1200-1200-675-675-crop-000000.jpg",
+    "description": "4K restoration. Four city friends head to the country for a weekend, expecting a break, get something else entirely. Ray at his most loose-limbed and observational. Often called his most personal.",
+    "letterboxd": "https://letterboxd.com/film/days-and-nights-in-the-forest/",
+    "booking": "https://asia.si.edu/whats-on/events/event-series/satyajit-ray-two-restored-masterpieces/"
+  },
+  {
+    "title": "RATCATCHER",
+    "director": "Lynne Ramsay",
+    "year": 1999,
+    "length": "1h 34m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-12",
+    "time": "19:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/ts/hr/ai/kr/ratcatcher-1200-1200-675-675-crop-000000.jpg",
+    "description": "A boy in 1970s Glasgow during a garbage strike, living with the weight of a tragedy he can't get past. Ramsay's debut. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/ratcatcher/",
+    "booking": "https://silver.afi.com/movies/detail/0100005531"
+  },
+  {
+    "title": "COME AND SEE",
+    "director": "Elem Klimov",
+    "year": 1985,
+    "length": "2h 22m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-12",
+    "time": "21:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/ok/lw/1k/tl/come-and-see-1200-1200-675-675-crop-000000.jpg",
+    "description": "A boy joins the partisans in Soviet Belarus during WWII and watches everything end. Among the most harrowing war films ever made. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/come-and-see/",
+    "booking": "https://silver.afi.com/movies/detail/0100003959"
+  },
+  {
+    "title": "BLACK GIRL",
+    "director": "Ousmane Sembène",
+    "year": 1966,
+    "length": "1h 27m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-13",
+    "time": "16:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/film-poster/7/1/2/2/3/71223-black-girl-0-230-0-345-crop.jpg",
+    "description": "Sembène's debut feature, screening with his short BOROM SARRET. A Senegalese woman takes a domestic job in France and discovers what's expected of her. A foundational text of African cinema. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/black-girl/",
+    "booking": "https://silver.afi.com/movies/detail/0100000551"
+  },
+  {
+    "title": "THE MAN WHO WASN'T THERE",
+    "director": "Joel & Ethan Coen",
+    "year": 2001,
+    "length": "1h 56m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-13",
+    "time": "22:15",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/film-poster/3/2/7/1/2/32712-the-man-who-wasn-t-there-0-230-0-345-crop.jpg",
+    "description": "A small-town barber gets entangled in a blackmail scheme that goes wrong in every direction. Black-and-white, narrated, slow-burning. Possibly the Coens' most underrated film. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/the-man-who-wasnt-there/",
+    "booking": "https://silver.afi.com/movies/detail/0100005533"
+  },
+  {
+    "title": "THE MAN WHO WASN'T THERE",
+    "director": "Joel & Ethan Coen",
+    "year": 2001,
+    "length": "1h 56m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-15",
+    "time": "00:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/film-poster/3/2/7/1/2/32712-the-man-who-wasn-t-there-0-230-0-345-crop.jpg",
+    "description": "A small-town barber gets entangled in a blackmail scheme that goes wrong in every direction. Black-and-white, narrated, slow-burning. Possibly the Coens' most underrated film. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/the-man-who-wasnt-there/",
+    "booking": "https://silver.afi.com/movies/detail/0100005533"
+  },
+  {
+    "title": "WAKE IN FRIGHT",
+    "director": "Ted Kotcheff",
+    "year": 1971,
+    "length": "1h 49m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-15",
+    "time": "22:00",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/br/do/td/0n/wake-in-fright-1200-1200-675-675-crop-000000.jpg",
+    "description": "A schoolteacher gets stranded in a remote Australian mining town and unravels over too many beers. Lost for decades, restored in 2009. Hot, sweaty, deeply uncomfortable. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/wake-in-fright/",
+    "booking": "https://silver.afi.com/movies/detail/0100005534"
+  },
+  {
+    "title": "COME AND SEE",
+    "director": "Elem Klimov",
+    "year": 1985,
+    "length": "2h 22m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-16",
+    "time": "19:10",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/ok/lw/1k/tl/come-and-see-1200-1200-675-675-crop-000000.jpg",
+    "description": "A boy joins the partisans in Soviet Belarus during WWII and watches everything end. Among the most harrowing war films ever made. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/come-and-see/",
+    "booking": "https://silver.afi.com/movies/detail/0100003959"
+  },
+  {
+    "title": "RATCATCHER",
+    "director": "Lynne Ramsay",
+    "year": 1999,
+    "length": "1h 34m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-16",
+    "time": "22:00",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/ts/hr/ai/kr/ratcatcher-1200-1200-675-675-crop-000000.jpg",
+    "description": "A boy in 1970s Glasgow during a garbage strike, living with the weight of a tragedy he can't get past. Ramsay's debut. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/ratcatcher/",
+    "booking": "https://silver.afi.com/movies/detail/0100005531"
+  },
+  {
+    "title": "BLACK GIRL",
+    "director": "Ousmane Sembène",
+    "year": 1966,
+    "length": "1h 27m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-17",
+    "time": "14:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/film-poster/7/1/2/2/3/71223-black-girl-0-230-0-345-crop.jpg",
+    "description": "Sembène's debut feature, screening with his short BOROM SARRET. A Senegalese woman takes a domestic job in France and discovers what's expected of her. A foundational text of African cinema. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/black-girl/",
+    "booking": "https://silver.afi.com/movies/detail/0100000551"
+  },
+  {
+    "title": "WAKE IN FRIGHT",
+    "director": "Ted Kotcheff",
+    "year": 1971,
+    "length": "1h 49m",
+    "type": "ELSEWHERE",
+    "date": "2026-06-18",
+    "time": "00:30",
+    "venue": "AFI Silver Theatre · Main",
+    "neighborhood": "Silver Spring",
+    "cost": 14,
+    "status": "Tentative",
+    "yes_count": 0,
+    "maybe_count": 0,
+    "yes_names": [],
+    "maybe_names": [],
+    "poster": "https://a.ltrbxd.com/resized/sm/upload/br/do/td/0n/wake-in-fright-1200-1200-675-675-crop-000000.jpg",
+    "description": "A schoolteacher gets stranded in a remote Australian mining town and unravels over too many beers. Lost for decades, restored in 2009. Hot, sweaty, deeply uncomfortable. Part of Bleak Week 2026.",
+    "letterboxd": "https://letterboxd.com/film/wake-in-fright/",
+    "booking": "https://silver.afi.com/movies/detail/0100005534"
+  }
+]
+</script>
+
+<script>
+// Configuration — Jonathan fills these in after Apps Script deploy + Letterboxd list creation
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywctrZLmnzaPwPPsFIo0eRZc5gJcCRYcxUsjPPyuZdIS4kQfXft_QCccJDtNGtOWJ8Cg/exec'; // e.g., 'https://script.google.com/macros/s/AKfyc.../exec'
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1xvryDAAaqZYAfJDRLQrzKHH5XYOMTo-VDBysZa_nZ4g/edit?usp=sharing';
+const LETTERBOXD_LIST_URL = ''; // e.g., 'https://letterboxd.com/jmkay/list/bethesda-cinematheque/'
+
+document.getElementById('sheet-link').href = SHEET_URL;
+document.getElementById('letterboxd-link').href = LETTERBOXD_LIST_URL || '#';
+
+if (LETTERBOXD_LIST_URL) {
+  const sec = document.getElementById('letterboxd-section');
+  sec.style.display = 'block';
+  sec.querySelector('.letterboxd-embed').innerHTML =
+    `<a href="${LETTERBOXD_LIST_URL}" target="_blank" class="action-link primary">View on Letterboxd →</a>`;
+}
+
+// Render functions
+function formatDate(isoStr) {
+  if (!isoStr) return '';
+  const d = new Date(isoStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+function formatTime(timeStr) {
+  if (!timeStr || timeStr === '—') return '';
+  const [h, m] = timeStr.split(':').map(Number);
+  const hh = ((h + 11) % 12) + 1;
+  const am = h < 12 ? 'AM' : 'PM';
+  return `${hh}:${String(m).padStart(2, '0')} ${am}`;
+}
+function eventAnchor(ev) {
+  const slug = String(ev.title).toLowerCase()
+    .replace(/'/g, '').replace(/è/g, 'e')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return `${slug}-${ev.date}`;
+}
+function escapeHTML(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+function getMonthLabel(isoStr) {
+  if (!isoStr) return '';
+  return new Date(isoStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
+}
+
+function renderEvent(ev) {
+  const anchor = eventAnchor(ev);
+  const statusClass = (ev.status || '').toLowerCase();
+  const isFree = !ev.cost || ev.cost === 0;
+  const yes = (ev.yes_count != null) ? ev.yes_count : (ev.yes_names ? ev.yes_names.length : 0);
+  const yesNames = (ev.yes_names || []).join(', ');
+  return `
+    <article class="event" id="${anchor}" data-type="${ev.type}" data-date="${ev.date}">
+      <div class="event-poster">
+        ${ev.poster ? `<img src="${escapeHTML(ev.poster)}" alt="${escapeHTML(ev.title)} poster" loading="lazy">` : ''}
+      </div>
+      <div class="event-body">
+        <div class="event-meta-top">
+          <span class="type-tag">${escapeHTML(ev.type)}</span>
+          ${ev.status === 'Confirmed' ? '<span class="status-tag confirmed">Confirmed</span>' : `<span class="status-tag ${statusClass}">${escapeHTML(ev.status)}</span>`}
+        </div>
+        <h2 class="event-title">${escapeHTML(ev.title)}</h2>
+        <div class="event-by">by ${escapeHTML(ev.director)} (${ev.year})</div>
+        <div class="event-when">
+          <span class="date">${formatDate(ev.date)}</span>
+          ${ev.time ? `<span class="time">${formatTime(ev.time)}</span>` : ''}
+          <span class="length">${escapeHTML(ev.length || '')}</span>
+          <span class="cost ${isFree ? 'free' : ''}">${isFree ? 'Free' : '$' + ev.cost}</span>
+        </div>
+        <div class="event-venue">
+          ${escapeHTML(ev.venue)}<span class="neighborhood">${escapeHTML(ev.neighborhood || '')}</span>
+        </div>
+        <p class="event-desc">${escapeHTML(ev.description || ev.desc || '')}</p>
+        <div class="event-actions">
+          ${ev.letterboxd ? `<a href="${escapeHTML(ev.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
+          ${ev.booking ? `<a href="${escapeHTML(ev.booking)}" target="_blank" class="action-link primary">Tickets ↗</a>` : ''}
+          <span class="tally">
+            <span class="yes-count">${yes}</span> coming
+            ${yesNames ? `<span class="yes-names">— ${escapeHTML(yesNames)}</span>` : ''}
+          </span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+function renderCalendar(events) {
+  const container = document.getElementById('calendar');
+  if (!events || events.length === 0) {
+    container.innerHTML = '<div class="empty-state">No events on the calendar yet.</div>';
+    return;
+  }
+  // Group by month
+  const byMonth = {};
+  events.forEach(ev => {
+    const label = getMonthLabel(ev.date);
+    if (!byMonth[label]) byMonth[label] = [];
+    byMonth[label].push(ev);
+  });
+  let html = '';
+  Object.keys(byMonth).forEach(monthLabel => {
+    html += `<div class="month-section"><div class="month-label">${monthLabel}</div>`;
+    byMonth[monthLabel].forEach(ev => { html += renderEvent(ev); });
+    html += `</div>`;
+  });
+  container.innerHTML = html;
+}
+
+function applyFilter(filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
+  const today = new Date();
+  const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+  document.querySelectorAll('.event').forEach(el => {
+    const type = el.dataset.type;
+    const date = new Date(el.dataset.date + 'T00:00:00');
+    let show = true;
+    if (filter === 'our-place') show = type === 'OUR PLACE';
+    else if (filter === 'everywhere') show = (type === 'EVERYWHERE ELSE' || type === 'ELSEWHERE');
+    else if (filter === 'this-week') show = date >= today && date <= weekFromNow;
+    el.style.display = show ? '' : 'none';
+  });
+  // Hide empty months
+  document.querySelectorAll('.month-section').forEach(sec => {
+    const visible = sec.querySelectorAll('.event:not([style*="none"])').length;
+    sec.style.display = visible > 0 ? '' : 'none';
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
+
+// Boot from server-rendered data; then refresh from Apps Script if URL is set
+async function boot() {
+  const bootstrap = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
+  // Filter out Cancelled
+  const initial = bootstrap.filter(e => e.status !== 'Cancelled');
+  renderCalendar(initial);
+
+  if (APPS_SCRIPT_URL) {
+    try {
+      const r = await fetch(APPS_SCRIPT_URL + '?action=get_state');
+      if (r.ok) {
+        const data = await r.json();
+        const live = (data.events || [])
+          .filter(e => e.status !== 'Cancelled')
+          // merge bootstrap fields (poster, description, letterboxd, booking) onto live data
+          .map(e => {
+            const match = bootstrap.find(b => b.title === e.title && b.date === e.date && b.time === e.time);
+            return Object.assign({}, match || {}, e);
+          });
+        renderCalendar(live);
+      }
+    } catch (err) {
+      // Silently fall back to bootstrap data
+      console.warn('Live fetch failed, using bootstrap data:', err);
+    }
+  }
+}
+boot();
+</script>
+
+</body>
+</html>
