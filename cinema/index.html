@@ -293,6 +293,103 @@
     padding-top: 12px;
     border-top: 1px solid var(--line-soft);
   }
+  /* === Showtime list (one per (film × time)) === */
+  .event-showtimes {
+    margin: 12px 0;
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .showtime {
+    display: grid;
+    grid-template-columns: minmax(160px, auto) 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .showtime:last-child { border-bottom: none; }
+  .showtime-when {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: baseline;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .showtime-when .date { font-weight: 600; }
+  .showtime-when .time { color: var(--ink-light); font-weight: 500; }
+  .showtime-venue {
+    color: var(--ink-light);
+    font-size: 15px;
+  }
+  .showtime-venue .neighborhood {
+    color: var(--ink-muted);
+    font-size: 12px;
+    margin-left: 8px;
+    font-style: italic;
+  }
+  .showtime-side {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .showtime-side .cost {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    padding: 2px 8px;
+    background: var(--bg-cream);
+    border-radius: 999px;
+    color: var(--ink-light);
+  }
+  .showtime-side .cost.free { color: var(--terracotta); font-weight: 600; }
+  .showtime-side .action-link {
+    font-size: 11px;
+    padding: 5px 11px;
+  }
+  .tally-mini {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+  }
+  .tally-mini .yes-count {
+    color: var(--terracotta);
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 2px;
+    font-family: 'EB Garamond', serif;
+  }
+  .showtime-count {
+    margin-left: auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .showtime-anchor {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .status-tag.past {
+    color: var(--ink-muted);
+    background: var(--bg-stone);
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+  }
+  @media (max-width: 720px) {
+    .showtime {
+      grid-template-columns: 1fr;
+      gap: 6px;
+      padding: 10px 0;
+    }
+    .showtime-side { justify-content: flex-start; }
+  }
   .action-link {
     font-family: 'Inter', sans-serif;
     font-size: 12px;
@@ -871,41 +968,120 @@ function getMonthLabel(isoStr) {
   return new Date(isoStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
 }
 
-function renderEvent(ev) {
-  const anchor = eventAnchor(ev);
-  const statusClass = (ev.status || '').toLowerCase();
-  const isFree = !ev.cost || ev.cost === 0;
-  const yes = (ev.yes_count != null) ? ev.yes_count : (ev.yes_names ? ev.yes_names.length : 0);
-  const yesNames = (ev.yes_names || []).join(', ');
+function groupEventsByFilm(events) {
+  // Group events by title — each card represents a film with 1+ showtimes
+  const groups = {};
+  events.forEach(e => {
+    if (!groups[e.title]) {
+      groups[e.title] = {
+        title: e.title,
+        director: e.director,
+        year: e.year,
+        length: e.length,
+        type: e.type,
+        poster: e.poster,
+        description: e.description || e.desc,
+        letterboxd: e.letterboxd,
+        showtimes: [],
+      };
+    }
+    // Always prefer non-empty values across showtimes (in case some have richer metadata than others)
+    const g = groups[e.title];
+    if (!g.poster && e.poster) g.poster = e.poster;
+    if (!g.description && (e.description || e.desc)) g.description = e.description || e.desc;
+    if (!g.letterboxd && e.letterboxd) g.letterboxd = e.letterboxd;
+    if (!g.director && e.director) g.director = e.director;
+    if (!g.year && e.year) g.year = e.year;
+    if (!g.length && e.length) g.length = e.length;
+    g.showtimes.push({
+      date: e.date,
+      time: e.time,
+      venue: e.venue,
+      neighborhood: e.neighborhood,
+      cost: e.cost,
+      status: e.status,
+      booking: e.booking,
+      yes_count: (e.yes_count != null) ? e.yes_count : (e.yes_names ? e.yes_names.length : 0),
+      yes_names: e.yes_names || [],
+    });
+  });
+  // Sort showtimes within each group chronologically
+  Object.values(groups).forEach(g => {
+    g.showtimes.sort((a, b) => {
+      if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+      return (a.time || '') < (b.time || '') ? -1 : 1;
+    });
+  });
+  return Object.values(groups);
+}
+
+function renderShowtime(st) {
+  const isFree = !st.cost || st.cost === 0;
+  const yes = st.yes_count || 0;
+  const yesNames = (st.yes_names || []).join(', ');
+  const statusClass = (st.status || '').toLowerCase();
+  const statusBadge = st.status === 'Confirmed'
+    ? '<span class="status-tag confirmed">Confirmed</span>'
+    : '';
   return `
-    <article class="event" id="${anchor}" data-type="${ev.type}" data-date="${ev.date}">
+    <div class="showtime">
+      <div class="showtime-when">
+        <span class="date">${formatDate(st.date)}</span>
+        ${st.time ? `<span class="time">${formatTime(st.time)}</span>` : ''}
+        ${statusBadge}
+      </div>
+      <div class="showtime-venue">
+        ${escapeHTML(st.venue || '')}${st.neighborhood ? `<span class="neighborhood">${escapeHTML(st.neighborhood)}</span>` : ''}
+      </div>
+      <div class="showtime-side">
+        <span class="cost ${isFree ? 'free' : ''}">${isFree ? 'Free' : '$' + st.cost}</span>
+        ${st.booking ? `<a href="${escapeHTML(st.booking)}" target="_blank" class="action-link primary">Tickets ↗</a>` : ''}
+        <span class="tally-mini"><span class="yes-count">${yes}</span> ${yes === 1 ? 'coming' : 'coming'}${yesNames ? ` — ${escapeHTML(yesNames)}` : ''}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderEvent(film) {
+  // Primary anchor (slug-only) + per-showtime anchor spans for backward-compat
+  // with Sheet hyperlinks that include date suffix
+  const slug = String(film.title).toLowerCase()
+    .replace(/'/g, '').replace(/è/g, 'e')
+    .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const showtimeAnchors = film.showtimes.map(st =>
+    `<span id="${slug}-${st.date}" class="showtime-anchor"></span>`
+  ).join('');
+
+  // Earliest showtime drives the data-date filter attribute (for "this week" filter)
+  const earliest = film.showtimes[0];
+  const earliestDate = earliest ? earliest.date : '';
+
+  // Status: if any Confirmed → Confirmed; if all Past → Past; else Tentative
+  const allConfirmed = film.showtimes.every(s => s.status === 'Confirmed');
+  const someConfirmed = film.showtimes.some(s => s.status === 'Confirmed');
+  const allPast = film.showtimes.every(s => s.status === 'Past');
+
+  return `
+    <article class="event" id="${slug}" data-type="${film.type}" data-date="${earliestDate}">
+      ${showtimeAnchors}
       <div class="event-poster">
-        ${ev.poster ? `<img src="${escapeHTML(ev.poster)}" alt="${escapeHTML(ev.title)} poster" loading="lazy">` : ''}
+        ${film.poster ? `<img src="${escapeHTML(film.poster)}" alt="${escapeHTML(film.title)} poster" loading="lazy">` : ''}
       </div>
       <div class="event-body">
         <div class="event-meta-top">
-          <span class="type-tag">${escapeHTML(ev.type)}</span>
-          ${ev.status === 'Confirmed' ? '<span class="status-tag confirmed">Confirmed</span>' : `<span class="status-tag ${statusClass}">${escapeHTML(ev.status)}</span>`}
+          <span class="type-tag">${escapeHTML(film.type)}</span>
+          ${someConfirmed ? '<span class="status-tag confirmed">Confirmed</span>' : ''}
+          ${allPast ? '<span class="status-tag past">Past</span>' : ''}
         </div>
-        <h2 class="event-title">${escapeHTML(ev.title)}</h2>
-        <div class="event-by">by ${escapeHTML(ev.director)} (${ev.year})</div>
-        <div class="event-when">
-          <span class="date">${formatDate(ev.date)}</span>
-          ${ev.time ? `<span class="time">${formatTime(ev.time)}</span>` : ''}
-          <span class="length">${escapeHTML(ev.length || '')}</span>
-          <span class="cost ${isFree ? 'free' : ''}">${isFree ? 'Free' : '$' + ev.cost}</span>
+        <h2 class="event-title">${escapeHTML(film.title)}</h2>
+        <div class="event-by">by ${escapeHTML(film.director || '')}${film.year ? ` (${film.year})` : ''}${film.length ? ` · ${escapeHTML(film.length)}` : ''}</div>
+        <p class="event-desc">${escapeHTML(film.description || '')}</p>
+        <div class="event-showtimes">
+          ${film.showtimes.map(renderShowtime).join('')}
         </div>
-        <div class="event-venue">
-          ${escapeHTML(ev.venue)}<span class="neighborhood">${escapeHTML(ev.neighborhood || '')}</span>
-        </div>
-        <p class="event-desc">${escapeHTML(ev.description || ev.desc || '')}</p>
         <div class="event-actions">
-          ${ev.letterboxd ? `<a href="${escapeHTML(ev.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
-          ${ev.booking ? `<a href="${escapeHTML(ev.booking)}" target="_blank" class="action-link primary">Tickets ↗</a>` : ''}
-          <span class="tally">
-            <span class="yes-count">${yes}</span> coming
-            ${yesNames ? `<span class="yes-names">— ${escapeHTML(yesNames)}</span>` : ''}
-          </span>
+          ${film.letterboxd ? `<a href="${escapeHTML(film.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
+          <span class="showtime-count">${film.showtimes.length} showtime${film.showtimes.length === 1 ? '' : 's'}</span>
         </div>
       </div>
     </article>
@@ -918,17 +1094,25 @@ function renderCalendar(events) {
     container.innerHTML = '<div class="empty-state">No events on the calendar yet.</div>';
     return;
   }
-  // Group by month
+  // Group by film title first (combine multi-showtime films into single cards)
+  const films = groupEventsByFilm(events);
+  // Sort films by their earliest showtime date
+  films.sort((a, b) => {
+    const aDate = a.showtimes[0]?.date || '';
+    const bDate = b.showtimes[0]?.date || '';
+    return aDate < bDate ? -1 : aDate > bDate ? 1 : 0;
+  });
+  // Group by month using earliest showtime
   const byMonth = {};
-  events.forEach(ev => {
-    const label = getMonthLabel(ev.date);
+  films.forEach(f => {
+    const label = getMonthLabel(f.showtimes[0]?.date || '');
     if (!byMonth[label]) byMonth[label] = [];
-    byMonth[label].push(ev);
+    byMonth[label].push(f);
   });
   let html = '';
   Object.keys(byMonth).forEach(monthLabel => {
     html += `<div class="month-section"><div class="month-label">${monthLabel}</div>`;
-    byMonth[monthLabel].forEach(ev => { html += renderEvent(ev); });
+    byMonth[monthLabel].forEach(f => { html += renderEvent(f); });
     html += `</div>`;
   });
   container.innerHTML = html;
@@ -972,10 +1156,19 @@ async function boot() {
         const data = await r.json();
         const live = (data.events || [])
           .filter(e => e.status !== 'Cancelled')
-          // merge bootstrap fields (poster, description, letterboxd, booking) onto live data
+          // Merge bootstrap fields (poster, description, letterboxd, booking) by TITLE alone
+          // — these are per-FILM not per-showtime, so date/time match isn't needed and was brittle
+          // (null vs '' vs '—' kept failing on OUR PLACE entries with no time set)
           .map(e => {
-            const match = bootstrap.find(b => b.title === e.title && b.date === e.date && b.time === e.time);
-            return Object.assign({}, match || {}, e);
+            const match = bootstrap.find(b => b.title === e.title);
+            // Only carry over bootstrap fields that live data doesn't have
+            return {
+              ...e,
+              poster: e.poster || (match && match.poster) || '',
+              description: e.description || e.desc || (match && (match.description || match.desc)) || '',
+              letterboxd: e.letterboxd || (match && match.letterboxd) || '',
+              booking: e.booking || (match && match.booking) || '',
+            };
           });
         renderCalendar(live);
       }
