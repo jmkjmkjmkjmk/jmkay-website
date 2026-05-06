@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anti-Racism in Tap Dance: Films, Books & Performances</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap');
+
+  :root {
+    --bg-deep: #0D0B09;
+    --bg-card: #1A1714;
+    --bg-card-hover: #231F1A;
+    --gold: #C9A84C;
+    --gold-dim: #8A7433;
+    --copper: #C2603F;
+    --copper-light: #E8A88C;
+    --cream: #F5F0E8;
+    --cream-dim: #A89F93;
+    --white: #FDFBF7;
+    --teal: #1A4A4A;
+    --teal-light: #2A6A6A;
+    --text-primary: #E8E2D8;
+    --text-secondary: #A89F93;
+    --text-muted: #6B6358;
+    --border: #2A2520;
+    --border-light: #3A3530;
+    --shadow: rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: linear-gradient(180deg, #1A1410 0%, var(--bg-deep) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.15;
+    max-width: 780px;
+    margin: 0 auto 24px;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-secondary);
+    max-width: 620px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .hero-stat-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.4rem;
+    color: var(--gold);
+  }
+  .hero-stat .label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ---- LETTERBOXD CTA ---- */
+  .letterboxd-cta {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 12px 28px;
+    background: #24303C;
+    color: #99CCFF;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .letterboxd-cta:hover {
+    background: #2E3C4C;
+    transform: translateY(-1px);
+  }
+
+  /* ---- LAYOUT ---- */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---- SECTION HEADERS ---- */
+  .section-header {
+    padding: 64px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 12px;
+  }
+  .section-header p {
+    color: var(--text-secondary);
+    max-width: 600px;
+    font-size: 15px;
+  }
+
+  /* ---- FILM CARDS ---- */
+  .film-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  .film-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .film-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-light);
+    box-shadow: 0 12px 40px var(--shadow);
+  }
+  .film-card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    background: #151210;
+  }
+  .film-card-img-placeholder {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(135deg, #1A1714 0%, #252018 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Instrument Serif', serif;
+    font-size: 3rem;
+    color: var(--gold-dim);
+    opacity: 0.4;
+  }
+  .film-card-body {
+    padding: 20px;
+  }
+  .film-card-body h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .film-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-dim);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .film-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .film-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .film-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+  .film-link.stream {
+    background: var(--teal);
+    color: var(--cream);
+  }
+  .film-link.stream:hover {
+    background: var(--teal-light);
+  }
+  .film-link.letterboxd {
+    background: #24303C;
+    color: #99CCFF;
+  }
+  .film-link.letterboxd:hover {
+    background: #2E3C4C;
+  }
+  .film-link.imdb {
+    background: #2A2410;
+    color: #F5C518;
+  }
+  .film-link.imdb:hover {
+    background: #3A3418;
+  }
+  .film-link.free {
+    background: #1A2A1A;
+    color: #7BC67B;
+  }
+  .film-link.free:hover {
+    background: #2A3A2A;
+  }
+
+  /* ---- SUB-SECTION DIVIDERS ---- */
+  .sub-header {
+    margin: 48px 0 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sub-header h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--copper-light);
+  }
+  .sub-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  /* ---- BOOK CARDS ---- */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+  .book-card {
+    display: flex;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .book-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-light);
+  }
+  .book-cover {
+    width: 80px;
+    min-width: 80px;
+    height: 120px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #1A1714;
+  }
+  .book-cover-placeholder {
+    width: 80px;
+    min-width: 80px;
+    height: 120px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--teal) 0%, #0D2A2A 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .book-info h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--cream);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .book-author {
+    font-size: 13px;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+  .book-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .book-link {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .book-link:hover { text-decoration: underline; }
+
+  /* ---- VIDEO CARDS ---- */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+  .video-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .video-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-light);
+  }
+  .video-thumb {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #111;
+  }
+  .video-thumb img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .video-play-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.3);
+    transition: background 0.2s ease;
+  }
+  .video-card:hover .video-play-overlay {
+    background: rgba(0,0,0,0.15);
+  }
+  .play-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .play-btn svg { width: 22px; height: 22px; fill: var(--bg-deep); margin-left: 3px; }
+  .video-card-body {
+    padding: 16px 20px 20px;
+  }
+  .video-card-body h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--cream);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .video-card-body p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+  .video-card-body a {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  .video-card-body a:hover { text-decoration: underline; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--gold-dim);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--gold); text-decoration: underline; }
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 600px) {
+    .hero { padding: 50px 16px 40px; }
+    .hero-stat-row { gap: 24px; }
+    .film-grid, .video-grid { grid-template-columns: 1fr; }
+    .book-grid { grid-template-columns: 1fr; }
+    .book-card { flex-direction: column; align-items: center; text-align: center; }
+    .container { padding: 0 16px; }
+  }
+
+  /* ---- STYLED FILM PLACEHOLDERS ---- */
+  .film-ph {
+    width: 100%;
+    height: 220px;
+    background: linear-gradient(145deg, #1A1714 0%, #1E1510 40%, #22180E 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .film-ph::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(201,168,76,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .film-ph-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+  .film-ph-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.1rem;
+    color: var(--cream-dim);
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .film-ph-dir {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+  .film-ph-line {
+    width: 32px;
+    height: 1px;
+    background: var(--gold-dim);
+    margin-top: 12px;
+    opacity: 0.4;
+  }
+
+  /* ---- STYLED BOOK PLACEHOLDERS ---- */
+  .book-ph {
+    width: 80px;
+    min-width: 80px;
+    height: 120px;
+    border-radius: 6px;
+    background: linear-gradient(145deg, var(--teal) 0%, #0D2A2A 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 6px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-ph::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .book-ph-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.65rem;
+    color: var(--cream-dim);
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .book-ph-author {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.5rem;
+    color: var(--text-muted);
+  }
+  .book-ph-line {
+    width: 20px;
+    height: 1px;
+    background: var(--gold-dim);
+    margin-top: 6px;
+    opacity: 0.4;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ======== HERO ======== -->
+<header class="hero">
+  <div class="hero-eyebrow">A Curated Resource</div>
+  <h1>Anti-Racism in Tap Dance:<br><em>Films, Books & Performances</em></h1>
+  <p class="hero-sub">
+    Tap dance is the original American jazz form — a vernacular art through which the history
+    of race in America can be told. This collection gathers essential documentaries, feature films,
+    books, and performances that illuminate the Black roots and legacy of tap.
+  </p>
+  <a href="https://letterboxd.com/jonathankay/list/tap-dancing/" target="_blank" class="letterboxd-cta">View Full Film List on Letterboxd &rarr;</a>
+</header>
+
+<div class="container">
+
+<!-- ================================================================== -->
+<!-- SECTION 1: DOCUMENTARIES                                           -->
+<!-- ================================================================== -->
+<div class="section-header">
+  <div class="section-num">Section 01</div>
+  <h2>Documentaries</h2>
+  <p>Essential documentaries tracing the lineage, artistry, and revival of tap dance as a Black American art form.</p>
+</div>
+
+<div class="film-grid">
+
+  <!-- No Maps on My Taps -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1979</span><span class="film-ph-title">No Maps on My Taps</span><span class="film-ph-dir">George T. Nierenberg</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>No Maps on My Taps</h3>
+      <div class="film-meta">1979 &middot; Dir. George T. Nierenberg &middot; 58 min</div>
+      <div class="film-desc">The spirit of tap in its heyday, shown through rare photos and Hollywood film clips. Three surviving hoofers — Sandman Sims, Chuck Green, and Bunny Briggs — tell the story of tap as an expression of Black heritage and culture. An indispensable historical record of this distinctly American art form.</div>
+      <div class="film-links">
+        <a href="https://www.criterionchannel.com/no-maps-on-my-taps" target="_blank" class="film-link stream">Criterion</a>
+        <a href="https://www.primevideo.com/detail/No-Maps-on-My-Taps/0SU7FKGC5NSPCY70RNA1OECWGT" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://watch.plex.tv/movie/no-maps-on-my-taps" target="_blank" class="film-link free">Plex (Free)</a>
+        <a href="https://letterboxd.com/film/no-maps-on-my-taps/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Tap -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/1OFEWUhQrIUmy26GkXtqNhvg5C4.jpg" alt="About Tap" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-year>1985</span><span class=film-ph-title>About Tap</span><span class=film-ph-dir>George T. Nierenberg</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>About Tap</h3>
+      <div class="film-meta">1985 &middot; Dir. George T. Nierenberg &middot; 28 min</div>
+      <div class="film-desc">Introduced by Gregory Hines, this brilliant follow-up to No Maps on My Taps examines various styles of jazz tap through masters Steve Condos, Jimmy Slyde, and Chuck Green. Each dancer answers: "How does an artist discover their own individual style?"</div>
+      <div class="film-links">
+        <a href="https://www.criterionchannel.com/about-tap" target="_blank" class="film-link stream">Criterion</a>
+        <a href="https://watch.plex.tv/movie/about-tap" target="_blank" class="film-link free">Plex (Free)</a>
+        <a href="https://letterboxd.com/film/about-tap/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sammy Davis Jr: I've Gotta Be Me -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/ohgx6EUN34szZyLAPXGMq4xGRGr.jpg" alt="Sammy Davis Jr I've Gotta Be Me" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>Sammy Davis, Jr.: I've Gotta Be Me</h3>
+      <div class="film-meta">2017 &middot; Dir. Sam Pollard &middot; 100 min &middot; PBS American Masters</div>
+      <div class="film-desc">The first major film documentary to examine the performer's vast career and his journey for identity through the shifting tides of civil rights and racial progress during 20th-century America. A portrait of one of the most complex entertainers in American history.</div>
+      <div class="film-links">
+        <a href="https://www.pbs.org/wnet/americanmasters/sammy-davis-jr-ive-gotta-be-me-documentary/10877/" target="_blank" class="film-link stream">PBS</a>
+        <a href="https://www.primevideo.com/detail/Sammy-Davis-Jr-Ive-Gotta/dp/B08DFW8LD3" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/sammy-davis-jr-ive-gotta-be-me/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Been Rich All My Life -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">2006</span><span class="film-ph-title">Been Rich All My Life</span><span class="film-ph-dir">Heather Lyn MacDonald</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Been Rich All My Life</h3>
+      <div class="film-meta">2006 &middot; Dir. Heather MacDonald &middot; 79 min</div>
+      <div class="film-desc">An admiring portrait of the Silver Belles — a troupe of veteran Harlem tap dancers between 84 and 96 years old. Bertye Lou Wood, Cleo Hayes, Marion Coles, Fay Ray, and Elaine Ellis met in the 1930s as chorus dancers and reunited in 1985, still performing in matching glitter-encrusted costumes.</div>
+      <div class="film-links">
+        <a href="https://www.primevideo.com/detail/Been-Rich-All-My-Life/0M3KU0XYJ2P91JFZEWQVEEL99A" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://watch.plex.tv/movie/been-rich-all-my-life" target="_blank" class="film-link free">Plex (Free)</a>
+        <a href="https://letterboxd.com/film/been-rich-all-my-life/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      
+    <a href="https://www.youtube.com/watch?v=wSpCW_YHKDk" target="_blank" class="film-link free">Watch on YouTube</a>
+  </div>
+    </div>
+  </div>
+
+  <!-- Plenty of Good Women Dancers -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">2004</span><span class="film-ph-title">Plenty of Good Women Dancers</span><span class="film-ph-dir">Kodish &amp; Dornfeld</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Plenty of Good Women Dancers</h3>
+      <div class="film-meta">2004 &middot; Dir. Debora Kodish &amp; Barry Dornfeld &middot; 53 min</div>
+      <div class="film-desc">Features exceptional Philadelphia African American women tap dancers active from the 1920s&ndash;1950s. Restricted to few roles, often unnamed and uncredited, these women remained anonymous even within their own communities. Historic clips and vivid recollections paint a dynamic portrait of veteran women hoofers.</div>
+      <div class="film-links">
+        <a href="https://www.folkstreams.net/films/plenty-of-good-women-dancers" target="_blank" class="film-link free">Folkstreams (Free)</a>
+        <a href="https://www.youtube.com/watch?v=P0OrL2lwDEE" target="_blank" class="film-link free">YouTube (Free)</a>
+        <a href="https://www.imdb.com/title/tt1326918/" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Frontline: Secret Daughter -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1996</span><span class="film-ph-title">Frontline: Secret Daughter</span><span class="film-ph-dir">June Cross</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Frontline: Secret Daughter</h3>
+      <div class="film-meta">1996 &middot; Dir. June Cross &amp; John Baynard &middot; PBS</div>
+      <div class="film-desc">Takes viewers on an epic journey across the racial divide, into the hidden world of Hollywood and Black vaudeville, and deep into the painful, complicated relationship between an abandoned daughter and the mother who gave her away. June Cross's father was half of the comedy duo "Stump and Stumpy."</div>
+      <div class="film-links">
+        <a href="https://www.pbs.org/wgbh/pages/frontline/shows/secret/" target="_blank" class="film-link stream">PBS</a>
+        <a href="https://archive.org/details/SecretDaughter" target="_blank" class="film-link free">Archive.org (Free)</a>
+        <a href="https://www.imdb.com/title/tt0281177/" target="_blank" class="film-link imdb">IMDb 8.6</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Dancing Man - Peg Leg Bates -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1991</span><span class="film-ph-title">The Dancing Man: Peg Leg Bates</span><span class="film-ph-dir">Dave Davidson</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>The Dancing Man: Peg Leg Bates</h3>
+      <div class="film-meta">1991 &middot; Dir. Dave Davidson</div>
+      <div class="film-desc">Documentary on the life and work of tap dancer Peg Leg Bates, told much in his own words. Profusely illustrated with archival footage, including many scenes of Bates dancing at different times of his life on stage, in films, and on television &mdash; a man who turned adversity into artistry.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/title/tt0167187/" target="_blank" class="film-link imdb">IMDb</a>
+        <a href="https://letterboxd.com/film/the-dancing-man-peg-leg-bates/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      
+    <a href="https://www.youtube.com/watch?v=XezWU5or3Mw" target="_blank" class="film-link free">Watch Part 1</a>
+  
+    <a href="https://www.youtube.com/watch?v=UWtImcRU_ug" target="_blank" class="film-link free">Watch Part 2</a>
+  </div>
+    </div>
+  </div>
+
+  <!-- Gregory Hines' Tap Dance in America -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1989</span><span class="film-ph-title">Tap Dance in America</span><span class="film-ph-dir">Gregory Hines</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Gregory Hines' Tap Dance in America</h3>
+      <div class="film-meta">1989 &middot; PBS Great Performances &middot; Emmy Award Winner</div>
+      <div class="film-desc">Gregory Hines created and hosted this Emmy-winning PBS special featuring the most seasoned tap dancers of the era, offering rare insight into the masters who shaped tap dance into the art form it has become. Features a young Savion Glover alongside legends like Bunny Briggs.</div>
+      <div class="film-links">
+        <a href="https://www.youtube.com/results?search_query=gregory+hines+tap+dance+in+america+1989" target="_blank" class="film-link stream">Search YouTube</a>
+        <a href="https://www.imdb.com/title/tt0096216/" target="_blank" class="film-link imdb">IMDb</a>
+      
+    <a href="https://www.youtube.com/watch?v=a7aizPSgYeU" target="_blank" class="film-link free">Watch on YouTube</a>
+  </div>
+    </div>
+  </div>
+
+  <!-- We Sing, We Dance: The Nicholas Brothers -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1992</span><span class="film-ph-title">We Sing, We Dance</span><span class="film-ph-dir">Chris Bould</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>We Sing, We Dance: The Nicholas Brothers</h3>
+      <div class="film-meta">1992 &middot; A&amp;E Documentary &middot; Dir. Chris Bould</div>
+      <div class="film-desc">A&amp;E documentary about the life of the legendary Nicholas Brothers &mdash; Fayard (1914&ndash;2006) and Harold (1921&ndash;2000) &mdash; whose breathtaking acrobatic tap routines redefined what was possible in dance. Fred Astaire called their Stormy Weather routine the greatest dance number ever filmed.</div>
+      <div class="film-links">
+        <a href="https://www.youtube.com/results?search_query=nicholas+brothers+documentary+we+sing+we+dance" target="_blank" class="film-link stream">Search YouTube</a>
+        <a href="https://www.imdb.com/title/tt0240649/" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tapdancin' -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1980</span><span class="film-ph-title">Tapdancin&#39;</span><span class="film-ph-dir">Christian Blackwood</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Tapdancin'</h3>
+      <div class="film-meta">1980 &middot; Dir. Christian Blackwood</div>
+      <div class="film-desc">Illuminates the New York-driven renaissance of tap. Shows how the triumphs and defeats of great dancers from the past mingled with rejuvenation by talented newcomers. Featuring the Nicholas Brothers, Honi Coles, John Bubbles, the Copasetics, and many more tap legends.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/title/tt0187116/" target="_blank" class="film-link imdb">IMDb</a>
+        <a href="https://letterboxd.com/film/tapdancin/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      
+    <a href="https://www.youtube.com/watch?v=BD9fF3T0NBE" target="_blank" class="film-link free">Watch Full Film</a>
+  
+    <a href="https://www.youtube.com/watch?v=9iPOZKO7b0g" target="_blank" class="film-link free">Watch Part 2</a>
+  </div>
+    </div>
+  </div>
+
+  <!-- Songs Unwritten -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1989</span><span class="film-ph-title">Songs Unwritten</span><span class="film-ph-dir">David Wadsworth</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Songs Unwritten: A Tap Dancer Remembered</h3>
+      <div class="film-meta">1989 &middot; Dir. David Wadsworth</div>
+      <div class="film-desc">The story of legendary hoofer Leon Collins &mdash; from triumphs with Jimmie Lunceford, Tito Puente, and Tina Dixon, to bebop years in New York with Baby Laurence and Dizzy Gillespie, through lean years in Boston, and finally his remarkable comeback as a gifted teacher and spokesman for the tap revival.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/title/tt0098375/" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Jazz Hoofer -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1981</span><span class="film-ph-title">The Jazz Hoofer</span><span class="film-ph-dir">Bill Hancock</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>The Jazz Hoofer: The Story of Baby Laurence</h3>
+      <div class="film-meta">1981 &middot; Dir. Bill Hancock</div>
+      <div class="film-desc">Documentary on jazz tap dancer Baby Laurence (Laurence Donald Jackson), told in his own voice and words. The story of his dance career and how he was inspired by jazz musicians such as Art Tatum and Charlie Parker to create a style that married bebop rhythm to the tap tradition.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/title/tt0351012/" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Great Feats of Feet -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1977</span><span class="film-ph-title">Great Feats of Feet</span><span class="film-ph-dir">Brenda Bufalino</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Great Feats of Feet: A Portrait of Jazz &amp; Tap</h3>
+      <div class="film-meta">1977 &middot; Dir. Brenda Bufalino</div>
+      <div class="film-desc">A classic documentary exploring the tradition of jazz and tap dance and the essence that sets it uniquely apart from other dance forms, featuring The Copasetics. Each featured dancer speaks of his life and art, revealing the creative spirit and individuality that personified each artist through their long careers.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/title/tt6782050/" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Over The Top to Bebop -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1964</span><span class="film-ph-title">Over the Top to Bebop</span><span class="film-ph-dir">Coles &amp; Atkins</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Over the Top to Bebop</h3>
+      <div class="film-meta">1964 &middot; Honi Coles &amp; Cholly Atkins</div>
+      <div class="film-desc">Master tap dancers Honi Coles and Cholly Atkins demonstrate favorite tap steps and routines spanning from World War I ("Over the Top and Through the Trenches") to the mid-sixties ("Bebop") &mdash; a living history of tap's evolution performed by two of its greatest practitioners.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/find/?q=over+the+top+to+bebop" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Honi Coles -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1996</span><span class="film-ph-title">Honi Coles</span><span class="film-ph-dir">French TV</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Honi Coles, Le Danseur de Claquettes Distingu&eacute;</h3>
+      <div class="film-meta">1996 &middot; French TV Documentary</div>
+      <div class="film-desc">French television portrait of the great Charles "Honi" Coles, featuring Lena Horne, Marshall Stearns, Cholly Atkins, Tommy Tune, Brenda Bufalino, and dancers of the time. A rare international perspective on one of tap's most elegant practitioners.</div>
+      <div class="film-links">
+        <a href="https://www.youtube.com/results?search_query=honi+coles+documentary+1996" target="_blank" class="film-link stream">Search YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bill Robinson: Mr. Bojangles -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1997</span><span class="film-ph-title">Mr. Bojangles</span><span class="film-ph-dir">A&amp;E Biography</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Biography: Bill Robinson &mdash; Mr. Bojangles</h3>
+      <div class="film-meta">1997 &middot; A&amp;E Biography</div>
+      <div class="film-desc">Tap dancer Bill "Bojangles" Robinson (1878&ndash;1949) is profiled &mdash; his childhood, vaudeville and Broadway careers, screen partnership with Shirley Temple, and personal life. A portrait of the man who became tap's first crossover star in an era of deep segregation.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/find/?q=bill+robinson+mr+bojangles+biography" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LaVaughn Robinson -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">2003</span><span class="film-ph-title">LaVaughn Robinson</span><span class="film-ph-dir">Dornfeld &amp; Boughter</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>LaVaughn Robinson</h3>
+      <div class="film-meta">2003 &middot; Dir. Barry Dornfeld &amp; Carole Boughter</div>
+      <div class="film-desc">LaVaughn Robinson, a National Heritage Fellowship winner, was a tap virtuoso on the big-band circuit in the 1940s&ndash;50s who became a master teacher and major force in tap's revival. Part of an extraordinary generation of child dancers who sharpened their skills in Philadelphia street competitions.</div>
+      <div class="film-links">
+        <a href="https://www.imdb.com/find/?q=lavaughn+robinson+2003" target="_blank" class="film-link imdb">IMDb</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tappin': Making of Tap -->
+  <div class="film-card">
+    <div class="film-ph"><span class="film-ph-year">1989</span><span class="film-ph-title">Tappin&#39;: Making of Tap</span><span class="film-ph-dir">TV Special</span><div class="film-ph-line"></div></div>
+    <div class="film-card-body">
+      <h3>Tappin': The Making of Tap The Movie</h3>
+      <div class="film-meta">1989 &middot; Syndicated TV Special</div>
+      <div class="film-desc">Behind-the-scenes special about the making of the film TAP, starring Gregory Hines, Sammy Davis Jr., and Savion Glover. Features tons of behind-the-scenes clips and classic movie footage of legendary hoofers gathered for Sammy Davis Jr.'s final film appearance.</div>
+      <div class="film-links">
+        <a href="https://www.youtube.com/results?search_query=tappin+making+of+tap+1989+gregory+hines" target="_blank" class="film-link stream">Search YouTube</a>
+      
+    <a href="https://www.youtube.com/watch?v=lHZi81cCf1M" target="_blank" class="film-link free">Watch on YouTube</a>
+  </div>
+    </div>
+  </div>
+
+</div><!-- /film-grid -->
+
+
+<!-- ---- TAP DANCE FEATURE FILMS ---- -->
+<div class="sub-header">
+  <h3>Feature Films</h3>
+  <p>Narrative films that center tap dance and its intersection with race in America.</p>
+</div>
+
+<div class="film-grid">
+
+  <!-- Stormy Weather -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/d6XpJ69jXvP5WXzVsKVR4rUJhe1.jpg" alt="Stormy Weather" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>Stormy Weather</h3>
+      <div class="film-meta">1943 &middot; Dir. Andrew L. Stone &middot; Starring Lena Horne &amp; Bill Robinson</div>
+      <div class="film-desc">A landmark all-Black musical featuring Bill "Bojangles" Robinson, Lena Horne, Cab Calloway, Fats Waller, and the Nicholas Brothers. Their legendary "Jumpin' Jive" sequence is considered one of the greatest dance numbers ever committed to film.</div>
+      <div class="film-links">
+        <a href="https://www.youtube.com/watch?v=Y33LD_UQWVc" target="_blank" class="film-link free">YouTube (Free)</a>
+        <a href="https://www.primevideo.com/detail/Stormy-Weather/0SU7FKGC5NSPCY70RNA1OECWGT" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/stormy-weather/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Cotton Club -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/jgCsLhIRLKlvUy1p1iImCi0nPnX.jpg" alt="The Cotton Club" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>The Cotton Club</h3>
+      <div class="film-meta">1984 &middot; Dir. Francis Ford Coppola</div>
+      <div class="film-desc">Coppola's lavish drama set in 1930s Harlem's legendary Cotton Club, where the best Black entertainers performed for white-only audiences. Features Gregory Hines alongside Richard Gere in parallel stories of musicians and gangsters navigating the racial divide.</div>
+      <div class="film-links">
+        <a href="https://tubitv.com/movies/589730/the-cotton-club-encore" target="_blank" class="film-link free">Tubi (Free)</a>
+        <a href="https://www.primevideo.com/detail/Cotton-Club/dp/B00950XM1U" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/the-cotton-club/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tap -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/cjy45SaOAzcyReyl4pr6jWss6uS.jpg" alt="Tap" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>Tap</h3>
+      <div class="film-meta">1989 &middot; Dir. Nick Castle &middot; Starring Gregory Hines &amp; Sammy Davis Jr.</div>
+      <div class="film-desc">Gregory Hines stars as an ex-con torn between crime and tap. Sammy Davis Jr.'s final film appearance. Features a legendary challenge-dance sequence with Arthur Duncan, Bunny Briggs, Steve Condos, Harold Nicholas, Jimmy Slyde, and other masters of the form.</div>
+      <div class="film-links">
+        <a href="https://tubitv.com/movies/658771/tap" target="_blank" class="film-link free">Tubi (Free)</a>
+        <a href="https://www.primevideo.com/detail/Tap/dp/B001CNPXUG" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/tap/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bamboozled -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/oAg1mUUxdWJNLa6t1gctbQhXHVN.jpg" alt="Bamboozled" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>Bamboozled</h3>
+      <div class="film-meta">2000 &middot; Dir. Spike Lee &middot; Starring Damon Wayans &amp; Savion Glover</div>
+      <div class="film-desc">Spike Lee's blistering satire about a Black TV writer who pitches a modern minstrel show &mdash; and it becomes a hit. Savion Glover stars as a tap dancer exploited by the entertainment industry, drawing direct lines between minstrelsy's history and modern media representation.</div>
+      <div class="film-links">
+        <a href="https://www.justwatch.com/us/movie/bamboozled" target="_blank" class="film-link stream">JustWatch</a>
+        <a href="https://letterboxd.com/film/bamboozled/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- White Nights -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/ampweVzwwWQHSwFvz2YTyRIrJza.jpg" alt="White Nights" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>White Nights</h3>
+      <div class="film-meta">1985 &middot; Dir. Taylor Hackford &middot; Starring Gregory Hines &amp; Mikhail Baryshnikov</div>
+      <div class="film-desc">Gregory Hines plays an American tap dancer who defected to the Soviet Union, paired with Baryshnikov's Russian ballet dancer trying to escape. Their duets &mdash; tap meeting ballet &mdash; are explosive demonstrations of how dance transcends cultural and political boundaries.</div>
+      <div class="film-links">
+        <a href="https://tubitv.com/movies/679207/white-nights" target="_blank" class="film-link free">Tubi (Free)</a>
+        <a href="https://www.primevideo.com/detail/White-Nights/dp/B001JK7Y9K" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/white-nights/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bojangles -->
+  <div class="film-card">
+    <img class="film-card-img" src="https://media.themoviedb.org/t/p/w500/5jb1yBsgrud7jzskvhcVMvsiTw.jpg" alt="Bojangles" onerror="this.outerHTML='<div class=film-ph><span class=film-ph-title>Film</span><div class=film-ph-line></div></div>'">
+    <div class="film-card-body">
+      <h3>Bojangles</h3>
+      <div class="film-meta">2001 &middot; Dir. Joseph Sargent &middot; Starring Gregory Hines</div>
+      <div class="film-desc">Gregory Hines portrays the legendary Bill "Bojangles" Robinson in this biographical film tracing Robinson's rise from Richmond streets to Broadway stardom and Hollywood, navigating the brutal racial politics of early 20th century entertainment.</div>
+      <div class="film-links">
+        <a href="https://tubitv.com/movies/579548/bojangles" target="_blank" class="film-link free">Tubi (Free)</a>
+        <a href="https://www.primevideo.com/detail/Bojangles/0RV961JGNSVPJ53WPS9CFPFBDM" target="_blank" class="film-link stream">Prime Video</a>
+        <a href="https://letterboxd.com/film/bojangles/" target="_blank" class="film-link letterboxd">Letterboxd</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /film-grid -->
+
+
+<!-- ================================================================== -->
+<!-- SECTION 2: BOOKS                                                   -->
+<!-- ================================================================== -->
+<div class="section-header">
+  <div class="section-num">Section 02</div>
+  <h2>Books &amp; Reading</h2>
+  <p>Essential reading on tap dance history, the Black roots of American vernacular dance, and the intersection of race and performance.</p>
+</div>
+
+<div class="book-grid">
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780374536510-L.jpg" alt="What the Eye Hears" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>Book</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>What the Eye Hears: A History of Tap Dancing</h3>
+      <div class="book-author">Brian Seibert &middot; 2015</div>
+      <div class="book-desc">Winner of the Anisfield-Wolf Book Award. The definitive history &mdash; from tap's origins in the jig, clog dancing, and dances brought from Africa by enslaved people, through minstrelsy, Broadway, Hollywood, its post-war decline, and contemporary revival.</div>
+      <a href="https://www.amazon.com/What-Eye-Hears-History-Dancing/dp/0865479534" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780197523971-L.jpg" alt="Brotherhood in Rhythm" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>Book</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>Brotherhood in Rhythm: The Jazz Tap Dancing of the Nicholas Brothers</h3>
+      <div class="book-author">Constance Valis Hill &middot; 2000</div>
+      <div class="book-desc">The definitive account of Fayard and Harold Nicholas, whose acrobatic brilliance redefined tap. Traces their journey from Philadelphia vaudeville through Hollywood and their complex navigation of race in the entertainment industry.</div>
+      <a href="https://www.amazon.com/Brotherhood-Rhythm-Dancing-Nicholas-Brothers/dp/0815412169" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780306805530-L.jpg" alt="Jazz Dance" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>Book</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>Jazz Dance: The Story of American Vernacular Dance</h3>
+      <div class="book-author">Marshall &amp; Jean Stearns &middot; 1968</div>
+      <div class="book-desc">The seminal history whose final chapter was titled "The Dying Breed" &mdash; written just before the 1970s tap revival proved it beautifully wrong. Essential context for understanding every documentary on this list.</div>
+      <a href="https://www.amazon.com/Jazz-Dance-Story-American-Vernacular/dp/0306805537" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780306807565-L.jpg" alt="Tap!" onerror="this.outerHTML='<div class=book-cover-placeholder><span class=bph-title>Tap!</span><span class=bph-author>Rusty E. Frank</span><div class=bph-line></div></div>'">
+    <div class="book-info">
+      <h3>Tap! The Greatest Tap Dance Stars and Their Stories</h3>
+      <div class="book-author">Rusty E. Frank &middot; 1990</div>
+      <div class="book-desc">An oral history built from first-person interviews with the dancers themselves &mdash; their own words about the golden age, the lean years, and the revival. An essential companion to the documentary record.</div>
+      <a href="https://www.amazon.com/Tap-Greatest-Dance-Stars-Stories/dp/0306805820" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780313296840-L.jpg" alt="Digging the Africanist" onerror="this.outerHTML='<div class=book-cover-placeholder><span class=bph-title>Digging the Africanist</span><span class=bph-author>Brenda Dixon Gottschild</span><div class=bph-line></div></div>'">
+    <div class="book-info">
+      <h3>Digging the Africanist Presence in American Performance</h3>
+      <div class="book-author">Brenda Dixon Gottschild &middot; 1996</div>
+      <div class="book-desc">Uncovers the African roots embedded in American concert dance, popular entertainment, and everyday movement. Essential for understanding how Black aesthetics shaped &mdash; and were often uncredited in &mdash; American dance forms including tap.</div>
+      <a href="https://www.amazon.com/Digging-Africanist-Presence-American-Performance/dp/0275963713" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780312224257-L.jpg" alt="Waltzing in the Dark" onerror="this.outerHTML='<div class=book-cover-placeholder><span class=bph-title>Waltzing in the Dark</span><span class=bph-author>Brenda Dixon Gottschild</span><div class=bph-line></div></div>'">
+    <div class="book-info">
+      <h3>Waltzing in the Dark: African American Vaudeville and Race Politics in the Swing Era</h3>
+      <div class="book-author">Brenda Dixon Gottschild &middot; 2000</div>
+      <div class="book-desc">Examines the world of African American vaudeville &mdash; the vibrant performance circuit that nurtured virtually every tap dancer on this list &mdash; and the racial politics that both constrained and propelled their artistry.</div>
+      <a href="https://www.amazon.com/Waltzing-Dark-African-American-Vaudeville/dp/0312294433" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780252065088-L.jpg" alt="Steppin' on the Blues" onerror="this.outerHTML='<div class=book-cover-placeholder><span class=bph-title>Steppin\' on the Blues</span><span class=bph-author>Jacqui Malone</span><div class=bph-line></div></div>'">
+    <div class="book-info">
+      <h3>Steppin' on the Blues: The Visible Rhythms of African American Dance</h3>
+      <div class="book-author">Jacqui Malone &middot; 1996</div>
+      <div class="book-desc">Explores the rhythmic foundations of African American dance forms, from ring shouts through jazz tap to contemporary hip-hop, revealing the continuous thread of African-derived movement aesthetics in American culture.</div>
+      <a href="https://www.amazon.com/Steppin-Blues-Visible-Rhythms-American/dp/0252065182" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780847813353-L.jpg" alt="The Black Tradition" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>The Black Tradition</span><span class=book-ph-author>Richard A. Long</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>The Black Tradition in American Dance</h3>
+      <div class="book-author">Richard A. Long &middot; 1989</div>
+      <div class="book-desc">A comprehensive visual and narrative survey of the Black dance tradition from African origins through modern concert dance, placing tap within the broader continuum of Black movement art in America.</div>
+      <a href="https://www.amazon.com/Black-Tradition-American-Dance/dp/0847813355" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780312295318-L.jpg" alt="Royalty of Vaudeville" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>Royalty of Vaudeville</span><span class=book-ph-author>Nadine George-Graves</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>The Royalty of Negro Vaudeville: The Whitman Sisters</h3>
+      <div class="book-author">Nadine George-Graves &middot; 2000</div>
+      <div class="book-desc">Recovers the story of the Whitman Sisters &mdash; the highest-paid Black act on the TOBA circuit &mdash; and their negotiation of race, gender, and class in African American theater from 1900&ndash;1940. A crucial, under-told chapter in tap history.</div>
+      <a href="https://www.amazon.com/Royalty-Negro-Vaudeville-Negotiation-African-American/dp/0312295316" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+  <div class="book-card">
+    <img class="book-cover" src="https://covers.openlibrary.org/b/isbn/9780143037354-L.jpg" alt="Secret Daughter" onerror="this.outerHTML='<div class=book-ph><span class=book-ph-title>Secret Daughter</span><span class=book-ph-author>June Cross</span><div class=book-ph-line></div></div>'">
+    <div class="book-info">
+      <h3>Secret Daughter: A Mixed-Race Daughter and the Mother Who Gave Her Away</h3>
+      <div class="book-author">June Cross &middot; 2006</div>
+      <div class="book-desc">The memoir that accompanies the Frontline documentary. June Cross tells the full story of her parents &mdash; a white actress and a Black vaudevillian &mdash; and growing up hidden across the racial divide of mid-century America.</div>
+      <a href="https://www.amazon.com/Secret-Daughter-Mixed-Race-Mother-Gave/dp/0143037358" target="_blank" class="book-link">Amazon &rarr;</a>
+    </div>
+  </div>
+
+</div><!-- /book-grid -->
+
+
+<!-- ================================================================== -->
+<!-- SECTION 3: VIDEOS & PERFORMANCES                                   -->
+<!-- ================================================================== -->
+<div class="section-header">
+  <div class="section-num">Section 03</div>
+  <h2>Videos &amp; Performances</h2>
+  <p>Legendary performances and illuminating talks available online. Click to watch.</p>
+</div>
+
+<div class="video-grid">
+
+  <!-- Nicholas Brothers Jumpin Jive -->
+  <a href="https://www.youtube.com/watch?v=_8yGGtVKrD8" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/_8yGGtVKrD8/maxresdefault.jpg" alt="Nicholas Brothers Jumpin Jive" onerror="this.src='https://img.youtube.com/vi/_8yGGtVKrD8/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>The Nicholas Brothers &mdash; "Jumpin' Jive" (Stormy Weather, 1943)</h3>
+      <p>The routine Fred Astaire called the greatest dance number ever filmed. Unrehearsed. One take. Fayard and Harold leap across orchestra stands, split down a staircase, and redefine what the human body can do.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Sammy Davis Jr & Gregory Hines Challenge -->
+  <a href="https://www.youtube.com/watch?v=gGUpBXIETWA" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/gGUpBXIETWA/maxresdefault.jpg" alt="Sammy Davis Jr Gregory Hines Challenge" onerror="this.src='https://img.youtube.com/vi/gGUpBXIETWA/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>The "Challenge" from Tap (1989) &mdash; Sammy Davis Jr. &amp; Gregory Hines</h3>
+      <p>Sammy Davis Jr. at 64, Harold Nicholas at 68, and Gregory Hines trade steps in the film's legendary challenge sequence. Davis's final film appearance &mdash; a passing of the torch captured on screen.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Savion Glover PBS -->
+  <a href="https://www.youtube.com/watch?v=5Dl7OhfOg4U" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/5Dl7OhfOg4U/maxresdefault.jpg" alt="Savion Glover PBS" onerror="this.src='https://img.youtube.com/vi/5Dl7OhfOg4U/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>Savion Glover's Big Break on PBS with Gregory Hines</h3>
+      <p>At just 15, Savion Glover appeared alongside his mentor Gregory Hines on PBS's Great Performances special "Tap Dance in America." The moment a new generation of tap found its voice.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Been Rich All My Life trailer -->
+  <a href="https://www.youtube.com/watch?v=qrChxG4G0jg" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/qrChxG4G0jg/maxresdefault.jpg" alt="Been Rich All My Life Trailer" onerror="this.src='https://img.youtube.com/vi/qrChxG4G0jg/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>Been Rich All My Life &mdash; Official Trailer</h3>
+      <p>Trailer for the documentary about the Silver Belles &mdash; five Harlem tap dancers in their 80s and 90s who prove that the art never leaves your body, even after seven decades.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- No Maps on My Taps trailer -->
+  <a href="https://www.youtube.com/watch?v=Z6dGzSa0jmc" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/Z6dGzSa0jmc/maxresdefault.jpg" alt="About Tap Teaser" onerror="this.src='https://img.youtube.com/vi/Z6dGzSa0jmc/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>About Tap (1985) &mdash; Teaser</h3>
+      <p>A preview of George Nierenberg's follow-up documentary featuring Steve Condos, Jimmy Slyde, and Chuck Green exploring the question of individual style in tap dance.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Stormy Weather full film -->
+  <a href="https://www.youtube.com/watch?v=Y33LD_UQWVc" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/Y33LD_UQWVc/maxresdefault.jpg" alt="Stormy Weather full film" onerror="this.src='https://img.youtube.com/vi/Y33LD_UQWVc/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>Stormy Weather (1943) &mdash; Full Film</h3>
+      <p>The complete landmark all-Black musical starring Lena Horne and Bill Robinson, available in 4K restoration on YouTube. Features performances by Cab Calloway, Fats Waller, and the Nicholas Brothers.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Colorized Nicholas Brothers -->
+  <a href="https://www.youtube.com/watch?v=IoMbeDhG9fU" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/IoMbeDhG9fU/maxresdefault.jpg" alt="Nicholas Brothers Colorized" onerror="this.src='https://img.youtube.com/vi/IoMbeDhG9fU/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>The Nicholas Brothers &amp; Cab Calloway &mdash; Colorized</h3>
+      <p>The legendary Stormy Weather "Jumpin' Jive" sequence, carefully colorized with DeOldify technology. Seeing the routine in color adds a new dimension to its already staggering impact.</p>
+    </div>
+  </div>
+  </a>
+
+  <!-- Brian Seibert Talk -->
+  <a href="https://www.youtube.com/watch?v=5_gPcVCqeLY" target="_blank" style="text-decoration:none;color:inherit">
+  <div class="video-card">
+    <div class="video-thumb">
+      <img src="https://img.youtube.com/vi/5_gPcVCqeLY/maxresdefault.jpg" alt="Brian Seibert Talk" onerror="this.src='https://img.youtube.com/vi/5_gPcVCqeLY/hqdefault.jpg'">
+      <div class="video-play-overlay"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div>
+    </div>
+    <div class="video-card-body">
+      <h3>Brian Seibert: "What the Eye Hears" &mdash; LAPL Talk</h3>
+      <p>The New York Times dance critic and author of the definitive tap history discusses the art form's origins, its roots in both African and European traditions, and the racial politics that shaped its trajectory.</p>
+    </div>
+  </div>
+  </a>
+
+</div><!-- /video-grid -->
+
+</div><!-- /container -->
+
+
+<!-- ======== FOOTER ======== -->
+<footer>
+  <p>
+    Film list sourced from <a href="https://www.dorrancedance.com/anti-racism-tap-dance-films-documentaries" target="_blank">Dorrance Dance &mdash; Anti-Racism: Tap Dance Films &amp; Documentaries</a>
+    <br>
+    Additional resources from the Dorrance Dance
+    <a href="https://www.dorrancedance.com/antiracism-tap-dance-books" target="_blank">Tap Dance Books</a>,
+    <a href="https://www.dorrancedance.com/anti-racism-videos" target="_blank">Videos</a>, and
+    <a href="https://www.dorrancedance.com/anti-racism-education-landing" target="_blank">Anti-Racism Education</a> pages.
+    <br><br>
+    Streaming availability checked May 2026. Links may change &mdash; use <a href="https://www.justwatch.com" target="_blank">JustWatch</a> for current options.
+  </p>
+</footer>
+
+</body>
+</html>
