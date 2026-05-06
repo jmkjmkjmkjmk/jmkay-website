@@ -436,6 +436,80 @@
     font-style: italic;
   }
 
+  /* === Pipeline section (films-under-consideration) === */
+  .pipeline-section {
+    max-width: 1100px;
+    margin: 96px auto 0;
+    padding: 64px 32px 0;
+    border-top: 1px dashed var(--line);
+  }
+  .pipeline-section h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .pipeline-blurb {
+    color: var(--ink-light);
+    font-style: italic;
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .pipeline-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    background: var(--bg-card);
+    border-radius: 4px;
+    padding: 16px;
+    border-left: 2px dashed var(--line);
+    opacity: 0.85;
+    transition: opacity 0.2s, box-shadow 0.2s;
+  }
+  .pipeline-card:hover {
+    opacity: 1;
+    box-shadow: var(--shadow-card);
+  }
+  .pipeline-card[data-type="OUR PLACE"] { border-left-color: var(--terracotta); }
+  .pipeline-card[data-type="EVERYWHERE ELSE"],
+  .pipeline-card[data-type="ELSEWHERE"] { border-left-color: var(--teal); }
+  .pipeline-poster {
+    aspect-ratio: 2 / 3;
+    background: var(--bg-stone);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .pipeline-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pipeline-body h3 {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .pipeline-by {
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+  }
+  .pipeline-desc {
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--ink-light);
+    margin-bottom: 10px;
+  }
+  .pipeline-card .action-link {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+
   /* === Letterboxd embed section === */
   .letterboxd-section {
     max-width: 1100px;
@@ -542,6 +616,9 @@
 <main id="calendar">
   <div class="loading">Loading the calendar…</div>
 </main>
+
+<!-- Pipeline section (Status=Considering films, dedup by title) -->
+<section class="pipeline-section" id="pipeline-section" style="display:none"></section>
 
 <!-- Letterboxd section -->
 <section class="letterboxd-section" id="letterboxd-section" style="display:none">
@@ -1163,26 +1240,62 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
 });
 
+// Render the Pipeline section (films-under-consideration, Status=Considering)
+function renderPipeline(events) {
+  const container = document.getElementById('pipeline-section');
+  const considering = events.filter(e => e.status === 'Considering');
+  if (considering.length === 0) {
+    container.style.display = 'none';
+    return;
+  }
+  container.style.display = 'block';
+  // Dedupe by title (a film is in the pipeline once regardless of how many times it appears)
+  const seen = new Set();
+  const unique = considering.filter(e => {
+    if (seen.has(e.title)) return false;
+    seen.add(e.title);
+    return true;
+  });
+  let html = '<h2>In the pipeline</h2><p class="pipeline-blurb">Films Jonathan is mulling. Not committed yet — let him know if you\'re excited about any.</p><div class="pipeline-grid">';
+  unique.forEach(ev => {
+    html += `
+      <div class="pipeline-card" data-type="${ev.type}">
+        <div class="pipeline-poster">
+          ${ev.poster ? `<img src="${escapeHTML(ev.poster)}" alt="${escapeHTML(ev.title)}" loading="lazy">` : ''}
+        </div>
+        <div class="pipeline-body">
+          <h3>${escapeHTML(ev.title)}</h3>
+          <div class="pipeline-by">${escapeHTML(ev.director || '')}${ev.year ? ` (${ev.year})` : ''}${ev.length ? ` · ${escapeHTML(ev.length)}` : ''}</div>
+          ${ev.description ? `<p class="pipeline-desc">${escapeHTML(ev.description)}</p>` : ''}
+          ${ev.letterboxd ? `<a href="${escapeHTML(ev.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
+        </div>
+      </div>
+    `;
+  });
+  html += '</div>';
+  container.innerHTML = html;
+}
+
 // Boot from server-rendered data; then refresh from Apps Script if URL is set
 async function boot() {
   const bootstrap = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
-  // Filter out Cancelled
-  const initial = bootstrap.filter(e => e.status !== 'Cancelled');
+  // Filter out Cancelled. Pipeline (Considering) goes to its own section.
+  const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering');
   renderCalendar(initial);
+  renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
 
   if (APPS_SCRIPT_URL) {
     try {
       const r = await fetch(APPS_SCRIPT_URL + '?action=get_state');
       if (r.ok) {
         const data = await r.json();
-        const live = (data.events || [])
+        const allLive = (data.events || [])
           .filter(e => e.status !== 'Cancelled')
           // Merge bootstrap fields (poster, description, letterboxd, booking) by TITLE alone
           // — these are per-FILM not per-showtime, so date/time match isn't needed and was brittle
           // (null vs '' vs '—' kept failing on OUR PLACE entries with no time set)
           .map(e => {
             const match = bootstrap.find(b => b.title === e.title);
-            // Only carry over bootstrap fields that live data doesn't have
             return {
               ...e,
               poster: e.poster || (match && match.poster) || '',
@@ -1191,10 +1304,11 @@ async function boot() {
               booking: e.booking || (match && match.booking) || '',
             };
           });
-        renderCalendar(live);
+        const liveCommitted = allLive.filter(e => e.status !== 'Considering');
+        renderCalendar(liveCommitted);
+        renderPipeline(allLive);
       }
     } catch (err) {
-      // Silently fall back to bootstrap data
       console.warn('Live fetch failed, using bootstrap data:', err);
     }
   }
