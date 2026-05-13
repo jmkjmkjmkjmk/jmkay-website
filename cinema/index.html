@@ -1390,36 +1390,51 @@ function renderRating(r) {
 })();
 
 // === Boot ===
-// The bootstrap JSON below is now LEGACY FALLBACK only — kept so the page never blanks
-// if Apps Script is down. Live data from ?action=get_state (and ?action=get_past) takes
-// precedence. Once every film in the Sheet has poster/description/letterboxd/videoId
-// populated via the onEventsEdit enrichment trigger, the bootstrap can be deleted.
+// Load strategy (fastest first):
+//   1. localStorage cache  — renders instantly on return visits (TTL: 30 min)
+//   2. Bootstrap JSON      — legacy fallback if cache empty and bootstrap non-empty
+//   3. Live API fetch      — always runs; updates cache on success
+// First-ever visit: skeletons show ~5 sec (Apps Script cold start). Every return visit: instant.
+const CACHE_KEY = 'cinematheque_v6';
+const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+
 async function boot() {
   const bootstrap = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
-  // Filter out Cancelled. Pipeline (Considering) goes to its own section.
-  const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
-  // Only render bootstrap data if it's non-empty — otherwise leave skeleton loaders
-  // visible while the live API fetch runs below. This prevents the "No events" flash.
-  if (initial.length > 0) {
-    renderCalendar(initial);
-    renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
-    renderPast(bootstrap);
+
+  // 1. Try localStorage cache for instant render on return visits
+  let cacheHit = false;
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (raw) {
+      const { ts, upcoming, past, all } = JSON.parse(raw);
+      if (Date.now() - ts < CACHE_TTL) {
+        renderCalendar(upcoming);
+        renderPipeline(all);
+        renderPast(past);
+        cacheHit = true;
+      }
+    }
+  } catch (e) { /* localStorage unavailable — no-op */ }
+
+  // 2. Bootstrap fallback (only if cache missed and bootstrap is non-empty)
+  if (!cacheHit) {
+    const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
+    if (initial.length > 0) {
+      renderCalendar(initial);
+      renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
+      renderPast(bootstrap);
+    }
   }
 
   if (!APPS_SCRIPT_URL) return;
 
-  // Live fetch — primary source. ?action=get_state returns ALL events; we filter client-side.
-  // (If Sonnet later deploys ?action=get_past and ?action=get_upcoming as separate endpoints,
-  // they will work; until then, get_state covers all cases.)
+  // 3. Live fetch — always runs. On success, re-renders + updates cache.
   try {
     const r = await fetch(APPS_SCRIPT_URL + '?action=get_state');
     if (!r.ok) throw new Error('get_state returned ' + r.status);
     const data = await r.json();
     const allLive = (data.events || [])
       .filter(e => e.status !== 'Cancelled')
-      // Merge bootstrap fields by title — bootstrap is legacy fallback for fields the
-      // Sheet hasn't been enriched with yet (poster, description, letterboxd, videoId).
-      // Once enrichment runs on every film, this merge becomes a no-op.
       .map(e => {
         const match = bootstrap.find(b => b.title === e.title);
         return {
@@ -1437,12 +1452,13 @@ async function boot() {
     renderCalendar(liveUpcoming);
     renderPipeline(allLive);
 
-    // Past Screenings: prefer the dedicated endpoint if it exists, else filter get_state.
+    // Past Screenings: prefer dedicated endpoint, fall back to get_state filter
+    let pastEvents = allLive.filter(e => e.status === 'Past');
     try {
       const rp = await fetch(APPS_SCRIPT_URL + '?action=get_past');
       if (rp.ok) {
         const dp = await rp.json();
-        const pastEvents = (dp.past || dp.events || []).map(e => {
+        pastEvents = (dp.past || dp.events || []).map(e => {
           const match = bootstrap.find(b => b.title === e.title);
           return {
             ...e,
@@ -1452,16 +1468,22 @@ async function boot() {
             videoId: e.videoId || e.video_id || e.trailer_id || '',
           };
         });
-        renderPast(pastEvents);
-        return;
       }
-    } catch (errPast) {
-      // get_past not deployed yet — fall back to client-side filter
-    }
-    renderPast(allLive.filter(e => e.status === 'Past'));
+    } catch (errPast) { /* get_past not deployed — using get_state filter above */ }
+    renderPast(pastEvents);
+
+    // Save to cache for next visit
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        ts: Date.now(),
+        upcoming: liveUpcoming,
+        past: pastEvents,
+        all: allLive,
+      }));
+    } catch (e) { /* storage full or unavailable — no-op */ }
+
   } catch (err) {
-    console.warn('Live fetch failed, using bootstrap data:', err);
-    // Bootstrap fallback already rendered above
+    console.warn('Live fetch failed, using cached/bootstrap data:', err);
   }
 }
 boot();
