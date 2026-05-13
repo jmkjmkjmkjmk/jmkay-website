@@ -1398,9 +1398,13 @@ async function boot() {
   const bootstrap = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
   // Filter out Cancelled. Pipeline (Considering) goes to its own section.
   const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
-  renderCalendar(initial);
-  renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
-  renderPast(bootstrap);
+  // Only render bootstrap data if it's non-empty — otherwise leave skeleton loaders
+  // visible while the live API fetch runs below. This prevents the "No events" flash.
+  if (initial.length > 0) {
+    renderCalendar(initial);
+    renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
+    renderPast(bootstrap);
+  }
 
   if (!APPS_SCRIPT_URL) return;
 
