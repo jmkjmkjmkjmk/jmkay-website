@@ -1273,7 +1273,7 @@ function renderShowtime(st) {
       <div class="rsvp-row" data-rsvp-row="${st.row}">
         <button type="button" class="rsvp-btn rsvp-yes${myVote==='yes'?' is-active':''}"     data-vote="yes">${myVote==='yes'?'✓ ':''}Yes</button>
         <button type="button" class="rsvp-btn rsvp-maybe${myVote==='maybe'?' is-active':''}" data-vote="maybe">${myVote==='maybe'?'✓ ':''}Maybe</button>
-        <button type="button" class="rsvp-btn rsvp-pass${myVote==='pass'?' is-active':''}"   data-vote="pass">${myVote==='pass'?'✓ ':''}Pass</button>
+        <button type="button" class="rsvp-btn rsvp-pass${myVote==='pass'?' is-active':''}"   data-vote="pass">${myVote==='pass'?'✓ ':''}Can't</button>
         ${voter ? `<span class="rsvp-as">as ${escapeHTML(voter)}</span>` : '<span class="rsvp-as"><a data-rsvp-identify="1">tell us who you are</a></span>'}
       </div>` : '';
   return `
