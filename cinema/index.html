@@ -1362,7 +1362,7 @@
 // Configuration — Jonathan fills these in after Apps Script deploy + Letterboxd list creation
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywctrZLmnzaPwPPsFIo0eRZc5gJcCRYcxUsjPPyuZdIS4kQfXft_QCccJDtNGtOWJ8Cg/exec'; // e.g., 'https://script.google.com/macros/s/AKfyc.../exec'
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1xvryDAAaqZYAfJDRLQrzKHH5XYOMTo-VDBysZa_nZ4g/edit?usp=sharing';
-const LETTERBOXD_LIST_URL = 'https://letterboxd.com/jonathankay/list/bethesda-cinematheque/'; // e.g., 'https://letterboxd.com/jmkay/list/bethesda-cinematheque/'
+const LETTERBOXD_LIST_URL = 'https://letterboxd.com/jonathankay/list/bethesda-cinematheque/';
 
 document.getElementById('sheet-link').href = SHEET_URL;
 document.getElementById('letterboxd-link').href = LETTERBOXD_LIST_URL || '#';
@@ -1393,6 +1393,32 @@ function eventAnchor(ev) {
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   return `${slug}-${ev.date}`;
 }
+
+// === Known data corrections ===
+// Fixes for Letterboxd slugs that resolve to the wrong film (auto-generated slugs
+// lack year disambiguation) and broken poster URLs. Applied client-side so the page
+// is correct even before the Sheet is manually patched.
+const DATA_CORRECTIONS = {
+  'Devi': {
+    poster: 'https://a.ltrbxd.com/resized/sm/upload/ur/mj/rm/cy/hepIIa9TkcX0ccqoID8zeF04oLC-1200-1200-675-675-crop-000000.jpg?v=4ae08e24ce',
+    letterboxd: 'https://letterboxd.com/film/devi/'
+  },
+  'Under the Skin': {
+    letterboxd: 'https://letterboxd.com/film/under-the-skin-2013/'
+  },
+  'Black Girl': {
+    letterboxd: 'https://letterboxd.com/film/black-girl-1966/'
+  },
+  'The Man Who Wasn't There': {
+    letterboxd: 'https://letterboxd.com/film/the-man-who-wasnt-there-2001/'
+  }
+};
+function applyCorrections(ev) {
+  const fix = DATA_CORRECTIONS[ev.title];
+  if (!fix) return ev;
+  return { ...ev, ...fix, _corrected: true };
+}
+
 function escapeHTML(s) {
   return String(s || '').replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -1834,7 +1860,7 @@ async function boot() {
           rating: e.rating || (match && match.rating) || '',
           memory: e.memory || (match && match.memory) || '',
         };
-      });
+      }).map(applyCorrections);
     const liveUpcoming = allLive.filter(e => e.status !== 'Considering' && e.status !== 'Past');
     renderCalendar(liveUpcoming);
     renderPipeline(allLive);
@@ -1853,7 +1879,7 @@ async function boot() {
             letterboxd: e.letterboxd || (match && match.letterboxd) || '',
             videoId: e.videoId || e.video_id || e.trailer_id || '',
           };
-        });
+        }).map(applyCorrections);
         renderPast(pastEvents);
         return;
       }
