@@ -210,22 +210,24 @@
     margin-top: 14px;
     gap: 0;
   }
-  /* Subtitle diamond O replacement — D2 spec (locked Apr 14, 2026)
+  /* Subtitle diamond O replacement — D2.1 spec (locked May 26, 2026)
+     Dot scaled to sit inside Space Mono cap height at 13px subtitle.
+     Was 8.5/2/3-1 (D2, Apr 14 — archived) — read too heavy against Space Mono cap.
      Base class defines shape; per-position modifiers allow independent fine-tuning. */
   .wm-sub .sub-dot {
-    width: 8.5px;
-    height: 8.5px;
+    width: 6.2px;
+    height: 6.2px;
     background: var(--terracotta);
     transform: rotate(45deg);
-    border-radius: 2px;                  /* softer corners */
-    margin: 0 3px 0 1px;                 /* shifts 2px left to optically center against heavy R / D */
+    border-radius: 1.35px;               /* softer corners, scaled with side */
+    margin: 0 2.25px 0 0.5px;            /* shifts left to optically center against heavy R / D */
     vertical-align: middle;
     flex-shrink: 0;
     display: inline-block;
   }
   /* Per-position modifiers — currently identical, but scaffolded for future divergence */
-  .wm-sub .sub-dot[data-pos="story"]    { /* margin: 0 3px 0 1px; */ }
-  .wm-sub .sub-dot[data-pos="producer"] { /* margin: 0 3px 0 1px; */ }
+  .wm-sub .sub-dot[data-pos="story"]    { /* margin: 0 2.25px 0 0.5px; */ }
+  .wm-sub .sub-dot[data-pos="producer"] { /* margin: 0 2.25px 0 0.5px; */ }
   .wm-sub .sub-spacer {
     width: 20px;
     display: inline-block;
@@ -659,7 +661,7 @@
     .wm-main { font-size: 48px; }
     .wm-main .jmk-d { width: 9px; height: 9px; margin: 0 3px; border-radius: 1.5px; }
     .wm-sub { font-size: 10px; margin-top: 10px; }
-    .wm-sub .sub-dot { width: 6.5px; height: 6.5px; border-radius: 1.5px; margin: 0 2px 0 1px; }
+    .wm-sub .sub-dot { width: 3.7px; height: 3.7px; border-radius: 0.6px; margin: 0 1.5px 0 0.5px; }  /* D2.1 mobile, May 26 2026 */
     .hero-intro { font-size: 17px; }
 
     .approach { padding: 56px 28px; }
