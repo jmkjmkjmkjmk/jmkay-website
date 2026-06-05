@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bethesda Cinematheque — Join the List</title>
+  <meta name="description" content="A curated film series in the DMV — free screenings at a private home in Bethesda, plus group outings to the best repertory programming in the city.">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6XM6RT038M');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:        #1A4A4A;
+      --terracotta:  #C2603F;
+      --terracotta-dark: #A8512E;
+      --warm-white:  #FDFBF7;
+      --cream:       #F5F0E8;
+      --ink:         #1C1917;
+      --ink-muted:   #6B5E52;
+      --line:        #DCD7CB;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* === Top bar === */
+    .topbar {
+      background: var(--teal);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .topbar-back {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: rgba(255,255,255,0.65);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .topbar-back:hover { color: #fff; }
+    .topbar-wordmark {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      text-align: center;
+      flex: 1;
+    }
+    /* spacer to keep wordmark centered */
+    .topbar-spacer {
+      width: 80px;
+      text-align: right;
+    }
+
+    /* === Main === */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 24px 72px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    /* === Label === */
+    .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 28px;
+      display: block;
+    }
+
+    /* === Value prop === */
+    .value-prop {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 22px;
+      line-height: 1.55;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 44px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* === Form === */
+    .subscribe-form-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .form-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .email-row {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    .email-input {
+      flex: 1;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 16px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.15s;
+      -webkit-appearance: none;
+    }
+    .email-input::placeholder { color: #B0A89E; }
+    .email-input:focus { border-color: var(--teal); }
+
+    .submit-btn {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 12px 22px;
+      background: var(--terracotta);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+      -webkit-appearance: none;
+    }
+    .submit-btn:hover:not(:disabled) { background: var(--terracotta-dark); }
+    .submit-btn:disabled { opacity: 0.6; cursor: default; }
+
+    /* === Status / success === */
+    .form-status {
+      margin-top: 14px;
+      font-size: 14px;
+      min-height: 20px;
+    }
+    .form-status.error { color: #B23A2F; }
+
+    .success-state {
+      display: none;
+      padding: 28px 32px;
+      background: var(--cream);
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+    .success-state h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 26px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+    .success-state p {
+      color: var(--ink-muted);
+      font-size: 15px;
+    }
+
+    /* === Footer === */
+    footer {
+      padding: 24px;
+      text-align: center;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 12px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--line);
+    }
+    footer a { color: var(--teal); }
+    footer a:hover { text-decoration: underline; }
+
+    /* === Mobile === */
+    @media (max-width: 520px) {
+      .topbar-wordmark { font-size: 11px; letter-spacing: 0.12em; }
+      .value-prop { font-size: 19px; }
+      .email-row { flex-direction: column; }
+      .submit-btn { width: 100%; padding: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <a href="https://jmkay.com" class="topbar-back">← jmkay.com</a>
+    <div class="topbar-wordmark">Bethesda Cinematheque</div>
+    <div class="topbar-spacer"></div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="card">
+
+      <span class="label">Join the list</span>
+
+      <!-- Value prop -->
+      <p class="value-prop">
+        Bethesda Cinematheque is a curated film series in the DMV &mdash; free screenings at a private home in Bethesda, plus group outings to the best repertory programming in the city. One short email a week; come to what you want.
+      </p>
+
+      <!-- Subscribe form -->
+      <div id="form-wrap" class="subscribe-form-wrap">
+        <label class="form-label" for="email-input">Get the weekly film email</label>
+        <form id="subscribe-form" action="https://buttondown.com/api/emails/embed-subscribe/jmkay" method="post">
+          <div class="email-row">
+            <input
+              id="email-input"
+              class="email-input"
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              autocomplete="email"
+              required
+            />
+            <button type="submit" class="submit-btn" id="submit-btn">Join the list</button>
+          </div>
+        </form>
+        <div class="form-status" id="form-status" aria-live="polite"></div>
+      </div>
+
+      <!-- Success state (shown after submit) -->
+      <div class="success-state" id="success-state">
+        <h2>You&rsquo;re on the list.</h2>
+        <p>First email lands this week. Come to what you want.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <a href="https://jmkay.com">jmkay.com</a> &nbsp;&middot;&nbsp; The calendar lives at jmkay.com/cinema/ (shared by invitation)
+  </footer>
+
+  <script>
+    (function() {
+      const form       = document.getElementById('subscribe-form');
+      const submitBtn  = document.getElementById('submit-btn');
+      const statusEl   = document.getElementById('form-status');
+      const formWrap   = document.getElementById('form-wrap');
+      const successEl  = document.getElementById('success-state');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = (form.elements['email'] || {}).value || '';
+        if (!email) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Joining…';
+        statusEl.textContent = '';
+        statusEl.className = 'form-status';
+
+        try {
+          const res = await fetch('https://buttondown.com/api/emails/embed-subscribe/jmkay', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'email=' + encodeURIComponent(email),
+          });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          // Success
+          formWrap.style.display = 'none';
+          successEl.style.display = 'block';
+        } catch (err) {
+          console.warn('Subscribe error:', err);
+          statusEl.textContent = "Couldn’t submit — please try again, or email jonmichaelkay@gmail.com.";
+          statusEl.className = 'form-status error';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Join the list';
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
