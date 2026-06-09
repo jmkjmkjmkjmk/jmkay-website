@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Private decision dashboard.">
+<title>Decision Dashboard · June 9 2026</title>
+<style>
+  :root{
+    --terracotta:#C2603F; --terracotta-light:#E8A88C;
+    --warm-white:#FDFBF7; --cream:#F5F0E8;
+    --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C;
+    --teal:#1A4A4A; --sage:#7A8F6D;
+    --rec-bg:#F0F4EE; --rec-border:#7A8F6D;
+    --pick-bg:#FBEDE6; --pick-border:#C2603F;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--warm-white); color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.5; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:860px; margin:0 auto; padding:0 18px 140px;}
+  header.hero{
+    background:var(--teal); color:#fff; padding:30px 24px 26px; margin-bottom:6px;
+  }
+  header.hero .wrap{padding-bottom:0;}
+  .kicker{font-family:"SF Mono",Menlo,monospace; font-size:12px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--terracotta-light); margin:0 0 8px;}
+  h1{font-size:30px; margin:0 0 8px; font-weight:600; letter-spacing:-.01em;}
+  .dot{display:inline-block; width:11px; height:11px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:2px; margin:0 2px;}
+  header.hero p{margin:6px 0 0; color:rgba(235,230,222,.92); font-size:15px; max-width:640px;}
+  .legend{font-family:"SF Mono",Menlo,monospace; font-size:11.5px; color:rgba(235,230,222,.8);
+    margin-top:14px; letter-spacing:.02em;}
+  .legend b{color:var(--sage); background:#fff; padding:1px 6px; border-radius:3px;}
+
+  section.proj{margin:30px 0 0;}
+  .proj-head{display:flex; align-items:baseline; gap:12px; border-bottom:2px solid var(--cream);
+    padding-bottom:6px; margin-bottom:4px;}
+  .proj-head h2{font-size:21px; margin:0; color:var(--teal);}
+  .proj-head .count{font-family:"SF Mono",Menlo,monospace; font-size:12px; color:var(--ink-muted);}
+  .proj-note{font-size:13.5px; color:var(--ink-light); margin:8px 0 6px; font-style:italic;}
+
+  .item{background:#fff; border:1px solid var(--cream); border-radius:10px;
+    padding:18px 18px 14px; margin:16px 0; box-shadow:0 1px 2px rgba(28,25,23,.04);}
+  .item.done{border-color:var(--rec-border);}
+  .item-id{font-family:"SF Mono",Menlo,monospace; font-size:12px; color:var(--terracotta);
+    font-weight:600; letter-spacing:.04em;}
+  .pri{font-family:"SF Mono",Menlo,monospace; font-size:10.5px; letter-spacing:.08em;
+    text-transform:uppercase; padding:2px 7px; border-radius:4px; margin-left:8px; vertical-align:1px;}
+  .pri.p0{background:#7a2018; color:#fff;}
+  .pri.p1{background:var(--terracotta); color:#fff;}
+  .pri.p2{background:var(--cream); color:var(--ink-light);}
+  .pri.choice{background:var(--teal); color:#fff;}
+  .item h3{font-size:18px; margin:6px 0 4px;}
+  .ctx{font-size:14.5px; color:var(--ink-light); margin:4px 0 14px;}
+  .ctx .ms{font-family:"SF Mono",Menlo,monospace; font-size:12.5px; color:var(--ink-muted);}
+
+  .opts{display:flex; flex-direction:column; gap:9px;}
+  label.opt{display:flex; gap:11px; align-items:flex-start; cursor:pointer;
+    background:var(--cream); border:1.5px solid transparent; border-left:4px solid #d8d0c4;
+    border-radius:8px; padding:11px 13px; transition:.12s;}
+  label.opt:hover{background:#efe8dc;}
+  label.opt.rec{background:var(--rec-bg); border-left-color:var(--rec-border);}
+  label.opt input{margin:0; width:22px; height:22px; flex:none; accent-color:var(--terracotta);
+    margin-top:1px;}
+  label.opt .otxt{font-size:15px;}
+  label.opt .recflag{font-family:"SF Mono",Menlo,monospace; font-size:10.5px; color:var(--sage);
+    font-weight:700; letter-spacing:.05em; margin-left:6px; text-transform:uppercase;}
+  label.opt.picked{background:var(--pick-bg); border-color:var(--pick-border); border-left-color:var(--pick-border);}
+  label.opt .osub{display:block; font-size:13px; color:var(--ink-muted); margin-top:2px;}
+
+  .notewrap{margin-top:11px;}
+  .notewrap label{font-family:"SF Mono",Menlo,monospace; font-size:11px; color:var(--ink-muted);
+    text-transform:uppercase; letter-spacing:.06em;}
+  textarea{width:100%; min-height:46px; margin-top:4px; border:1px solid var(--cream);
+    border-radius:7px; padding:9px 11px; font-family:inherit; font-size:14px; color:var(--ink);
+    resize:vertical; background:var(--warm-white);}
+  textarea:focus{outline:none; border-color:var(--terracotta-light);}
+
+  footer.bar{position:fixed; bottom:0; left:0; right:0; background:#fff;
+    border-top:1px solid var(--cream); box-shadow:0 -2px 12px rgba(28,25,23,.08);
+    padding:12px 18px; z-index:50;}
+  footer.bar .inner{max-width:860px; margin:0 auto; display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .prog{flex:1; min-width:160px;}
+  .prog .track{height:8px; background:var(--cream); border-radius:5px; overflow:hidden;}
+  .prog .fill{height:100%; width:0; background:var(--terracotta); transition:.25s;}
+  .prog .lbl{font-family:"SF Mono",Menlo,monospace; font-size:12px; color:var(--ink-light); margin-bottom:5px;}
+  button{font-family:"SF Mono",Menlo,monospace; font-size:13px; padding:10px 16px; border-radius:7px;
+    border:none; cursor:pointer; letter-spacing:.03em;}
+  .btn-primary{background:var(--terracotta); color:#fff;}
+  .btn-primary:hover{background:#a94f31;}
+  .btn-ghost{background:transparent; color:var(--ink-muted); border:1px solid var(--cream);}
+  .btn-ghost:hover{color:var(--terracotta);}
+  .toast{position:fixed; bottom:78px; left:50%; transform:translateX(-50%);
+    background:var(--teal); color:#fff; padding:10px 18px; border-radius:8px; font-size:14px;
+    opacity:0; pointer-events:none; transition:.2s; z-index:60;}
+  .toast.show{opacity:1;}
+  @media(max-width:560px){ h1{font-size:25px;} .item h3{font-size:17px;} }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Cross-Project Decisions · PM update</p>
+    <h1>What's waiting on you <span class="dot"></span> June 9, 2026</h1>
+    <p>The morning Casa Fortuna batch (C1–C7) already executed — those items are kept below for the record. The live open calls now sit in the new top section, from the ChatRead disposition + the Ch12→end fresh-eyes blind read. Each has my recommendation flagged. Tap your pick, add a note, then hit <b style="color:#fff;background:none">✉ Email my picks</b> — it opens Mail pre-filled to your inbox; just send, and I'll pick it up and execute.</p>
+    <p class="legend"><b>REC</b> = my recommended default. Anything you don't touch, I'll treat as "go with the recommendation."</p>
+  </div>
+</header>
+
+<div class="wrap" id="app"></div>
+
+<footer class="bar">
+  <div class="inner">
+    <div class="prog">
+      <div class="lbl" id="proglbl">0 of 0 decided</div>
+      <div class="track"><div class="fill" id="progfill"></div></div>
+    </div>
+    <button class="btn-ghost" onclick="resetAll()">Reset</button>
+    <button class="btn-ghost" onclick="acceptAllRecs()">Accept all RECs</button>
+    <button class="btn-ghost" onclick="copyJSON()">Copy JSON</button>
+    <button class="btn-primary" onclick="emailPicks()">✉ Email my picks</button>
+  </div>
+</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const LS_KEY = "cross-project-decisions-2026-06-09-pm";
+
+const DATA = [
+ {group:"CASA FORTUNA — Back-third & ChatRead open calls (PM)", note:"From the 2026-06-09 ChatRead disposition + the Ch12→end fresh-eyes blind read (4 cold readers). The morning C1–C5 batch already executed and the manuscript is re-FROZEN for Norton — so these are what's genuinely still open. Memo: ChatRead_Suggestions_Disposition_2026-06-09.md; blind-read synthesis: FreshEyes_Synthesis_Ch12_to_End_2026-06-09.md.", items:[
+   {id:"D1", pri:"CHOICE", title:"Audition-tape chronology — which date is canonical? (it's a fork, not a one-word fix)",
+    ctx:"FACT_ANCHORS contradicts itself and the prose splits the same way. <span class='ms'>Ch12</span> “the previous February” + <span class='ms'>Ch16</span> the water “would become, <i>within weeks</i>, the largest search area” both put filming <b>before</b> MH370 (Feb 2014). <span class='ms'>Ch18</span>’s coda says “filmed <i>that spring</i>,” and one bible anchor frames a deliberate <i>post</i>-MH370 placement (the §18a vanishment substrate). Whichever you keep, a small cascade follows. Note: 4/4 fresh-eyes readers also want the Ch18 coda — which carries “that spring” — trimmed, so this can resolve <i>with</i> the coda at a future un-freeze.",
+    opts:[{v:"february",t:"February / pre-MH370 — keep the protected Ch16 “within weeks” plant + Ch12; fix the one word in Ch18 + reconcile the bible anchor",rec:true,sub:"Lower-risk: honors the protected MH370 anticipatory-dread plant; smallest cascade."},
+          {v:"spring",t:"Spring / post-MH370 — keep Ch18 + the §18a “inside the search window” intent; edit Ch12 + the protected Ch16 plant to match",sub:"Thematically richer but touches a protected beat in Ch16; larger cascade."},
+          {v:"later",t:"Decide later — queue for the next un-freeze with the coda"}]},
+   {id:"D2", pri:"CHOICE", title:"Ch16 “Visitor” standalone — re-promote for general-readership venues?",
+    ctx:"The v3 submissions plan (May 28) dropped it to “softer-register option only, ★★★½.” The chat read re-rated it a near-perfect, most-accessible standalone. The cold readers found it a momentum-<i>dip</i> in sequence — which is exactly what makes it a clean <i>extracted</i> piece. No extraction happens now either way.",
+    opts:[{v:"repromote",t:"Re-promote to the active reserve for general-readership venues",rec:true,sub:"The accessibility that slackens it in situ is a virtue out of sequence."},
+          {v:"hold",t:"Hold the v3 demotion (softer-register reserve only)"},
+          {v:"later",t:"Decide later"}]},
+   {id:"D3", pri:"P2", title:"Query back-third framing — merge into the query + synopsis .docx now?",
+    ctx:"The slow-loss / <i>Severance</i>-model positioning block is landed as a .md asset (BackThird_Query_Framing_Block_2026-06-09.md). Merging it into Agent_Query_Template + Synopsis_Variants (both dated May 11) also wants a freshness pass — word count to 103,035 + comp pub-status confirm.",
+    opts:[{v:"merge",t:"Yes — merge into the query + synopsis .docx now, with the freshness pass",rec:true},
+          {v:"asset",t:"Keep it as the .md asset only for now"},
+          {v:"later",t:"Decide later"}]},
+   {id:"D4", pri:"P2", title:"Approve the Next Un-Freeze Batch slate (sits ready; nothing deploys until you sanction an un-freeze)",
+    ctx:"Priority-ordered line-work for the next pre-send batch: <b>1.</b> Ch01 opening pass (the L57 clause-stacked opener + the “genetic anomaly” line, one roll, replacements drafted); <b>2.</b> the D1 chronology cascade; <b>3.</b> the Ch18 coda look (4/4 fresh-eyes flag; thesis line + Option Z stay locked); <b>4.</b> optional Ch13 micro-trim (~30–40w only — the −600–900w scope dissolves). All queued in REVIEW_QUEUE.",
+    opts:[{v:"approve",t:"Approve the slate as queued",rec:true},
+          {v:"trim",t:"Trim the slate (tell me which to drop in the note)"},
+          {v:"later",t:"Decide later"}]},
+ ]},
+ {group:"CASA FORTUNA — Novel (morning batch · ✓ EXECUTED 2026-06-09)", note:"✓ DONE — C1/C2/C3/C5 deployed and the manuscript re-frozen (DECISIONS 2026-06-09); C4 routed to the back-third evaluation (now superseded → see the new top section); C6 = keep; C7 resolved via C1. Kept here for the record — no action needed.", items:[
+   {id:"C1", pri:"P0", title:"Reconcile the timeline contradiction (the one true must-fix)",
+    ctx:"Both novel sessions flagged this. A June 5 edit flipped a <span class='ms'>Ch01</span> aside to “in 2015,” but <span class='ms'>Ch12</span> anchors the TV shoot to July 2014 / airing Aug 2015. A re-reading editor will catch it. ~1-word fix.",
+    opts:[{v:"fix",t:"Fix the Ch01 aside to match Ch12 (July 2014 shoot / Aug 2015 airing)",rec:true},
+          {v:"check",t:"Hold — I want to confirm which date is canonical myself first",sub:"I'll surface the Ch12 anchor lines for you"},
+          {v:"hold",t:"Leave for now"}]},
+   {id:"C2", pri:"P1", title:"Ch18 — move Eric out of “Riyadh”",
+    ctx:"Eric is placed in Riyadh in March 2019 — implausible during the 2017–21 Saudi–Qatar blockade. Meaning-neutral, 2 mentions.",
+    opts:[{v:"kuwait",t:"Swap to Kuwait City",rec:true},
+          {v:"muscat",t:"Swap to Muscat"},
+          {v:"leave",t:"Leave as Riyadh"}]},
+   {id:"C3", pri:"P1", title:"Optional place-grounding (lifts grounding B+ → A-)",
+    ctx:"Three light one-line appositives: Ch01 Toa Payoh (“one of the older HDB new towns”), Ch02 Bugis (“on the edge of the old Malay-Muslim quarter”), Ch08 Gillman Barracks (5-word descriptor pulled from Ch12). Nice-to-have, not gating.",
+    opts:[{v:"all",t:"Add all three (do it in the same batch)",rec:true},
+          {v:"skip",t:"Skip — B+ is fine for now"},
+          {v:"later",t:"Decide later"}]},
+   {id:"C4", pri:"P1", title:"The back third (Ch13–17) reads as a long wind-down",
+    ctx:"Five-editor read: it may BE the thesis. Option (a) frame it honestly in the query letter — free. Option (b) ALSO trim ~5–8K words, Ch15 Penang the lead candidate.",
+    opts:[{v:"frame",t:"Frame in the query only (free, no manuscript change)",rec:true},
+          {v:"trim",t:"Frame + trim ~5–8K (Ch15 Penang)"},
+          {v:"later",t:"Decide later"}]},
+   {id:"C5", pri:"P2", title:"Spelling reconcile",
+    ctx:"Does the June 4 “hawker center” decision stand, or does the SG place-term rule win? Low stakes.",
+    opts:[{v:"hawker",t:"“Hawker center” stands",rec:true},
+          {v:"sgrule",t:"SG place-term rule wins"},
+          {v:"later",t:"Let me decide later"}]},
+   {id:"C6", pri:"P2", title:"Ch13 “The Invitation”",
+    ctx:"Keep as its own chapter, compress, or merge into the Ch12 aftermath?",
+    opts:[{v:"keep",t:"Keep as-is",rec:true},
+          {v:"compress",t:"Compress"},
+          {v:"merge",t:"Merge into Ch12 aftermath"}]},
+   {id:"C7", pri:"P2", title:"Ch12 HHI air-date — optional double-check",
+    ctx:"The real episode “Spending More in Singapore” aired 2015 (matches the “thirteen months later” math). Prose pins no date, reads clean.",
+    opts:[{v:"skip",t:"Skip — prose is clean, no date pinned",rec:true},
+          {v:"verify",t:"Do the 1-source confirm before send"}]},
+ ]},
+ {group:"J.M.KAY — LinkedIn Phase 2", note:"Posts 05–27 are fully planned and staged in the tracker. Five of six are safe rubber-stamps; two are genuine choices (day-of-week + Post 05 date).", items:[
+   {id:"L1", pri:"P2", title:"Lock Posts 06–20 as planned",
+    ctx:"The June 5 v2 content-engine recut planned 06–20 around four series (Field Notes, Camera, Agency Education, Producer's Tightrope). Validated, not rewritten.",
+    opts:[{v:"lock",t:"Yes — lock them",rec:true},
+          {v:"reopen",t:"Reopen some (tell me which in the note)"}]},
+   {id:"L2", pri:"P2", title:"Keep Casa Fortuna out of the calendar",
+    ctx:"It's pre-publication and off-register for the launch series.",
+    opts:[{v:"out",t:"Yes — keep it out",rec:true},
+          {v:"in",t:"Include it"}]},
+   {id:"L3", pri:"P2", title:"Two new marquees as Article + Teaser",
+    ctx:"Post 21 China 2010 (“Twenty Years On…”) and Post 26 AAS relaunch (375K views). Both planned as Article+Teaser pairs.",
+    opts:[{v:"keep",t:"Keep both as Article + Teaser",rec:true},
+          {v:"change",t:"Change one or both (note which)"}]},
+   {id:"L4", pri:"P2", title:"Theme vocabulary size",
+    ctx:"You once said “10 tags,” but the live set is 12. Confirm which.",
+    opts:[{v:"twelve",t:"Confirm the 12-tag set",rec:true},
+          {v:"ten",t:"Cut back to 10 (note which to drop)"}]},
+   {id:"L5", pri:"CHOICE", title:"Publishing day of the week",
+    ctx:"The v2 recut suggested shifting off Tuesdays to Wed/Thu. Grid is currently locked to Tuesdays. Dec 22 & 29 are the two holiday-week breathers either way.",
+    opts:[{v:"tue",t:"Keep Tuesdays",rec:true},
+          {v:"wed",t:"Shift to Wednesdays"},
+          {v:"thu",t:"Shift to Thursdays"}]},
+   {id:"L6", pri:"CHOICE", title:"Post 05 publish date",
+    ctx:"Post 05 isn't up yet. You said likely 6/10 or 6/11. (Topic is locked: “What Nearly Two Decades in Healthcare Taught Me About Story.”) Whatever you pick, I'll nudge the rest of the grid to follow.",
+    opts:[{v:"jun10",t:"Wednesday, June 10",rec:true},
+          {v:"jun11",t:"Thursday, June 11"},
+          {v:"other",t:"Other — see my note"}]},
+ ]},
+ {group:"Home-Video Archive — Films", note:"Analysis + tooling are done; the gate is open to start cutting. Nothing here is urgent. You said you “need to see” — so I've put each film's actual finding under its option. Pick when the other two projects are off your plate.", items:[
+   {id:"A1", pri:"CHOICE", title:"Which film to cut first",
+    ctx:"All three are gated and ready to query-and-assemble. The one-line finding that powers each is under its option.",
+    opts:[{v:"archivist",t:"The Archivist",sub:"Debra's share of the prompting climbs 33% → 80.6% (1986→2010); her voice inverts with age — fast prompting at 27, slow 100-word reflection by 52."},
+          {v:"twenty",t:"Twenty Years",sub:"Only 7 pure “future-addressed” scenes — that's the real spine. Re-anchor on 1986→1996→2000→2006-09→2010-12."},
+          {v:"maternal",t:"The Maternal Line",sub:"Anita → Debra → Becca. Becca arcs girl→woman: 176 wpm at 15 to a 1,453-word monologue at 19."},
+          {v:"later",t:"Decide later — not now"}]},
+   {id:"A2", pri:"P2", title:"Run a human-watch “confirm pass” first?",
+    ctx:"All 383 scenes are auto-derived (confirmed=0), not yet eyeballed. I can build an iPad-friendly confirm dashboard to make it fast before any cut leans on the tags.",
+    opts:[{v:"build",t:"Build the iPad confirm dashboard",rec:true},
+          {v:"skip",t:"Skip — cut from the derived tags"},
+          {v:"later",t:"Decide with the film choice"}]},
+   {id:"A3", pri:"P2", title:"Fold in the 10 undated tapes?",
+    ctx:"63 of 67 tapes are registered; 10 are undated (Pinecrest x3, Israel Trip Greg, Linda, etc.). Folding them in gives full coverage but is extra work.",
+    opts:[{v:"leave",t:"Leave them out for now",rec:true},
+          {v:"fold",t:"Fold them in for full coverage"},
+          {v:"later",t:"Decide later"}]},
+ ]},
+];
+
+let state = JSON.parse(localStorage.getItem(LS_KEY) || "{}"); // {id:{pick, note}}
+
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+
+function render(){
+  const app = document.getElementById("app");
+  app.innerHTML = "";
+  let total=0;
+  DATA.forEach(grp=>{
+    const sec=document.createElement("section"); sec.className="proj";
+    let html = `<div class="proj-head"><h2>${esc(grp.group)}</h2><span class="count">${grp.items.length} decisions</span></div>`;
+    if(grp.note) html += `<p class="proj-note">${grp.note}</p>`;
+    grp.items.forEach(it=>{
+      total++;
+      const cur = state[it.id] || {};
+      const decided = cur.pick ? "done":"";
+      let opts = it.opts.map(o=>{
+        const picked = cur.pick===o.v ? "picked":"";
+        const rec = o.rec ? "rec":"";
+        return `<label class="opt ${rec} ${picked}">
+          <input type="radio" name="${it.id}" value="${o.v}" ${cur.pick===o.v?"checked":""} onchange="pick('${it.id}','${o.v}')">
+          <span class="otxt">${o.t}${o.rec?'<span class="recflag">★ Rec</span>':''}${o.sub?`<span class="osub">${o.sub}</span>`:''}</span>
+        </label>`;
+      }).join("");
+      html += `<div class="item ${decided}" id="item-${it.id}">
+        <span class="item-id">${it.id}</span><span class="pri ${it.pri.toLowerCase()}">${it.pri==='CHOICE'?'Your call':it.pri}</span>
+        <h3>${esc(it.title)}</h3>
+        <div class="ctx">${it.ctx}</div>
+        <div class="opts">${opts}</div>
+        <div class="notewrap">
+          <label for="note-${it.id}">Note (optional)</label>
+          <textarea id="note-${it.id}" placeholder="Anything to tell me about this one..." oninput="setNote('${it.id}',this.value)">${cur.note?esc(cur.note):""}</textarea>
+        </div>
+      </div>`;
+    });
+    sec.innerHTML = html;
+    app.appendChild(sec);
+  });
+  updateProgress(total);
+}
+
+function pick(id,v){ state[id]=state[id]||{}; state[id].pick=v; save(); render(); }
+function setNote(id,v){ state[id]=state[id]||{}; state[id].note=v; save(); updateProgress(); }
+function save(){ localStorage.setItem(LS_KEY, JSON.stringify(state)); }
+
+function updateProgress(total){
+  if(total===undefined){ total=0; DATA.forEach(g=>total+=g.items.length); }
+  let done=0; DATA.forEach(g=>g.items.forEach(it=>{ if(state[it.id]&&state[it.id].pick) done++; }));
+  document.getElementById("proglbl").textContent = `${done} of ${total} decided`;
+  document.getElementById("progfill").style.width = (done/total*100)+"%";
+}
+
+function acceptAllRecs(){
+  DATA.forEach(g=>g.items.forEach(it=>{
+    const r=it.opts.find(o=>o.rec);
+    if(r){ state[it.id]=state[it.id]||{}; if(!state[it.id].pick) state[it.id].pick=r.v; }
+  }));
+  save(); render(); toast("All recommendations applied where blank");
+}
+
+function buildJSON(){
+  const picks=[];
+  DATA.forEach(g=>g.items.forEach(it=>{
+    const cur=state[it.id]||{};
+    const chosen = it.opts.find(o=>o.v===cur.pick);
+    picks.push({id:it.id, project:g.group, title:it.title, priority:it.pri,
+      pick:cur.pick||null, pick_label:chosen?chosen.t.replace(/\s+/g,' ').trim():null, note:cur.note||""});
+  }));
+  let total=0,done=0; picks.forEach(p=>{total++; if(p.pick)done++;});
+  return {session:"Cross-project decisions . June 9 2026",
+    date_exported:new Date().toISOString(),
+    decided:done, total:total, picks:picks};
+}
+
+function copyJSON(){
+  const t=JSON.stringify(buildJSON(),null,2);
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(()=>toast("Copied — paste it back to me"),()=>fallbackCopy(t));
+  } else fallbackCopy(t);
+}
+function fallbackCopy(t){
+  const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta);
+  ta.select(); try{document.execCommand("copy"); toast("Copied — paste it back to me");}catch(e){toast("Copy failed — use Download");}
+  document.body.removeChild(ta);
+}
+function downloadJSON(){
+  const blob=new Blob([JSON.stringify(buildJSON(),null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob); const a=document.createElement("a");
+  a.href=url; a.download="decisions-2026-06-09.json"; a.click(); URL.revokeObjectURL(url);
+  toast("Downloaded");
+}
+function resetAll(){ if(confirm("Clear all your picks?")){ state={}; save(); render(); } }
+
+const EMAIL_TO = "jonmichaelkay@gmail.com";
+function emailPicks(){
+  const j = buildJSON();
+  const lines = [];
+  j.picks.forEach(p=>{ if(p.pick){
+    const proj = (p.project||"").split("—")[0].trim();
+    lines.push(p.id + " [" + proj + "]: " + p.pick + (p.note ? ("  — note: " + p.note) : ""));
+  }});
+  if(lines.length===0){ toast("Pick at least one first"); return; }
+  let body = "My decisions (" + j.decided + " of " + j.total + "):\n\n" + lines.join("\n");
+  body += "\n\n(Sent from the iPad decision dashboard, " + new Date().toLocaleString() + ". For the full structured version, use Copy JSON.)";
+  const url = "mailto:" + EMAIL_TO + "?subject=" + encodeURIComponent("Cross-project decisions — June 9 PM")
+            + "&body=" + encodeURIComponent(body);
+  window.location.href = url;
+  toast("Opening Mail — just hit send");
+}
+
+let tt;
+function toast(msg){ const el=document.getElementById("toast"); el.textContent=msg; el.classList.add("show");
+  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove("show"),1900); }
+
+render();
+</script>
+</body>
+</html>
