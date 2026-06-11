@@ -2011,7 +2011,8 @@ function renderRating(r) {
 // precedence. Once every film in the Sheet has poster/description/letterboxd/videoId
 // populated via the onEventsEdit enrichment trigger, the bootstrap can be deleted.
 async function boot() {
-  const bootstrap = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
+  const bootstrapRaw = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
+  const bootstrap = Array.isArray(bootstrapRaw) ? bootstrapRaw : (bootstrapRaw.events || []);
   // Filter out Cancelled. Pipeline (Considering) goes to its own section.
   const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
   // Only render bootstrap data if it's non-empty — otherwise leave skeleton loaders
