@@ -251,6 +251,83 @@
   }
   .showtime.is-polling { background: rgba(26,74,74,0.025); }
 
+  /* === Poll grid: day -> venue -> time chips === */
+  .poll-grid { margin: 2px 0 6px; }
+  .poll-day { margin-bottom: 14px; }
+  .poll-day:last-child { margin-bottom: 4px; }
+  .poll-day-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    border-bottom: 2px solid var(--teal);
+    padding-bottom: 3px;
+    margin-bottom: 8px;
+  }
+  .poll-venue {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 6px 0;
+  }
+  .poll-venue + .poll-venue { border-top: 1px dashed #E2DACE; }
+  .poll-venue-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .poll-venue-name .neighborhood {
+    display: block;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--ink-light);
+    margin-top: 1px;
+  }
+  .poll-times { display: flex; flex-wrap: wrap; gap: 6px; }
+  .time-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border: 1px solid #1A4A4A;
+    border-radius: 999px;
+    background: #fff;
+    color: #1A4A4A;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s;
+  }
+  .time-chip:hover { background: #E7EEEC; }
+  .time-chip.is-active { background: var(--teal); color: #fff; border-color: var(--teal); }
+  .time-chip .chip-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #C2603F;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .time-chip.is-active .chip-count { background: rgba(255,255,255,0.28); }
+  .poll-identity {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-top: 8px;
+  }
+  .poll-identity a { color: var(--teal); cursor: pointer; text-decoration: underline; }
+  @media (max-width: 560px) {
+    .poll-venue { grid-template-columns: 1fr; gap: 4px; }
+  }
+
   .event-title {
     font-family: 'EB Garamond', Georgia, serif;
     font-size: 28px;
@@ -1809,6 +1886,56 @@ function getMyVoteForShowtime(st, voter) {
   return null;
 }
 
+// "FRI · JUN 19" style day label
+function formatDayLabel(isoDate) {
+  if (!isoDate) return '';
+  const d = new Date(isoDate + 'T00:00:00');
+  const wd = d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase();
+  const mo = d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+  return `${wd} · ${mo} ${d.getDate()}`;
+}
+
+// Poll layout: group showtimes by DAY, then by VENUE, with times as toggle chips.
+function renderPollGrid(film) {
+  const voter = getCurrentVoter();
+  const polling = film.showtimes.filter(s => s.status === 'Polling');
+
+  // group by date
+  const byDate = {};
+  polling.forEach(s => { (byDate[s.date] = byDate[s.date] || []).push(s); });
+  const dates = Object.keys(byDate).sort();
+
+  let html = '<div class="poll-grid">';
+  dates.forEach(date => {
+    html += `<div class="poll-day"><div class="poll-day-label">${formatDayLabel(date)}</div>`;
+    // group that day's showtimes by venue
+    const byVenue = {};
+    byDate[date].forEach(s => { (byVenue[s.venue] = byVenue[s.venue] || []).push(s); });
+    Object.keys(byVenue).forEach(venue => {
+      const sts = byVenue[venue].slice().sort((a, b) => (a.time || '') < (b.time || '') ? -1 : 1);
+      const hood = sts[0].neighborhood;
+      html += `<div class="poll-venue">
+        <div class="poll-venue-name">${escapeHTML(venue)}${hood ? `<span class="neighborhood">${escapeHTML(hood)}</span>` : ''}</div>
+        <div class="poll-times">`;
+      sts.forEach(st => {
+        const mine = voter && getMyVoteForShowtime(st, voter) === 'avail';
+        const cnt = st.avail_count || 0;
+        const names = (st.avail_names || []).join(', ');
+        const tip = cnt ? `${cnt} prefer this${names ? ': ' + names : ''}` : 'No preferences yet';
+        html += `<button type="button" class="time-chip rsvp-btn rsvp-avail${mine ? ' is-active' : ''}" data-vote="avail" data-row="${st.row}" title="${escapeHTML(tip)}">${formatTime(st.time)}${cnt ? `<span class="chip-count">${cnt}</span>` : ''}</button>`;
+      });
+      html += `</div></div>`;
+    });
+    html += `</div>`;
+  });
+  html += '</div>';
+
+  html += voter
+    ? `<div class="poll-identity">marking as <strong>${escapeHTML(voter)}</strong> · <a data-rsvp-identify="1">not you?</a></div>`
+    : `<div class="poll-identity"><a data-rsvp-identify="1">tell us who you are</a> to mark your preferences</div>`;
+  return html;
+}
+
 function renderEvent(film) {
   // Primary anchor (slug-only) + per-showtime anchor spans for backward-compat
   // with Sheet hyperlinks that include date suffix
@@ -1853,7 +1980,7 @@ function renderEvent(film) {
         <p class="event-desc">${escapeHTML(film.description || '')}</p>
         ${pollBanner}
         <div class="event-showtimes">
-          ${film.showtimes.map(renderShowtime).join('')}
+          ${isPoll ? renderPollGrid(film) : film.showtimes.map(renderShowtime).join('')}
         </div>
         <div class="event-actions">
           ${film.letterboxd ? `<a href="${escapeHTML(film.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
@@ -2339,8 +2466,8 @@ document.addEventListener('click', async (e) => {
   if (!btn || btn.disabled) return;
 
   const rowEl = btn.closest('.rsvp-row');
-  if (!rowEl) return;
-  const eventRow = parseInt(rowEl.dataset.rsvpRow, 10);
+  // Row comes from the button itself (poll time-chips) or its .rsvp-row wrapper.
+  const eventRow = parseInt(btn.dataset.row || (rowEl && rowEl.dataset.rsvpRow), 10);
   const requestedVote = btn.dataset.vote;
   if (!eventRow || !requestedVote) return;
 
