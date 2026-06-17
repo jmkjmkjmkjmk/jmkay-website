@@ -2354,39 +2354,58 @@ document.addEventListener('click', async (e) => {
   // If they tap their already-active vote, clear it
   const isActive = btn.classList.contains('is-active');
   const vote = isActive ? 'clear' : requestedVote;
+  const voteVal = { yes:'Yes', maybe:'Maybe', pass:'Pass', avail:'Available' }[vote] || null;
 
-  // Disable all buttons in this row during the request
-  const allBtns = rowEl.querySelectorAll('.rsvp-btn');
-  allBtns.forEach(b => b.disabled = true);
+  // --- Optimistic update: reflect the tap instantly, sync in the background ---
+  // (Apps Script writes are slow; blocking the UI on the round-trip + a second
+  // get_state refetch is what made voting feel laggy. We update locally first,
+  // fire the write without blocking, then reconcile — or roll back on error.)
+  const ev = (window.__rsvpKnownEvents || []).find(x => x.row === eventRow);
+  const lc = s => String(s || '').trim().toLowerCase();
+  const rerender = () => { if (window.__rsvpKnownEvents) renderCalendar(window.__rsvpKnownEvents); };
 
-  try {
-    const data = await submitRsvp(eventRow, voter, vote);
-    // Update the in-memory event store so re-renders reflect new state
-    if (window.__rsvpKnownEvents) {
-      window.__rsvpKnownEvents.forEach(ev => {
-        if (ev.row === eventRow) {
-          ev.yes_names   = data.yes_names   || [];
-          ev.maybe_names = data.maybe_names || [];
-          ev.pass_names  = data.pass_names  || [];
-          ev.avail_names = data.avail_names || [];
-          ev.yes_count   = data.yes_count;
-          ev.avail_count = data.avail_count;
-        }
-      });
-    }
-    await refetchAndRerender();
-  } catch (err) {
-    console.warn('RSVP failed', err);
-    // Surface the error inline
-    const existingErr = rowEl.querySelector('.rsvp-error');
-    if (existingErr) existingErr.remove();
-    const errEl = document.createElement('span');
-    errEl.className = 'rsvp-error';
-    errEl.textContent = 'Couldn’t save — try again';
-    rowEl.appendChild(errEl);
-    setTimeout(() => errEl.remove(), 3500);
-    allBtns.forEach(b => b.disabled = false);
+  let before = null;
+  if (ev) {
+    before = {
+      yes:   [...(ev.yes_names   || [])],
+      maybe: [...(ev.maybe_names || [])],
+      pass:  [...(ev.pass_names  || [])],
+      avail: [...(ev.avail_names || [])],
+    };
+    const strip = arr => (arr || []).filter(n => lc(n) !== lc(voter));
+    ev.yes_names = strip(ev.yes_names);
+    ev.maybe_names = strip(ev.maybe_names);
+    ev.pass_names = strip(ev.pass_names);
+    ev.avail_names = strip(ev.avail_names);
+    if (voteVal === 'Yes') ev.yes_names.push(voter);
+    else if (voteVal === 'Maybe') ev.maybe_names.push(voter);
+    else if (voteVal === 'Pass') ev.pass_names.push(voter);
+    else if (voteVal === 'Available') ev.avail_names.push(voter);
+    ev.yes_count = ev.yes_names.length;
+    ev.avail_count = ev.avail_names.length;
+    rerender();
   }
+
+  // Fire the write in the background; reconcile with the authoritative tally.
+  submitRsvp(eventRow, voter, vote).then(data => {
+    if (!ev) return;
+    ev.yes_names   = data.yes_names   || [];
+    ev.maybe_names = data.maybe_names || [];
+    ev.pass_names  = data.pass_names  || [];
+    ev.avail_names = data.avail_names || [];
+    ev.yes_count   = data.yes_count;
+    ev.avail_count = data.avail_count;
+    rerender();
+  }).catch(err => {
+    console.warn('RSVP failed', err);
+    if (ev && before) {
+      ev.yes_names = before.yes; ev.maybe_names = before.maybe;
+      ev.pass_names = before.pass; ev.avail_names = before.avail;
+      ev.yes_count = before.yes.length; ev.avail_count = before.avail.length;
+      rerender();
+    }
+    alert("Couldn't save your response — please check your connection and try again.");
+  });
 });
 
 // === Refetch + rerender ===
