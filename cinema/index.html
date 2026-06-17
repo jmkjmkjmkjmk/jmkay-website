@@ -1761,10 +1761,10 @@ function renderShowtime(st) {
   if (showRsvp && isPolling) {
     const avail = st.avail_count || 0;
     const availNames = (st.avail_names || []).join(', ');
-    tally = `<span class="tally-mini"><span class="yes-count">${avail}</span> can make it${availNames ? ` — ${escapeHTML(availNames)}` : ''}</span>`;
+    tally = `<span class="tally-mini"><span class="yes-count">${avail}</span> prefer this${availNames ? ` — ${escapeHTML(availNames)}` : ''}</span>`;
     rsvpRow = `
       <div class="rsvp-row" data-rsvp-row="${st.row}">
-        <button type="button" class="rsvp-btn rsvp-avail${myVote==='avail'?' is-active':''}" data-vote="avail">${myVote==='avail'?'✓ I can make it':'I can make it'}</button>
+        <button type="button" class="rsvp-btn rsvp-avail${myVote==='avail'?' is-active':''}" data-vote="avail">${myVote==='avail'?'✓ This is my preference':'This is my preference'}</button>
         ${voter ? `<span class="rsvp-as">as ${escapeHTML(voter)}</span>` : '<span class="rsvp-as"><a data-rsvp-identify="1">tell us who you are</a></span>'}
       </div>`;
   } else {
@@ -1832,7 +1832,7 @@ function renderEvent(film) {
   const somePolling = film.showtimes.some(s => s.status === 'Polling');
   const isPoll = somePolling && !someConfirmed && !allPast;
   const pollBanner = isPoll
-    ? `<div class="poll-banner">📊 Picking a showtime — tap <strong>every</strong> screening you could make. Jonathan will lock the best-attended one.</div>`
+    ? `<div class="poll-banner">📊 Picking a showtime — mark <strong>every</strong> screening you'd prefer. Jonathan will lock the most popular one.</div>`
     : '';
 
   return `
