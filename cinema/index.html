@@ -229,6 +229,27 @@
     color: var(--ink-muted);
     font-style: normal;
   }
+  .status-tag.polling {
+    color: #1A4A4A;
+    background: #DCE9E6;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .poll-banner {
+    background: #EAF1EF;
+    border: 1px solid #C7DAD5;
+    border-left: 3px solid var(--teal);
+    color: #1A4A4A;
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 4px 0 12px;
+  }
+  .showtime.is-polling { background: rgba(26,74,74,0.025); }
 
   .event-title {
     font-family: 'EB Garamond', Georgia, serif;
@@ -812,6 +833,10 @@
   .rsvp-btn.rsvp-yes.is-active   { background: #2F7D50; }
   .rsvp-btn.rsvp-maybe.is-active { background: #C2603F; }
   .rsvp-btn.rsvp-pass.is-active  { background: #6B6B6B; }
+  /* Availability toggle (Polling showtimes) */
+  .rsvp-btn.rsvp-avail            { border-color: #1A4A4A; color: #1A4A4A; font-weight: 600; }
+  .rsvp-btn.rsvp-avail:hover      { background: #E7EEEC; }
+  .rsvp-btn.rsvp-avail.is-active  { background: #1A4A4A; color: #fff; border-color: #1A4A4A; }
   .rsvp-btn:disabled { opacity: 0.45; cursor: wait; }
   .rsvp-as {
     font-size: 12px;
@@ -1664,11 +1689,15 @@ function getMonthLabel(isoStr) {
 }
 
 function groupEventsByFilm(events) {
-  // Group events by title — each card represents a film with 1+ showtimes
+  // Group events by FilmKey when present, else by title — each card represents
+  // a film with 1+ showtimes. (FilmKey lets one film carry many showtimes
+  // across venues/days as an availability poll before a showtime is locked.)
   const groups = {};
   events.forEach(e => {
-    if (!groups[e.title]) {
-      groups[e.title] = {
+    const key = (e.filmKey && String(e.filmKey).trim()) ? String(e.filmKey).trim() : e.title;
+    if (!groups[key]) {
+      groups[key] = {
+        key: key,
         title: e.title,
         director: e.director,
         year: e.year,
@@ -1681,7 +1710,7 @@ function groupEventsByFilm(events) {
       };
     }
     // Always prefer non-empty values across showtimes (in case some have richer metadata than others)
-    const g = groups[e.title];
+    const g = groups[key];
     if (!g.poster && e.poster) g.poster = e.poster;
     if (!g.description && (e.description || e.desc)) g.description = e.description || e.desc;
     if (!g.letterboxd && e.letterboxd) g.letterboxd = e.letterboxd;
@@ -1701,6 +1730,8 @@ function groupEventsByFilm(events) {
       yes_names: e.yes_names || [],
       maybe_names: e.maybe_names || [],
       pass_names: e.pass_names || [],
+      avail_count: (e.avail_count != null) ? e.avail_count : (e.avail_names ? e.avail_names.length : 0),
+      avail_names: e.avail_names || [],
     });
   });
   // Sort showtimes within each group chronologically
@@ -1715,24 +1746,41 @@ function groupEventsByFilm(events) {
 
 function renderShowtime(st) {
   const isFree = !st.cost || st.cost === 0;
-  const yes = st.yes_count || 0;
-  const yesNames = (st.yes_names || []).join(', ');
-  const statusClass = (st.status || '').toLowerCase();
+  const isPolling = st.status === 'Polling';
   const statusBadge = st.status === 'Confirmed'
     ? '<span class="status-tag confirmed">Confirmed</span>'
     : '';
   const showRsvp = st.status !== 'Past' && st.status !== 'Cancelled' && st.row;
   const voter = getCurrentVoter();
   const myVote = voter ? getMyVoteForShowtime(st, voter) : null;
-  const rsvpRow = showRsvp ? `
+
+  // Polling rows use a single "I can make it" availability toggle; confirmed /
+  // tentative rows use the normal Yes / Maybe / Can't RSVP.
+  let rsvpRow = '';
+  let tally;
+  if (showRsvp && isPolling) {
+    const avail = st.avail_count || 0;
+    const availNames = (st.avail_names || []).join(', ');
+    tally = `<span class="tally-mini"><span class="yes-count">${avail}</span> can make it${availNames ? ` — ${escapeHTML(availNames)}` : ''}</span>`;
+    rsvpRow = `
+      <div class="rsvp-row" data-rsvp-row="${st.row}">
+        <button type="button" class="rsvp-btn rsvp-avail${myVote==='avail'?' is-active':''}" data-vote="avail">${myVote==='avail'?'✓ I can make it':'I can make it'}</button>
+        ${voter ? `<span class="rsvp-as">as ${escapeHTML(voter)}</span>` : '<span class="rsvp-as"><a data-rsvp-identify="1">tell us who you are</a></span>'}
+      </div>`;
+  } else {
+    const yes = st.yes_count || 0;
+    const yesNames = (st.yes_names || []).join(', ');
+    tally = `<span class="tally-mini"><span class="yes-count">${yes}</span> coming${yesNames ? ` — ${escapeHTML(yesNames)}` : ''}</span>`;
+    rsvpRow = showRsvp ? `
       <div class="rsvp-row" data-rsvp-row="${st.row}">
         <button type="button" class="rsvp-btn rsvp-yes${myVote==='yes'?' is-active':''}"     data-vote="yes">${myVote==='yes'?'✓ ':''}Yes</button>
         <button type="button" class="rsvp-btn rsvp-maybe${myVote==='maybe'?' is-active':''}" data-vote="maybe">${myVote==='maybe'?'✓ ':''}Maybe</button>
         <button type="button" class="rsvp-btn rsvp-pass${myVote==='pass'?' is-active':''}"   data-vote="pass">${myVote==='pass'?'✓ ':''}Can't</button>
         ${voter ? `<span class="rsvp-as">as ${escapeHTML(voter)}</span>` : '<span class="rsvp-as"><a data-rsvp-identify="1">tell us who you are</a></span>'}
       </div>` : '';
+  }
   return `
-    <div class="showtime">
+    <div class="showtime${isPolling ? ' is-polling' : ''}">
       <div class="showtime-when">
         <span class="date">${formatDate(st.date)}</span>
         ${st.time ? `<span class="time">${formatTime(st.time)}</span>` : ''}
@@ -1744,7 +1792,7 @@ function renderShowtime(st) {
       <div class="showtime-side">
         <span class="cost ${isFree ? 'free' : ''}">${isFree ? 'Free' : '$' + st.cost}</span>
         ${st.booking ? `<a href="${escapeHTML(st.booking)}" target="_blank" class="action-link primary">Tickets ↗</a>` : ''}
-        <span class="tally-mini"><span class="yes-count">${yes}</span> ${yes === 1 ? 'coming' : 'coming'}${yesNames ? ` — ${escapeHTML(yesNames)}` : ''}</span>
+        ${tally}
       </div>
       ${rsvpRow}
     </div>
@@ -1754,6 +1802,7 @@ function renderShowtime(st) {
 function getMyVoteForShowtime(st, voter) {
   const n = String(voter || '').trim().toLowerCase();
   if (!n) return null;
+  if ((st.avail_names || []).some(x => String(x).trim().toLowerCase() === n)) return 'avail';
   if ((st.yes_names   || []).some(x => String(x).trim().toLowerCase() === n)) return 'yes';
   if ((st.maybe_names || []).some(x => String(x).trim().toLowerCase() === n)) return 'maybe';
   if ((st.pass_names  || []).some(x => String(x).trim().toLowerCase() === n)) return 'pass';
@@ -1779,8 +1828,15 @@ function renderEvent(film) {
   const someConfirmed = film.showtimes.some(s => s.status === 'Confirmed');
   const allPast = film.showtimes.every(s => s.status === 'Past');
 
+  // Poll mode: there are open Polling showtimes and nothing locked yet.
+  const somePolling = film.showtimes.some(s => s.status === 'Polling');
+  const isPoll = somePolling && !someConfirmed && !allPast;
+  const pollBanner = isPoll
+    ? `<div class="poll-banner">📊 Picking a showtime — tap <strong>every</strong> screening you could make. Jonathan will lock the best-attended one.</div>`
+    : '';
+
   return `
-    <article class="event" id="${slug}" data-type="${film.type}" data-date="${earliestDate}">
+    <article class="event${isPoll ? ' is-poll' : ''}" id="${slug}" data-type="${film.type}" data-date="${earliestDate}">
       ${showtimeAnchors}
       <div class="event-poster">
         ${film.poster ? `<img src="${escapeHTML(film.poster)}" alt="${escapeHTML(film.title)} poster" loading="lazy">` : ''}
@@ -1788,12 +1844,14 @@ function renderEvent(film) {
       <div class="event-body">
         <div class="event-meta-top">
           <span class="type-tag">${escapeHTML(film.type)}</span>
+          ${isPoll ? '<span class="status-tag polling">Poll open</span>' : ''}
           ${someConfirmed ? '<span class="status-tag confirmed">Confirmed</span>' : ''}
           ${allPast ? '<span class="status-tag past">Past</span>' : ''}
         </div>
         <h2 class="event-title">${escapeHTML(film.title)}</h2>
         <div class="event-by">by ${escapeHTML(film.director || '')}${film.year ? ` (${film.year})` : ''}${film.length ? ` · ${escapeHTML(film.length)}` : ''}</div>
         <p class="event-desc">${escapeHTML(film.description || '')}</p>
+        ${pollBanner}
         <div class="event-showtimes">
           ${film.showtimes.map(renderShowtime).join('')}
         </div>
@@ -2195,6 +2253,7 @@ function collectKnownVoterNames() {
     (e.yes_names   || []).forEach(n => set.add(String(n).trim()));
     (e.maybe_names || []).forEach(n => set.add(String(n).trim()));
     (e.pass_names  || []).forEach(n => set.add(String(n).trim()));
+    (e.avail_names || []).forEach(n => set.add(String(n).trim()));
   });
   return Array.from(set).filter(Boolean).sort((a,b) => a.localeCompare(b));
 }
@@ -2309,7 +2368,9 @@ document.addEventListener('click', async (e) => {
           ev.yes_names   = data.yes_names   || [];
           ev.maybe_names = data.maybe_names || [];
           ev.pass_names  = data.pass_names  || [];
+          ev.avail_names = data.avail_names || [];
           ev.yes_count   = data.yes_count;
+          ev.avail_count = data.avail_count;
         }
       });
     }
