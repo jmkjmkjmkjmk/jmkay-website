@@ -1225,11 +1225,6 @@
 <!-- Masthead -->
 <div class="masthead">
   <h1>Bethesda Cinematheque</h1>
-  <p class="tagline">A rolling calendar of films worth seeing — at our place in Bethesda, and elsewhere across the DMV.</p>
-  <p class="meta">
-    Vote in <a id="sheet-link" href="#" target="_blank">the Google Sheet</a> ·
-    Running list on <a id="letterboxd-link" href="#" target="_blank">Letterboxd</a>
-  </p>
   <div class="join-list-cta">
     <button type="button" class="join-list-btn" id="join-list-open">Join the list</button>
   </div>
@@ -1246,7 +1241,6 @@
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="our-place">Our Place</button>
   <button class="filter-btn" data-filter="everywhere">Elsewhere</button>
-  <button class="filter-btn" data-filter="this-week">This Week</button>
 </div>
 
 <!-- Calendar / events -->
@@ -1334,8 +1328,6 @@
 
 <!-- Letterboxd section -->
 <section class="letterboxd-section" id="letterboxd-section" style="display:none">
-  <h2>The running list</h2>
-  <p>Every film we've programmed, on Letterboxd.</p>
   <div class="letterboxd-embed">
     Letterboxd list URL pending. Once Jonathan creates the empty list,<br>
     this section will link to it directly.
@@ -2096,14 +2088,12 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbywctrZLmnzaPwP
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/1xvryDAAaqZYAfJDRLQrzKHH5XYOMTo-VDBysZa_nZ4g/edit?usp=sharing';
 const LETTERBOXD_LIST_URL = 'https://letterboxd.com/jonathankay/list/bethesda-cinematheque/';
 
-document.getElementById('sheet-link').href = SHEET_URL;
-document.getElementById('letterboxd-link').href = LETTERBOXD_LIST_URL || '#';
 
 if (LETTERBOXD_LIST_URL) {
   const sec = document.getElementById('letterboxd-section');
   sec.style.display = 'block';
   sec.querySelector('.letterboxd-embed').innerHTML =
-    `<a href="${LETTERBOXD_LIST_URL}" target="_blank" class="action-link primary">View on Letterboxd →</a>`;
+    `<a href="${LETTERBOXD_LIST_URL}" target="_blank" class="action-link primary">View programming on Letterboxd</a>`;
 }
 
 // Render functions
