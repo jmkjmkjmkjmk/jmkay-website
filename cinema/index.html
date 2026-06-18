@@ -144,6 +144,80 @@
     border-color: var(--ink);
   }
 
+  /* === View tabs (Upcoming / Archive) === */
+  .view-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 28px 32px 0;
+    border-bottom: 1px solid var(--line);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .view-tab {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border: none;
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
+  }
+  .view-tab:hover { color: var(--ink); }
+  .view-tab.active {
+    color: var(--ink);
+    border-bottom-color: var(--terracotta);
+  }
+  .view-tab .tab-count {
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--ink-muted);
+    margin-left: 4px;
+  }
+
+  /* === Archive view === */
+  #archive-view {
+    display: none;
+    max-width: 1100px;
+    margin: 48px auto 0;
+    padding: 0 32px;
+  }
+  #archive-view.active { display: block; }
+  .archive-header {
+    margin-bottom: 32px;
+  }
+  .archive-header h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .archive-blurb {
+    color: var(--ink-light);
+    font-style: italic;
+    font-size: 16px;
+    max-width: 640px;
+  }
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    padding-bottom: 16px;
+  }
+  .archive-loading {
+    text-align: center;
+    padding: 64px 32px;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
   /* === Month section === */
   .month-section {
     max-width: 1100px;
@@ -1218,8 +1292,14 @@
   </div>
 </div>
 
-<!-- Filter strip -->
-<div class="filters">
+<!-- View tabs (Upcoming / Archive) -->
+<div class="view-tabs">
+  <button class="view-tab active" data-view="upcoming">Upcoming</button>
+  <button class="view-tab" data-view="archive">Archive <span class="tab-count" id="archive-tab-count"></span></button>
+</div>
+
+<!-- Filter strip (visible only on Upcoming tab) -->
+<div class="filters" id="upcoming-filters">
   <button class="filter-btn active" data-filter="all">All</button>
   <button class="filter-btn" data-filter="our-place">Our Place</button>
   <button class="filter-btn" data-filter="everywhere">Elsewhere</button>
@@ -1254,15 +1334,14 @@
 <!-- Pipeline section (Status=Considering films, dedup by title) -->
 <section class="pipeline-section" id="pipeline-section" style="display:none"></section>
 
-<!-- Past Screenings section (Status=Past, collapsed by default) -->
-<section class="past-section" id="past-section" style="display:none">
-  <div class="past-toggle" id="past-toggle" role="button" tabindex="0" aria-expanded="false">
-    <span class="chevron">▶</span>
+<!-- Archive view (lazy-loaded past screenings, shown when Archive tab is active) -->
+<section id="archive-view">
+  <div class="archive-header">
     <h2>Past Screenings</h2>
-    <span class="past-count" id="past-count"></span>
+    <p class="archive-blurb">Films we've watched, in reverse order. The running record of what's actually landed.</p>
   </div>
-  <p class="past-blurb">Films we've watched, in reverse order. The running record of what's actually landed.</p>
-  <div class="past-grid" id="past-grid"></div>
+  <div class="archive-loading" id="archive-loading" style="display:none">Loading the archive...</div>
+  <div class="archive-grid" id="archive-grid"></div>
 </section>
 
 <!-- Identity modal (shown on first RSVP attempt without identity) -->
@@ -2113,19 +2192,128 @@ function renderPipeline(events) {
   container.innerHTML = html;
 }
 
-// === Past Screenings rendering ===
-// Reverse-chronological grid of films watched, with optional rating + memory.
-// Renders into #past-grid; the parent .past-section is shown/hidden based on count.
-function renderPast(events) {
-  const section = document.getElementById('past-section');
-  const grid = document.getElementById('past-grid');
-  const countEl = document.getElementById('past-count');
-  if (!section || !grid) return;
+// renderPast removed — replaced by renderArchive in the tab-switching section below
 
-  // De-dupe by title — a film watched across multiple showtimes is one Past entry
+function renderRating(r) {
+  // Accept either a numeric rating ("8" or "8/10") or a star string ("★★★★").
+  if (typeof r === 'string' && r.includes('★')) {
+    return `<span class="past-rating">${escapeHTML(r)}</span>`;
+  }
+  const n = parseFloat(String(r).replace(/\/.*$/, ''));
+  if (isNaN(n)) return '';
+  // Normalize to 0–5 stars (assume input is 0–10 if > 5)
+  const stars = n > 5 ? n / 2 : n;
+  const full = Math.floor(stars);
+  const half = stars - full >= 0.5 ? 1 : 0;
+  const display = '★'.repeat(full) + (half ? '½' : '');
+  return `<span class="past-rating" title="${escapeHTML(String(r))}">${display}</span>`;
+}
+
+// === View tabs (Upcoming / Archive) ===
+let archiveLoaded = false;
+
+function updateArchiveTabCount(events) {
+  const count = (events || []).filter(e => e.status === 'Past').length;
+  const el = document.getElementById('archive-tab-count');
+  if (el && count > 0) el.textContent = `(${count})`;
+}
+
+function switchView(view) {
+  // Update tab buttons
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
+  // Toggle section visibility
+  const filters = document.getElementById('upcoming-filters');
+  const calendar = document.getElementById('calendar');
+  const pipeline = document.getElementById('pipeline-section');
+  const archive = document.getElementById('archive-view');
+
+  if (view === 'upcoming') {
+    if (filters) filters.style.display = '';
+    if (calendar) calendar.style.display = '';
+    // Pipeline only shows if it has content (renderPipeline manages its own visibility)
+    if (pipeline && pipeline.innerHTML.trim()) pipeline.style.display = '';
+    if (archive) archive.classList.remove('active');
+  } else {
+    if (filters) filters.style.display = 'none';
+    if (calendar) calendar.style.display = 'none';
+    if (pipeline) pipeline.style.display = 'none';
+    if (archive) archive.classList.add('active');
+    if (!archiveLoaded) loadArchive();
+  }
+}
+
+async function loadArchive() {
+  const grid = document.getElementById('archive-grid');
+  const loading = document.getElementById('archive-loading');
+  if (!grid) return;
+
+  // Check session cache first
+  const cachedPast = getCached('past');
+  if (cachedPast) {
+    const bootstrapRaw = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
+    const bootstrap = Array.isArray(bootstrapRaw) ? bootstrapRaw : (bootstrapRaw.events || []);
+    const pastEvents = cachedPast.map(e => {
+      const match = bootstrap.find(b => b.title === e.title);
+      return {
+        ...e,
+        status: 'Past',
+        poster: e.poster || (match && match.poster) || '',
+        letterboxd: e.letterboxd || (match && match.letterboxd) || '',
+        videoId: e.videoId || e.video_id || '',
+      };
+    }).map(applyCorrections);
+    renderArchive(pastEvents);
+    archiveLoaded = true;
+    return;
+  }
+
+  // Show loading state
+  if (loading) loading.style.display = '';
+
+  // Try bootstrap data as an instant partial render while fetching
+  const bootstrapRaw = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
+  const bootstrap = Array.isArray(bootstrapRaw) ? bootstrapRaw : (bootstrapRaw.events || []);
+  const bootstrapPast = bootstrap.filter(e => e.status === 'Past').map(applyCorrections);
+  if (bootstrapPast.length > 0) {
+    renderArchive(bootstrapPast);
+    if (loading) loading.style.display = 'none';
+  }
+
+  // Fetch live past data
+  if (!APPS_SCRIPT_URL) { archiveLoaded = true; if (loading) loading.style.display = 'none'; return; }
+  try {
+    const resp = await fetch(APPS_SCRIPT_URL + '?action=get_past');
+    if (resp.ok) {
+      const dp = await resp.json();
+      const pastEvents = (dp.past || dp.events || []).map(e => {
+        const match = bootstrap.find(b => b.title === e.title);
+        return {
+          ...e,
+          status: 'Past',
+          poster: e.poster || (match && match.poster) || '',
+          letterboxd: e.letterboxd || (match && match.letterboxd) || '',
+          videoId: e.videoId || e.video_id || '',
+        };
+      }).map(applyCorrections);
+      setCache('past', dp.past || dp.events || []);
+      renderArchive(pastEvents);
+      updateArchiveTabCount([...pastEvents]);
+    }
+  } catch (err) {
+    console.warn('Archive fetch failed:', err);
+    // Bootstrap data already rendered above if available
+  }
+  archiveLoaded = true;
+  if (loading) loading.style.display = 'none';
+}
+
+function renderArchive(events) {
+  const grid = document.getElementById('archive-grid');
+  if (!grid) return;
+
+  // De-dupe by title
   const seen = new Set();
   const past = events
-    .filter(e => e.status === 'Past')
     .filter(e => {
       if (seen.has(e.title)) return false;
       seen.add(e.title);
@@ -2134,11 +2322,9 @@ function renderPast(events) {
     .sort((a, b) => (a.date < b.date ? 1 : -1)); // reverse chronological
 
   if (past.length === 0) {
-    section.style.display = 'none';
+    grid.innerHTML = '<div class="archive-loading">No past screenings yet.</div>';
     return;
   }
-  section.style.display = 'block';
-  countEl.textContent = `(${past.length} film${past.length === 1 ? '' : 's'})`;
 
   grid.innerHTML = past.map(ev => {
     const rating = ev.rating ? renderRating(ev.rating) : '';
@@ -2162,35 +2348,9 @@ function renderPast(events) {
   }).join('');
 }
 
-function renderRating(r) {
-  // Accept either a numeric rating ("8" or "8/10") or a star string ("★★★★").
-  if (typeof r === 'string' && r.includes('★')) {
-    return `<span class="past-rating">${escapeHTML(r)}</span>`;
-  }
-  const n = parseFloat(String(r).replace(/\/.*$/, ''));
-  if (isNaN(n)) return '';
-  // Normalize to 0–5 stars (assume input is 0–10 if > 5)
-  const stars = n > 5 ? n / 2 : n;
-  const full = Math.floor(stars);
-  const half = stars - full >= 0.5 ? 1 : 0;
-  const display = '★'.repeat(full) + (half ? '½' : '');
-  return `<span class="past-rating" title="${escapeHTML(String(r))}">${display}</span>`;
-}
-
-// === Past Screenings toggle ===
-(function setupPastToggle() {
-  const toggle = document.getElementById('past-toggle');
-  const section = document.getElementById('past-section');
-  if (!toggle || !section) return;
-  function flip() {
-    const open = section.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  }
-  toggle.addEventListener('click', flip);
-  toggle.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(); }
-  });
-})();
+document.querySelectorAll('.view-tab').forEach(tab => {
+  tab.addEventListener('click', () => switchView(tab.dataset.view));
+});
 
 // === Boot ===
 // The bootstrap JSON below is now LEGACY FALLBACK only — kept so the page never blanks
@@ -2236,35 +2396,27 @@ async function boot() {
 
   // Check session cache first — if fresh, render immediately and skip API entirely
   const cachedState = getCached('state');
-  const cachedPast = getCached('past');
   if (cachedState) {
     const allLive = mergeWithBootstrap(cachedState, bootstrap);
     renderCalendar(allLive.filter(e => e.status !== 'Considering' && e.status !== 'Past'));
     renderPipeline(allLive);
-    if (cachedPast) {
-      renderPast(cachedPast.map(e => ({ ...e, status: 'Past' })).map(applyCorrections));
-    } else {
-      renderPast(allLive.filter(e => e.status === 'Past'));
-    }
+    updateArchiveTabCount(bootstrap);
     return;
   }
 
-  // No cache — render bootstrap as instant fallback
+  // No cache — render bootstrap as instant fallback (upcoming only)
   const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
   if (initial.length > 0) {
     renderCalendar(initial);
     renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
-    renderPast(bootstrap);
   }
+  updateArchiveTabCount(bootstrap);
 
   if (!APPS_SCRIPT_URL) return;
 
-  // Fire BOTH fetches in parallel — they are independent reads
+  // Fetch ONLY active/upcoming films — past data loads lazily via Archive tab
   try {
-    const [stateResp, pastResp] = await Promise.all([
-      fetch(APPS_SCRIPT_URL + '?action=get_state'),
-      fetch(APPS_SCRIPT_URL + '?action=get_past').catch(() => null)
-    ]);
+    const stateResp = await fetch(APPS_SCRIPT_URL + '?action=get_state');
 
     if (!stateResp.ok) throw new Error('get_state returned ' + stateResp.status);
     const data = await stateResp.json();
@@ -2274,25 +2426,7 @@ async function boot() {
     const liveUpcoming = allLive.filter(e => e.status !== 'Considering' && e.status !== 'Past');
     renderCalendar(liveUpcoming);
     renderPipeline(allLive);
-
-    // Past Screenings: prefer dedicated endpoint if available, else filter get_state
-    if (pastResp && pastResp.ok) {
-      const dp = await pastResp.json();
-      const pastEvents = (dp.past || dp.events || []).map(e => {
-        const match = bootstrap.find(b => b.title === e.title);
-        return {
-          ...e,
-          status: 'Past',
-          poster: e.poster || (match && match.poster) || '',
-          letterboxd: e.letterboxd || (match && match.letterboxd) || '',
-          videoId: e.videoId || e.video_id || '',
-        };
-      }).map(applyCorrections);
-      setCache('past', dp.past || dp.events || []);
-      renderPast(pastEvents);
-    } else {
-      renderPast(allLive.filter(e => e.status === 'Past'));
-    }
+    updateArchiveTabCount(allLive);
   } catch (err) {
     console.warn('Live fetch failed, using bootstrap data:', err);
   }
@@ -2575,8 +2709,13 @@ async function refetchAndRerender() {
     const all = live.events || [];
     setCache('state', all);
     window.__rsvpKnownEvents = all;
-    renderCalendar(all.filter(e => e.status !== 'Past' && e.status !== 'Cancelled'));
-    renderPast(all.filter(e => e.status === 'Past'));
+    renderCalendar(all.filter(e => e.status !== 'Past' && e.status !== 'Cancelled' && e.status !== 'Considering'));
+    // If archive is currently visible, refresh it too
+    if (archiveLoaded) {
+      archiveLoaded = false;
+      try { sessionStorage.removeItem('cine-past'); } catch {}
+      loadArchive();
+    }
   } catch (err) {
     console.warn('Refetch after RSVP failed:', err);
   }
