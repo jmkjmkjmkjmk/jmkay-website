@@ -1888,7 +1888,7 @@ function renderShowtime(st) {
         ${statusBadge}
       </div>
       <div class="showtime-venue">
-        ${escapeHTML(st.venue || '')}${st.neighborhood ? `<span class="neighborhood">${escapeHTML(st.neighborhood)}</span>` : ''}
+        ${escapeHTML(st.venue || '')}
       </div>
       <div class="showtime-side">
         <span class="cost ${isFree ? 'free' : ''}">${isFree ? 'Free' : '$' + st.cost}</span>
@@ -1939,7 +1939,7 @@ function renderPollGrid(film) {
       const sts = byVenue[venue].slice().sort((a, b) => (a.time || '') < (b.time || '') ? -1 : 1);
       const hood = sts[0].neighborhood;
       html += `<div class="poll-venue">
-        <div class="poll-venue-name">${escapeHTML(venue)}${hood ? `<span class="neighborhood">${escapeHTML(hood)}</span>` : ''}</div>
+        <div class="poll-venue-name">${escapeHTML(venue)}</div>
         <div class="poll-times">`;
       sts.forEach(st => {
         const mine = voter && getMyVoteForShowtime(st, voter) === 'avail';
@@ -2027,7 +2027,7 @@ function renderCalendar(events) {
   films.sort((a, b) => {
     const aDate = a.showtimes[0]?.date || '';
     const bDate = b.showtimes[0]?.date || '';
-    return aDate < bDate ? -1 : aDate > bDate ? 1 : 0;
+    return aDate < bDate ? 1 : aDate > bDate ? -1 : 0;
   });
   // Group by month using earliest showtime
   const byMonth = {};
