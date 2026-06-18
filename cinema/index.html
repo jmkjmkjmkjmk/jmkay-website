@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>Bethesda Cinematheque</title>
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="dns-prefetch" href="https://script.google.com">
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -2195,13 +2197,60 @@ function renderRating(r) {
 // if Apps Script is down. Live data from ?action=get_state (and ?action=get_past) takes
 // precedence. Once every film in the Sheet has poster/description/letterboxd/videoId
 // populated via the onEventsEdit enrichment trigger, the bootstrap can be deleted.
+// Session cache: avoid re-fetching on same-session revisits (TTL = 2 minutes)
+const CACHE_TTL_MS = 2 * 60 * 1000;
+function getCached(key) {
+  try {
+    const raw = sessionStorage.getItem('cine-' + key);
+    if (!raw) return null;
+    const { ts, data } = JSON.parse(raw);
+    if (Date.now() - ts > CACHE_TTL_MS) { sessionStorage.removeItem('cine-' + key); return null; }
+    return data;
+  } catch { return null; }
+}
+function setCache(key, data) {
+  try { sessionStorage.setItem('cine-' + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
+}
+
+function mergeWithBootstrap(events, bootstrap) {
+  return events
+    .filter(e => e.status !== 'Cancelled')
+    .map(e => {
+      const match = bootstrap.find(b => b.title === e.title);
+      return {
+        ...e,
+        poster: e.poster || (match && match.poster) || '',
+        description: e.description || e.desc || (match && (match.description || match.desc)) || '',
+        letterboxd: e.letterboxd || (match && match.letterboxd) || '',
+        booking: e.booking || (match && match.booking) || '',
+        videoId: e.videoId || e.video_id || (match && match.videoId) || '',
+        rating: e.rating || (match && match.rating) || '',
+        memory: e.memory || (match && match.memory) || '',
+      };
+    }).map(applyCorrections);
+}
+
 async function boot() {
   const bootstrapRaw = JSON.parse(document.getElementById('bootstrap-data').textContent || '[]');
   const bootstrap = Array.isArray(bootstrapRaw) ? bootstrapRaw : (bootstrapRaw.events || []);
-  // Filter out Cancelled. Pipeline (Considering) goes to its own section.
+
+  // Check session cache first — if fresh, render immediately and skip API entirely
+  const cachedState = getCached('state');
+  const cachedPast = getCached('past');
+  if (cachedState) {
+    const allLive = mergeWithBootstrap(cachedState, bootstrap);
+    renderCalendar(allLive.filter(e => e.status !== 'Considering' && e.status !== 'Past'));
+    renderPipeline(allLive);
+    if (cachedPast) {
+      renderPast(cachedPast.map(e => ({ ...e, status: 'Past' })).map(applyCorrections));
+    } else {
+      renderPast(allLive.filter(e => e.status === 'Past'));
+    }
+    return;
+  }
+
+  // No cache — render bootstrap as instant fallback
   const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
-  // Only render bootstrap data if it's non-empty — otherwise leave skeleton loaders
-  // visible while the live API fetch runs below. This prevents the "No events" flash.
   if (initial.length > 0) {
     renderCalendar(initial);
     renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
@@ -2210,60 +2259,42 @@ async function boot() {
 
   if (!APPS_SCRIPT_URL) return;
 
-  // Live fetch — primary source. ?action=get_state returns ALL events; we filter client-side.
-  // (If Sonnet later deploys ?action=get_past and ?action=get_upcoming as separate endpoints,
-  // they will work; until then, get_state covers all cases.)
+  // Fire BOTH fetches in parallel — they are independent reads
   try {
-    const r = await fetch(APPS_SCRIPT_URL + '?action=get_state');
-    if (!r.ok) throw new Error('get_state returned ' + r.status);
-    const data = await r.json();
-    const allLive = (data.events || [])
-      .filter(e => e.status !== 'Cancelled')
-      // Merge bootstrap fields by title — bootstrap is legacy fallback for fields the
-      // Sheet hasn't been enriched with yet (poster, description, letterboxd, videoId).
-      // Once enrichment runs on every film, this merge becomes a no-op.
-      .map(e => {
-        const match = bootstrap.find(b => b.title === e.title);
-        return {
-          ...e,
-          poster: e.poster || (match && match.poster) || '',
-          description: e.description || e.desc || (match && (match.description || match.desc)) || '',
-          letterboxd: e.letterboxd || (match && match.letterboxd) || '',
-          booking: e.booking || (match && match.booking) || '',
-          videoId: e.videoId || e.video_id || (match && match.videoId) || '',
-          rating: e.rating || (match && match.rating) || '',
-          memory: e.memory || (match && match.memory) || '',
-        };
-      }).map(applyCorrections);
+    const [stateResp, pastResp] = await Promise.all([
+      fetch(APPS_SCRIPT_URL + '?action=get_state'),
+      fetch(APPS_SCRIPT_URL + '?action=get_past').catch(() => null)
+    ]);
+
+    if (!stateResp.ok) throw new Error('get_state returned ' + stateResp.status);
+    const data = await stateResp.json();
+    setCache('state', data.events || []);
+
+    const allLive = mergeWithBootstrap(data.events || [], bootstrap);
     const liveUpcoming = allLive.filter(e => e.status !== 'Considering' && e.status !== 'Past');
     renderCalendar(liveUpcoming);
     renderPipeline(allLive);
 
-    // Past Screenings: prefer the dedicated endpoint if it exists, else filter get_state.
-    try {
-      const rp = await fetch(APPS_SCRIPT_URL + '?action=get_past');
-      if (rp.ok) {
-        const dp = await rp.json();
-        const pastEvents = (dp.past || dp.events || []).map(e => {
-          const match = bootstrap.find(b => b.title === e.title);
-          return {
-            ...e,
-            status: 'Past',
-            poster: e.poster || (match && match.poster) || '',
-            letterboxd: e.letterboxd || (match && match.letterboxd) || '',
-            videoId: e.videoId || e.video_id || '',
-          };
-        }).map(applyCorrections);
-        renderPast(pastEvents);
-        return;
-      }
-    } catch (errPast) {
-      // get_past not deployed yet — fall back to client-side filter
+    // Past Screenings: prefer dedicated endpoint if available, else filter get_state
+    if (pastResp && pastResp.ok) {
+      const dp = await pastResp.json();
+      const pastEvents = (dp.past || dp.events || []).map(e => {
+        const match = bootstrap.find(b => b.title === e.title);
+        return {
+          ...e,
+          status: 'Past',
+          poster: e.poster || (match && match.poster) || '',
+          letterboxd: e.letterboxd || (match && match.letterboxd) || '',
+          videoId: e.videoId || e.video_id || '',
+        };
+      }).map(applyCorrections);
+      setCache('past', dp.past || dp.events || []);
+      renderPast(pastEvents);
+    } else {
+      renderPast(allLive.filter(e => e.status === 'Past'));
     }
-    renderPast(allLive.filter(e => e.status === 'Past'));
   } catch (err) {
     console.warn('Live fetch failed, using bootstrap data:', err);
-    // Bootstrap fallback already rendered above
   }
 }
 boot();
@@ -2538,8 +2569,11 @@ document.addEventListener('click', async (e) => {
 // === Refetch + rerender ===
 async function refetchAndRerender() {
   try {
+    // Invalidate session cache so the next page load re-fetches
+    try { sessionStorage.removeItem('cine-state'); sessionStorage.removeItem('cine-past'); } catch {}
     const live = await fetch(APPS_SCRIPT_URL + '?action=get_state').then(r => r.json());
     const all = live.events || [];
+    setCache('state', all);
     window.__rsvpKnownEvents = all;
     renderCalendar(all.filter(e => e.status !== 'Past' && e.status !== 'Cancelled'));
     renderPast(all.filter(e => e.status === 'Past'));
