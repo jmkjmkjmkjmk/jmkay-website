@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Private working dashboard.">
+<title>Wave-2 Adjudication</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terra:#C2603F; --terra-light:#E8A88C; --warm:#FDFBF7; --cream:#F5F0E8;
+    --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C; --teal:#1A4A4A; --sage:#7A8F6D;
+    --line:#E7E0D5; --serif:'Instrument Serif',Georgia,serif;
+    --sans:'DM Sans',-apple-system,system-ui,sans-serif; --mono:'Space Mono',monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--warm);color:var(--ink);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 120px}
+  header{background:var(--ink);color:var(--warm);padding:30px 0 26px;margin-bottom:8px}
+  header .wrap{padding-bottom:0}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra-light);margin:0 0 8px}
+  h1{font-family:var(--serif);font-weight:400;font-size:42px;line-height:1.05;margin:0 0 6px}
+  .dot{display:inline-block;width:11px;height:11px;background:var(--terra);transform:rotate(45deg);border-radius:2px;margin-left:2px;vertical-align:middle}
+  .sub{color:rgba(253,251,247,.75);font-size:15px;margin:0;max-width:680px}
+  .meta{margin-top:18px;display:flex;gap:26px;flex-wrap:wrap;font-size:13px}
+  .meta b{font-family:var(--serif);font-size:26px;font-weight:400;display:block;line-height:1}
+  .meta span{color:rgba(253,251,247,.6);font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+  .note-block{background:var(--cream);border-left:3px solid var(--terra);padding:16px 18px;margin:20px 0 8px;font-size:14px;color:var(--ink-light)}
+  .note-block b{color:var(--ink)}
+  .progwrap{position:sticky;top:0;z-index:30;background:var(--warm);padding:14px 0 12px;border-bottom:1px solid var(--line)}
+  .progrow{display:flex;align-items:center;gap:14px}
+  .progbar{flex:1;height:8px;background:var(--cream);border-radius:6px;overflow:hidden}
+  .progfill{height:100%;width:0;background:var(--terra);transition:width .3s ease}
+  .progtxt{font-family:var(--mono);font-size:12px;color:var(--ink-muted);white-space:nowrap}
+  .filters{display:flex;gap:8px;margin:18px 0 6px;flex-wrap:wrap}
+  .filt{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);background:var(--warm);border-radius:20px;cursor:pointer;color:var(--ink-muted)}
+  .filt.on{background:var(--ink);color:var(--warm);border-color:var(--ink)}
+  .group-h{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-muted);margin:26px 0 4px;border-bottom:1px solid var(--line);padding-bottom:6px}
+  .card{background:var(--warm);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0;transition:border-color .2s, box-shadow .2s}
+  .card.decided{border-color:var(--sage);box-shadow:0 1px 0 rgba(122,143,109,.25)}
+  .card.flagged{border-left:3px solid var(--terra-light)}
+  .chiprow{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:700}
+  .chip.neutral{background:var(--cream);color:var(--ink-light)}
+  .chip.terra{background:var(--terra);color:#fff}
+  .chip.teal{background:var(--teal);color:#fff}
+  .chip.ink{background:var(--ink);color:#fff}
+  .chip.sage{background:var(--sage);color:#fff}
+  .chip.flag{background:#fff;border:1px solid var(--terra-light);color:var(--terra)}
+  .rec{margin-left:auto;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+  .txt{font-size:15px;line-height:1.6}
+  .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);display:block;margin:10px 0 2px}
+  .field-plain{color:var(--ink-light)}
+  .field-box{color:var(--ink);background:var(--cream);border-radius:8px;padding:9px 12px;margin-top:3px}
+  .txt em{font-style:italic}
+  .arrow{color:var(--terra);font-weight:700}
+  .choices{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+  .choice{flex:1;min-width:92px;text-align:center;padding:9px 6px;border:1.5px solid var(--line);border-radius:9px;cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-light);user-select:none;background:var(--warm)}
+  .choice .k{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-muted);margin-top:2px;font-weight:400}
+  .choice:hover{border-color:var(--ink-muted)}
+  .choice.sel[data-color="sage"]{background:var(--sage);border-color:var(--sage);color:#fff}
+  .choice.sel[data-color="muted"]{background:var(--ink-muted);border-color:var(--ink-muted);color:#fff}
+  .choice.sel[data-color="terra"]{background:var(--terra);border-color:var(--terra);color:#fff}
+  .choice.sel[data-color="teal"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  .choice.sel[data-color="ink"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .choice.sel .k{color:rgba(255,255,255,.7)}
+  .revnote{margin-top:10px;display:none}
+  .revnote.show{display:block}
+  .revnote textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px;font-family:var(--sans);font-size:13px;resize:vertical;min-height:48px;background:var(--warm);color:var(--ink)}
+  .actionbar{position:fixed;bottom:0;left:0;right:0;background:rgba(28,25,23,.97);backdrop-filter:blur(6px);padding:12px 20px;display:flex;gap:10px;align-items:center;justify-content:center;z-index:40;flex-wrap:wrap}
+  .btn{font-family:var(--sans);font-size:13px;font-weight:600;padding:10px 18px;border-radius:8px;border:none;cursor:pointer}
+  .btn.primary{background:var(--terra);color:#fff}
+  .btn.ghost{background:transparent;color:var(--warm);border:1px solid rgba(253,251,247,.3)}
+  .ab-txt{color:rgba(253,251,247,.7);font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+  .toast{position:fixed;bottom:74px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--warm);padding:11px 20px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .35s;pointer-events:none;z-index:60}
+  .toast.show{opacity:1}
+  details.json-out{margin-top:14px}
+  details.json-out summary{font-family:var(--mono);font-size:11px;color:var(--ink-muted);cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+  pre{background:var(--ink);color:#d8e8d8;padding:14px;border-radius:8px;overflow:auto;font-family:var(--mono);font-size:11px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
+  @media(max-width:560px){h1{font-size:34px}.meta{gap:18px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <p class="kicker" id="h-kicker"></p>
+  <h1 id="h-title"></h1><span class="dot" style="display:none"></span>
+  <p class="sub" id="h-sub"></p>
+  <div class="meta" id="h-meta"></div>
+</div></header>
+
+<div class="wrap">
+  <div class="note-block" id="h-note"></div>
+  <div class="progwrap"><div class="progrow">
+    <div class="progbar"><div class="progfill" id="progfill"></div></div>
+    <div class="progtxt" id="progtxt">0 / 0</div>
+  </div></div>
+  <div class="filters" id="filters"></div>
+  <div id="list"></div>
+  <details class="json-out"><summary>Preview the JSON I will receive</summary><pre id="jsonprev">{}</pre></details>
+</div>
+
+<div class="actionbar">
+  <span class="ab-txt" id="ab-status">0 decided</span>
+  <button class="btn primary" id="copyBtn">Copy decisions</button>
+  <button class="btn ghost" id="dlBtn">Download JSON</button>
+  <button class="btn ghost" id="resetBtn">Reset</button>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   FILL THESE TWO BLOCKS. Engine below is untouched.
+   ============================================================ */
+const CONFIG = {
+  kicker: "CASA FORTUNA · WAVE 2 · 2026-06-24",
+  title: "Wave-2 Adjudication",
+  showDot: true,
+  subtitle: "The reworks you flagged + four craft sweeps. Tap Deploy / Skip / Revise per item; use the note box on Revise. Saves in this browser. Nothing deploys without your marks.",
+  noteBlock: "<b>Context.</b> The Ch06 cut is validated — three blind reads ran the whole book and none flagged the new Shadowy Passage → Bugis seam or any phantom reference to the cut monk shoot. These are line-level proposals only. <b>Locks honored in every Proposed:</b> no em-dashes added, US English, no narrator exclamation points, the un-named relationship and the koel/Frame-Close ending untouched. The B · Reworks group is the language you marked <em>revise</em> last round.",
+  metrics: [ {value:"31", label:"Items"}, {value:"5", label:"Batches"}, {value:"B+S2-5", label:"Source"} ],
+  decisions: [
+    {key:"deploy", label:"Deploy", sub:"roll it",     color:"sage"},
+    {key:"skip",   label:"Skip",   sub:"leave as-is",  color:"muted"},
+    {key:"revise", label:"Revise", sub:"my note",      color:"terra"}
+  ],
+  reviseKey: "revise",
+  showRecommended: true,
+  fields: [
+    {key:"now", label:"Now / Context", box:false},
+    {key:"rep", label:"Proposed",      box:true, arrow:true}
+  ],
+  storageKey: "cf_wave2_adj_2026_06_24",
+  jsonName: "CasaFortuna_Wave2_Decisions.json",
+  docMeta: {doc:"Wave-2 Adjudication", date:"2026-06-24"}
+};
+
+const ITEMS = [
+  /* ===== B · REWORKS (language Jonathan flagged revise) ===== */
+  {id:"B-F1", group:"B · Reworks — Arrival & Orientation (Ch02)",
+   tags:[{label:"REWORK",cls:"terra"},{label:"F1",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`...and three people nod and I do not, because I have not, and the not-having-seen-it is <em>the first of many small holes I will spend the year stepping around.</em>`,
+     rep:`...and three people nod and I do not, because I have not seen it. <em>(The clean cut the handover recommends: drop the foreknowledge tail; the unreturnable nod carries it.)</em>` }},
+
+  {id:"B-K1", group:"B · Reworks — Arrival & Orientation (Ch02)",
+   tags:[{label:"REWORK",cls:"terra"},{label:"K1",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Every one announced in the same register, the upbeat one, the one with no weight in it. <em>I am learning to hear the weight it has been built to keep out.</em> <em>(You flagged: reads opaque.)</em>`,
+     rep:`...the one with no weight in it. I am learning to hear what the brightness is for: it carries the part of a leaving that can be said, and keeps the rest off the email, the Friday phone call, the box of desk things, the long not-quite-explaining after. <em>(Grounds the opaque "weight"; commas only. Alt, leaner: "...and leaves the rest off the email.")</em>` }},
+
+  {id:"B-CC30", group:"B · Reworks — Production Week (Ch01)",
+   tags:[{label:"REWORK",cls:"terra"},{label:"CC-30",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Host: the load-in (men from the truck on the landing before the 8:00 call). You flagged the prior draft as not strong enough to earn the irony. <em>Watch: Ch01 already has an adjacent "the truck is early / the machine is already on its mark" beat — redundancy risk.</em>`,
+     rep:`The call had been set for eight, a number chosen for a building still mostly asleep. The men from the truck were on the landing before it. No one had moved the eight; the truck simply kept its own time, and eight turned out to be a thing the morning was told, not asked.` }},
+
+  {id:"B-CC13", group:"B · Reworks — Production Week (Ch01)",
+   tags:[{label:"REWORK",cls:"terra"},{label:"CC-13",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Host: the director reading the apartment (near "I watch him find that light and decide what it is for"). You flagged: needs to read more incisive.`,
+     rep:`He had read the apartment with his eyes before he set the clipboard down, and sorted it the way they sort any room: this part useful, this part furniture. The windows were useful. The canal-light was useful. My life in the place was furniture, and by the time the lamps were lit the useful things had cables running to them and the furniture had been carried down to the truck.` }},
+
+  {id:"B-CC36", group:"B · Reworks — Production Week (Ch01)",
+   tags:[{label:"REWORK",cls:"terra"},{label:"CC-36",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Host: the wrap (near "The crew wrapped at five... the apartment is mine again"). You flagged: language feels off, could be genuinely incisive. <em>(Handover offered Ch09 as alt; Ch01 wrap is the cleaner home — the blind reads called Ch09 the drag.)</em>`,
+     rep:`When they struck the lights the apartment held their heat a while, the way a room stays warm after a body has left it, except no body had left it; only the lights had. What the room kept was what the rig had put into it. Of the day we had spent producing it, it kept nothing.` }},
+
+  {id:"B-CC20", group:"B · Reworks — placement call",
+   tags:[{label:"REWORK",cls:"terra"},{label:"CC-20",cls:"neutral"}], rec:"revise", flag:true,
+   fields:{
+     now:`The idea (fold into dialogue): the produced asset outlives everyone who made it, on a retention schedule. "Calder Rowe" is the firm; the only client-banter chapter is The Fiefdom (Ch04), but the blind reads called Ch04 already dense (6 reseats).`,
+     rep:`<b>Option A</b> (dialogue, The Fiefdom): a deadpan from Priya over the deck — "You know where it ends up. A server. It outlives the launch, the drug, whoever was in the room. Retention schedule. Three years past the last person who could tell you what was in it." &nbsp; <b>Option B</b> (narration, The Airing): "It would sit on a server for as long as the show had a use for it, and three years past the day anyone remembered making it." <em>(Placement is yours: A loads an already-dense chapter; B rhymes with the broadcast/koel close.)</em>` }},
+
+  /* ===== SWEEP 4 · utility-line lift ===== */
+  {id:"S4-1", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`The pool is on the fourth floor. The gym is on the fifth.`,
+     rep:`The pool is on the fourth floor, the gym on the fifth, the two amenities the brochure leads with and the building maintains in that order of enthusiasm.` }},
+
+  {id:"S4-2", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`Both are fine. I also join a chain gym in Outram Park for the steam room.`,
+     rep:`Both are fine, which in a building is the most anyone says about a thing that works. I join a chain gym in Outram Park anyway, for the steam room.` }},
+
+  {id:"S4-3", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch03",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`I get off at the Toa Payoh interchange and walk the ten minutes home through the town centre.`,
+     rep:`I get off at the Toa Payoh interchange and walk the ten minutes home, the ten minutes the bus map calls a transfer and the body has started calling home.` }},
+
+  {id:"S4-4", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch04",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`Priya ran the pharma accounts.`,
+     rep:`Priya ran the pharma accounts, which on this floor meant she ran the part of the floor that could not afford to be wrong.` }},
+
+  {id:"S4-5", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch04",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Jason handled corporate communications. He was twenty-six and Singaporean...`,
+     rep:`Jason handled corporate communications, which is the practice you give the youngest man because corporate is where nothing is supposed to happen, and where, accordingly, everything did. <em>(Flag: verify it doesn't over-zinger against "cut showy tails.")</em>` }},
+
+  {id:"S4-6", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch09",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`The taxi from the airport took fifty minutes. The driver did not speak.`,
+     rep:`The taxi from the airport took fifty minutes with a driver who did not speak, which I had stopped reading as rudeness and started reading as the one courtesy a city of transit reliably extends.` }},
+
+  {id:"S4-7", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch15",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`The bus was less crowded than usual. The SG50 banner had been up since April. The Ah Hood Road stop was the same.`,
+     rep:`The bus was less crowded than usual. The SG50 banner had been up since April, the city counting fifty years while I counted three. The Ah Hood Road stop was the same.` }},
+
+  {id:"S4-8", group:"Sweep 4 · Utility-line lift",
+   tags:[{label:"LIFT",cls:"teal"},{label:"Ch02",cls:"neutral"}], rec:"skip", flag:true,
+   fields:{
+     now:`I sign the lease on the third one.`,
+     rep:`I sign the lease on the third one, having rejected the better-priced one for a reason I did not examine and would, in two years, recognize as the whole pattern. <em>(Low-confidence: risks over-telegraphing the thesis. Rec Skip.)</em>` }},
+
+  /* ===== SWEEP 5 · haze / weather thinning ===== */
+  {id:"S5-1", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch07 Sunday",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"the soft equatorial night that never quite cools, the air thick and kind, the drains breathing their faint green smell, the frangipani..." <em>(4th instance of the "thick warm equatorial night air" image.)</em>`,
+     rep:`Thin to the fresh detail (drains/frangipani); drop "never quite cools / thick and kind." Keep the Bugis (Ch06) + Chinese New Year (Ch13) instances.` }},
+
+  {id:"S5-2", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch01",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"By the time I reach it the heat lies over the whole front of me, <em>wet, total.</em>"`,
+     rep:`Cut "wet, total" (Ch01 already carries "the heat, immediate, total" plus the stairwell "wet" heat).` }},
+
+  {id:"S5-3", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch03",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"The heat bearing down on the back of the neck, the wet air closing on the arms, a faint resistance against the shins with each step."`,
+     rep:`Trim to one clause; it echoes Ch01's identical three-part body-in-heat inventory ("wet air closing on the arms" recurs).` }},
+
+  {id:"S5-4", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"The temperature is already thirty degrees. The water is the only surface in Singapore, I discover, that does not sweat."`,
+     rep:`Cut "The temperature is already thirty degrees" (3rd temperature stat in the chapter); keep "does not sweat."` }},
+
+  {id:"S5-5", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch03",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"The air has the weight of something you could lean against. Thirty-one degrees, still. I am sweating through my shirt."`,
+     rep:`Keep the lean-against image; cut "Thirty-one degrees, still. I am sweating through my shirt" (restates the established baseline).` }},
+
+  {id:"S5-6", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch09",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`"I came in still carrying the street on me: core-warm, the shirt wet at the base of the spine."`,
+     rep:`Vary or cut "the shirt wet at the base of the spine" — the wet-lower-back image recurs ~5× in the book. Keep the structural Ch04 "small of my back was damp" echo pair.` }},
+
+  {id:"S5-7", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch01",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Three sweat-on-sternum descriptions in Ch01: mic-tape, "damp line off the sternum," and the adhesive "skin-warmth" at strike.`,
+     rep:`Keep the mic-tape sweat (it does apparatus work); thin one of the other two.` }},
+
+  {id:"S5-8", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch13",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`"The aircon had run the whole three days I was gone... The cold had had that long to settle into the rooms, and it had." <em>(3rd "empty apartment holding its cold" beat.)</em>`,
+     rep:`Thin one of the September/Invitation/Chinese-New-Year trio. KEEP the Airing + Frame-Close instances (climactic).` }},
+
+  {id:"S5-9", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch01",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"the dry-mouth that is part hangover and part <em>the building's aircon running all night.</em>"`,
+     rep:`Trim the aircon half-clause; the all-night aircon is established three sentences earlier in the same paragraph.` }},
+
+  {id:"S5-10", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"TRIM",cls:"teal"},{label:"Ch01→Ch02",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Two versions of the cold-train-to-heat threshold in consecutive chapters: Ch01 "like stepping through a curtain" and Ch02 "the heat is waiting on the other side... like a person."`,
+     rep:`Keep the Ch02 "waiting like a person" (stronger); thin the Ch01 crossing.` }},
+
+  {id:"S5-HOLD", group:"Sweep 5 · Haze / weather thinning",
+   tags:[{label:"HOLD",cls:"ink"},{label:"protect",cls:"neutral"}], rec:"skip", flag:false,
+   fields:{
+     now:`LOAD-BEARING — do not let the thinning touch these motif nodes:`,
+     rep:`The aircon-hum-by-absence chain (Prologue → Sunday → Airing → Frame Close); the Reduced-Visibility haze (Ch03); the first-arrival heat (Ch02); "In New York hot is an event. Here it's infrastructure" (Bugis); Pondicherry slant-light vs Singapore flat-sky (India). <em>(Listed so a Deploy elsewhere never nicks a motif. Rec Skip = no change.)</em>` }},
+
+  /* ===== SWEEP 2 · deck grounding ===== */
+  {id:"S2-1", group:"Sweep 2 · Deck grounding",
+   tags:[{label:"GROUNDING",cls:"teal"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`Diagnostic: the tangible deliverable is now grounded concretely in The Fiefdom (the verb/caption redline) and Shadowy Passage (the slide-with-redline). <b>The substance gap is closed.</b> Remaining softness: the first concrete touch is ~Ch04; "deck/slide" appear as bare nouns earlier.`,
+     rep:`OPTIONAL early grounding beat for Ch02 (after the senior associate's Halperin line): "My first real task is a single line. A client's safety bulletin says a side effect can occur, and the medical-affairs lead wants it to say the effect has been reported in some patients. Both are true. The first sounds like a property of the drug; the second like a property of the paperwork. I sit with the two versions for most of an afternoon, then send back the second with the change tracked, and Priya reads it over my shoulder and says it will clear. It clears. The bulletin goes out with my sentence in it, under the client's name, and nowhere on the page is there a record that the sentence was ever the other one." <em>(Timing refinement, not a repair. Book is defensible without it.)</em>` }},
+
+  /* ===== SWEEP 3 · epithet humor (capped) ===== */
+  {id:"S3-1", group:"Sweep 3 · Epithet humor (capped)",
+   tags:[{label:"EPITHET",cls:"sage"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`Brian — the printer the floor named and kept "instead of the man" — recurs, but Daniel never re-handles it in his own voice.`,
+     rep:`On a later reference, let Daniel adopt the handle: "Brian, the printer we kept instead of the man." (Rewards recurrence; native to the dry register.)` }},
+
+  {id:"S3-2", group:"Sweep 3 · Epithet humor (capped)",
+   tags:[{label:"EPITHET",cls:"sage"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"...where I will later buy the New Zealand butter, a single imported item in a wall of local brands, someone's decision about who is shopping here"`,
+     rep:`"...where I will later buy the New Zealand butter, the butter-bought-for-me, a single imported item in a wall of local brands..." (Compresses the "decision about who is shopping here" beat into a handle that can return.)` }},
+
+  {id:"S3-3", group:"Sweep 3 · Epithet humor (capped)",
+   tags:[{label:"EPITHET",cls:"sage"},{label:"Ch03",cls:"neutral"}], rec:"deploy", flag:false,
+   fields:{
+     now:`"I had not known, before Singapore, that a ministry would spend money on a mosquito the size of a bus."`,
+     rep:`"...that a ministry would spend money on a mosquito the size of a bus, the bus-sized state mosquito, while the commuters on the lower deck do not look up." (Makes the state-mosquito a running gag across the Ch02 poster + Ch03 billboard.)` }},
+
+  {id:"S3-4", group:"Sweep 3 · Epithet humor (capped)",
+   tags:[{label:"EPITHET",cls:"sage"},{label:"Ch02",cls:"neutral"}], rec:"deploy", flag:true,
+   fields:{
+     now:`"...a name on the org chart and a hire the floor knows me to be." (A colleague already calls Daniel "Eric's hire.")`,
+     rep:`"...a name on the org chart and a hire the floor knows me to be, Eric's-hire, the way you are a thing before you are a person here." (Daniel claims the handle others use — institutional reduction as self-deprecation.)` }},
+
+  {id:"S3-5", group:"Sweep 3 · Epithet humor (capped)",
+   tags:[{label:"EPITHET",cls:"sage"},{label:"Ch02",cls:"neutral"}], rec:"skip", flag:true,
+   fields:{
+     now:`The duck-noodle uncle recurs across three mornings; "the ang moh eating breakfast alone at a stall with no English on it."`,
+     rep:`On the recurrence, give the ritual a fixed handle ("my no-English breakfast"). <em>(Rec Skip for cap discipline — the strongest three are Brian / butter / state-mosquito. Three more candidates [Bob the cactus, the empty-flagship slide, the serif-shaved logo] were held back to avoid over-using the device and stepping on Marcus's naming-comedy.)</em>` }}
+];
+
+/* ============================================================
+   ENGINE - do not edit below.
+   ============================================================ */
+const KEY=CONFIG.storageKey;
+let state=JSON.parse(localStorage.getItem(KEY)||'{}');
+let filter='all';
+const $=s=>document.querySelector(s);
+const list=$('#list');
+const decByKey=Object.fromEntries(CONFIG.decisions.map(d=>[d.key,d]));
+
+function head(){
+  $('#h-kicker').textContent=CONFIG.kicker;
+  $('#h-title').textContent=CONFIG.title;
+  if(CONFIG.showDot){const d=document.querySelector('.dot');d.style.display='inline-block';$('#h-title').appendChild(d);}
+  $('#h-sub').textContent=CONFIG.subtitle;
+  if(CONFIG.noteBlock){$('#h-note').innerHTML=CONFIG.noteBlock;}else{$('#h-note').style.display='none';}
+  $('#h-meta').innerHTML=CONFIG.metrics.map(m=>`<div><b>${m.value}</b><span>${m.label}</span></div>`).join('');
+  const fl=$('#filters');
+  const fdefs=[{f:'all',t:'All'},{f:'undecided',t:'Undecided'},{f:'flagged',t:'Flagged'}];
+  fl.innerHTML=fdefs.map(d=>`<div class="filt${d.f==='all'?' on':''}" data-f="${d.f}">${d.t}</div>`).join('');
+  fl.addEventListener('click',e=>{const f=e.target.closest('.filt');if(!f)return;filter=f.dataset.f;fl.querySelectorAll('.filt').forEach(x=>x.classList.toggle('on',x===f));render();});
+}
+
+function recLabel(k){const d=decByKey[k];return d?('Recommended: '+d.label):'';}
+
+function render(){
+  list.innerHTML='';let lastG=null;
+  const vis=ITEMS.filter(it=>{
+    if(filter==='undecided')return !state[it.id]||!state[it.id].decision;
+    if(filter==='flagged')return it.flag;
+    return true;
+  });
+  if(!vis.length){list.innerHTML='<p style="color:var(--ink-muted);font-size:14px;padding:20px 0">Nothing in this filter.</p>';}
+  vis.forEach(it=>{
+    if(it.group!==lastG){const h=document.createElement('div');h.className='group-h';h.textContent=it.group;list.appendChild(h);lastG=it.group;}
+    const d=(state[it.id]&&state[it.id].decision)||'';
+    const card=document.createElement('div');
+    card.className='card'+(d?' decided':'')+(it.flag?' flagged':'');
+    const tags=(it.tags||[]).map(t=>`<span class="chip ${t.cls||'neutral'}">${t.label}</span>`).join('');
+    const flagChip=it.flag?'<span class="chip flag">judgment</span>':'';
+    const recHtml=CONFIG.showRecommended&&it.rec?`<span class="rec">${recLabel(it.rec)}</span>`:'';
+    const fields=CONFIG.fields.map(f=>{
+      const v=(it.fields&&it.fields[f.key])||'';
+      if(v==='')return'';
+      const lab=f.arrow?`<span class="arrow">&#8594;</span> ${f.label}`:f.label;
+      return `<span class="lbl">${lab}</span><div class="txt ${f.box?'field-box':'field-plain'}">${v}</div>`;
+    }).join('');
+    const btns=CONFIG.decisions.map(dec=>`<div class="choice${d===dec.key?' sel':''}" data-color="${dec.color}" data-v="${dec.key}" data-id="${it.id}">${dec.label}<span class="k">${dec.sub||''}</span></div>`).join('');
+    const showNote=CONFIG.reviseKey && d===CONFIG.reviseKey;
+    card.innerHTML=`<div class="chiprow">${tags}${flagChip}${recHtml}</div>${fields}
+      <div class="choices">${btns}</div>
+      <div class="revnote${showNote?' show':''}"><textarea data-note="${it.id}" placeholder="What would you change?">${(state[it.id]&&state[it.id].note)||''}</textarea></div>`;
+    list.appendChild(card);
+  });
+  bind();progress();
+}
+
+function bind(){
+  list.querySelectorAll('.choice').forEach(c=>c.addEventListener('click',()=>{
+    const id=c.dataset.id,v=c.dataset.v;state[id]=state[id]||{};
+    state[id].decision=(state[id].decision===v)?'':v;save();render();
+  }));
+  list.querySelectorAll('textarea[data-note]').forEach(t=>t.addEventListener('input',()=>{
+    const id=t.dataset.note;state[id]=state[id]||{};state[id].note=t.value;save();jsonOut();
+  }));
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(state));}
+function progress(){
+  const total=ITEMS.length,done=ITEMS.filter(it=>state[it.id]&&state[it.id].decision).length;
+  $('#progfill').style.width=(total?done/total*100:0)+'%';
+  $('#progtxt').textContent=`${done} / ${total} decided`;
+  $('#ab-status').textContent=`${done} decided`;
+  jsonOut();
+}
+function build(){
+  const out={meta:Object.assign({},CONFIG.docMeta,{total:ITEMS.length}),decisions:[]};
+  ITEMS.forEach(it=>{const s=state[it.id]||{};out.decisions.push({id:it.id,group:it.group,recommended:it.rec||null,decision:s.decision||null,note:s.note||""});});
+  out.meta.decided=out.decisions.filter(d=>d.decision).length;
+  CONFIG.decisions.forEach(dec=>{out.meta[dec.key]=out.decisions.filter(d=>d.decision===dec.key).map(d=>d.id);});
+  return out;
+}
+function jsonOut(){$('#jsonprev').textContent=JSON.stringify(build(),null,2);}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1900);}
+
+$('#copyBtn').addEventListener('click',async()=>{
+  const txt=JSON.stringify(build(),null,2);
+  try{await navigator.clipboard.writeText(txt);toast('Decisions copied - paste them back');}
+  catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('Decisions copied');}
+});
+$('#dlBtn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(build(),null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=CONFIG.jsonName;a.click();URL.revokeObjectURL(a.href);toast('JSON downloaded');
+});
+$('#resetBtn').addEventListener('click',()=>{if(confirm('Clear all decisions?')){state={};save();render();toast('Reset');}});
+
+document.title=CONFIG.title;
+head();render();
+</script>
+</body>
+</html>
