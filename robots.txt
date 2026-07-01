@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /archive/
+Disallow: /reading/
 
 Sitemap: https://jmkay.com/sitemap.xml

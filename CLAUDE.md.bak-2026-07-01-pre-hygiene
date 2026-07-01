@@ -45,7 +45,6 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 - Post 02 "A Cancer Pioneer Whose Life Was Tragically Cut Short" → `writing/baselga-documentary.html` (Apr 6)
 - Post 03 "Properly Excavate, Before Building Anything" → `writing/excavating-a-life.html` (Apr 22/23)
 - Post 04 "On briefing, in any era." → `writing/briefing-in-any-era.html` (May 26; slug `briefing-in-any-era`)
-- Post 05 "What Nearly Two Decades in Healthcare Taught Me About Story" → `writing/two-decades-healthcare-story.html` (Jun 11; slug `two-decades-healthcare-story`)
 - Cinema page → `cinema/index.html` (Bethesda Cinematheque, unlisted/noindex)
 - Private reading share → `reading/<slug>/index.html` (select chapters of the novel *The Approved Version*, unlisted/noindex; one per-group secret link; Netlify-Forms comment box `reading-feedback`; build via `scripts/build_reading_pages.py`, see `scripts/READING_PAGES_README.md`; `/reading/` in robots.txt + _headers; NOT in nav/sitemap. Staged 2026-06-29 — live on push.)
 
@@ -82,8 +81,8 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 ## Active Projects
 | Name | What |
 |------|------|
-| **LinkedIn Activation** | 27-post calendar. Cadence: alternating 1-week / 2-week gaps. Posts 01–05 published; Phase-2 reshape May 26 2026 re-dated Posts 05–27 (Jun 2026 → Jan 2027). Post 05 LIVE Jun 11; Post 06 next (scheduled Wed Jun 17 — verify live). |
-| **jmkay.com Perspectives** | Essay pages synced from published posts. Live: Posts 01–05 (see Published Perspectives list above). Deployed via Netlify from this repo. |
+| **LinkedIn Activation** | 27-post calendar. Cadence: alternating 1-week / 2-week gaps. Phase 1 (Posts 01–04) published; Phase-2 reshape May 26 2026 re-dated Posts 05–27 (Jun 2026 → Jan 2027). Post 04 LIVE May 26; Post 05 next. |
+| **jmkay.com Perspectives** | Essay pages synced from published posts. Live: Posts 01–04 (see Published Perspectives list above). Deployed via Netlify from this repo. |
 | **Spotlight the Process** | "Made With" collaborator credits at the bottom of case-study pages (not a testimonials page). |
 | **FDMlife** | Production partnership with Nick Szpara |
 | **Aradhana Award** | First client project under J.M.Kay (~$19–21K budget; Jonathan billed ~$5K+, ~25%+). |

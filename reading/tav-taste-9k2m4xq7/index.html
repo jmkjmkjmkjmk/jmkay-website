@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Approved Version &mdash; a reading</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('/KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal;
+  }
+  :root {
+    --warm-white:#FDFBF7; --cream:#F5F0E8; --sand:#D4C5A9;
+    --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C; --stone:#A8A29E;
+    --terracotta:#C2603F; --deep-teal:#1A4A4A; --line:#E4DDD0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--ink);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+
+  /* slim top bar — wordmark only, deliberately quiet */
+  .topbar {
+    padding:22px 32px; display:flex; align-items:center; justify-content:center;
+    border-bottom:1px solid var(--line);
+  }
+  .wordmark {
+    font-family:'Kay Display',serif; font-size:19px; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--ink); text-decoration:none;
+  }
+  .dot {
+    display:inline-block; width:5px; height:5px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:1px; margin:0 4px; vertical-align:middle;
+  }
+
+  .wrap { max-width:680px; margin:0 auto; padding:0 28px; }
+
+  /* book title / framing */
+  .intro { padding:84px 0 8px; }
+  .eyebrow {
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--terracotta); margin-bottom:18px;
+  }
+  .book-title {
+    font-family:'Instrument Serif',serif; font-size:48px; line-height:1.05;
+    font-weight:400; letter-spacing:-0.01em; margin-bottom:10px;
+  }
+  .byline {
+    font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ink-muted); margin-bottom:40px;
+  }
+  .framing {
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:32px 0; margin-bottom:8px;
+  }
+  .framing p {
+    font-size:16.5px; color:var(--ink-light); margin-bottom:16px;
+  }
+  .framing p:last-child { margin-bottom:0; }
+  .framing em { font-style:italic; }
+
+  /* chapters */
+  .chapter { padding:64px 0 8px; }
+  .chapter-head { text-align:center; margin-bottom:44px; }
+  .chapter-num {
+    display:block; font-family:'Space Mono',monospace; font-size:12px;
+    letter-spacing:0.28em; text-transform:uppercase; color:var(--terracotta);
+    margin-bottom:12px;
+  }
+  .chapter-title {
+    font-family:'Instrument Serif',serif; font-weight:400; font-size:34px;
+    line-height:1.1; letter-spacing:-0.01em;
+  }
+  .prose {
+    font-family:'EB Garamond',serif; font-size:20px; line-height:1.66;
+    color:#26211d;
+  }
+  .prose p { margin-bottom:1.05em; }
+  .prose p:first-of-type { text-indent:0; }
+  .prose p + p { text-indent:1.4em; }
+  .prose em { font-style:italic; }
+  .prose hr {
+    border:none; text-align:center; margin:34px 0; overflow:visible;
+  }
+  .prose hr::before {
+    content:'\002A \00A0\00A0 \002A \00A0\00A0 \002A';
+    color:var(--stone); letter-spacing:0.1em; font-family:'EB Garamond',serif;
+    font-size:17px;
+  }
+  .prose figure.ms-figure { margin:6px 0 30px; }
+  .prose figure.ms-figure img {
+    width:100%; height:auto; display:block; border-radius:4px;
+    box-shadow:0 6px 22px rgba(28,25,23,0.10);
+  }
+
+  /* feedback */
+  .feedback {
+    margin:72px 0 0; padding:40px 0 0; border-top:1px solid var(--line);
+  }
+  .feedback h3 {
+    font-family:'Instrument Serif',serif; font-weight:400; font-size:26px;
+    margin-bottom:8px;
+  }
+  .feedback .lead { color:var(--ink-light); margin-bottom:24px; font-size:16px; }
+  .field { margin-bottom:18px; }
+  .field label {
+    display:block; font-family:'Space Mono',monospace; font-size:11px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted);
+    margin-bottom:7px;
+  }
+  .field input, .field textarea {
+    width:100%; font-family:'DM Sans',sans-serif; font-size:16px; color:var(--ink);
+    background:var(--warm-white); border:1px solid var(--sand); border-radius:4px;
+    padding:12px 14px; line-height:1.5;
+  }
+  .field textarea { min-height:150px; resize:vertical; }
+  .field input:focus, .field textarea:focus {
+    outline:none; border-color:var(--terracotta);
+  }
+  .hp { position:absolute; left:-9999px; }
+  button.send {
+    font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500;
+    color:#fff; background:var(--deep-teal); border:none; border-radius:4px;
+    padding:13px 30px; cursor:pointer; letter-spacing:0.01em;
+  }
+  button.send:hover { background:var(--terracotta); }
+  .thanks { display:none; color:var(--deep-teal); font-size:16.5px; padding:8px 0; }
+
+  footer {
+    margin-top:80px; padding:34px 0 60px; border-top:1px solid var(--line);
+    text-align:center; color:var(--ink-muted); font-size:13px;
+    font-family:'Space Mono',monospace; letter-spacing:0.06em;
+  }
+
+  @media (max-width:640px) {
+    .book-title { font-size:36px; }
+    .prose { font-size:18.5px; }
+    .chapter-title { font-size:28px; }
+    .intro { padding:60px 0 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="wordmark" href="https://jmkay.com">J<span class="dot"></span>M<span class="dot"></span>KAY</a>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="eyebrow">A reading &middot; in confidence</div>
+    <h1 class="book-title">The Approved Version</h1>
+    <div class="byline">a novel &middot; Jonathan Michael Kay</div>
+    <div class="framing">
+      <p>Thank you for reading some of this. It is a novel I have been working on for a
+while, called <em>The Approved Version</em>.</p>
+
+<p>It follows Daniel Reiss, an American who arrives in Singapore in 2012 on a work
+contract he keeps meaning to leave, and the three years he ends up staying. His job is
+a kind of translation, for companies. He sits in the room where something real gets
+said, then he hands back the approved version that&rsquo;s safe to say out loud. The
+book is about what a life like that does to a person, and about the one relationship he
+could never find the words for, and lost.</p>
+
+<p>What you have here is a sample, not the whole book: a few chapters, enough to get
+a feel for the voice and what it is doing. They run in the book&rsquo;s order, so
+there are gaps between them. That is normal for a sample.</p>
+
+<p>If anything lands, or doesn&rsquo;t, I would love to hear it. There is a box at the
+end &mdash; say as much or as little as you like. There are no wrong reactions.</p>
+
+<p style="text-align:right;">&mdash; Jonathan</p>
+
+    </div>
+  </div>
+
+  
+  <section class="chapter">
+    <header class="chapter-head">
+      <span class="chapter-num">Prologue</span>
+      <h2 class="chapter-title">Doha, 2019</h2>
+    </header>
+    <div class="prose">
+      <p>It begins with a crew. They flew in to film a man choosing an apartment he had already chosen, and the morning they arrived a bird in the rain tree outside the window woke me before they did — a round, unhurried call I had heard every morning for three years and never once been able to name: a low <em>koo</em> that climbed into a run of bright, rising repeats and then dropped and started over from the bottom. And a truck came into the lot below, on the schedule someone else had set. I knew the sound by heart and had never once seen the thing that made it, never learned its name, the line in the field guide, the word a local would have had for it without thinking. I knew the call and not the bird. I have come to think that is the whole of what I am, and that everything after this is a long footnote to it. They were here to make a version of my life that could be aired. The one they made did not have him in it.</p>
+<p>I am writing from a desk in a third country I had already said yes to before the offer was finished, under a hum you stop hearing inside a week. There was a man in the city I am going to describe. I am not going to be able to tell you what he was to me. There is a word. It is short, and people use it across dinner tables without lowering their voices, and I have written longer and more dangerous words into documents that lawyers signed. This one goes the way a foot goes off a curb you did not see in the dark, the small private failure of a step that finds nothing where the ground should have been. I could never set it down next to his name, in that country or this one, then or now. For more than a decade it was my one real skill to find the word a room could use: the version that cleared legal, that a regulator would read and find nothing in, that a camera could air. I found it for hospitals, for a drug company&rsquo;s lawyers, for my own mother. I could not find it for him. He waited a while for me to, and then he stopped waiting, and went. That is what this is — the one account I could never produce, opened now that there is no one left to read it.</p>
+    </div>
+  </section>
+
+  <section class="chapter">
+    <header class="chapter-head">
+      <span class="chapter-num">One</span>
+      <h2 class="chapter-title">Production Week</h2>
+    </header>
+    <div class="prose">
+      <p>The night before the crew arrives there are drinks, and I have agreed, mostly reluctantly, to be the reason for them. Graham insists on Neil Road, on the smallest bar on that strip of shophouses, over every roomier and better-cooled option, because his fondness for a place runs inverse to its square footage. Drinks and shots and the kind of room where the bar is the back wall and the crowd is one set of men who have eaten at the hawker centre beside another set who will stumble there later to soak up the drinks they have already forgotten. The room runs hot. The ceiling fan turns at a speed that is purely ceremonial, and by ten everyone has rolled their sleeves back or done away with sleeves, and shirts, entirely.</p>
+<p>By eleven the occasion has been thoroughly observed. A sentence strikes like a bell off the too-large disco ball and comes back to me: <em>You&rsquo;re going to be on TV!</em></p>
+<p>&ldquo;Daniel, what are your lines gonna be?!&rdquo; The reflex it wakes in me is older than I can account for, but I am not yet tipsy, so I hold my tongue. &ldquo;Well?&rdquo; It is Graham, one hand flat on the bar, the weight of his jaw jutting into your space, enjoying the attention his handsomeness conjures. &ldquo;So House Hunters International, mate,&rdquo; he says, his voice pitched to unnerve me. &ldquo;How&rsquo;s our newest American celebrity going to introduce himself to the world tomorrow?&rdquo;</p>
+<p>&ldquo;I don&rsquo;t have a speech prepared. I&rsquo;m reacting to apartments I&rsquo;m seeing for the first time —&rdquo;</p>
+<p>&ldquo;— Kind of.&rdquo;</p>
+<p>&ldquo;— well, it&rsquo;s the character&rsquo;s first time. I describe what the rooms look like, my reactions — just an apartment tour.&rdquo;</p>
+<p>Graham reaches for his glass and holds it without lifting it. The reach pulls the shirt across his shoulders, his chest broader than the shirt admits. His eyebrows go up. A beat the length of a swallow. Then they furrow, slow, a whole brief conversation held with someone just beyond me, no words in it.</p>
+<p>&ldquo;Oh, honey,&rdquo; Graham says. &ldquo;They did not fly a crew to Singapore to film you describing a room.&rdquo;</p>
+<p>&ldquo;They want the rooms described. There are cameras. People can see what it looks like.&rdquo;</p>
+<p>&ldquo;They want the room <em>sold.</em> To you, by you, while you pretend the selling is news to you.&rdquo; He is delighted. &ldquo;<em>You&rsquo;re going to be on TV.</em>&ldquo;</p>
+<p>&ldquo;I produce things for a living,&rdquo; I say. &ldquo;I know how the sausage gets made.&rdquo;</p>
+<p>&ldquo;Darling, nobody is questioning the sausage.&rdquo; He sets his glass down with the care of a man laying flowers. &ldquo;I&rsquo;m questioning whether you&rsquo;ve grasped that <em>you</em> are the sausage. They flew economy-plus across nine time zones for the look on your face when you walk into your own kitchen and feel something.&rdquo; A finger up. &ldquo;Authentically.&rdquo;</p>
+<p>&ldquo;I can do authentic.&rdquo;</p>
+<p>&ldquo;You can do <em>produced</em> authentic, which is worse, which is why they&rsquo;ll love you.&rdquo; He leans back and considers me. &ldquo;I want you to picture it. Tuesday afternoon. A woman in Ohio has the iron going and you, on her screen, are walking into a flat you have weed in, being <em>moved</em> by the windows. She will believe you. That is the tragedy. She will believe you and you will know, in the moment, exactly how the believing is done, because you&rsquo;ll have built the machine that does it.&rdquo; He turns to the table at large. &ldquo;He&rsquo;s going to be insufferable about this. He&rsquo;s going to come back Thursday saying things like <em>eyeline.</em> Mark it. Somebody mark it.&rdquo;</p>
+<p>Shots arrive in a configuration no one will later admit to assembling. Arjun — nearly two years of him by now, the sleeves of the office shirt turned back the way they were the first night I clocked him across a room and the way they are tonight, the same decision made about the same cuffs — leans in close, his mouth at the side of my head, and says something warm and a little damp into my ear that I could not have repeated ten seconds after he said it. His hand is flat on my back the whole time, between the shoulder blades, the heel of it warm through the wet cotton and the squash callus at the base of his thumb catching once on the weave, a steady pressure I lean back into without deciding to, and nobody at the table looks, because everybody at the table has long since stopped looking. I have a clear and isolated memory of agreeing that I am. At volume, to the room, with a conviction the room returns to me with interest. After that the night loosens and stops keeping minutes.</p>
+<p>What I have of the end of it is a taxi: Arjun and me in the back, the driver pushing through empty roads faster than the hour requires, wanting to be done. Then the stairs, the two of us elaborately quiet on them and not quiet at all, his hand fisted in the back of my shirt for balance the way it has been on a dozen stairwells. There is, somewhere in me, the knowledge that a crew is coming at eight and that the responsible version of this night ended an hour ago. I had meant to keep the place ready. Standing in the doorway I make the smallest gesture at it — one shoe lined up against the wall, the intention of more — and then the night takes the rest of the plan. He gets as far as the couch and stops there, the couch he has slept on exactly twice in two years, both times this drunk, and is gone before his shoes are off, one foot still on the floor. I get the bed, in most of my clothes. In the morning we will each blame the other for the seating and neither of us will mean it. Nothing about it gets discussed, because there is nothing in it that wants discussing, and we are, by now, fluent in that, and nothing gets tidied.</p>
+<hr />
+<p>What wakes me at seven-forty is a call in the rain tree outside the window. A whistle. It starts low, a round and unhurried <em>koo,</em> then climbs, pitching up across a run of rhythmic, piercing repetitions, each higher and more insistent than the last, until the thing making it is not so much making a sound as making certain I know it is there. Then it stops. Then, from the bottom, it starts again. It has woken me most mornings for almost three years. I have never once been glad of it, and I could not tell you what it is. Under it, when I hold still, is a lower sound — a vehicle the size of a small truck arriving in the lot below, exactly where, days ago, a person on the phone said it would. The truck is early, or I am late; either way the machine that has come to film me is already on its mark, idling, while I am still horizontal.</p>
+<p>My head takes the morning in installments. The apartment has the composition of a room several people used and none closed out. A glass on the floor stands upright and full, set down by a man who fully meant to carry it to the kitchen — which is somehow worse than broken. On the couch Arjun is asleep sitting up, more or less, one arm still in its jacket sleeve, the sit clearly meant to have been temporary. Through the window, the pool lies in its early version of itself, a flat pale rectangle, unswum, holding the light and doing nothing with it. My phone, when the search for it concludes, carries the time, and beneath the time a message from the production company confirming what I have been told twice: they will be at the building at eight. To shoot the apartment. They need it empty, and then, very quickly, full again, and they need me in it looking as though I have never seen it.</p>
+<p>The arithmetic is twenty minutes. It does not improve on review.</p>
+<p>Through the window, in the lot below, a man in a cap is backing the truck toward the service entrance. The sky is the color it is at seven-forty in July, which is to say it is already fully day, the equatorial sun not arcing up from anywhere but simply present, committed, a fact since well before I was awake. The room smells of last night — spilled beer, the bar&rsquo;s cigarette smoke that two of us must have carried home in our shirts — and under that, the specific sealed-apartment smell of recycled air and the small daily heat the building generates by being occupied. I am aware, with the sudden awareness of a person who has not slept well, of how my body sits in this heat: the shirt slightly damp already at the back, the headache a pressure behind both eyes rather than a pain, the dry-mouth that is part hangover. I drink the glass of water that is somehow, impossibly, full and upright on the floor, and it is warm.</p>
+<p>Arjun surfaces in stages, against his will, with a brief facial tell that a complaint will be filed. He takes in the ceiling, then me, upright on the bed in last night&rsquo;s clothes, doing arithmetic at a wall, and then, with fresh dismay, the jacket he never finished taking off. He arrives at the morning in roughly the order I did — the wreckage, the hour, the arithmetic — and adds to it. &ldquo;There&rsquo;s a truck,&rdquo; he says. There is a truck. He finds one shoe at once and approaches the second as a separate project. When he has both, he puts the glass of water from the night before into my hands without my asking, the way you reach for a thing without looking.</p>
+<p>&ldquo;You&rsquo;re a terrible influence,&rdquo; he says, into the side of my neck. &ldquo;I&rsquo;m going to tell people.&rdquo;</p>
+<p>&ldquo;Who?&rdquo;</p>
+<p>&ldquo;Everyone. A list is forming. It&rsquo;s alphabetical, it&rsquo;s growing, your mother is on it.&rdquo; He straightens, surveys the upright full glass, the lined-up single shoe, the general evidence. &ldquo;You had a plan for this room. I watched it die on the threshold. One shoe. That was the whole plan, and it didn&rsquo;t make it to a pair.&rdquo;</p>
+<p>&ldquo;It was a long plan. There were going to be two shoes.&rdquo;</p>
+<p>&ldquo;There were going to be many things.&rdquo; He nudges the lone shoe with a toe, as if confirming the body. &ldquo;A pair. Then a glass that reached the kitchen. Then a host who stayed vertical past his guests. Ambitious. I admired it from the couch, briefly, before I went under.&rdquo;</p>
+<p>&ldquo;You&rsquo;re the one who ended up on the couch.&rdquo;</p>
+<p>&ldquo;I&rsquo;m the <em>exhibit</em>,&rdquo; he says. &ldquo;The couch is where they put the exhibit. There&rsquo;s a difference, and one day, when you&rsquo;ve slept, you&rsquo;ll learn it. The exhibit is the one preserved for study. You&rsquo;re merely the curator who failed to label me.&rdquo;</p>
+<p>&ldquo;Remind me how many days they get you for,&rdquo; he says. It is not really a question; he has heard the schedule enough times to recite it. It is a way of making me say it out loud.</p>
+<p>&ldquo;Three. A fourth if their rig won&rsquo;t behave.&rdquo; I run it against the ceiling. &ldquo;Today&rsquo;s the apartment. Walk in, marvel at the windows, say something appreciative about the light, pretend I&rsquo;ve never seen the place. Tomorrow I &lsquo;discover&rsquo; a neighborhood I&rsquo;ve lived in for two years. Then a day of touring two units I&rsquo;ll never rent and choosing this one, on camera, as if I hadn&rsquo;t been asleep in it last night.&rdquo;</p>
+<p>&ldquo;You&rsquo;ll view your own apartment and be surprised by it.&rdquo;</p>
+<p>&ldquo;And choose it in the end. That&rsquo;s the format.&rdquo;</p>
+<p>&ldquo;Playing yourself.&rdquo; He is not quite smiling. &ldquo;Really.&rdquo;</p>
+<p>&ldquo;It&rsquo;s not a big deal.&rdquo;</p>
+<p>&ldquo;They&rsquo;ve got me down for a piece of it, you know.&rdquo; He has the second shoe now. &ldquo;Not the apartment. One of the outside things. A coffee somewhere, or the gallery; I forget which they settled on. They sent an email with a lot of capital letters. RELEASE FORM. TALENT. CALL TIME, which is apparently seven, which is a thing they invented to ruin a Saturday.&rdquo; He stands. &ldquo;I am, it says, your FRIEND WHO KNOWS THE CITY. Capital letters. My one line will be about a flat white, and they will have driven across the world to capture it.&rdquo; A small dry beat. &ldquo;It&rsquo;s Singapore. An American, on camera, even on the dumbest show on the dial — that&rsquo;s a thing here. People will watch. People you know.&rdquo;</p>
+<p>I don&rsquo;t have an answer shorter than the conversation, so I don&rsquo;t open it. At the door he takes my hand. The grip begins as a handshake and then does not proceed as one and does not release, holding for a count longer than a handshake needs and shorter than anything that would have asked to be named — our own thing, the one we keep for doorways and crowded rooms, that looks like nothing and that we both know is not nothing, his thumb pressed once into the soft of my palm where no one can see it. Below us, in the lot, the truck is reversing toward the building with the patient beeping of a vehicle that has all morning. He lets go on the sound of it.</p>
+<p>I stand at the closed door. His footsteps go down two flights and then I lose them. Outside the window a myna works the lip of the pool, stepping along the edge in its deliberate way, and a blue rectangle of sky sits above the building opposite, a clean solid blue, the kind that means no rain before noon. The apartment is still and warm and mine, and in twenty minutes it will not be mine in the particular sense of looking like it: the furniture will be on a truck, and strangers will come and fill the rooms with their version of what a person who lives here might want. But right now it smells of last night and Arjun&rsquo;s jacket and the rain-tree outside the open window, all of it still mixed, not yet sorted.</p>
+<p>The heat comes up the stairwell behind him and lands on my face, wet, the held heat of the stairwell, and for a second after the door closes I am only a man in a hot room who has not yet been asked to be anything.</p>
+<hr />
+<p>I shower in water that never quite runs cold. By the time I have found a shirt that is not the shirt from the night before, the two men from the truck are on the landing.</p>
+<p>They come in without much greeting and count my furniture with their eyes; there is not a great deal of it to count. All this time in the apartment and I have a bed, a desk, a bookshelf with two of its shelves in, a few things on the walls. They have all of it on the truck in under twenty minutes. What they do next I have not been told about. They begin bringing things in.</p>
+<p>Not my things. A rug I have never owned. Two lamps. A low table, and on the table a stack of books arranged at an angle: I pick up the top one and it is a glossy survey of Peranakan shophouses, and beneath it a history of the city written in the warm, managing tone the city uses about itself. A bowl is set on the floor by the kitchen, the kind of bowl a dog eats from. I do not have a dog. A folded plaid throw appears on the back of the couch where no throw has been, slightly the wrong colors for the couch and arranged with the kind of precision a real throw never gets.</p>
+<p>I sit on the arm of the couch and look at the room. Not a long look. The lamp they&rsquo;ve set by the window throws the wrong quality of light: softer, warmer, a light a real person would choose for reading in the evening, which is not what you do at seven-forty in the morning. The rug covers the scuff where the desk leg dragged on the laminate the first week, when I moved the desk to the wall. The Peranakan book lies at the angle you&rsquo;d arrange it for a coffee table you meant to show someone, not a coffee table you used. I know all of this. I recognize every substitution. But the room I actually live in is gone past finding now, every true thing in it covered or moved or restyled for a viewer who will never arrive, and I cannot point to a single thing in the frame and say <em>that one is mine.</em></p>
+<p>No one explains any of it, and I do not, in the end, ask, because by then a man has come in from the corridor with a clipboard.</p>
+<p>He is American, mid-forties. The clipboard is not for holding information. He steps over his own crew&rsquo;s cable and takes the apartment in slowly, already lighting it in his head. The ceilings go up two stories. The canal throws its light at the far wall as it has every late morning I have lived here, and I watch him find that light and decide what it is for. He had read the apartment with his eyes before he set the clipboard down, and sorted it the way they sort any room: this part useful, this part furniture. The windows were useful. The canal-light was useful. My life in the place was furniture, and by the time the lamps were lit the useful things had cables running to them and the furniture had been carried down to the truck.</p>
+<p>He says <em>Beautiful</em>. Then he sets the shoot — not by explaining it but by walking it, stopping where he wants me stopped, sweeping a hand at the kitchen to mean all of it.</p>
+<p><em>You come through the front door,</em> he says, <em>behind your lovely realtor, and you stop here, in the kitchen. Fresh eyes. First time you&rsquo;ve seen the place.</em> The lavalier goes on under the shirt, the wire cold against the skin over the sternum — a thin cold line where the sweat has not yet started, the apparatus reaching your chest before anything else of it reaches you. The director has been saying <em>you</em> since the kitchen; from here it is the only pronoun the shot allows — for the length of the take, the only one I have. You have not seen this place. You have slept in it. You did arithmetic in it ninety minutes ago. But you have been hired to keep not-recognizing your own apartment, and through a low and even headache you find that you can.</p>
+<p>The first walk-through takes eleven minutes. You say the things you have been given to say — <em>oh, wow, look at this space; so this is the living area</em> — and then, on cue, the question they want.</p>
+<p>&ldquo;And the rent here?&rdquo; you ask the room.</p>
+<p>&ldquo;Two thousand even,&rdquo; Stephanie says, without a flicker, a price for an apartment that is not this one, delivered at the cost of nothing. The figure you actually pay is $2,850 a month, steep for one person on a mid-tier comms salary, which is what you are; the production has decided the man it is building lives on less, and so that man pays two even. It is the first number she invents for you. It will not be the last.</p>
+<p>You ask after the figure you signed for two years ago as though the answer might surprise you. It does not. The bed is up a short flight of stairs to the mezzanine the double height leaves room for; the single bathroom sits tucked beneath those stairs. You went looking for exactly that and nothing larger — one bedroom, one bathroom, a rent a single income could carry, a building with a name you could hand a taxi driver — and you found this, and signed for it, and were asleep in it that morning while a man on a phone arranged for the truck. The show means to spend two days proposing that you have not yet decided. The man the show is assembling does not seem to know he decided already.</p>
+<p>He asks for the ceiling, the look up, and then more of it, and you give him more: the double height you have looked up at every morning you have lived here, more air than a person needs in a city that meters its air by the cubic meter. The sweat has started under the mic tape now and the lavalier pulls at the chest whenever you draw breath too sharply; a single bead runs from the hairline down behind the ear and you cannot lift a hand to it without breaking the shot. They want the face of someone meeting a room. They do not want the evidence, in the chest, in the breath, in the wet at the temple, of how long you have already been in it.</p>
+<p>By the eighth take it begins to register, not as a complaint about him but as a noticing. He works by removing the words that would have told me what I was doing. He has not said <em>act,</em> and he is not going to. He never says <em>again;</em> he says <em>one more, just to have it,</em> as though the take were a thing already mine that he is helping me collect. When a take fails he never tells me it failed; he tells me I very nearly let it happen and then, at the last instant, went and did it on purpose instead.</p>
+<p>The sound technician, between takes, lowers the boom and lets out a single short breath through his nose. Not a sigh. The breath you let out when a thing you have seen before is happening again. The director sees it land. &ldquo;Don&rsquo;t help him,&rdquo; he says to the technician, mild, not looking up from the monitor. &ldquo;Let him get there.&rdquo; The technician had not appeared to be helping anyone. He catches my eye for the length of a frame, wipes the mic clean of me with a cloth from his back pocket, and does not appear to decide to.</p>
+<p>&ldquo;We watched your island tape last night,&rdquo; the director says, to the monitor. &ldquo;You were easy, on the island. Be easy.&rdquo; <em>Island tape.</em> For half a second the phrase locates nothing — we are, after all, on an island, the whole country is one — and then it slides under before I can hold it, and we go again.</p>
+<p>&ldquo;You&rsquo;re confirming it,&rdquo; he says, a few takes on, in the voice of a man pointing out good weather. &ldquo;You go straight up to the ceiling — you already know it&rsquo;s there. What I want is the half-second before you know it, the look arriving on your face before you&rsquo;ve decided to wear it.&rdquo;</p>
+<p>The heat is in my collar and the headache is behind both eyes and the only answer I have is the produced one.</p>
+<p>&ldquo;I&rsquo;m finding it,&rdquo; I say.</p>
+<p>&ldquo;You&rsquo;re letting me watch you decide to find it. Find it before you decide to. The camera only wants the difference.&rdquo; Then he moves a light a few inches and goes to the next take without telling me what was wrong with the last, and the not-telling is the whole instruction.</p>
+<p>The phrase, when I let it land, is Pulau Ubin. Not Singapore, or Singapore the way an attic is the house: a smaller island off the northeast coast, a ten-minute bumboat from a jetty at the end of the bus network, old granite quarries gone to flat green water, the last of the kampong houses still standing in red dirt under the trees. The country has kept it mostly unbuilt, so it has something to point at when it wants to show what it decided to stop being. A long Saturday last February, the production asked each candidate for a self-tape — film yourself, alone, say who you are and why you want this — and I carried a camera out there to make mine, because it seemed like the kind of place a person with a larger life would think to go. It has since become a tape.</p>
+<p>Late in the day they turn the monitor toward me. It had been facing the director; now it faces me, and on it is Pulau Ubin in a wide gray light — the jetty, the tide low, the strait behind it the flat brown of weak tea — and a man sitting at the end of the planks in a shirt I have since given away.</p>
+<p>The man is you. You set the camera down yourself, that February, and walked to your mark and sat, and did it four or five times until the framing held. There was a prompt, emailed: <em>Tell us who you are and why you want this.</em> You answer it into the empty air over the water. You say you are a person taking a chance. You say you wanted a larger life and went out and got one. You say you are glad, on the whole, to be exactly where you are — and as you say it you open one hand a few degrees toward the strait behind you, as though the strait were a thing you could offer in evidence. No one gave you the gesture. You found it alone, on a jetty, with no one there to be eased by, and it was good, and it was entirely yours. You say all of it well. You believe a workable amount of it.</p>
+<p>The room is quiet for the length of the playback&rsquo;s click.</p>
+<p><em>You had it on the island,</em> the director says, by way of context, and steps back so I can see.</p>
+<p>They play it through, and the room watches it with me — the director, the cameraman, the sound technician, all of them angled at the small bright screen where a man on a jetty is being easy about his own life. He has it without reaching — that February, no one stood behind a monitor to tell him it was a thing a person could be asked for. The sentences are mine, every one of them mine, written by me, said by me, into a camera I carried out and set down myself. I watch him say them. Then the playback stops, and the room turns from the screen to me and waits for me to produce the description again, live, and matching. On the screen the man on the jetty opens his hand toward the strait without being told to. I can see the gesture. I cannot make my own hand do it, not now, not with four men watching the monitor to see whether it will.</p>
+<p>We go again. The director does not say <em>beautiful,</em> and by now the absence of the word is itself a direction; I have learned to hear the silence where it should be faster than I have learned anything else today. He says <em>Reset,</em> and we reset. When the thing still has not come he tells me to take my time, there is no clock, in the voice that said <em>Beautiful</em> and <em>Fresh eyes</em> and <em>Be easy,</em> the voice of a man handing me, as a kindness, a thing I cannot use. There has been a clock all morning and everyone in the room can hear it running. Somewhere in the high teens of takes a thing arrives in my face that I can neither name nor send back — the monitor catches it, low, around the mouth — and the director watches it arrive and says, not unkindly, that we have plenty, that the rest is the edit&rsquo;s problem.</p>
+<p>The island tape is not even the first draft of me. The previous July — before I had a Singapore address, before I had signed the thing that would get me one — I found the casting team&rsquo;s email and wrote to them unasked, describing myself in the third person: a man about to take a big chance, a man about to accept a transfer to his company&rsquo;s Singapore office. I wrote that man a full year before I would have to be him, and then I went and was him, and the year filled the sentences in. I wanted a recording to exist somewhere — an inbox, a server, anywhere a thing is kept — of the moment I became a person to whom a larger life was happening. Making it up was the easy part.</p>
+<hr />
+<p>The problem with the other two apartments is that they are both two-bedrooms. Two-bedroom, two-bathroom, each of them, and the apartment the show has me hunting for is a one-bedroom. That is the brief: a one-bedroom, on a budget, for a single man. It is also, as briefs go, true. A one-bedroom is what I earn, and what I looked for, and what — two years back, before any of this — I found. The two comparison apartments were chosen to lose the contest, and they would have, except that they are too much apartment in the one way a camera cannot quietly correct: a whole extra room, with a door on it. So the production spends the better part of two days deciding, out loud, what to do about a wall.</p>
+<p>This becomes plain on the second day, when the crew loads us into a van — Stephanie, two cameras, the sound technician, and me — and drives northeast to film the first comparison. The first apartment of my own life is here at Fortuna Court, in Balestier, ten minutes from the city by a road I could walk; the show, having filmed it, now sends &ldquo;Daniel&rdquo; to the literal edge of the island to look at where else he might live. The van goes and goes. Balestier gives way to the expressway, and the expressway to the long northeastward haul of it — the off-ramps counting down toward the coast, the interchanges thinning, the road running low past the reservoirs until the blocks give out and the green netting of new construction starts to outnumber the finished towers — all the way out to Pasir Ris, the far northeast corner, where the island stops being city and starts being the place the city keeps for later. Off the expressway, the last stretch takes us past provision shops with awnings sagging in the heat and a row of shophouses whose pastel plaster — pink, mint, the yellow of a bruise in its second week — has the patience of facades repainted every decade until the paint itself becomes the architecture. At a red light the cameraman has his window down and the lens cap off, filming the intersection in a way that will never reach the show but that he does, I have noticed, at every stop — the street as raw footage, uncommissioned, a city he is collecting for some private inventory.</p>
+<p>Stephanie, beside me, watches him do it and then begins, unprompted, to narrate the window. She is a small, composed woman in her fifties who sits the way closers sit, very still, hands folded; she prices a passing block the way other people read a street sign, automatically, aloud, before she has decided to. &ldquo;Those are conserved,&rdquo; she says, of the shophouses. &ldquo;The fronts can&rsquo;t change. Inside can become anything.&rdquo; The squat blocks behind them are HDB, public housing, and the older HDB, she says, holds its value in a way the property textbooks keep failing to predict. The green netting two streets on is an en-bloc: a whole development sold off at once, by its owners, in concert, standing empty now and waiting to be knocked down. &ldquo;Everybody&rsquo;s hoping for the en-bloc,&rdquo; she says. &ldquo;You buy the flat to live in it, and then you pray the building gets bought out from under you.&rdquo; She says it without bitterness, as a fact about the city, the way she says all of it, easily, to fill a van, and the camera is up front with its cap on, pointed at a street.</p>
+<p>&ldquo;And yours?&rdquo; I ask. &ldquo;Are you hoping?&rdquo;</p>
+<p>She considers the question the way she considers a number. &ldquo;I tell people I&rsquo;m hoping,&rdquo; she says. &ldquo;It&rsquo;s the polite thing to hope.&rdquo; The camera stays pointed at the street. &ldquo;Don&rsquo;t put that on the show.&rdquo;</p>
+<p>&ldquo;There&rsquo;s no microphone in the van.&rdquo;</p>
+<p>&ldquo;There&rsquo;s always a microphone,&rdquo; she says, pleasantly, and goes back to the window.</p>
+<p>And I check. I can&rsquo;t help it. The lavalier they clipped to me is off, coiled in my bag, and I watch it not be on. But there is a small black puck on the dash I had filed as a phone mount, and a cable runs from it forward into the footwell and disappears, which a phone mount does not need, and the camera up front is wearing its cap the way a thing wears a cap when someone might want it off in a hurry. I run back everything I have said in this van, to her, about the en-bloc, about hoping, and find I cannot swear that any of it was off the record.</p>
+<p>&ldquo;That one.&rdquo; I tip my chin at the dash. &ldquo;Is that on?&rdquo;</p>
+<p>She does not look at it. &ldquo;I never assume it isn&rsquo;t,&rdquo; she says. &ldquo;Twenty years of other people&rsquo;s living rooms. You learn to talk as if the room can hear you. Then one day you find it can, and you&rsquo;ve said nothing you&rsquo;d take back.&rdquo; She lets a beat go by. &ldquo;You&rsquo;re new. You still think <em>off</em> is a setting.&rdquo; The camera stays pointed at the street. She is right. There is always a microphone.</p>
+<p>The van slows in Pasir Ris, as far from the city as the island lets you get without leaving it, and stops at the foot of a block the exact brown of strong tea, and Stephanie stops narrating.</p>
+<p>The cameraman reads the silence before I do. &ldquo;This one yours to show?&rdquo; he says.</p>
+<p>&ldquo;It is mine,&rdquo; Stephanie says. &ldquo;I live there.&rdquo;</p>
+<p>The first comparison property is Stephanie&rsquo;s apartment. Not a listing of Stephanie&rsquo;s, not a unit her agency holds the keys to — the apartment Stephanie goes home to at the end of a day of showing other people theirs. The production needed two more apartments by the second day, apartments the wrong size in a way the edit could massage, and Stephanie had access to two: her boss&rsquo;s, and her own. The arithmetic after that is not complicated.</p>
+<p>We go up. The apartment of the person whose entire profession is the presentation of living space has not been presented for some years. The furniture is darker and heavier and older than the apartment downstairs, and there is a lot of it: a Burmese teak coffee table that looks too heavy for the floor to bear; two velour armchairs at the perpendicular angle Stephanie&rsquo;s mother presumably arranged them at in 1978; a glass-front cabinet with porcelain figurines arrayed by height, one of which — a Lladró shepherdess at the front, third from the left — is facing the wrong way; a rosewood standing fan, motionless; an upright piano with a stack of <em>Straits Times</em> folded on the closed lid. The walls are warm-papered. The air-con unit is older than mine. The props the crew carried up the stairwell become, the moment they cross the threshold, a negotiation with what was there first. The woman with the camera moves between the boxes with the efficiency of someone who has stopped apologizing for the space; at one point, holding a light meter, she sits down on a folded blanket against the far wall and waits. The cameraman sets up a shot at the kitchen counter and abandons it. The director, the man with the clipboard he does not need, takes four minutes inside the place and arrives at the verdict the cameraman reached in one: <em>let&rsquo;s get the wide and move on.</em> The person hired to walk me through curated rooms lives in a room that refuses to be curated. A woman in her own apartment, mic&rsquo;d, watching strangers decide how much of her life will fit inside a frame.</p>
+<p>Stephanie does her job. On camera she is composed and exact, a realtor presenting a property, wearing the expression rooms have been assigning her for years. Between takes the face does something else. She catches my eye across her own crowded living room and her mouth starts toward a smile and declines to finish one, a flicker, visible to me and probably to the camera. I come to wait for it.</p>
+<p>&ldquo;This is nice,&rdquo; Stephanie says, on camera, standing in her own living room. Behind her, through a doorway the camera is pointed away from, is the second bedroom.</p>
+<p>&ldquo;But it&rsquo;s a two-bedroom,&rdquo; I say.</p>
+<p>The director lowers his clipboard.</p>
+<p>&ldquo;We&rsquo;ll frame it as a one-bedroom with a study,&rdquo; he says.</p>
+<p>&ldquo;It has two full beds in it.&rdquo;</p>
+<p>&ldquo;We won&rsquo;t show the second room.&rdquo; He says it the way he says everything, as good weather. The cameraman is already finding the angle that ends at the wall before the second door.</p>
+<p>&ldquo;And what&rsquo;s the rent on a one-bedroom-with-a-study out here?&rdquo; I ask, to no one, for the mic.</p>
+<p>&ldquo;Nineteen hundred,&rdquo; says Stephanie, who has now priced a bedroom out of existence and is standing in front of the bedroom while she does it. &ldquo;Pasir Ris. Very reasonable.&rdquo; The second bedroom is four feet behind her, full, with a door on it.</p>
+<p>Stephanie looks at me. I look at Stephanie. The flicker.</p>
+<p>The third apartment, the last of the three, belongs to Stephanie&rsquo;s boss: a unit near the top of a newer tower over Robertson Quay, the river a brown ribbon below and the central city stacked up behind it, the kind of address that would go for forty-five hundred a month before anyone had finished saying the postcode. The crew spends fifteen minutes there making it look like something a person on my invented budget might land on. A whole wall of the unit — the floor-to-ceiling glass with the river and the towers laid out behind it — gets a soft box rolled in front of it, because it is, the cameraman says, &ldquo;too much apartment for the number.&rdquo;</p>
+<p>&ldquo;And what would a place like this go for?&rdquo; I ask, on camera, of a unit two tiers above anything in the brief.</p>
+<p>&ldquo;Twenty-two hundred,&rdquo; Stephanie says, to a high-floor apartment with the skyline behind her, and does not blink, because by the third apartment the lie has become a craft and she has decided to be good at it. Behind the soft box, the city she has just sold me out of the frame goes on being there.</p>
+<p>Stephanie&rsquo;s boss arrives during the repositioning, says <em>aiyah</em> at her own front room, and goes to make coffee.</p>
+<p>Stephanie says, between takes, standing in the corridor of the third building while the crew resets: &ldquo;Are they going to keep filming until that second room moves?&rdquo;</p>
+<p>&ldquo;They might.&rdquo;</p>
+<p>&ldquo;It won&rsquo;t.&rdquo;</p>
+<p>&ldquo;It won&rsquo;t.&rdquo;</p>
+<p>She tilts her head back against the wall. &ldquo;You know my boss is going to watch this.&rdquo;</p>
+<p>&ldquo;I know.&rdquo;</p>
+<p>&ldquo;And she&rsquo;s going to see her own apartment described as my apartment.&rdquo;</p>
+<p>&ldquo;She&rsquo;s going to see her own apartment described as my apartment, with you in it, telling me the rent.&rdquo;</p>
+<p>Stephanie thinks about it. &ldquo;The rent will land,&rdquo; she says, and it is almost a question; it is what a closer says when she has decided to believe a thing by saying it.</p>
+<p>She looks back down the corridor toward the unit, where the crew is moving her boss&rsquo;s lamps to where the show wants them. &ldquo;We stage places all the time,&rdquo; she says. &ldquo;You move the sofa, you take down the family photos, you make a lived-in flat photograph as a flat anybody could move into.&rdquo; A short pause, the realtor&rsquo;s pause before a number. &ldquo;This is the first time I&rsquo;ve staged the people.&rdquo;</p>
+<p>She closes her eyes for a moment. The corridor&rsquo;s polish-smell sits on top of the aircon and does not move.</p>
+<p>&ldquo;I&rsquo;m getting paid for this, right?&rdquo; she says.</p>
+<p>&ldquo;You&rsquo;re getting paid for this.&rdquo;</p>
+<p>&ldquo;OK then.&rdquo;</p>
+<p>The corridor has the hush of a Singapore residential floor on a Saturday afternoon, aircon droning behind closed doors, the thin antiseptic scent of floor polish someone applies every morning at a time I have never been up to see. A child&rsquo;s bicycle is chained to the railing two units down. Through the fire-door window at the end of the hall the car park shimmers under the kind of light that makes you want to stay indoors even when indoors is a corridor you don&rsquo;t live in. Stephanie has her back against the wall, arms crossed, still wearing her mic.</p>
+<p>She looks at me with the expression of a person deciding what to do with funny.</p>
+<p>&ldquo;At least the pool is real,&rdquo; she says.</p>
+<p>The pool is real. The pool at Fortuna Court, the building whose name I say to taxi drivers without translating, is real, and it is, on that Saturday afternoon, empty of swimmers and bleached silver-flat under the equatorial midday — the sun erasing shadow, holding its angle from before noon until five. The crew films me walking past the pool. I walk past the pool. I walked past it that morning on the way to the lobby to meet the moving van. I will walk past it again this evening, after the crew has left, on the way back to the apartment where my furniture has been returned to approximately, but not exactly, the positions it occupied before.</p>
+<p>I keep noticing the approximately. The moving crew put everything back in under thirty minutes, less time than it takes to eat a bowl of laksa at the hawker centre down the road, and the double-height apartment at two in the afternoon is virtually identical to the same apartment at eleven in the morning when they filmed the &ldquo;discovery&rdquo; scenes, because the sun in a fourth-floor Singapore apartment in July does not arc the way it arcs in Brooklyn. The angle is the same. It sits.</p>
+<p>I do not mention this to the director. I do not mention it to Stephanie. I mention it to no one.</p>
+<hr />
+<p>That night I go to Neil Road.</p>
+<p>The crew wrapped at five. The director shook my hand and said &ldquo;Great day&rdquo; in the tone of a person who means it professionally and does not mean it in any other way, and the sound technician peeled the mic tape off my chest. The adhesive lifts a thin line of skin-warmth with it, a small downward tug at the chest hair, his eyes already on the next cable. By the second day my body has stopped reading the hands at my collar as anything but the hands that do this. Then I am out of it, and the apartment is mine again, the furniture in its approximate positions and the impression of the mattress back where it was, and through the window the clouds above the canal are working through orange to mauve. One degree north of the equator, dusk is a fifteen-minute event, the same fifteen minutes in December as in June, and it does not wait: at the first hint of burnt yellow you run to the window or onto the rooftop. Otherwise you are stuck with mauve.</p>
+<p>I shower. I put on a shirt that is not the shirt I was wearing on camera, a distinction that matters to me in a way I could not explain to the director and do not need to explain to anyone else. On the way down to the lobby I pass Aunty Lim&rsquo;s open door on the second floor; she is at her kitchen table with the <em>Lianhe Zaobao</em> and a cup of barley water. She looks up at me over the paper.</p>
+<p>&ldquo;Two days, so many people,&rdquo; she says. &ldquo;All for what?&rdquo;</p>
+<p>&ldquo;They&rsquo;re filming the building.&rdquo;</p>
+<p>&ldquo;Filming the building.&rdquo; She turns a page. &ldquo;So many years I ask management fix the lift. Nobody come. Now got people, got lights, all for the building.&rdquo; A small sound that is not quite a laugh. &ldquo;The big one, with the clipboard. He stand in the lobby this morning, look up, look down, write something. I think, wah, finally, somebody from management. I go ask him about the lift.&rdquo; She turns another page. &ldquo;He tell me he is from America. He is filming. The lift is not in the shot.&rdquo; The paper goes flat on the table. &ldquo;Not in the shot. Aiyoh. Forty years the lift is not in the shot.&rdquo; A pause. &ldquo;I tell him the lift is the shot. He write that down also. So at least somebody write it down.&rdquo; She looks back at the barley water. &ldquo;Good. About time somebody look at it nice.&rdquo; She looks back down, which is the end of it, and somehow it is me she nods to on the way past, not the crew who have been on her corridor for two days.</p>
+<p>I take the MRT to Outram Park. The platform is the familiar cold, the train cooled to the same temperature as the office, as every enclosed space on the island — a communal decision about what indoor air should feel like, one that holds from the most expensive building on Orchard Road to the hawker centre off Tanjong Pagar. I get out at Outram Park into the evening air, the cold-train smell of recirculated air and someone&rsquo;s dinner giving way to the heat, the city&rsquo;s own body pressing at every surface of mine. Not unpleasant, exactly. More like permission. I walk the six minutes there without hurrying, and the shirt is soft at the back before I reach the first corner. A cart outside the HDB block sells pong piah — tiny wrapped pastries arranged in rows, the vendor&rsquo;s whole attention on the waxed paper — and something else is frying at the end of the block, the char smell carrying the whole length of the street. I don&rsquo;t stop. By the time I reach it the heat lies over the whole front of me, and I am, walking into it, entirely outside the frame.</p>
+<p>The Neil Road shophouses are a row of two-story buildings that look, from the outside, like any other shophouses on any other Chinatown street: white stucco fronts, terracotta tile above, the canopy of a single old rain tree leaning over the corner. The city preserves the facades and guts the interiors. The bar I am going to is on the second floor of one of these. It has a name I no longer remember and a staircase I do — narrow, steep, the wood worn to a soft luster at the center of each tread where the foot lands, the handrail slick with the humidity coming up from the street through the propped-open door at the bottom.</p>
+<p>The room at the top is small: low ceiling, the bar against the back wall, four tables pushed together in configurations that change by the hour. The bartender is Malay, early twenties, unhurried, the shift a thing that would end without his help. The music is something ambient and Western, low enough to be architecture, a condition of being inside, like the air conditioning. A ceiling fan turns overhead; the work is being done by a window unit mounted above the stairwell whose condensation drips, every eight seconds, into a plastic bucket someone has positioned with the precision of long practice. The crowd is the Saturday crowd: later arrivals, softer clothing, the particular unhurried energy of people who have chosen this, who have not come from work but come from the decision to come.</p>
+<p>Arjun is there. When I come through the door at the top of the stairs he is mid-sentence at a table near the back, his hands making a shape in the air — the gesture he makes when he is building an argument and hasn&rsquo;t decided yet whether it holds. He sees me before he finishes. The hands drop. He does not stop talking, but one corner of the mouth moves in the way it moves when he is placing a person in the room and deciding something about them, and what it decides about me, arriving damp-shirted and slightly raw from the day, is something warm and a little private that he keeps for his own account. I find myself standing straighter than I was at the top of the stairs.</p>
+<p>He is at a table near the back with four or five people, mostly expats and one who is not, a mix I recognize from the circuit of dinner parties and Sunday brunches and somebody&rsquo;s-friend&rsquo;s-birthday-drinks that constitutes, in those years, the gay social infrastructure of a city where the infrastructure is not officially supposed to exist. He is wearing a shirt I would not be able to describe to you the next morning and that I can describe to you now because I have thought about it since — a dark short-sleeve button-down, untucked, the kind of shirt that is slightly too big and that on him looks like a decision rather than an accident.</p>
+<p>I have known Arjun for not quite two years. He is from South India, ten years in Singapore, works in finance. Also the person my eyes go to first when I arrive. I have noticed the habit and left it alone.</p>
+<p>&ldquo;Daniel,&rdquo; he says. He has a way of saying my name I have not heard from anyone else. The emphasis falls faintly on the second syllable, as if the name were a question he has already answered.</p>
+<p>&ldquo;How was your thing? Your filming thing?&rdquo;</p>
+<p>&ldquo;It was — &rdquo; I pick up someone&rsquo;s vodka-soda and take a sip and put it down before the person whose drink it is can object, a gesture I stole from someone in college and perform now without thinking. &ldquo;It was a thing.&rdquo;</p>
+<p>&ldquo;You&rsquo;re going to be on television,&rdquo; says someone at the table, a British man, blond, whose name is either James or Julian and who works in finance and whom I will not see again after March.</p>
+<p>&ldquo;I&rsquo;m going to be on television,&rdquo; I say.</p>
+<p>&ldquo;Are you going to be famous?&rdquo;</p>
+<p>&ldquo;I&rsquo;m going to be on a show that airs on a Tuesday afternoon on a cable channel that my mother&rsquo;s friends watch.&rdquo;</p>
+<p>&ldquo;So yes.&rdquo;</p>
+<p>&ldquo;My cousin was on it,&rdquo; Kelvin says, from the far end, not turning. The first thing he has said about the television all night. &ldquo;The Penang one. They made her flat look like it had a view.&rdquo; He lifts two fingers off his glass. &ldquo;It does not have a view. It has a wall, and beyond the wall a car park, and beyond the car park, if you put your face on the glass and look hard left, the sea, technically. They lit that one window for forty minutes. She keeps the blinds down on it the rest of the year, because the afternoon sun cooks the room to a heat she described to me, on the phone, as homicidal.&rdquo;</p>
+<p>&ldquo;Forty minutes for a wall,&rdquo; the British man says.</p>
+<p>&ldquo;Forty minutes for a <em>promise</em> of a wall,&rdquo; Kelvin says. &ldquo;The wall they cut. They kept the bit where she stands at the glass and says, <em>and I just love the light in the mornings.</em> She works mornings. She has never been in that flat in the morning in her life.&rdquo; He turns the glass a quarter inch. &ldquo;They also gave her a husband.&rdquo;</p>
+<p>&ldquo;They what?&rdquo;</p>
+<p>&ldquo;A man on the sofa. For the establishing shot. They needed a someone, and the budget did not run to casting a someone, so the someone was the gaffer, in a shirt, holding a coffee. He is in the frame for nine seconds. Three relatives have asked her, seriously, who he was.&rdquo;</p>
+<p>&ldquo;Did she mind?&rdquo;</p>
+<p>&ldquo;She framed the screenshot,&rdquo; he says, and lets that be the whole verdict. Then, after a moment, to his glass: &ldquo;The screenshot of the wall. Not the husband.&rdquo; A beat. &ldquo;She is particular.&rdquo;</p>
+<p>Kelvin — the only Singaporean among us — wears the television the way he wears the rest of it, lightly: a polo gone soft from washing, the weekend version of a man whose weekday hours bill at a rate you can read in how he holds his glass. He has been coming to this bar since before it had the name it has now, since before most of the men at the table had a reason to know the city was a place a person could be from. The bartender sets down a drink he has not ordered; Kelvin lifts two fingers off the glass and lets it sit. He checks his phone once, thumbs a short reply, turns it face-down, and whatever is at home does not need more than the answer he has given it. Then he goes back to listening. He listens to expats narrate the city to itself, patiently, without correcting, a man who long ago did the arithmetic on how long any of us will stay. When my eyes go to Arjun and hold a half-second past what the room allows, Kelvin catches it, and shifts his knee, and opens a space at the table that does not need opening, and says nothing about that either.</p>
+<p>Arjun leans in. &ldquo;What were you doing?&rdquo; he says, quieter.</p>
+<p>&ldquo;Saying things I&rsquo;d already said. They had a tape of me from February. They&rsquo;d been playing it back.&rdquo; I drink. &ldquo;I also wrote them a scene I don&rsquo;t have yet. Three months from now. Me and friends I haven&rsquo;t made.&rdquo;</p>
+<p>He looks at me with a patience I cannot quite place, except that his own work runs on the same machinery as mine: he spends his days turning what a room wants into the version that can leave the room. &ldquo;Did they shoot it?&rdquo;</p>
+<p>&ldquo;They thanked me for the suggestion.&rdquo;</p>
+<p>He turns that over before he answers. He has a way of holding a word up to the light first, checking it for whether it is the real one or the near-thing standing in for it. &ldquo;They&rsquo;ll use the worse take,&rdquo; he says. &ldquo;They always use the worse take. The worse one tests better.&rdquo;</p>
+<p>&ldquo;That&rsquo;s a grim thing to know about your industry,&rdquo; I say.</p>
+<p>&ldquo;It&rsquo;s a grim thing to know about people.&rdquo; He says it warmly, which is how he says the grim things. &ldquo;You give them the true one and the near-one, side by side, and they reach for the near-one every time. It photographs better. It asks less of them.&rdquo; A beat. &ldquo;You should put that on your tape.&rdquo;</p>
+<p>&ldquo;They have my tape.&rdquo;</p>
+<p>&ldquo;The February one. The one they kept playing back.&rdquo; He turns the words over the way he turns everything over. &ldquo;Was it the worse take of you, or the true one?&rdquo;</p>
+<p>&ldquo;The true one. That was the problem.&rdquo;</p>
+<p>&ldquo;Of course it was. You can&rsquo;t compete with the version of you that didn&rsquo;t know it was being graded.&rdquo; He turns his glass without drinking from it. &ldquo;That&rsquo;s the con, then. They find the one tape where you forgot to perform, and they spend three days asking you to perform it.&rdquo;</p>
+<p>&ldquo;Then they already know,&rdquo; I say.</p>
+<p>&ldquo;Then they already know,&rdquo; he agrees, and looks pleased about something that is not the tape.</p>
+<p>He is leaning back with one forearm along the rail of the booth, in no hurry, a man who has decided the night can take as long as it wants. I spend my days making the version of a thing a client is allowed to be shown — the sayable cut, the line Legal will clear, the sentence with the weather taken out of it. He has just done it to my own evening, better than I would have.</p>
+<p>I sit down. Someone orders a round: vodka-sodas, the cheapest thing at the bar, the drink you order when the bar is the point and not the drink. The booth is a green tufted vinyl banquette that has absorbed a decade of someone else&rsquo;s perfumes; the air conditioning is fighting the July heat and winning by a narrow margin and the fluorescent panel above the bar is humming the single flat note every Singapore commercial fluorescent holds, a note pitched just under the aircon, the one your ear stops hearing and your skull keeps. Arjun is talking to someone across the table about a work thing — a client, a deadline — and I am not listening to the words. I am listening to the sound of him, which I have no file for: lower than his work voice and quicker, sentences left unfinished where the other man has already caught them, nothing in it framed for anyone. He laughs in the middle of his own point and does not go back for it.</p>
+<p>The production sent a questionnaire in the spring, before any of this — the company&rsquo;s logo at the top, a column of mild questions down the side. Several of them were about my life in Singapore: who I spent my time with, who knew the city, who might be worth meeting on camera. I answered the way I answer things for a living. I gave them a paragraph, and the people in the paragraph were rendered the way the questionnaire wanted them rendered. Arjun was in the paragraph. I typed <em>a friend who knew the city</em> and then pared it down to the cleaner thing the form preferred — a friend. I typed it without slowing down. It was not untrue.</p>
+<p>The future I offered them sits on a list somewhere, available to any other contributor in any other city. And here I am at the bar with a vodka-soda and a table of people who know my actual name and my actual job and my actual orientation and who do not need me to pretend any of these things are different from what they are, in a city where the law says that what we are doing is the thing the camera cannot see. Not the drinking, not the sitting, but the being, the ambient fact of men attracted to men, sitting closely together at a table on a street, some hugging, some singing, all absurdly sweaty. Section 377A, the colonial-era law that makes sex between men a crime, is still on the books. The state has decided to keep it without enforcing it.</p>
+<p>I drink my vodka-soda. Arjun catches my eye across the table. &ldquo;And here. After.&rdquo;</p>
+<p>&ldquo;After,&rdquo; I say.</p>
+<p>He does something with his mouth that is not a smile and not a question. Not here, not yet.</p>
+<p>Outside, two men share a cigarette in the shophouse doorway opposite, one of them watching me through the smoke. I will be back on camera in the morning. The director will want one more walk past the pool. The light will be the same.</p>
+    </div>
+  </section>
+
+  <div class="feedback">
+    <h3>Tell me what you think</h3>
+    <p class="lead">Anything at all &mdash; a line that stuck, a place you drifted, a feeling. No need to be tidy about it.</p>
+    <form name="reading-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="fbform">
+      <input type="hidden" name="form-name" value="reading-feedback">
+      <input type="hidden" name="reader" value="Group 1 — A taste">
+      <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+      <div class="field">
+        <label for="thoughts">Your thoughts</label>
+        <textarea id="thoughts" name="thoughts" required></textarea>
+      </div>
+      <div class="field">
+        <label for="who">Your name (optional)</label>
+        <input id="who" name="who" type="text">
+      </div>
+      <button class="send" type="submit">Send to Jonathan</button>
+      <p class="thanks" id="thanks">Thank you &mdash; that came through. It means a lot that you read it.</p>
+    </form>
+  </div>
+
+  <footer>The Approved Version &middot; shared privately &middot; please don&rsquo;t forward</footer>
+
+</div>
+
+<script>
+  var f = document.getElementById('fbform');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new URLSearchParams(new FormData(f)).toString();
+    fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:data})
+      .then(function(){
+        f.querySelector('button.send').style.display='none';
+        document.getElementById('thoughts').closest('.field').style.display='none';
+        document.getElementById('who').closest('.field').style.display='none';
+        document.getElementById('thanks').style.display='block';
+      })
+      .catch(function(){ document.getElementById('thanks').textContent='Hmm, that did not send — you can also just email me.'; document.getElementById('thanks').style.display='block'; });
+  });
+</script>
+
+</body>
+</html>
