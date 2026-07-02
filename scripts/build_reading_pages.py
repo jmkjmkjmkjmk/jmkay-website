@@ -29,35 +29,63 @@ IMAGES_TO_COPY = set()
 # Paths (work in both sandbox + Mac topologies)
 # ---------------------------------------------------------------------------
 def _first_existing(*candidates):
+    import glob as _glob
     for c in candidates:
-        if Path(c).exists():
-            return Path(c)
-    return Path(candidates[0])
+        hits = sorted(_glob.glob(c)) if any(ch in c for ch in "*?[") else ([c] if Path(c).exists() else [])
+        if hits:
+            return Path(hits[0])
+    return Path(candidates[-1])
 
 V2_DIR = _first_existing(
-    "/sessions/upbeat-relaxed-hypatia/mnt/CASA FORTUNA/08_DRAFTS/v2",
     os.path.expanduser("~/Desktop/CLAUDIUS/CASA FORTUNA/08_DRAFTS/v2"),
+    "/sessions/*/mnt/CASA FORTUNA/08_DRAFTS/v2",
 )
 SITE_DIR = _first_existing(
-    "/sessions/upbeat-relaxed-hypatia/mnt/jmkay-website",
     os.path.expanduser("~/Documents/GitHub/jmkay-website"),
+    "/sessions/*/mnt/jmkay-website",
 )
 READING_DIR = SITE_DIR / "reading"
 ASSET_DIR = READING_DIR / "_assets"
 BUILD_DIR = V2_DIR.parent / "_build"   # where chapter image assets (e.g. ch1_tweets.png) live
 
 # ---------------------------------------------------------------------------
-# The chapter pool — key -> (source file, display heading, book-order index)
+# The chapter pool — key -> (file prefix, display heading, book-order index)
 # Only chapters listed here can be assigned to a reader.
+#
+# VERSION-AGNOSTIC since 2026-07-01: the CURRENT canonical version of each
+# chapter is derived at build time from concatenate_v2.py's CHAPTERS_V2 list
+# (the manuscript's single source of truth), matched by file prefix. Rerun
+# this script + push after any chapter-version-roll that touches these
+# chapters — but never hand-edit a version number here again.
 # ---------------------------------------------------------------------------
-CHAPTERS = {
-    "prologue": ("00_Frame_Prologue_Doha_v8.md",   "Prologue",  "Doha, 2019", 0),
-    "ch01":     ("Ch01_Production_Week_v30.md",    "One",       "Production Week", 1),
-    "bugis":    ("Ch07_Bugis_v34.md",              "Six",       "Bugis", 6),
-    "sunday":   ("Ch08_Sunday_v29.md",             "Seven",     "Sunday", 7),
-    "india":    ("Ch13_India_v22.md",              "Twelve",    "India", 12),
-    "cny":      ("Ch14_Chinese_New_Year_v26.md",   "Thirteen",  "Chinese New Year", 13),
+CHAPTER_PREFIXES = {
+    "prologue": ("00_Frame_Prologue_Doha",   "Prologue",  "Doha, 2019", 0),
+    "ch01":     ("Ch01_Production_Week",     "One",       "Production Week", 1),
+    "bugis":    ("Ch07_Bugis",               "Six",       "Bugis", 6),
+    "sunday":   ("Ch08_Sunday",              "Seven",     "Sunday", 7),
+    "india":    ("Ch13_India",               "Twelve",    "India", 12),
+    "cny":      ("Ch14_Chinese_New_Year",    "Thirteen",  "Chinese New Year", 13),
 }
+
+def _canonical_files():
+    """Read the canonical chapter filenames out of concatenate_v2.py."""
+    src = (V2_DIR.parent / "_build" / "concatenate_v2.py").read_text(encoding="utf-8")
+    return re.findall(r"'([A-Za-z0-9_]+_v\d+\.md)'", src)
+
+def _resolve_chapters():
+    canon = _canonical_files()
+    resolved = {}
+    for key, (prefix, num, title, order) in CHAPTER_PREFIXES.items():
+        matches = [f for f in canon if f.startswith(prefix + "_v")]
+        if len(matches) != 1:
+            raise SystemExit(
+                f"ERROR: expected exactly one canonical file for prefix '{prefix}', "
+                f"found {matches!r} in concatenate_v2.py — fix the prefix or the build list."
+            )
+        resolved[key] = (matches[0], num, title, order)
+    return resolved
+
+CHAPTERS = _resolve_chapters()
 
 # ---------------------------------------------------------------------------
 # The roster — one entry per GROUP. Each group gets its own secret link
