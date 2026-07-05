@@ -54,6 +54,8 @@
   .links{display:flex;gap:14px;margin-top:6px;flex-wrap:wrap;}
   .links a{color:var(--terracotta);text-decoration:none;font-weight:600;font-size:12.5px;}
   .links a:hover{text-decoration:underline;}
+  .links .routebtn{color:var(--terracotta);font-weight:600;font-size:12.5px;cursor:pointer;}
+  .links .routebtn:hover{text-decoration:underline;}
   .trip{font-size:12px;color:var(--sage);font-weight:700;min-height:15px;}
   .nbhd{display:inline-block;font-size:11px;background:var(--cream);color:var(--ink-light);
     padding:2px 7px;border-radius:6px;margin-top:6px;}
@@ -71,7 +73,7 @@
 <body>
 <header>
   <h1>Minneapolis <span class="dot"></span> Sunday, July 5</h1>
-  <p>A one-day guide · based at the W Foshay · everything here is open Sunday · hover a card to trace the route from your hotel</p>
+  <p>A one-day guide · based at the W Foshay · hover a pin for its name, click for details · use a place&#39;s Route link to trace the way</p>
 </header>
 <div class="wrap">
   <div class="controls">
@@ -93,7 +95,7 @@
     <div id="map"></div>
     <div class="list" id="list"></div>
   </div>
-  <p class="note">Everything shown is <b>open Sunday, July 5</b> (hours verified July 2026). Watch the short windows: <b>Milkweed Books 11–3</b>; museums (Mia, Walker, Mill City) run <b>10–5</b>. Hover any card or pin to draw the actual street route + travel time from the W Foshay; flip the toggle to show them all at once, or switch driving/walking with the selector. Routes via OSRM (needs internet); if a route can't load, a straight guide-line is shown instead.</p>
+  <p class="note">Everything shown is <b>open Sunday, July 5</b> (hours verified July 2026). Watch the short windows: <b>Milkweed Books 11–3</b>; museums (Mia, Walker, Mill City) run <b>10–5</b>. Hover a pin to see its name, or click it for details. Click a place&#39;s <b>Route from Foshay</b> link to trace the street route + travel time (toggle shows them all at once; switch driving/walking with the selector). Routes via OSRM (needs internet); if a route can't load, a straight guide-line is shown instead.</p>
 </div>
 <script>
 const HOTEL = {name:"W Minneapolis - The Foshay", lat:44.97519, lng:-93.27122,
@@ -251,7 +253,7 @@ PLACES.forEach((p,i)=>{
     .bindPopup(`<b>${p.name}</b><br>${p.desc}<span class="ph h">🕑 ${p.hours}</span>`+
       `<span class="ph" style="color:#78716C">📍 ${p.addr} · ${p.nbhd}</span>`+
       `<span class="ph">${web}<a href="${dirLink(p)}" target="_blank" rel="noopener">Directions ↗</a></span>`);
-  m.on('mouseover',()=>showRoute(i)); m.on('mouseout',()=>{ if(!allOn) hideRoute(i); });
+  m.bindTooltip(p.name);
   markers[i]=m;
 });
 
@@ -303,6 +305,7 @@ function hideRoute(i){
   wanted.delete(i);
   if(routeLayers[i]){ map.removeLayer(routeLayers[i].line); map.removeLayer(routeLayers[i].tip); delete routeLayers[i]; }
 }
+function toggleRoute(i){ if(routeLayers[i]) hideRoute(i); else showRoute(i); }
 
 // build list
 const list=document.getElementById('list');
@@ -319,14 +322,13 @@ const list=document.getElementById('list');
       <span class="pill" style="background:${COLORS[p.cat]}">${CATNAMES[p.cat].split(' ')[0]}</span></div>
       <div class="desc">${p.desc}</div>
       <div class="meta"><span class="hours">🕑 ${p.hours}</span><span>📍 ${p.addr}</span></div>
-      <div class="links">${web}<a href="${dirLink(p)}" target="_blank" rel="noopener">Directions ↗</a></div>
+      <div class="links">${web}<a href="${dirLink(p)}" target="_blank" rel="noopener">Directions ↗</a><span class="routebtn">Route from Foshay ↗</span></div>
       <div class="trip"></div>
       <span class="nbhd">${p.nbhd}</span>`;
     c.querySelector('h3').addEventListener('click',()=>{
       map.setView([p.lat,p.lng],15); markers[i].openPopup(); window.scrollTo({top:0,behavior:'smooth'});
     });
-    c.addEventListener('mouseenter',()=>showRoute(i));
-    c.addEventListener('mouseleave',()=>{ if(!allOn) hideRoute(i); });
+    c.querySelector('.routebtn').addEventListener('click',()=>toggleRoute(i));
     list.appendChild(c);
   });
 });
