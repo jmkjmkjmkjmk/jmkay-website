@@ -79,7 +79,7 @@
       <button data-cat="all" class="active">Everything</button>
       <button data-cat="museum">Museums</button>
       <button data-cat="shop">Boutiques &amp; Shops</button>
-      <button data-cat="food">Food</button>
+      <button data-cat="food">Restaurants</button>
       <button data-cat="drinks">Drinks</button>
       <button data-cat="books">Books</button>
       <button data-cat="music">Music · Coffee · Tea</button>
@@ -140,6 +140,34 @@ const PLACES = [
    desc:"Excellent Hawaiian plate lunches, big patio. Casual.",
    addr:"337 N Washington Ave", nbhd:"North Loop", web:"https://onohawaiianplates.com/",
    hours:"Tue–Thu & Sun 11:30–8 · Fri–Sat 11:30–9 · (closed Mon)"},
+  {name:"Indígena by Owamni", cat:"food", lat:44.97823, lng:-93.25552,
+   desc:"Sean Sherman's Indigenous restaurant, newly reopened at the Guthrie — decolonized Native cooking, no dairy/wheat/cane sugar. The marquee.",
+   addr:"818 S 2nd St (Guthrie)", nbhd:"Mill District", web:"https://owamni.com/",
+   hours:"Sun 11–11"},
+  {name:"Gai Noi", cat:"food", lat:44.97157, lng:-93.28543,
+   desc:"Ann Ahmed's Laotian cooking overlooking Loring Park — a NYT top-50 pick. Walk-in only, bright and punchy.",
+   addr:"1610 Harmon Pl", nbhd:"Loring Park", web:"https://www.gainoimpls.com/",
+   hours:"Sun 11–9"},
+  {name:"World Street Kitchen", cat:"food", lat:44.95229, lng:-93.28780,
+   desc:"Sameh Wadi's global street food — the Yum Yum rice bowl is a cult classic. Casual, fast, delicious.",
+   addr:"2743 Lyndale Ave S", nbhd:"Lyn-Lake", web:"https://eatwsk.com/",
+   hours:"Sun 11–10"},
+  {name:"Hola Arepa", cat:"food", lat:44.93934, lng:-93.27740,
+   desc:"Venezuelan arepas + tropical cocktails, grown from a food truck. Lively Kingfield room, great patio.",
+   addr:"3501 Nicollet Ave", nbhd:"Kingfield", web:"https://www.holaarepa.com/",
+   hours:"Sun 10–9"},
+  {name:"Pimento Jamaican Kitchen", cat:"food", lat:44.95400, lng:-93.27810,
+   desc:"Jerk, oxtail, rum punch and reggae on Eat Street — big-hearted, colorful, always a party.",
+   addr:"2524 Nicollet Ave S", nbhd:"Eat Street / Whittier", web:"https://pimento.com/",
+   hours:"Sun 11–10"},
+  {name:"Brasa Rotisserie", cat:"food", lat:44.98953, lng:-93.25126,
+   desc:"Alex Roberts' Creole-Caribbean rotisserie — slow-cooked meats, yuca, greens. Casual, soulful, beloved.",
+   addr:"600 E Hennepin Ave", nbhd:"Northeast / Marcy-Holmes", web:"https://www.brasa.us/",
+   hours:"Sun 11–8"},
+  {name:"Hyacinth", cat:"food", lat:44.93984, lng:-93.13342,
+   desc:"Intimate, acclaimed Italian on St. Paul's Grand Ave — handmade pasta, warm room. Worth the river crossing; reserve.",
+   addr:"790 Grand Ave, St. Paul", nbhd:"St. Paul (Summit Hill)", web:"https://www.hyacinthstpaul.com/",
+   hours:"Sun 5–9"},
   {name:"Bar Mara", cat:"drinks", lat:44.98186, lng:-93.26930,
    desc:"Pip Hanson's cocktail lounge inside Gavin Kaysen's Mara (Four Seasons). Shareables — potato croquettes, walleye sliders. No reservations.",
    addr:"245 Hennepin Ave", nbhd:"Downtown / riverfront", web:"https://www.fourseasons.com/minneapolis/dining/restaurants/bar-mara/",
@@ -152,7 +180,7 @@ const PLACES = [
    desc:"James Beard–nominated bar — inventive cocktails and well-dressed hot dogs (kimchi mayo, fried onions). Casual and fun.",
    addr:"2027 N 2nd St", nbhd:"Near North", web:"https://www.meteormpls.com/",
    hours:"Sun 12pm–midnight"},
-  {name:"Hai Hai", cat:"drinks", lat:45.00946, lng:-93.26296,
+  {name:"Hai Hai", cat:"food", lat:45.00946, lng:-93.26296,
    desc:"Christina Nguyen's Southeast Asian spot — rummy tropical cocktails + street-food small plates. Patio, lively, very NE.",
    addr:"2121 University Ave NE", nbhd:"Northeast (Holland)", web:"https://www.haihaimpls.com/",
    hours:"Sun 4–9"},
@@ -195,7 +223,7 @@ const PLACES = [
 ];
 
 const COLORS = {museum:"#A8843F", drinks:"#9B4B6B", shop:"#C2603F", food:"#B4472B", books:"#1A4A4A", music:"#7A8F6D"};
-const CATNAMES = {museum:"Museums", drinks:"Drinks & Bites", shop:"Boutiques & Shops", food:"Food", books:"Books", music:"Music · Coffee · Tea"};
+const CATNAMES = {museum:"Museums", drinks:"Drinks & Bites", shop:"Boutiques & Shops", food:"Restaurants", books:"Books", music:"Music · Coffee · Tea"};
 
 const map = L.map('map').setView([44.966, -93.262], 12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
