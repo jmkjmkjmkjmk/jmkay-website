@@ -70,15 +70,17 @@
 </head>
 <body>
 <header>
-  <h1>Minneapolis <span class="dot"></span> A Weekend Guide</h1>
-  <p>Thursday–Monday · based at the W Foshay · hover a card to trace the route from your hotel · toggle all routes on/off</p>
+  <h1>Minneapolis <span class="dot"></span> Sunday, July 5</h1>
+  <p>A one-day guide · based at the W Foshay · everything here is open Sunday · hover a card to trace the route from your hotel</p>
 </header>
 <div class="wrap">
   <div class="controls">
     <div class="filters" id="filters">
       <button data-cat="all" class="active">Everything</button>
+      <button data-cat="museum">Museums</button>
       <button data-cat="shop">Boutiques &amp; Shops</button>
       <button data-cat="food">Food</button>
+      <button data-cat="drinks">Drinks</button>
       <button data-cat="books">Books</button>
       <button data-cat="music">Music · Coffee · Tea</button>
     </div>
@@ -91,13 +93,25 @@
     <div id="map"></div>
     <div class="list" id="list"></div>
   </div>
-  <p class="note">Hover any card (or pin) to draw the actual street route + travel time from the W Foshay; flip the toggle to show them all at once. Switch driving/walking with the selector. Hours verified July 2026 — <b>Hermine closed Mon–Tue; Electric Fetus &amp; Ono closed Mondays</b>. Routes via OSRM (needs internet); if a route can't load, a straight guide-line is shown instead.</p>
+  <p class="note">Everything shown is <b>open Sunday, July 5</b> (hours verified July 2026). Watch the short windows: <b>Milkweed Books 11–3</b>; museums (Mia, Walker, Mill City) run <b>10–5</b>. Hover any card or pin to draw the actual street route + travel time from the W Foshay; flip the toggle to show them all at once, or switch driving/walking with the selector. Routes via OSRM (needs internet); if a route can't load, a straight guide-line is shown instead.</p>
 </div>
 <script>
 const HOTEL = {name:"W Minneapolis - The Foshay", lat:44.97519, lng:-93.27122,
   desc:"Your home base.", addr:"821 Marquette Ave S", web:"https://www.marriott.com/en-us/hotels/mspwh-w-minneapolis-the-foshay/"};
 
 const PLACES = [
+  {name:"Minneapolis Institute of Art (Mia)", cat:"museum", lat:44.95859, lng:-93.27415,
+   desc:"Encyclopedic collection, always free — the strongest low-key Sunday move. No ticket needed.",
+   addr:"2400 3rd Ave S", nbhd:"Whittier", web:"https://new.artsmia.org/visit",
+   hours:"Sun 10–5 · free admission"},
+  {name:"Walker Art Center", cat:"museum", lat:44.96801, lng:-93.28877,
+   desc:"Contemporary art + the free Sculpture Garden (Spoonbridge and Cherry) next door.",
+   addr:"725 Vineland Pl", nbhd:"Lowry Hill", web:"https://www.walkerart.org/visit/",
+   hours:"Sun 10–5 (garden free & open)"},
+  {name:"Mill City Museum", cat:"museum", lat:44.97884, lng:-93.25718,
+   desc:"Flour-milling history in the riverfront ruins. Pairs with a Stone Arch Bridge walk.",
+   addr:"704 S 2nd St", nbhd:"Mill District", web:"https://www.mnhs.org/millcity",
+   hours:"Sun 10–5"},
   {name:"PARC", cat:"shop", lat:44.98350, lng:-93.27250,
    desc:"Independent-designer clothing & lifestyle; ethical, minimal, wearable.",
    addr:"212 N 2nd St", nbhd:"North Loop", web:"https://www.instagram.com/parcnorthloop/",
@@ -117,7 +131,7 @@ const PLACES = [
   {name:"5th Street Produce Building", cat:"shop", lat:44.98780, lng:-93.27950,
    desc:"One stop, three shops: The Foundry (home goods), Ūmei (Japanese wares), J. Atelier (textiles).",
    addr:"903 N 5th St", nbhd:"North Loop", web:"https://www.thefoundryhomegoods.com/",
-   hours:"Varies by shop — most ~11–6, closed Mon"},
+   hours:"Sun 12–6 (Foundry, Ūmei, J. Atelier)"},
   {name:"Porzana", cat:"food", lat:44.98380, lng:-93.27050,
    desc:"Daniel Del Prado's wood-fire Argentinian steakhouse. Splurge dinner; reserve ahead.",
    addr:"200 N 1st St", nbhd:"North Loop", web:"https://www.porzanampls.com/",
@@ -126,6 +140,26 @@ const PLACES = [
    desc:"Excellent Hawaiian plate lunches, big patio. Casual.",
    addr:"337 N Washington Ave", nbhd:"North Loop", web:"https://onohawaiianplates.com/",
    hours:"Tue–Thu & Sun 11:30–8 · Fri–Sat 11:30–9 · (closed Mon)"},
+  {name:"Bar Mara", cat:"drinks", lat:44.98186, lng:-93.26930,
+   desc:"Pip Hanson's cocktail lounge inside Gavin Kaysen's Mara (Four Seasons). Shareables — potato croquettes, walleye sliders. No reservations.",
+   addr:"245 Hennepin Ave", nbhd:"Downtown / riverfront", web:"https://www.fourseasons.com/minneapolis/dining/restaurants/bar-mara/",
+   hours:"Sun 2–11"},
+  {name:"Flora Room", cat:"drinks", lat:44.98573, lng:-93.26885,
+   desc:"Daniel Del Prado's emerald speakeasy in the old Marvel Bar space, below Porzana. Cocktails + snacks; 21+, walk-in.",
+   addr:"200 N 1st St", nbhd:"North Loop", web:"https://www.floraroommpls.com/",
+   hours:"Sun 5pm–midnight"},
+  {name:"Meteor", cat:"drinks", lat:45.00012, lng:-93.28047,
+   desc:"James Beard–nominated bar — inventive cocktails and well-dressed hot dogs (kimchi mayo, fried onions). Casual and fun.",
+   addr:"2027 N 2nd St", nbhd:"Near North", web:"https://www.meteormpls.com/",
+   hours:"Sun 12pm–midnight"},
+  {name:"Hai Hai", cat:"drinks", lat:45.00946, lng:-93.26296,
+   desc:"Christina Nguyen's Southeast Asian spot — rummy tropical cocktails + street-food small plates. Patio, lively, very NE.",
+   addr:"2121 University Ave NE", nbhd:"Northeast (Holland)", web:"https://www.haihaimpls.com/",
+   hours:"Sun 4–9"},
+  {name:"Indeed Brewing", cat:"drinks", lat:45.00338, lng:-93.25154,
+   desc:"Quintessential Northeast taproom in the Solar Arts building — rotating beers, a big room, food trucks. The heart of the NE brewery scene.",
+   addr:"711 15th Ave NE", nbhd:"Northeast (Logan Park)", web:"https://indeedbrewing.com/",
+   hours:"Sun 11–9"},
   {name:"Milkweed Books", cat:"books", lat:44.97400, lng:-93.25600,
    desc:"Poetry, translation & lit inside Open Book. FRGMNT Coffee in the building. Closest to you.",
    addr:"1011 Washington Ave S, Ste 107", nbhd:"Downtown / Mill District", web:"https://milkweed.org/bookstore",
@@ -153,11 +187,15 @@ const PLACES = [
   {name:"Caydence Records & Coffee", cat:"music", lat:44.96600, lng:-93.07300,
    desc:"Records, coffee, tea & pastries with live music. Across the river in St. Paul.",
    addr:"900 Payne Ave, St. Paul", nbhd:"St. Paul (Payne-Phalen)", web:"https://caydencemn.com/",
-   hours:"Tue–Fri 8–3 · Sat–Sun 8–5 · (closed Mon)"}
+   hours:"Tue–Fri 8–3 · Sat–Sun 8–5 · (closed Mon)"},
+  {name:"Spyhouse Coffee (North Loop)", cat:"music", lat:44.98969, lng:-93.27995,
+   desc:"National-caliber roaster, marble-counter flagship. A great first stop to open the day.",
+   addr:"907 Washington Ave N", nbhd:"North Loop", web:"https://spyhousecoffee.com/pages/north-loop",
+   hours:"Sun 7–5"}
 ];
 
-const COLORS = {shop:"#C2603F", food:"#B4472B", books:"#1A4A4A", music:"#7A8F6D"};
-const CATNAMES = {shop:"Boutiques & Shops", food:"Food", books:"Books", music:"Music · Coffee · Tea"};
+const COLORS = {museum:"#A8843F", drinks:"#9B4B6B", shop:"#C2603F", food:"#B4472B", books:"#1A4A4A", music:"#7A8F6D"};
+const CATNAMES = {museum:"Museums", drinks:"Drinks & Bites", shop:"Boutiques & Shops", food:"Food", books:"Books", music:"Music · Coffee · Tea"};
 
 const map = L.map('map').setView([44.966, -93.262], 12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -169,7 +207,7 @@ function pin(color, star){
       transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);
       display:flex;align-items:center;justify-content:center;">
       <span style="transform:rotate(45deg);color:#fff;font-size:12px;font-weight:700;">${star?'★':''}</span></div>`,
-    iconSize:[22,22], iconAnchor:[11,22], popupAnchor:[0,-20]});
+    iconSize:[star?26:22,star?26:22], iconAnchor:[star?13:11,star?26:22], popupAnchor:[0,star?-24:-20]});
 }
 
 const dirLink=(p)=>`https://www.google.com/maps/dir/?api=1&origin=${HOTEL.lat},${HOTEL.lng}&destination=${encodeURIComponent(p.addr+' Minneapolis')}`;
@@ -190,6 +228,7 @@ PLACES.forEach((p,i)=>{
 });
 
 let allOn=false, mode='driving';
+const wanted=new Set(), pending={};
 
 async function fetchRoute(i){
   const key=mode+i;
@@ -197,7 +236,10 @@ async function fetchRoute(i){
   const p=PLACES[i];
   try{
     const url=`https://router.project-osrm.org/route/v1/${mode}/${HOTEL.lng},${HOTEL.lat};${p.lng},${p.lat}?overview=full&geometries=geojson`;
-    const r=await fetch(url); const j=await r.json();
+    const ctl=new AbortController(); const to=setTimeout(()=>ctl.abort(),6000);
+    const r=await fetch(url,{signal:ctl.signal}); clearTimeout(to);
+    const j=await r.json();
+    if(!j.routes||!j.routes[0]) throw new Error('no route');
     const rt=j.routes[0];
     routeCache[key]={coords:rt.geometry.coordinates.map(c=>[c[1],c[0]]), dist:rt.distance, dur:rt.duration, straight:false};
   }catch(e){
@@ -207,8 +249,13 @@ async function fetchRoute(i){
 }
 
 async function showRoute(i){
-  if(routeLayers[i]) return;
+  wanted.add(i);
+  if(routeLayers[i]||pending[i]) return;
+  pending[i]=true;
   const rt=await fetchRoute(i);
+  delete pending[i];
+  if(!wanted.has(i)) return;      // moved away before the route finished loading
+  if(routeLayers[i]) return;
   const p=PLACES[i];
   const line=L.polyline(rt.coords,{color:COLORS[p.cat],weight:4,opacity:.85,
     dashArray:rt.straight?'6,8':null}).addTo(map);
@@ -225,12 +272,13 @@ async function showRoute(i){
   if(el) el.textContent = rt.dur!=null ? ('From Foshay: '+label) : 'From Foshay: approx. route';
 }
 function hideRoute(i){
+  wanted.delete(i);
   if(routeLayers[i]){ map.removeLayer(routeLayers[i].line); map.removeLayer(routeLayers[i].tip); delete routeLayers[i]; }
 }
 
 // build list
 const list=document.getElementById('list');
-["shop","food","books","music"].forEach(cat=>{
+["museum","food","drinks","books","shop","music"].forEach(cat=>{
   const head=document.createElement('div');
   head.className='cat-head'; head.textContent=CATNAMES[cat]; head.dataset.cathead=cat;
   list.appendChild(head);
@@ -275,7 +323,7 @@ document.getElementById('mode').addEventListener('change',e=>{
   clearAll(); document.querySelectorAll('.trip').forEach(t=>t.textContent=''); if(allOn) redrawAll(cat);
 });
 function redrawAll(cat){ PLACES.forEach((p,i)=>{ if(cat==='all'||p.cat===cat) showRoute(i); else hideRoute(i); }); }
-function clearAll(){ Object.keys(routeLayers).forEach(i=>hideRoute(i)); }
+function clearAll(){ wanted.clear(); Object.keys(routeLayers).forEach(i=>hideRoute(i)); }
 </script>
 </body>
 </html>
