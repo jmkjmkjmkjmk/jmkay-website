@@ -83,6 +83,7 @@
       <button data-cat="shop">Boutiques &amp; Shops</button>
       <button data-cat="food">Restaurants</button>
       <button data-cat="drinks">Drinks</button>
+      <button data-cat="hh">Happy Hour</button>
       <button data-cat="books">Books</button>
       <button data-cat="music">Music · Coffee · Tea</button>
     </div>
@@ -221,11 +222,131 @@ const PLACES = [
   {name:"Spyhouse Coffee (North Loop)", cat:"music", lat:44.98969, lng:-93.27995,
    desc:"National-caliber roaster, marble-counter flagship. A great first stop to open the day.",
    addr:"907 Washington Ave N", nbhd:"North Loop", web:"https://spyhousecoffee.com/pages/north-loop",
-   hours:"Sun 7–5"}
+   hours:"Sun 7–5"},
+  {name:"Fogo de Chão", cat:"hh", lat:44.97802, lng:-93.27432,
+   desc:"$5 beer · $8 South-American wine · $10 Brazilian cocktails. Churrascaria bar.",
+   addr:"645 Hennepin Ave", nbhd:"Downtown", web:"https://fogodechao.com/location/minneapolis/",
+   hours:"Sun all day (bar)"},
+  {name:"Whiskey & Soda", cat:"hh", lat:44.9768, lng:-93.27048,
+   desc:"$5 Rand Tower martini · $6 taps · Blondette burger, oysters.",
+   addr:"527 S Marquette Ave", nbhd:"Downtown", web:"https://www.yelp.com/biz/whiskey-and-soda-minneapolis",
+   hours:"Sun 4–6"},
+  {name:"Gray Fox Coffee & Wine", cat:"hh", lat:44.97471, lng:-93.27222,
+   desc:"Wood-fired pizzas + wine; steps from the Foshay.",
+   addr:"801 S Marquette Ave", nbhd:"Downtown", web:"https://www.grayfoxcoffee.com/",
+   hours:"Sun 3–6"},
+  {name:"Brit's Pub", cat:"hh", lat:44.97266, lng:-93.2761,
+   desc:"$4.50 pints · $3–7 cocktails · rooftop lawn bowling.",
+   addr:"1110 Nicollet Mall", nbhd:"Downtown", web:"https://britspub.com/",
+   hours:"Sun 3:30–6:30 (+late)"},
+  {name:"Crooked Pint Ale House", cat:"hh", lat:44.97825, lng:-93.26126,
+   desc:"$3 cans · $4 taps · Bloodys. Weekend all-day drink specials.",
+   addr:"501 S Washington Ave", nbhd:"Downtown / Mill District", web:"https://www.crookedpint.com/downtown-minneapolis/",
+   hours:"Sun 10–6"},
+  {name:"Union Rooftop", cat:"hh", lat:44.97712, lng:-93.27545,
+   desc:"BOGO cocktails · half-price apps · greenhouse rooftop.",
+   addr:"731 Hennepin Ave", nbhd:"Downtown", web:"https://unionmpls.com/",
+   hours:"Sun 3–6 (+10pm–12)"},
+  {name:"CRAVE", cat:"hh", lat:44.97638, lng:-93.27658,
+   desc:"$5 drinks + app specials.",
+   addr:"825 Hennepin Ave", nbhd:"Downtown", web:"https://www.craveamerica.com/",
+   hours:"Sun 3–5:30"},
+  {name:"The Local", cat:"hh", lat:44.97408, lng:-93.27439,
+   desc:"$4 wells / drafts / wine · $6 apps. Irish pub on Nicollet Mall.",
+   addr:"931 Nicollet Mall", nbhd:"Downtown", web:"https://thelocalminneapolis.com/",
+   hours:"Sun ~11–6"},
+  {name:"The Freehouse", cat:"hh", lat:44.98746, lng:-93.27731,
+   desc:"$6 taps · $8 wine & sangria · $8 rails. Blue Plate brewpub.",
+   addr:"701 N Washington Ave", nbhd:"North Loop", web:"https://www.freehousempls.com/happy-hour",
+   hours:"Sun 2–6"},
+  {name:"Butcher & the Boar", cat:"hh", lat:44.98836, lng:-93.28043,
+   desc:"$2 off beers · $7 burger / brat · big patio.",
+   addr:"901 N 3rd St", nbhd:"North Loop", web:"https://www.butcherandtheboarmpls.com/happy-hour",
+   hours:"Sun 4–6"},
+  {name:"Jackson's Hole Bar & Grill", cat:"hh", lat:44.98227, lng:-93.27147,
+   desc:"$2 off beer/cocktails · $3 rails late.",
+   addr:"106 N 3rd St", nbhd:"North Loop", web:"https://jacksonsholempls.com/specials-2/",
+   hours:"Sun 4–7 & 9–12"},
+  {name:"Modist Brewing", cat:"hh", lat:44.98525, lng:-93.2765,
+   desc:"$5 Dreamyard · $4 Supra Deluxe drafts.",
+   addr:"505 N 3rd St", nbhd:"North Loop", web:"https://modistbrewing.com/",
+   hours:"Sun 4–6"},
+  {name:"The Loop", cat:"hh", lat:44.98728, lng:-93.27611,
+   desc:"$2 off rails/taps/wine · $3 off pizzas.",
+   addr:"606 N Washington Ave", nbhd:"North Loop", web:"https://theloopmpls.com/",
+   hours:"Sun 9pm–close"},
+  {name:"Inbound BrewCo", cat:"hh", lat:44.98534, lng:-93.28075,
+   desc:"Brewery drink specials near Target Field.",
+   addr:"701 N 5th St", nbhd:"North Loop", web:"https://inboundbrew.co/",
+   hours:"Sun 4–7 & 10–close"},
+  {name:"Cowboy Jack's", cat:"hh", lat:44.98075, lng:-93.27401,
+   desc:"$3 rails & domestics · 50% off apps · rooftop, sports.",
+   addr:"126 N 5th St", nbhd:"North Loop", web:"https://www.thecowboyjacks.com/downtown",
+   hours:"Sun 3–6"},
+  {name:"Aster Cafe", cat:"hh", lat:44.9845, lng:-93.25506,
+   desc:"$5 taps · $7 sangria · $4 pork sliders. Stone-Arch river patio.",
+   addr:"125 Main St SE", nbhd:"St Anthony Main", web:"https://astercafe.com/",
+   hours:"Sun 4–6"},
+  {name:"Hai Hai (HH)", cat:"hh", lat:45.00946, lng:-93.26296,
+   desc:"$5 taps · $8 tiki cocktails · SE-Asian snacks.",
+   addr:"2121 University Ave NE", nbhd:"Northeast", web:"https://www.haihaimpls.com/menus",
+   hours:"Sun 4–5:30"},
+  {name:"Elsie's", cat:"hh", lat:44.99504, lng:-93.26612,
+   desc:"Bowling + supper-club bar specials.",
+   addr:"729 Marshall St NE", nbhd:"Northeast", web:"https://www.elsies.com/",
+   hours:"Sun late-night"},
+  {name:"Bryant Lake Bowl", cat:"hh", lat:44.94835, lng:-93.29057,
+   desc:"$3 tallboys · $5 rails · $4 apps. Bowl / bar / theater.",
+   addr:"810 W Lake St", nbhd:"Uptown / Lake St", web:"https://www.bryantlakebowl.com/",
+   hours:"Sun 10pm–1am"},
+  {name:"CC Club", cat:"hh", lat:44.95536, lng:-93.28839,
+   desc:"$15 beer pitchers · shot-and-beer combos. Classic dive.",
+   addr:"2600 Lyndale Ave S", nbhd:"Uptown / Lyn-Lake", web:"https://ccclubbar.com/",
+   hours:"Sun (all day)"},
+  {name:"Moto-i", cat:"hh", lat:44.94867, lng:-93.2884,
+   desc:"$7 sake cocktails · $5 taps. Sake brewpub.",
+   addr:"2940 Lyndale Ave S", nbhd:"Lyn-Lake", web:"https://moto-i.com/",
+   hours:"Sun 3–5"},
+  {name:"Up-Down", cat:"hh", lat:44.94781, lng:-93.28834,
+   desc:"$25 six-pack of domestic cans. Arcade bar.",
+   addr:"3012 Lyndale Ave S", nbhd:"Lyn-Lake", web:"https://updownarcadebar.com/minneapolis/",
+   hours:"Sun (arcade)"},
+  {name:"Wrecktangle Pizza", cat:"hh", lat:44.94825, lng:-93.28842,
+   desc:"$4 wine · $6 margs · $3 off starters. Detroit-style pizza.",
+   addr:"703 W Lake St", nbhd:"Lyn-Lake", web:"https://wrecktanglepizza.com/",
+   hours:"Sun 3–6"},
+  {name:"Taberna Street Tacos", cat:"hh", lat:44.94855, lng:-93.31983,
+   desc:"$8 chips & guac · nachos · quesadillas.",
+   addr:"3126 W Lake St", nbhd:"West Lake / Uptown", web:"https://www.tabernatacos.com/",
+   hours:"Sun 11–5"},
+  {name:"Pat's Tap", cat:"hh", lat:44.93923, lng:-93.27825,
+   desc:"$5 taps · $7 rails · $9 margs · skee-ball + patio.",
+   addr:"3510 Nicollet Ave", nbhd:"Kingfield", web:"http://www.patstap.com/",
+   hours:"Sun 3–6"},
+  {name:"Kyatchi", cat:"hh", lat:44.93434, lng:-93.27815,
+   desc:"$7 hot sake · $3 off taps/wine · discounted sushi.",
+   addr:"3758 Nicollet Ave", nbhd:"Kingfield", web:"https://kyatchi.com/",
+   hours:"Sun 4–6"},
+  {name:"Hola Arepa (HH)", cat:"hh", lat:44.93934, lng:-93.2774,
+   desc:"$5 beer · $8 wine · $8 cocktails · $6 yuca fries.",
+   addr:"3501 Nicollet Ave", nbhd:"Kingfield", web:"https://www.holaarepa.com/menus",
+   hours:"Sun 3–close"},
+  {name:"Luna & The Bear", cat:"hh", lat:44.95562, lng:-93.27829,
+   desc:"Gin-and-Jam cocktails + snacky small plates.",
+   addr:"18 W 26th St", nbhd:"Eat Street / Whittier", web:"https://lunaandthebearmn.com/",
+   hours:"Sun 2–6"},
+  {name:"Jakeeno's Pizza & Pasta", cat:"hh", lat:44.93823, lng:-93.26214,
+   desc:"Half-price bottles of wine. Old-school red-sauce Italian.",
+   addr:"3555 Chicago Ave", nbhd:"Bryant / South", web:"https://jakeenos.com/",
+   hours:"Sun (wine deal)"},
+  {name:"Northbound Smokehouse", cat:"hh", lat:44.93423, lng:-93.23237,
+   desc:"$3.50 house brews · $4 rails · $5 wine. Smokehouse brewpub.",
+   addr:"2716 E 38th St", nbhd:"Standish / South", web:"https://www.northboundbrewpub.com/",
+   hours:"Sun 3–6"},
 ];
 
-const COLORS = {museum:"#A8843F", drinks:"#9B4B6B", shop:"#C2603F", food:"#B4472B", books:"#1A4A4A", music:"#7A8F6D"};
-const CATNAMES = {museum:"Museums", drinks:"Drinks & Bites", shop:"Boutiques & Shops", food:"Restaurants", books:"Books", music:"Music · Coffee · Tea"};
+const COLORS = {museum:"#A8843F", hh:"#4E7FA6", drinks:"#9B4B6B", shop:"#C2603F", food:"#B4472B", books:"#1A4A4A", music:"#7A8F6D"};
+const CATNAMES = {museum:"Museums", hh:"Happy Hour", drinks:"Drinks & Bites", shop:"Boutiques & Shops", food:"Restaurants", books:"Books", music:"Music · Coffee · Tea"};
 
 const map = L.map('map').setView([44.966, -93.262], 12);
 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -306,10 +427,18 @@ function hideRoute(i){
   if(routeLayers[i]){ map.removeLayer(routeLayers[i].line); map.removeLayer(routeLayers[i].tip); delete routeLayers[i]; }
 }
 function toggleRoute(i){ if(routeLayers[i]) hideRoute(i); else showRoute(i); }
+function applyMapFilter(cat){
+  PLACES.forEach((p,i)=>{
+    const show=(cat==='all'||p.cat===cat);
+    const m=markers[i]; if(!m) return;
+    if(show){ if(!map.hasLayer(m)) m.addTo(map); }
+    else { if(map.hasLayer(m)) map.removeLayer(m); hideRoute(i); }
+  });
+}
 
 // build list
 const list=document.getElementById('list');
-["museum","food","drinks","books","shop","music"].forEach(cat=>{
+["museum","food","drinks","hh","books","shop","music"].forEach(cat=>{
   const head=document.createElement('div');
   head.className='cat-head'; head.textContent=CATNAMES[cat]; head.dataset.cathead=cat;
   list.appendChild(head);
@@ -341,6 +470,7 @@ document.querySelectorAll('#filters button').forEach(b=>{
     const cat=b.dataset.cat;
     document.querySelectorAll('.card').forEach(c=>c.classList.toggle('hidden',!(cat==='all'||c.dataset.cat===cat)));
     document.querySelectorAll('.cat-head').forEach(h=>h.style.display=(cat==='all'||h.dataset.cathead===cat)?'block':'none');
+    applyMapFilter(cat);
     if(allOn) redrawAll(cat);
   });
 });
