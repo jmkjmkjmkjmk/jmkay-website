@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /archive/
 Disallow: /reading/
+Disallow: /share/
 
 Sitemap: https://jmkay.com/sitemap.xml

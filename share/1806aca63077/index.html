@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Selected working documents — J.M.Kay</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family:'Kay Display';
+    src:url('/KayDisplay-Regular.otf') format('opentype');
+    font-weight:400; font-style:normal;
+  }
+  :root {
+    --warm-white:#FDFBF7; --cream:#F5F0E8; --sand:#D4C5A9;
+    --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C; --stone:#A8A29E;
+    --terracotta:#C2603F; --deep-teal:#1A4A4A; --line:#E4DDD0;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--ink);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .topbar {
+    padding:22px 32px; display:flex; align-items:center; justify-content:center;
+    border-bottom:1px solid var(--line);
+  }
+  .wordmark {
+    font-family:'Kay Display',serif; font-size:19px; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--ink); text-decoration:none;
+  }
+  .dot {
+    display:inline-block; width:5px; height:5px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:1px; margin:0 4px; vertical-align:middle;
+  }
+  .wrap { max-width:720px; margin:0 auto; padding:0 28px; }
+  .intro { padding:72px 0 8px; }
+  .eyebrow {
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--terracotta); margin-bottom:18px;
+  }
+  .page-title {
+    font-family:'Instrument Serif',serif; font-size:44px; line-height:1.06;
+    font-weight:400; letter-spacing:-0.01em; margin-bottom:10px;
+  }
+  .page-sub {
+    font-size:17px; color:var(--ink-light); margin-bottom:30px; max-width:60ch;
+  }
+  .divide { border-top:1px solid var(--line); margin:8px 0 40px; }
+  .doc-list { list-style:none; padding:0; margin:0; }
+  .doc-list li { border-bottom:1px solid var(--line); }
+  .doc-list a {
+    display:block; padding:22px 4px; text-decoration:none; color:var(--ink);
+  }
+  .doc-list a:hover { background:var(--cream); }
+  .doc-list .dt {
+    font-family:'Instrument Serif',serif; font-size:24px; line-height:1.15;
+    margin-bottom:4px;
+  }
+  .doc-list .ds { font-size:14.5px; color:var(--ink-muted); }
+  .empty { color:var(--ink-muted); font-size:16.5px; padding:20px 0 8px; }
+  .prose {
+    font-family:'EB Garamond',serif; font-size:19.5px; line-height:1.66; color:#26211d;
+    padding-top:6px;
+  }
+  .prose h1 { font-family:'Instrument Serif',serif; font-weight:400; font-size:32px;
+    line-height:1.15; margin:30px 0 12px; }
+  .prose h2 { font-family:'Instrument Serif',serif; font-weight:400; font-size:26px;
+    line-height:1.2; margin:28px 0 10px; }
+  .prose h3 { font-family:'DM Sans',sans-serif; font-weight:500; font-size:17px;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-light);
+    margin:24px 0 8px; }
+  .prose p { margin-bottom:1.0em; }
+  .prose ul, .prose ol { margin:0 0 1em 1.4em; }
+  .prose li { margin-bottom:0.4em; }
+  .prose blockquote {
+    border-left:3px solid var(--sand); padding:2px 0 2px 18px; margin:14px 0;
+    color:var(--ink-light); font-style:italic;
+  }
+  .prose table { width:100%; border-collapse:collapse; margin:16px 0; font-size:15px;
+    font-family:'DM Sans',sans-serif; }
+  .prose th, .prose td { border:1px solid var(--line); padding:8px 10px; text-align:left;
+    vertical-align:top; }
+  .prose th { background:var(--cream); font-weight:500; }
+  .prose code { font-family:'Space Mono',monospace; font-size:14px; background:var(--cream);
+    padding:1px 5px; border-radius:3px; }
+  .prose pre { background:var(--cream); padding:14px 16px; border-radius:5px;
+    overflow-x:auto; margin:14px 0; }
+  .prose pre code { background:none; padding:0; }
+  .prose hr { border:none; border-top:1px solid var(--line); margin:28px 0; }
+  .prose em { font-style:italic; }
+  .backlink { display:inline-block; margin:34px 0 0; font-family:'Space Mono',monospace;
+    font-size:12.5px; letter-spacing:0.06em; color:var(--deep-teal); text-decoration:none; }
+  .backlink:hover { color:var(--terracotta); }
+  footer {
+    margin-top:70px; padding:30px 0 60px; border-top:1px solid var(--line);
+    text-align:center; color:var(--ink-muted); font-size:12.5px;
+    font-family:'Space Mono',monospace; letter-spacing:0.06em;
+  }
+  @media (max-width:640px) {
+    .page-title { font-size:34px; }
+    .prose { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a class="wordmark" href="https://jmkay.com" target="_blank" rel="noopener">J<span class="dot"></span>M<span class="dot"></span>KAY</a>
+</div>
+<div class="wrap">
+
+  <div class="intro">
+    <div class="eyebrow">Shared privately &middot; in confidence</div>
+    <h1 class="page-title">Selected working documents</h1>
+    <p class="page-sub">A small set of working documents, shared privately. Please don’t forward.</p>
+  </div>
+  <div class="divide"></div>
+  <p class="empty">Nothing is currently shared here.</p>
+
+  <footer>Prepared by J.M.Kay for Juno Collective &middot; shared privately &middot; please don&rsquo;t forward</footer>
+</div>
+</body>
+</html>

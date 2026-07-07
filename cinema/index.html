@@ -112,38 +112,6 @@
   }
   .masthead .meta a:hover { color: var(--teal); border-bottom-color: var(--teal-soft); }
 
-  /* === Filter strip === */
-  .filters {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 32px 32px 0;
-    flex-wrap: wrap;
-  }
-  .filter-btn {
-    font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    border: 1px solid var(--line);
-    background: var(--bg-card);
-    color: var(--ink-muted);
-    border-radius: 999px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .filter-btn:hover {
-    border-color: var(--ink-muted);
-    color: var(--ink);
-  }
-  .filter-btn.active {
-    background: var(--ink);
-    color: var(--bg-card);
-    border-color: var(--ink);
-  }
-
   /* === View tabs (Upcoming / Archive) === */
   .view-tabs {
     display: flex;
@@ -254,8 +222,7 @@
     box-shadow: var(--shadow-hover);
     transform: translateY(-1px);
   }
-  .event[data-type="OUR PLACE"] { border-left-color: var(--terracotta); }
-  .event[data-type="EVERYWHERE ELSE"], .event[data-type="ELSEWHERE"] { border-left-color: var(--teal); }
+  .event { border-left-color: var(--terracotta); }
 
   .event-poster {
     aspect-ratio: 2 / 3;
@@ -288,11 +255,6 @@
     text-transform: uppercase;
     color: var(--ink-muted);
   }
-  .type-tag {
-    font-weight: 600;
-  }
-  .event[data-type="OUR PLACE"] .type-tag { color: var(--terracotta); }
-  .event[data-type="EVERYWHERE ELSE"] .type-tag, .event[data-type="ELSEWHERE"] .type-tag { color: var(--teal); }
   .status-tag.confirmed {
     color: #1E5E1E;
     background: #DFF0D8;
@@ -650,9 +612,7 @@
     opacity: 1;
     box-shadow: var(--shadow-card);
   }
-  .pipeline-card[data-type="OUR PLACE"] { border-left-color: var(--terracotta); }
-  .pipeline-card[data-type="EVERYWHERE ELSE"],
-  .pipeline-card[data-type="ELSEWHERE"] { border-left-color: var(--teal); }
+  .pipeline-card { border-left-color: var(--terracotta); }
   .pipeline-poster {
     aspect-ratio: 2 / 3;
     background: var(--bg-stone);
@@ -763,9 +723,7 @@
     box-shadow: var(--shadow-card);
     transform: translateY(-1px);
   }
-  .past-card[data-type="OUR PLACE"] { border-left-color: var(--terracotta); }
-  .past-card[data-type="EVERYWHERE ELSE"],
-  .past-card[data-type="ELSEWHERE"] { border-left-color: var(--teal); }
+  .past-card { border-left-color: var(--terracotta); }
   .past-poster {
     aspect-ratio: 2 / 3;
     background: var(--bg-stone);
@@ -1236,12 +1194,6 @@
   <button class="view-tab" data-view="archive">Archive <span class="tab-count" id="archive-tab-count"></span></button>
 </div>
 
-<!-- Filter strip (visible only on Upcoming tab) -->
-<div class="filters" id="upcoming-filters">
-  <button class="filter-btn active" data-filter="all">All</button>
-  <button class="filter-btn" data-filter="our-place">Our Place</button>
-  <button class="filter-btn" data-filter="everywhere">Elsewhere</button>
-</div>
 
 <!-- Calendar / events -->
 <main id="calendar">
@@ -2165,7 +2117,6 @@ function groupEventsByFilm(events) {
         director: e.director,
         year: e.year,
         length: e.length,
-        type: e.type,
         poster: e.poster,
         description: e.description || e.desc,
         letterboxd: e.letterboxd,
@@ -2349,14 +2300,13 @@ function renderEvent(film) {
     : '';
 
   return `
-    <article class="event${isPoll ? ' is-poll' : ''}" id="${slug}" data-type="${film.type}" data-date="${earliestDate}">
+    <article class="event${isPoll ? ' is-poll' : ''}" id="${slug}" data-date="${earliestDate}">
       ${showtimeAnchors}
       <div class="event-poster">
         ${film.poster ? `<img src="${escapeHTML(film.poster)}" alt="${escapeHTML(film.title)} poster" loading="lazy">` : ''}
       </div>
       <div class="event-body">
         <div class="event-meta-top">
-          <span class="type-tag">${escapeHTML(film.type)}</span>
           ${isPoll ? '<span class="status-tag polling">Poll open</span>' : ''}
           ${someConfirmed ? '<span class="status-tag confirmed">Confirmed</span>' : ''}
           ${allPast ? '<span class="status-tag past">Past</span>' : ''}
@@ -2437,30 +2387,6 @@ function applyTemporalClasses() {
   });
 }
 
-function applyFilter(filter) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
-  const today = new Date();
-  const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-  document.querySelectorAll('.event').forEach(el => {
-    const type = el.dataset.type;
-    const date = new Date(el.dataset.date + 'T00:00:00');
-    let show = true;
-    if (filter === 'our-place') show = type === 'OUR PLACE';
-    else if (filter === 'everywhere') show = (type === 'EVERYWHERE ELSE' || type === 'ELSEWHERE');
-    else if (filter === 'this-week') show = date >= today && date <= weekFromNow;
-    el.style.display = show ? '' : 'none';
-  });
-  // Hide empty months
-  document.querySelectorAll('.month-section').forEach(sec => {
-    const visible = sec.querySelectorAll('.event:not([style*="none"])').length;
-    sec.style.display = visible > 0 ? '' : 'none';
-  });
-}
-
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
-});
-
 // Render the Pipeline section (films-under-consideration, Status=Considering)
 function renderPipeline(events) {
   const container = document.getElementById('pipeline-section');
@@ -2480,7 +2406,7 @@ function renderPipeline(events) {
   let html = '<h2>In the pipeline</h2><p class="pipeline-blurb">Films Jonathan is mulling. Not committed yet — let him know if you\'re excited about any.</p><div class="pipeline-grid">';
   unique.forEach(ev => {
     html += `
-      <div class="pipeline-card" data-type="${ev.type}">
+      <div class="pipeline-card">
         <div class="pipeline-poster">
           ${ev.poster ? `<img src="${escapeHTML(ev.poster)}" alt="${escapeHTML(ev.title)}" loading="lazy">` : ''}
         </div>
@@ -2527,19 +2453,16 @@ function switchView(view) {
   // Update tab buttons
   document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === view));
   // Toggle section visibility
-  const filters = document.getElementById('upcoming-filters');
   const calendar = document.getElementById('calendar');
   const pipeline = document.getElementById('pipeline-section');
   const archive = document.getElementById('archive-view');
 
   if (view === 'upcoming') {
-    if (filters) filters.style.display = '';
     if (calendar) calendar.style.display = '';
     // Pipeline only shows if it has content (renderPipeline manages its own visibility)
     if (pipeline && pipeline.innerHTML.trim()) pipeline.style.display = '';
     if (archive) archive.classList.remove('active');
   } else {
-    if (filters) filters.style.display = 'none';
     if (calendar) calendar.style.display = 'none';
     if (pipeline) pipeline.style.display = 'none';
     if (archive) archive.classList.add('active');
@@ -2635,7 +2558,7 @@ function renderArchive(events) {
     const rating = ev.rating ? renderRating(ev.rating) : '';
     const memory = ev.memory ? `<div class="past-memory">${escapeHTML(ev.memory)}</div>` : '';
     return `
-      <div class="past-card" data-type="${ev.type}">
+      <div class="past-card">
         <div class="past-poster">
           ${ev.poster ? `<img src="${escapeHTML(ev.poster)}" alt="${escapeHTML(ev.title)}" loading="lazy">` : ''}
         </div>

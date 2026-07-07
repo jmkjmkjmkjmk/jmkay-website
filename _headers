@@ -5,3 +5,7 @@
 /reading/*
   X-Robots-Tag: noindex, nofollow
   Referrer-Policy: no-referrer
+
+/share/*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
