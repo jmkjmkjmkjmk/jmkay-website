@@ -3,5 +3,6 @@ Allow: /
 Disallow: /archive/
 Disallow: /reading/
 Disallow: /share/
+Disallow: /x/
 
 Sitemap: https://jmkay.com/sitemap.xml
