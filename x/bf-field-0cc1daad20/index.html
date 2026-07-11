@@ -1,10 +1,82 @@
 <!DOCTYPE html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow, noarchive"><title>Butterfly — Field</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Georgia&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Georgia&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-:root{--teal:#0E7C86;--teal-d:#0a5c63;--ink:#20242a;--ink-m:#5c636e;--line:#e3e6ea;--ground:#f7f8fa;--card:#fff;--warm:#f4efe6;}
+:root{
+ --teal:#0E7C86;--teal-d:#0a5c63;--terra:#C2603F;--terra-d:#a84e30;
+ --ink:#1C1917;--ink-l:#44403C;--ink-m:#78716C;--muted:#8a8378;
+ --bg:#FDFBF7;--cream:#F5F0E8;--card:#fff;--line:#ece5d8;
+ --cb:#2E7D32;--cb-bg:#E7F3EC;--ham:#1565C0;--ham-bg:#E4EDF7;--pry:#B26A00;--pry-bg:#F7EFDB;
+ --priv:#B3261E;--team:#B26A00;--client:#2E7D32;--green:#2E7D32;--amber:#B45309;--red:#B3261E;
+ --serif:Georgia,'Times New Roman',serif;--sans:'DM Sans',-apple-system,system-ui,sans-serif;--mono:'Space Mono',ui-monospace,monospace;
+ --radius:12px;--shadow:0 6px 18px rgba(0,0,0,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-text-size-adjust:100%}
+.bf-serif{font-family:var(--serif);font-weight:400}
+.bf-mono{font-family:var(--mono)}
+
+/* hero */
+.bf-hero{background:radial-gradient(120% 140% at 85% 0%,#1f4a4a 0%,#171512 60%);color:var(--bg);padding:34px 34px 30px}
+.bf-hero .in{max-width:1200px;margin:0 auto}
+.bf-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#9ec3c2}
+.bf-hero h1{font-family:var(--serif);font-weight:400;font-size:44px;line-height:1.03;margin:6px 0 0;letter-spacing:.01em}
+.bf-diamond{display:inline-block;width:14px;height:14px;background:var(--terra);border-radius:3px;transform:rotate(45deg);margin:0 5px}
+.bf-hero .s{color:rgba(235,230,222,.9);margin-top:12px;max-width:80ch;font-size:15px}
+.bf-hero .gen{font-family:var(--mono);font-size:11.5px;color:rgba(235,230,222,.55);margin-top:16px}
+/* mental-model band */
+.bf-mm{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:20px}
+.bf-mm .step{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:11px 15px}
+.bf-mm .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#9ec3c2}
+.bf-mm .val{font-size:14.5px;font-weight:600;color:#fff}
+.bf-mm .arrow{display:flex;align-items:center;color:var(--terra);font-size:22px;font-weight:700}
+/* sticky jump nav */
+.bf-jump{position:sticky;top:0;z-index:50;background:rgba(253,251,247,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:4px;overflow-x:auto;padding:9px 20px;-webkit-overflow-scrolling:touch}
+.bf-jump a{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-l);text-decoration:none;padding:6px 11px;border-radius:20px;white-space:nowrap}
+.bf-jump a:hover{background:var(--cream)}
+/* zones */
+.bf-wrap{padding:8px 34px 70px;max-width:1200px;margin:0 auto}
+.bf-zone{margin:30px 0;scroll-margin-top:60px}
+.bf-zhead{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.bf-badge{flex:0 0 auto;width:44px;height:44px;border-radius:12px;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.13)}
+.bf-znum{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--acc);font-weight:700}
+.bf-zone h2{font-family:var(--serif);font-weight:400;font-size:26px;margin:1px 0 0;line-height:1.1}
+.bf-sub{color:var(--muted);margin:5px 0 0;font-size:13.5px;max-width:88ch}
+.bf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;border-left:3px solid var(--acc);padding-left:16px;margin-left:8px}
+.bf-zone.feature .bf-grid{grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+/* cards */
+.bf-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px;transition:transform .12s,box-shadow .12s,border-color .12s;border-left:3px solid transparent}
+.bf-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-left-color:var(--acc)}
+.bf-card.big{padding:17px 18px;background:linear-gradient(180deg,#fff,#fffdf9)}
+.bf-card.big .chead a,.bf-card.big .nolink{font-size:17px}
+.chead{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.chead a{color:var(--acc);text-decoration:none;font-size:15.5px;font-weight:700}
+.chead a:hover{text-decoration:underline}
+.nolink{font-weight:700;font-size:15.5px;color:var(--ink-l)}
+.bf-card .d{color:var(--ink-l);font-size:13px;margin-top:6px}
+.go{color:var(--terra);font-weight:700}
+.bf-chip{display:inline-block;color:#fff;font-family:var(--mono);font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:5px;letter-spacing:.04em}
+/* hosted band + url buttons */
+.bf-zone.hosted{background:linear-gradient(180deg,#fbeee7,#fff);border:1px solid #f0d9cc;border-radius:18px;padding:20px 22px}
+.bf-zone.hosted .bf-grid{border-left:none;padding-left:0;margin-left:0}
+.bf-urlbtn{display:flex;align-items:center;gap:13px;background:var(--acc);color:#fff;text-decoration:none;border-radius:13px;padding:15px 17px;box-shadow:0 4px 14px rgba(194,96,63,.24);transition:transform .12s}
+.bf-urlbtn:hover{transform:translateY(-2px)}
+.bf-urlbtn .ub-ic{display:flex;opacity:.9}
+.bf-urlbtn .ub-t{display:flex;flex-direction:column;line-height:1.25;flex:1}
+.bf-urlbtn .ub-t b{font-size:16px}
+.bf-urlbtn .ub-t i{font-style:normal;font-size:12.5px;opacity:.9;margin-top:2px}
+.bf-urlbtn .ub-go{font-size:19px;font-weight:700;opacity:.85}
+/* conventions + back button */
+.bf-convbox{background:linear-gradient(135deg,#134a4a,#0E7C86);color:var(--bg);border-radius:18px;padding:24px 26px;margin:36px 0 0}
+.bf-convbox h2{font-family:var(--serif);font-weight:400;font-size:23px;margin:0 0 12px}
+.bf-convgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.bf-conv{font-size:13.5px;background:rgba(255,255,255,.08);border-radius:10px;padding:11px 13px;color:rgba(240,236,228,.96)}
+.bf-conv b{color:#fff}
+.bf-backdash{position:fixed;top:13px;right:15px;z-index:9999;display:inline-flex;align-items:center;gap:6px;background:var(--terra);color:#fff;font-size:12.5px;font-weight:700;text-decoration:none;padding:8px 14px;border-radius:20px;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+@media(max-width:640px){.bf-hero h1{font-size:34px}.bf-wrap{padding:8px 18px 60px}.bf-hero{padding:26px 18px}}
+
+:root{--ground:var(--bg);--warm:var(--cream);--ink-m:#5c636e;--line:#e3e6ea;}
 *{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;line-height:1.45;-webkit-text-size-adjust:100%}
 header{background:var(--ink);color:#eef1f4;padding:18px 16px}
 .k{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#8fa7ab}
@@ -32,12 +104,14 @@ h2{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--in
 .fh{font-weight:600;font-size:.9rem}.fs{font-size:.88rem;color:#333;margin-top:2px}
 footer{max-width:760px;margin:0 auto;padding:8px 16px 40px;color:var(--ink-m);font-size:.72rem}
 .tier{display:inline-block;background:#e7edf0;color:var(--teal-d);border-radius:5px;padding:2px 7px;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+h2,.cap h4,.pc span,.tier,.k{font-family:var(--mono)}
+.bf-hero{padding:22px 16px}.bf-hero h1{font-size:30px}
 </style></head><body>
-<header>
+<header class="bf-hero"><div class="in">
 <div class="k">Project Butterfly · Field view <span class="tier">Team-tier</span></div>
-<h1>On the ground</h1>
+<h1>On the ground <span class="bf-diamond"></span></h1>
 <div class="focus"><b>NEXT UP:</b> Council Bluffs · Jul 21–28 — opens in <b>10 days</b></div>
-</header>
+</div></header>
 <div class="clocks"><span class="clk"><b>Jul 13 (Mon)</b> Finalized operating plan to Google <i>in 2d</i></span><span class="clk"><b>Jul 21–28</b> Council Bluffs field window opens <i>in 10d</i></span><span class="clk"><b>Jul 29–Aug 5</b> Pryor field window opens <i>in 18d</i></span><span class="clk"><b>~Jul 31</b> Interim Findings Review <i>in 20d</i></span><span class="clk"><b>Aug 10–20</b> Hamina field window <i>in 30d</i></span><span class="clk"><b>Aug 22–25</b> v1 deliverables wall <i>in 42d</i></span><span class="clk"><b>Sept 1</b> SOW end date <i>in 52d</i></span><span class="clk"><b>Sept 2</b> Jonathan OOO <i>in 53d</i></span><span class="clk"><b>early Sept (TBC)</b> US Phase-2 production trips <i>in 57d</i></span><span class="clk"><b>Sept 9–10</b> Finland announcement peg <i>in 60d</i></span><span class="clk"><b>~Sept 16–20</b> Hamina site tour <i>in 67d</i></span></div>
 <main>
 <h2>What's owed / due soon</h2>
@@ -47,5 +121,5 @@ footer{max-width:760px;margin:0 auto;padding:8px 16px 40px;color:var(--ink-m);fo
 <h2>Figure tripwires — the safe framing</h2>
 <div class="fig"><div class="fh">Iowa / Council Bluffs investment</div><div class="fs">Use <b>~$13.8B</b> (independent, DCD) — or the CB-local <b>$6.8B+</b>.</div></div><div class="fig"><div class="fh">Jobs multiplier</div><div class="fs">Only ever as <b>“a Google claim we will independently test.”</b></div></div><div class="fig"><div class="fh">Hamina district heating</div><div class="fs">Designed for <b>up to 80%</b> (Google / Haminan Energia target); <b>~70–75% operational</b> (Mattila/YLE). Frame as <b>price stability + decarbonization</b>.</div></div><div class="fig"><div class="fh">Pryor water</div><div class="fs">~1.1B gal used, ~253M returned, ~850M evaporated (~24% offset) — and <b>name the wrong-watershed replenishment caveat</b>, it's on the public record.</div></div><div class="fig"><div class="fh">Pryor vs statewide Oklahoma</div><div class="fs">Pryor = <b>~$3B+ invested, ~800 jobs</b>.</div></div><div class="fig"><div class="fh">Mullin “millions in tax revenue” (NYT)</div><div class="fs">Attribute it, and show where it lands (county + schools, not the town).</div></div><div class="fig"><div class="fh">Nebraska weatherization</div><div class="fs">“$70–105 / month per weatherized home.”</div></div><div class="fig"><div class="fh">Iowa $2.7B / ~5,500 jobs</div><div class="fs">Context with Tech Assn of Iowa: all Iowa DCs = 9,139 jobs.</div></div><div class="fig"><div class="fh">Safe anchors</div><div class="fs">Loudoun County's <b>own</b> 38%-of-general-fund figure · Duane Arnold <b>615 MW</b> (canon is right; Google rounds ~600) · Hamina before-picture (660 jobs lost, mill closed 2008).</div></div>
 </main>
-<footer>Team-tier · no rate, no candid notes, no private voice notes. Generated 2026-07-11 10:19 from the Butterfly data layer — not live; rebuild + push to refresh. Materials open on the desktop cockpit, not here. Canonical source of truth stays local.</footer>
+<footer>Team-tier · no rate, no candid notes, no private voice notes. Generated 2026-07-11 10:53 from the Butterfly data layer — not live; rebuild + push to refresh. Materials open on the desktop cockpit, not here. Canonical source of truth stays local.</footer>
 </body></html>
