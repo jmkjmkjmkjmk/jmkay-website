@@ -5,95 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <meta name="description" content="Private page.">
-<title>Jonathan — Travel</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>Jonathan's travel</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <style>
   :root{
-    --warm-white:#FDFBF7; --cream:#F5F0E8; --terracotta:#C2603F;
-    --ink:#2B2B2B; --soft:#6B6560; --line:#E8E1D6;
-    --work:#C2603F; --personal:#3F6FC2; --home:#5B8A5E;
+    --bg:#FAF9F6; --ink:#2A2A2A; --soft:#71695F; --line:#E5DFD5;
+    --work:#A85B3E; --personal:#46709B; --home:#5B8A5E;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--warm-white);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;line-height:1.55;padding:40px 20px 80px}
-  .wrap{max-width:720px;margin:0 auto}
-  h1{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:2.6rem;letter-spacing:-.01em}
-  .sub{font-family:'Space Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;color:var(--soft);margin-top:6px}
-  .legend{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 8px;font-size:.78rem;color:var(--soft)}
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .dot{width:10px;height:10px;border-radius:50%;display:inline-block}
-  .dot.work{background:var(--work)} .dot.personal{background:var(--personal)} .dot.home{background:var(--home)}
-  .dot.tbd{background:transparent;border:2px dashed var(--soft);width:8px;height:8px}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.55;padding:36px 18px 70px}
+  .wrap{max-width:700px;margin:0 auto}
+  h1{font-size:1.9rem;font-weight:650;letter-spacing:-.02em}
+  .sub{color:var(--soft);font-size:.9rem;margin-top:4px}
+  #map{height:340px;border-radius:12px;border:1px solid var(--line);margin:22px 0 8px;z-index:0}
+  .maplegend{display:flex;gap:16px;flex-wrap:wrap;font-size:.78rem;color:var(--soft);margin-bottom:26px}
+  .maplegend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:16px;height:3px;border-radius:2px;display:inline-block}
 
-  .months{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0 34px}
-  .month{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 12px 14px}
-  .month h3{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;text-align:center}
+  .months{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:0 0 30px}
+  .month{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px}
+  .month h3{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);margin-bottom:8px;text-align:center;font-weight:600}
   .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;font-size:.68rem;text-align:center}
-  .grid .dow{color:#B8AFA3;font-family:'Space Mono',monospace;font-size:.58rem}
-  .grid .d{padding:4px 0;border-radius:5px;color:var(--ink)}
+  .grid .dow{color:#B9B1A5;font-size:.6rem}
+  .grid .d{padding:4px 0;border-radius:5px}
   .grid .d.blank{visibility:hidden}
-  .grid .d.away-work{background:var(--work);color:#fff;font-weight:500}
-  .grid .d.away-personal{background:var(--personal);color:#fff;font-weight:500}
-  .grid .d.away-tbd{border:1.5px dashed var(--work);color:var(--work)}
+  .grid .d.w{background:var(--work);color:#fff}
+  .grid .d.p{background:var(--personal);color:#fff}
+  .grid .d.t{border:1.5px dashed var(--work);color:var(--work)}
   .grid .d.bday{outline:2px solid var(--home);outline-offset:-2px;font-weight:700}
-  .grid .d.today{box-shadow:0 0 0 2px var(--ink) inset;border-radius:5px}
+  .grid .d.today{box-shadow:inset 0 0 0 2px var(--ink)}
+  .keys{font-size:.78rem;color:var(--soft);margin:-18px 0 30px;display:flex;gap:16px;flex-wrap:wrap}
+  .keys span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
 
-  .trip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px}
+  .trip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
   .trip.tbd{border-style:dashed}
-  .triphead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
-  .trip h2{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:1.45rem}
-  .dates{font-family:'Space Mono',monospace;font-size:.78rem;color:var(--soft);white-space:nowrap}
-  .tag{display:inline-block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:20px;color:#fff;vertical-align:3px;margin-left:8px}
-  .tag.work{background:var(--work)} .tag.personal{background:var(--personal)}
-  .why{color:var(--soft);font-size:.88rem;margin:4px 0 12px}
-  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  .th{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .th h2{font-size:1.15rem;font-weight:650}
+  .th h2 .accent{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:8px;vertical-align:1px}
+  .dates{font-size:.82rem;color:var(--soft);white-space:nowrap}
+  .why{color:var(--soft);font-size:.9rem;margin:6px 0 12px}
+  table{width:100%;border-collapse:collapse;font-size:.86rem}
   td{padding:7px 8px 7px 0;border-top:1px solid var(--line);vertical-align:top}
   tr:first-child td{border-top:none}
-  .fno{font-family:'Space Mono',monospace;font-weight:700;white-space:nowrap;color:var(--ink)}
-  .leg-day{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--soft);white-space:nowrap}
-  .route{color:var(--ink)}
-  .route b{font-weight:700}
-  .note{font-size:.8rem;color:var(--soft);margin-top:10px;font-style:italic}
-  .homeband{display:flex;align-items:center;gap:10px;margin:6px 4px 16px;color:var(--home);font-size:.82rem}
-  .homeband::before,.homeband::after{content:"";flex:1;border-top:1px dashed #BFD3C0}
-  .foot{margin-top:36px;font-size:.78rem;color:var(--soft);border-top:1px solid var(--line);padding-top:16px}
-  @media(max-width:520px){ .months{grid-template-columns:1fr 1fr} body{padding:24px 12px 60px} }
+  .fno{font-variant-numeric:tabular-nums;font-weight:650;white-space:nowrap}
+  .ld{font-size:.72rem;color:var(--soft);white-space:nowrap;padding-top:9px}
+  .tz{color:var(--soft);font-size:.78rem}
+  .note{font-size:.82rem;color:var(--soft);margin-top:10px}
+  .homeband{display:flex;align-items:center;gap:10px;margin:6px 4px 16px;color:var(--home);font-size:.84rem}
+  .homeband::before,.homeband::after{content:"";flex:1;border-top:1px dashed #C4D6C5}
+  .foot{margin-top:34px;font-size:.8rem;color:var(--soft);border-top:1px solid var(--line);padding-top:16px}
+  @media(max-width:520px){ .months{grid-template-columns:1fr 1fr} body{padding:24px 12px 60px} #map{height:280px} }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Jonathan — Travel</h1>
-  <div class="sub">for Raleigh · updated Jul 17, 2026 · all times local</div>
+  <h1>Jonathan's travel</h1>
+  <div class="sub">Updated July 17 · flight numbers are here so you can track anything on FlightAware</div>
 
-  <div class="legend">
-    <span><span class="dot work"></span>Work (Juno)</span>
-    <span><span class="dot personal"></span>Personal</span>
-    <span><span class="dot tbd"></span>Dates set, flights not booked</span>
-    <span><span class="dot home"></span>Sep 4 = your birthday (home!)</span>
+  <div id="map"></div>
+  <div class="maplegend">
+    <span><span class="sw" style="background:var(--personal)"></span>New York (this weekend)</span>
+    <span><span class="sw" style="background:var(--work)"></span>Oklahoma + Iowa (July &amp; September)</span>
+    <span><span class="sw" style="background:#7A6A94"></span>Finland (August, again late September)</span>
   </div>
 
   <div class="months" id="months"></div>
+  <div class="keys">
+    <span><span class="dot" style="background:var(--personal)"></span>away — personal</span>
+    <span><span class="dot" style="background:var(--work)"></span>away — work</span>
+    <span><span class="dot" style="border:1.5px dashed var(--work)"></span>likely away, not booked yet</span>
+    <span><span class="dot" style="outline:2px solid var(--home);outline-offset:-2px"></span>Sep 4 — home for it</span>
+  </div>
 
   <!-- NYC -->
   <div class="trip">
-    <div class="triphead"><h2>New York<span class="tag personal">Personal</span></h2><span class="dates">Fri Jul 17 → Mon Jul 20</span></div>
-    <div class="why">Amtrak both ways.</div>
+    <div class="th"><h2><span class="accent" style="background:var(--personal)"></span>New York</h2><span class="dates">Fri Jul 17 – Mon Jul 20</span></div>
+    <div class="why">Quick weekend up and back on the train.</div>
     <table>
-      <tr><td class="leg-day">FRI 7/17</td><td class="fno">Acela 2158</td><td class="route">DC Union Station <b>12:50 PM</b> → NY Moynihan <b>3:54 PM</b></td></tr>
-      <tr><td class="leg-day">MON 7/20</td><td class="fno">Acela 2113</td><td class="route">NY Moynihan <b>10:00 AM</b> → DC Union Station <b>1:01 PM</b></td></tr>
+      <tr><td class="ld">FRI 7/17</td><td class="fno">Acela 2158</td><td>DC Union Station <b>12:50 PM</b> → Moynihan <b>3:54 PM</b> <span class="tz">ET</span></td></tr>
+      <tr><td class="ld">MON 7/20</td><td class="fno">Acela 2113</td><td>Moynihan <b>10:00 AM</b> → DC Union Station <b>1:01 PM</b> <span class="tz">ET</span></td></tr>
     </table>
-    <div class="note">Quick turnaround after this one — the Tulsa flight leaves the next morning.</div>
+    <div class="note">Tight turnaround after — the Tulsa flight leaves the next morning at 7.</div>
   </div>
 
   <!-- Pryor discovery -->
   <div class="trip">
-    <div class="triphead"><h2>Pryor, Oklahoma<span class="tag work">Work</span></h2><span class="dates">Tue Jul 21 → Fri Jul 24</span></div>
-    <div class="why">Site visit + interviews (flying via Tulsa). Southwest.</div>
+    <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Pryor, Oklahoma</h2><span class="dates">Tue Jul 21 – Fri Jul 24</span></div>
+    <div class="why">First of the Google trips — scouting and interviews in Pryor, a little east of Tulsa. Early flights both directions, sorry to say.</div>
     <table>
-      <tr><td class="leg-day">TUE 7/21</td><td class="fno">WN 4403</td><td class="route">BWI <b>7:00 AM</b> → Tulsa <b>10:50 AM</b> <span style="color:var(--soft)">(one stop, no plane change)</span></td></tr>
-      <tr><td class="leg-day">FRI 7/24</td><td class="fno">WN 4814</td><td class="route">Tulsa <b>5:35 AM</b> → Dallas Love <b>6:40 AM</b></td></tr>
-      <tr><td class="leg-day">FRI 7/24</td><td class="fno">WN 1281</td><td class="route">Dallas Love <b>7:20 AM</b> → BWI <b>11:15 AM</b></td></tr>
+      <tr><td class="ld">TUE 7/21</td><td class="fno">WN 4403</td><td>BWI <b>7:00 AM ET</b> → Tulsa <b>10:50 AM CT</b> <span class="tz">(one stop in Dallas, stays on the plane)</span></td></tr>
+      <tr><td class="ld">FRI 7/24</td><td class="fno">WN 4814</td><td>Tulsa <b>5:35 AM CT</b> → Dallas Love <b>6:40 AM CT</b></td></tr>
+      <tr><td class="ld">FRI 7/24</td><td class="fno">WN 1281</td><td>Dallas Love <b>7:20 AM CT</b> → BWI <b>11:15 AM ET</b></td></tr>
     </table>
   </div>
 
@@ -101,13 +105,13 @@
 
   <!-- CB discovery -->
   <div class="trip">
-    <div class="triphead"><h2>Council Bluffs, Iowa<span class="tag work">Work</span></h2><span class="dates">Tue Jul 28 → Fri Jul 31</span></div>
-    <div class="why">Site visit + interviews, with David (flying via Omaha). Southwest.</div>
+    <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Council Bluffs, Iowa</h2><span class="dates">Tue Jul 28 – Fri Jul 31</span></div>
+    <div class="why">Same drill in Iowa, traveling with David. Flights go through Omaha, right across the river.</div>
     <table>
-      <tr><td class="leg-day">TUE 7/28</td><td class="fno">WN 1109</td><td class="route">BWI <b>6:25 AM</b> → St. Louis <b>7:45 AM</b></td></tr>
-      <tr><td class="leg-day">TUE 7/28</td><td class="fno">WN 4318</td><td class="route">St. Louis <b>8:35 AM</b> → Omaha <b>9:50 AM</b></td></tr>
-      <tr><td class="leg-day">FRI 7/31</td><td class="fno">WN 4094</td><td class="route">Omaha <b>4:25 PM</b> → Chicago Midway <b>5:50 PM</b></td></tr>
-      <tr><td class="leg-day">FRI 7/31</td><td class="fno">WN 2745</td><td class="route">Chicago Midway <b>7:00 PM</b> → BWI <b>9:55 PM</b></td></tr>
+      <tr><td class="ld">TUE 7/28</td><td class="fno">WN 1109</td><td>BWI <b>6:25 AM ET</b> → St. Louis <b>7:45 AM CT</b></td></tr>
+      <tr><td class="ld">TUE 7/28</td><td class="fno">WN 4318</td><td>St. Louis <b>8:35 AM</b> → Omaha <b>9:50 AM</b> <span class="tz">CT</span></td></tr>
+      <tr><td class="ld">FRI 7/31</td><td class="fno">WN 4094</td><td>Omaha <b>4:25 PM</b> → Chicago Midway <b>5:50 PM</b> <span class="tz">CT</span></td></tr>
+      <tr><td class="ld">FRI 7/31</td><td class="fno">WN 2745</td><td>Chicago Midway <b>7:00 PM CT</b> → BWI <b>9:55 PM ET</b></td></tr>
     </table>
   </div>
 
@@ -115,91 +119,98 @@
 
   <!-- Hamina -->
   <div class="trip">
-    <div class="triphead"><h2>Hamina, Finland<span class="tag work">Work</span></h2><span class="dates">Mon Aug 10 → Thu Aug 20</span></div>
-    <div class="why">The big Finland shoot, via Helsinki. Icelandair, connecting in Iceland (KEF) both ways.</div>
+    <div class="th"><h2><span class="accent" style="background:#7A6A94"></span>Finland</h2><span class="dates">Mon Aug 10 – Thu Aug 20</span></div>
+    <div class="why">The long one — ten days filming in Hamina, based out of Helsinki. Icelandair, connecting through Reykjavík both ways. Helsinki runs 7 hours ahead of DC.</div>
     <table>
-      <tr><td class="leg-day">MON 8/10</td><td class="fno">FI 642</td><td class="route">BWI <b>8:30 PM</b> → Keflavík <b>6:25 AM</b> <span style="color:var(--soft)">(+1 day)</span></td></tr>
-      <tr><td class="leg-day">TUE 8/11</td><td class="fno">FI 342</td><td class="route">Keflavík <b>7:30 AM</b> → Helsinki <b>2:00 PM</b></td></tr>
-      <tr><td class="leg-day">THU 8/20</td><td class="fno">FI 343</td><td class="route">Helsinki <b>3:00 PM</b> → Keflavík <b>3:40 PM</b></td></tr>
-      <tr><td class="leg-day">THU 8/20</td><td class="fno">FI 643</td><td class="route">Keflavík <b>5:00 PM</b> → BWI <b>7:25 PM</b></td></tr>
+      <tr><td class="ld">MON 8/10</td><td class="fno">FI 642</td><td>BWI <b>8:30 PM ET</b> → Keflavík <b>6:25 AM GMT</b> <span class="tz">(lands Tuesday)</span></td></tr>
+      <tr><td class="ld">TUE 8/11</td><td class="fno">FI 342</td><td>Keflavík <b>7:30 AM GMT</b> → Helsinki <b>2:00 PM EEST</b></td></tr>
+      <tr><td class="ld">THU 8/20</td><td class="fno">FI 343</td><td>Helsinki <b>3:00 PM EEST</b> → Keflavík <b>3:40 PM GMT</b></td></tr>
+      <tr><td class="ld">THU 8/20</td><td class="fno">FI 643</td><td>Keflavík <b>5:00 PM GMT</b> → BWI <b>7:25 PM ET</b></td></tr>
     </table>
-    <div class="note">Helsinki is 7 hours ahead of DC.</div>
+    <div class="note">Best call window while I'm there: your morning / my early evening.</div>
   </div>
 
-  <div class="homeband">home Aug 20 → Sep 8 — longest stretch, and home for Sep 4 🎂</div>
+  <div class="homeband">home Aug 20 – Sep 8 — the long stretch, and home on Sep 4</div>
 
   <!-- Pryor production -->
   <div class="trip">
-    <div class="triphead"><h2>Pryor, Oklahoma — shoot<span class="tag work">Work</span></h2><span class="dates">Tue Sep 8 → Mon Sep 14</span></div>
-    <div class="why">Production shoot Sep 9–13, then straight on to Council Bluffs. Southwest.</div>
+    <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Pryor again — the shoot</h2><span class="dates">Tue Sep 8 – Mon Sep 14</span></div>
+    <div class="why">Back to Oklahoma to actually film this time. Evening flights out, then straight on to Iowa afterward — no stop home in between.</div>
     <table>
-      <tr><td class="leg-day">TUE 9/8</td><td class="fno">WN 737</td><td class="route">BWI <b>6:40 PM</b> → Nashville <b>7:35 PM</b></td></tr>
-      <tr><td class="leg-day">TUE 9/8</td><td class="fno">WN 4017</td><td class="route">Nashville <b>8:50 PM</b> → Tulsa <b>10:30 PM</b></td></tr>
+      <tr><td class="ld">TUE 9/8</td><td class="fno">WN 737</td><td>BWI <b>6:40 PM ET</b> → Nashville <b>7:35 PM CT</b></td></tr>
+      <tr><td class="ld">TUE 9/8</td><td class="fno">WN 4017</td><td>Nashville <b>8:50 PM</b> → Tulsa <b>10:30 PM</b> <span class="tz">CT</span></td></tr>
     </table>
   </div>
 
   <!-- CB production -->
   <div class="trip">
-    <div class="triphead"><h2>Council Bluffs, Iowa — shoot<span class="tag work">Work</span></h2><span class="dates">Mon Sep 14 → ~Sun Sep 20</span></div>
-    <div class="why">Second shoot, back-to-back with Pryor, with David. Flies Tulsa → Omaha; the flight home isn’t booked yet.</div>
+    <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Council Bluffs again — the shoot</h2><span class="dates">Mon Sep 14 – around Sun Sep 20</span></div>
+    <div class="why">Second shoot, with David. We fly Tulsa to Omaha on the Monday; the flight home isn't booked yet, but figure the 20th.</div>
     <table>
-      <tr><td class="leg-day">MON 9/14</td><td class="fno">WN 4610</td><td class="route">Tulsa <b>4:40 PM</b> → Dallas Love <b>5:45 PM</b></td></tr>
-      <tr><td class="leg-day">MON 9/14</td><td class="fno">WN 2090</td><td class="route">Dallas Love <b>7:15 PM</b> → Omaha <b>9:00 PM</b></td></tr>
-      <tr><td class="leg-day">~SUN 9/20</td><td class="fno" style="color:var(--soft)">TBD</td><td class="route" style="color:var(--soft)">Omaha → home — not booked yet</td></tr>
+      <tr><td class="ld">MON 9/14</td><td class="fno">WN 4610</td><td>Tulsa <b>4:40 PM</b> → Dallas Love <b>5:45 PM</b> <span class="tz">CT</span></td></tr>
+      <tr><td class="ld">MON 9/14</td><td class="fno">WN 2090</td><td>Dallas Love <b>7:15 PM</b> → Omaha <b>9:00 PM</b> <span class="tz">CT</span></td></tr>
+      <tr><td class="ld">~SUN 9/20</td><td class="fno" style="color:var(--soft)">TBD</td><td style="color:var(--soft)">Omaha → home, not booked yet</td></tr>
     </table>
   </div>
 
   <!-- Hamina 2 -->
   <div class="trip tbd">
-    <div class="triphead"><h2>Finland, round two<span class="tag work">Work</span></h2><span class="dates">~Tue Sep 22 → Sat Sep 26</span></div>
-    <div class="why">Follow-up shoot in Hamina. Dates are locked on the project calendar; flights not booked yet.</div>
+    <div class="th"><h2><span class="accent" style="background:#7A6A94"></span>Finland, round two</h2><span class="dates">~Tue Sep 22 – Sat Sep 26</span></div>
+    <div class="why">A short follow-up in Hamina. Dates are set on the project calendar; flights aren't booked yet. Yes, that's about one day at home between Omaha and this — I know.</div>
   </div>
 
   <div class="foot">
-    This page is unlisted — the link is the key, so don’t post it anywhere public.
-    Flight numbers are here so you can track arrivals (FlightAware/Google the flight number).
-    Confirmation codes intentionally left off; Jonathan has those.
+    This link isn't password-protected, just unlisted — please keep it between us.
+    Codes and reservations live with me; this is the where-and-when.
   </div>
 </div>
 
 <script>
-// ---- away-day calendar, static data ----
-const AWAY = {
-  // 'YYYY-MM-DD': class
-};
-function mark(from, to, cls){
-  const a=new Date(from+'T12:00:00'), b=new Date(to+'T12:00:00');
-  for(let d=new Date(a); d<=b; d.setDate(d.getDate()+1)){
-    AWAY[d.toISOString().slice(0,10)] = cls;
-  }
-}
-mark('2026-07-17','2026-07-20','away-personal');   // NYC
-mark('2026-07-21','2026-07-24','away-work');       // Pryor discovery
-mark('2026-07-28','2026-07-31','away-work');       // CB discovery
-mark('2026-08-10','2026-08-20','away-work');       // Hamina
-mark('2026-09-08','2026-09-14','away-work');       // Pryor production
-mark('2026-09-14','2026-09-19','away-work');       // CB production (booked outbound)
-mark('2026-09-20','2026-09-20','away-tbd');        // return TBD
-mark('2026-09-22','2026-09-26','away-tbd');        // Hamina 2 window, flights TBD
+// ---------- calendar ----------
+const AWAY={};
+function mark(f,t,c){const a=new Date(f+'T12:00:00'),b=new Date(t+'T12:00:00');for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){AWAY[d.toISOString().slice(0,10)]=c;}}
+mark('2026-07-17','2026-07-20','p');
+mark('2026-07-21','2026-07-24','w');
+mark('2026-07-28','2026-07-31','w');
+mark('2026-08-10','2026-08-20','w');
+mark('2026-09-08','2026-09-19','w');
+mark('2026-09-20','2026-09-20','t');
+mark('2026-09-22','2026-09-26','t');
+const MONTHS=[{y:2026,m:6,l:'July'},{y:2026,m:7,l:'August'},{y:2026,m:8,l:'September'}];
+const DOW=['S','M','T','W','T','F','S'];const mwrap=document.getElementById('months');
+MONTHS.forEach(({y,m,l})=>{const first=new Date(y,m,1),days=new Date(y,m+1,0).getDate();
+let h='<div class="month"><h3>'+l+'</h3><div class="grid">';DOW.forEach(d=>h+='<div class="dow">'+d+'</div>');
+for(let i=0;i<first.getDay();i++)h+='<div class="d blank">·</div>';
+for(let d=1;d<=days;d++){const k=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+let c='d'+(AWAY[k]?' '+AWAY[k]:'');if(k==='2026-09-04')c+=' bday';if(k==='2026-07-17')c+=' today';
+h+='<div class="'+c+'">'+d+'</div>';}
+h+='</div></div>';mwrap.innerHTML+=h;});
 
-const MONTHS=[{y:2026,m:6,label:'July 2026'},{y:2026,m:7,label:'August 2026'},{y:2026,m:8,label:'September 2026'}];
-const DOW=['S','M','T','W','T','F','S'];
-const wrap=document.getElementById('months');
-MONTHS.forEach(({y,m,label})=>{
-  const first=new Date(y,m,1), days=new Date(y,m+1,0).getDate();
-  let html='<div class="month"><h3>'+label+'</h3><div class="grid">';
-  DOW.forEach(d=>html+='<div class="dow">'+d+'</div>');
-  for(let i=0;i<first.getDay();i++) html+='<div class="d blank">·</div>';
-  for(let d=1;d<=days;d++){
-    const key=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
-    let cls='d'+(AWAY[key]?' '+AWAY[key]:'');
-    if(key==='2026-09-04') cls+=' bday';
-    if(key==='2026-07-17') cls+=' today';
-    html+='<div class="'+cls+'">'+d+'</div>';
-  }
-  html+='</div></div>';
-  wrap.innerHTML+=html;
-});
+// ---------- real map (Leaflet / OpenStreetMap) ----------
+const map=L.map('map',{scrollWheelZoom:false,attributionControl:true});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd', maxZoom:12
+}).addTo(map);
+
+const PTS={
+  home:   {ll:[38.98,-77.09], name:'Home (Bethesda)'},
+  nyc:    {ll:[40.7506,-73.9935], name:'New York — Jul 17–20'},
+  pryor:  {ll:[36.3084,-95.3169], name:'Pryor, OK — Jul 21–24 & Sep 9–13'},
+  cb:     {ll:[41.2619,-95.8608], name:'Council Bluffs, IA — Jul 28–31 & Sep 14–20'},
+  kef:    {ll:[63.9850,-22.6056], name:'Reykjavík/Keflavík — connection'},
+  hamina: {ll:[60.5697,27.1981], name:'Hamina, Finland — Aug 10–20 & ~Sep 22–26'}
+};
+function dot(p,color){return L.circleMarker(p.ll,{radius:6,color:color,weight:2,fillColor:'#fff',fillOpacity:1}).addTo(map).bindTooltip(p.name);}
+dot(PTS.home,'#2A2A2A'); dot(PTS.nyc,'#46709B'); dot(PTS.pryor,'#A85B3E'); dot(PTS.cb,'#A85B3E'); dot(PTS.hamina,'#7A6A94');
+L.circleMarker(PTS.kef.ll,{radius:4,color:'#7A6A94',weight:1.5,fillColor:'#fff',fillOpacity:1}).addTo(map).bindTooltip(PTS.kef.name);
+
+function line(pts,color,dashed){L.polyline(pts,{color:color,weight:2,opacity:.75,dashArray:dashed?'5,6':null}).addTo(map);}
+line([PTS.home.ll,PTS.nyc.ll],'#46709B');
+line([PTS.home.ll,PTS.pryor.ll],'#A85B3E');
+line([PTS.home.ll,PTS.cb.ll],'#A85B3E');
+line([PTS.pryor.ll,PTS.cb.ll],'#A85B3E',true);            // Tulsa→Omaha positioning leg in Sept
+line([PTS.home.ll,PTS.kef.ll,PTS.hamina.ll],'#7A6A94');   // via Iceland
+map.fitBounds([PTS.pryor.ll,PTS.hamina.ll,PTS.home.ll],{padding:[28,28]});
 </script>
 </body>
 </html>
