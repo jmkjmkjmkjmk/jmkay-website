@@ -4,5 +4,6 @@ Disallow: /archive/
 Disallow: /reading/
 Disallow: /share/
 Disallow: /x/
+Disallow: /jkcalendar/
 
 Sitemap: https://jmkay.com/sitemap.xml
