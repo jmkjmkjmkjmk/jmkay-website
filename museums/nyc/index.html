@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/x-icon" href="../../favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<title>NYC Museums &mdash; Five Boroughs &amp; Close Suburbs &mdash; J. M. Kay</title>
+<meta name="description" content="A working directory of museums across all five NYC boroughs plus Nassau, Westchester, Hudson, and Bergen Counties &mdash; with neighborhood, nearest transit, and NARM/ROAM reciprocal-membership status.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6XM6RT038M');
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+    --deep-teal-light: #2D7A7A;
+    --sage: #7A8F6D;
+    --warm-slate: #3D4F5F;
+    --warm-gold: #B8860B;
+    --warm-gold-light: #FFF3D6;
+    --narm-color: var(--deep-teal);
+    --narm-bg: #E8F0F0;
+    --roam-color: var(--terracotta);
+    --roam-bg: #F5EAE5;
+    --both-color: var(--warm-gold);
+    --both-bg: var(--warm-gold-light);
+    --sage-bg: #EEF2EA;
+    --slate-bg: #E7ECEF;
+    --rust: #9C4221;
+    --rust-bg: #FDF0E4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    gap: 0;
+  }
+  .nav-brand .nav-dw {
+    position: relative;
+    width: 9px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-brand .nav-dp {
+    width: 5px;
+    height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 120px 48px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .breadcrumb {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+  }
+  .breadcrumb a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--sand); }
+  .breadcrumb a:hover { color: var(--terracotta); }
+  .page-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 40px;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .page-header .page-subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--ink-light);
+    max-width: 640px;
+    margin: 0 auto 24px;
+    line-height: 1.5;
+  }
+  .page-header .page-note {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--ink-muted);
+    max-width: 640px;
+    margin: -12px auto 24px;
+    line-height: 1.5;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .stat-item { text-align: center; }
+  .stat-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* DOT DIVIDER */
+  .dot-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 32px auto;
+    max-width: 960px;
+    padding: 0 48px;
+  }
+  .dot-divider::before,
+  .dot-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--sand);
+    opacity: 0.5;
+  }
+  .dot-divider-gem {
+    width: 7px;
+    height: 7px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  /* CONTROLS */
+  .controls {
+    max-width: 960px;
+    margin: 0 auto 32px;
+    padding: 0 48px;
+  }
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--cream);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 16px;
+  }
+  .search-box::placeholder { color: var(--stone); }
+  .search-box:focus {
+    border-color: var(--terracotta);
+    box-shadow: 0 0 0 3px rgba(194,96,63,0.1);
+  }
+  .filter-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border: 1px solid var(--sand);
+    border-radius: 20px;
+    background: transparent;
+    color: var(--ink-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filter-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+  .filter-btn.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .select-group { display: flex; gap: 10px; margin-left: auto; flex-wrap: wrap; }
+  .state-select {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 6px 12px;
+    border: 1px solid var(--sand);
+    border-radius: 8px;
+    background: var(--warm-white);
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+  }
+  .state-select:focus { border-color: var(--terracotta); }
+  .results-info {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    margin-top: 12px;
+  }
+
+  /* MUSEUM LIST */
+  .museum-list {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 48px 60px;
+  }
+  .state-group { margin-bottom: 32px; }
+  .state-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--sand);
+  }
+  .state-header h2 { font-family: 'Instrument Serif', serif; font-size: 22px; color: var(--ink); }
+  .state-header .count { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.5px; }
+
+  .museum-card {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+    gap: 16px;
+  }
+  .museum-card:hover { background: var(--cream); }
+  .museum-info { flex: 1; min-width: 0; }
+  .museum-name-row { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+  .museum-name { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.4; }
+  .museum-loc { font-size: 13px; color: var(--ink-muted); margin-bottom: 3px; }
+  .museum-highlight { font-size: 13px; font-style: italic; color: var(--ink-light); margin-bottom: 4px; line-height: 1.45; }
+  .museum-transit { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--deep-teal-light); line-height: 1.5; }
+  .museum-transit .label { color: var(--ink-muted); font-weight: 700; }
+  .museum-badges { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+
+  /* BADGES */
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .badge-art { background: var(--narm-bg); color: var(--narm-color); }
+  .badge-history { background: var(--roam-bg); color: var(--roam-color); }
+  .badge-culture { background: var(--both-bg); color: var(--both-color); }
+  .badge-science { background: var(--sage-bg); color: var(--sage); }
+  .badge-maritime { background: var(--slate-bg); color: var(--warm-slate); }
+  .badge-children { background: var(--rust-bg); color: var(--rust); }
+  .badge-design { background: var(--cream); color: var(--ink-light); }
+  .badge-media { background: var(--cream); color: var(--stone); }
+  .badge-narm { background: var(--narm-bg); color: var(--narm-color); }
+  .badge-roam { background: var(--roam-bg); color: var(--roam-color); }
+  .badge-both { background: var(--both-bg); color: var(--both-color); }
+
+  /* NO RESULTS */
+  .no-results { text-align: center; padding: 48px 24px; color: var(--ink-muted); font-size: 15px; }
+
+  /* BACK TO TOP */
+  .back-to-top {
+    position: fixed; bottom: 32px; right: 32px; width: 40px; height: 40px;
+    border-radius: 50%; background: var(--ink); color: var(--warm-white);
+    border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 18px; opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease; z-index: 50;
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; }
+  .back-to-top:hover { background: var(--terracotta); }
+
+  /* FOOTER */
+  footer { background: var(--ink); padding: 40px 48px; text-align: center; }
+  .footer-brand {
+    font-family: 'Kay Display', serif; font-size: 16px; color: var(--stone);
+    letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .footer-sub { font-size: 12px; color: var(--ink-muted); }
+  .footer-sub a { color: var(--stone); text-decoration: none; }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .page-header { padding: 100px 24px 32px; }
+    .page-header h1 { font-size: 28px; }
+    .dot-divider { padding: 0 24px; }
+    .controls { padding: 0 24px; }
+    .museum-list { padding: 0 24px 40px; }
+    .stats-row { gap: 20px; }
+    .stat-number { font-size: 22px; }
+    .filter-row { gap: 8px; }
+    .select-group { margin-left: 0; width: 100%; }
+    .state-select { flex: 1; }
+    .museum-card { flex-direction: column; }
+    .museum-badges { flex-direction: row; align-items: center; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="../../index.html#work">Work</a>
+    <a href="../../writing.html">Perspectives</a>
+    <a href="../../index.html#services">Services</a>
+    <a href="../../index.html#about">About</a>
+    <a href="../../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Museum Directory</a> &rsaquo; NYC &amp; Close Suburbs</div>
+  <h1>NYC Museums, Borough by Borough</h1>
+  <p class="page-subtitle">Every museum, historic house, and small local-history collection I could confirm across all five boroughs, plus Nassau, Westchester, Hudson, and Bergen Counties.</p>
+  <p class="page-note">Transit is the nearest subway/rail station to the neighborhood, not a per-building lookup &mdash; and hours, admission, and even whether the smallest of these are still open can change, so check before you go. Museums marked NARM/ROAM also appear in the <a href="../index.html" style="color:var(--terracotta);">full reciprocal-membership directory</a>.</p>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-number">240</div><div class="stat-label">Museums</div></div>
+    <div class="stat-item"><div class="stat-number">145</div><div class="stat-label">In NYC</div></div>
+    <div class="stat-item"><div class="stat-number">95</div><div class="stat-label">Close Suburbs</div></div>
+    <div class="stat-item"><div class="stat-number">9</div><div class="stat-label">Regions</div></div>
+    <div class="stat-item"><div class="stat-number">25</div><div class="stat-label">NARM/ROAM</div></div>
+  </div>
+</div>
+
+<div class="dot-divider"><span class="dot-divider-gem"></span></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input type="text" class="search-box" id="searchInput" placeholder="Search by museum name, neighborhood, or category...">
+  <div class="filter-row">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="nyc">Five Boroughs</button>
+    <button class="filter-btn" data-filter="suburb">Close Suburbs</button>
+    <button class="filter-btn" data-filter="network">NARM/ROAM Only</button>
+    <div class="select-group">
+      <select class="state-select" id="regionSelect"><option value="">All Regions</option></select>
+      <select class="state-select" id="categorySelect"><option value="">All Categories</option></select>
+    </div>
+  </div>
+  <div class="results-info" id="resultsInfo"></div>
+</div>
+
+<!-- MUSEUM LIST -->
+<div class="museum-list" id="museumList"></div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+<script>
+
+const REGIONS = [{"name": "Manhattan", "count": 72}, {"name": "Brooklyn", "count": 22}, {"name": "Queens", "count": 20}, {"name": "The Bronx", "count": 17}, {"name": "Staten Island", "count": 14}, {"name": "Nassau County, NY", "count": 40}, {"name": "Westchester County, NY", "count": 28}, {"name": "Hudson County, NJ", "count": 10}, {"name": "Bergen County, NJ", "count": 17}];
+const CATEGORIES = ["Art", "History", "Culture & Heritage", "Science & Nature", "Maritime & Military", "Children's", "Design", "Media"];
+const MUSEUMS = [{"region":"Manhattan","kind":"nyc","name":"AKC Museum of the Dog","neighborhood":"Midtown","category":"Science & Nature","catClass":"science","highlight":"Everything canine, run by the American Kennel Club.","address":"101 Park Ave","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"American Folk Art Museum","neighborhood":"Upper West Side","category":"Art","catClass":"art","highlight":"Self-taught and outsider art.","address":"2 Lincoln Square","transit":"1/2/3/B/C to 72–86 St","network":"both"},{"region":"Manhattan","kind":"nyc","name":"American Museum of Natural History","neighborhood":"Upper West Side","category":"Science & Nature","catClass":"science","highlight":"Dinosaurs, the Hayden Planetarium, and the blue whale.","address":"200 Central Park West","transit":"1/2/3/B/C to 72–86 St","network":null},{"region":"Manhattan","kind":"nyc","name":"American Numismatic Society Museum","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"Coins, medals, and money across 2,600 years.","address":null,"transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Americas Society Art Gallery","neighborhood":"Upper East Side","category":"Art","catClass":"art","highlight":"Latin American, Caribbean, and Canadian art.","address":"680 Park Ave","transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Asia Society Museum","neighborhood":"Upper East Side","category":"Culture & Heritage","catClass":"culture","highlight":"Pan-Asian art and rotating exhibitions.","address":"725 Park Ave","transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Banksy Museum","neighborhood":"SoHo","category":"Art","catClass":"art","highlight":"Unauthorized, immersive survey of Banksy's work.","address":null,"transit":"N/R/W to Prince St · 6 to Spring St","network":null},{"region":"Manhattan","kind":"nyc","name":"Castle Clinton National Monument","neighborhood":"Battery Park","category":"History","catClass":"history","highlight":"1812-era fort that later processed immigrants before Ellis Island.","address":null,"transit":"1 to South Ferry · 4/5 to Bowling Green","network":null},{"region":"Manhattan","kind":"nyc","name":"Center for Architecture","neighborhood":"Greenwich Village","category":"Design","catClass":"design","highlight":"AIA New York's exhibition space.","address":null,"transit":"A/C/E/B/D/F/M to W 4 St–Wash Sq","network":null},{"region":"Manhattan","kind":"nyc","name":"Children's Museum of Manhattan","neighborhood":"Upper West Side","category":"Children's","catClass":"children","highlight":"Interactive galleries built for under-10s.","address":"212 W 83rd St","transit":"1/2/3/B/C to 72–86 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Cooper Hewitt, Smithsonian Design Museum","neighborhood":"Museum Mile","category":"Design","catClass":"design","highlight":"Design museum inside the old Carnegie mansion.","address":"2 E 91st St","transit":"4/5/6 to 86 St or 96 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Drawing Center","neighborhood":"SoHo","category":"Art","catClass":"art","highlight":"The only museum devoted entirely to drawings.","address":"35 Wooster St","transit":"N/R/W to Prince St · 6 to Spring St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Dyckman Farmhouse Museum","neighborhood":"Inwood","category":"History","catClass":"history","highlight":"Manhattan's last surviving Dutch farmhouse.","address":"4881 Broadway","transit":"A to 207 St/Dyckman St","network":null},{"region":"Manhattan","kind":"nyc","name":"El Museo del Barrio","neighborhood":"Museum Mile","category":"Culture & Heritage","catClass":"culture","highlight":"Latino and Caribbean art at the top of Museum Mile.","address":"1230 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Ellis Island National Museum of Immigration","neighborhood":"Ellis Island","category":"History","catClass":"history","highlight":"The Great Hall where 12 million immigrants were processed.","address":null,"transit":"Statue Cruises ferry from Battery Park (4/5 to Bowling Green · 1 to South Ferry)","network":null},{"region":"Manhattan","kind":"nyc","name":"Federal Hall National Memorial","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"Site of Washington's first inauguration, on the steps facing Wall St.","address":"26 Wall St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Fraunces Tavern Museum","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"Colonial tavern where Washington bade farewell to his officers.","address":"54 Pearl St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Frick Collection","neighborhood":"Upper East Side","category":"Art","catClass":"art","highlight":"Gilded Age mansion turned Old Masters collection.","address":"1 E 70th St","transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":"both"},{"region":"Manhattan","kind":"nyc","name":"Gracie Mansion","neighborhood":"Upper East Side","category":"History","catClass":"history","highlight":"The mayor's official residence, open for tours.","address":"East End Ave at 88th St","transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Grey Art Gallery (NYU)","neighborhood":"Greenwich Village","category":"Art","catClass":"art","highlight":"NYU's teaching gallery.","address":null,"transit":"A/C/E/B/D/F/M to W 4 St–Wash Sq","network":null},{"region":"Manhattan","kind":"nyc","name":"Grolier Club","neighborhood":"Upper East Side","category":"History","catClass":"history","highlight":"Bibliophiles' club with rotating book-arts exhibitions.","address":null,"transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Hispanic Society Museum & Library","neighborhood":"Washington Heights","category":"Culture & Heritage","catClass":"culture","highlight":"Sorolla murals and the largest Spanish art collection outside Spain.","address":"613 W 155th St","transit":"A to 175 St/181 St · 1 to 181 St","network":null},{"region":"Manhattan","kind":"nyc","name":"International Center of Photography","neighborhood":"Lower East Side","category":"Art","catClass":"art","highlight":"Photography museum and school.","address":"79 Essex St","transit":"F to Delancey St · J/M/Z to Essex St","network":null},{"region":"Manhattan","kind":"nyc","name":"Intrepid Sea, Air & Space Museum","neighborhood":"Hell's Kitchen","category":"Maritime & Military","catClass":"maritime","highlight":"Aircraft carrier, a Concorde, and a space shuttle, on the Hudson.","address":"Pier 86, W 46th St","transit":"A/C/E to 42 St–Port Authority · C/E to 50 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Japan Society Gallery","neighborhood":"Midtown","category":"Culture & Heritage","catClass":"culture","highlight":"Japanese art in rotating shows.","address":"333 E 47th St","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Jewish Museum","neighborhood":"Museum Mile","category":"Culture & Heritage","catClass":"culture","highlight":"Jewish art and history in a Warburg-family mansion.","address":"1109 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Leslie-Lohman Museum of Art","neighborhood":"SoHo","category":"Art","catClass":"art","highlight":"The first LGBTQ+ art museum.","address":"26 Wooster St","transit":"N/R/W to Prince St · 6 to Spring St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Lower East Side Tenement Museum","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"Guided tours through real immigrant-family apartments.","address":"103 Orchard St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Madame Tussauds New York","neighborhood":"Midtown","category":"Art","catClass":"art","highlight":"Wax-figure celebrity museum on 42nd St.","address":"234 W 42nd St","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Merchant's House Museum","neighborhood":"Greenwich Village","category":"History","catClass":"history","highlight":"Untouched 1832 rowhouse, furnishings intact.","address":"29 E 4th St","transit":"A/C/E/B/D/F/M to W 4 St–Wash Sq","network":null},{"region":"Manhattan","kind":"nyc","name":"Metropolitan Museum of Art","neighborhood":"Museum Mile","category":"Art","catClass":"art","highlight":"Two million square feet of, essentially, everything.","address":"1000 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Morris-Jumel Mansion","neighborhood":"Washington Heights","category":"History","catClass":"history","highlight":"Manhattan's oldest house, once Washington's headquarters.","address":"65 Jumel Terrace","transit":"A to 175 St/181 St · 1 to 181 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum at Eldridge Street","neighborhood":"Lower Manhattan","category":"Culture & Heritage","catClass":"culture","highlight":"Restored 1887 Gothic-Moorish synagogue.","address":"12 Eldridge St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum at FIT","neighborhood":"Chelsea","category":"Culture & Heritage","catClass":"culture","highlight":"Free fashion museum with rotating runway history shows.","address":"227 W 27th St","transit":"C/E/1 to 23 St · L to 8 Av","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of American Finance","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"Wall Street's own history, in a former bank hall.","address":"48 Wall St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of Arts and Design (MAD)","neighborhood":"Upper West Side","category":"Art","catClass":"art","highlight":"Craft and design at Columbus Circle.","address":"2 Columbus Circle","transit":"1/2/3/B/C to 72–86 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Museum of Chinese in America","neighborhood":"Chinatown","category":"Culture & Heritage","catClass":"culture","highlight":"Chinese American history, designed by Maya Lin.","address":"215 Centre St","transit":"6/J/N/Q/R/W/Z to Canal St","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of Jewish Heritage","neighborhood":"Battery Park","category":"Culture & Heritage","catClass":"culture","highlight":"A living memorial to the Holocaust, overlooking the harbor.","address":"36 Battery Pl","transit":"1 to South Ferry · 4/5 to Bowling Green","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of Modern Art (MoMA)","neighborhood":"Midtown","category":"Art","catClass":"art","highlight":"Van Gogh's Starry Night and the modern-art canon.","address":"11 W 53rd St","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of Reclaimed Urban Space","neighborhood":"East Village","category":"History","catClass":"history","highlight":"Squatter and community-garden history in a former squat.","address":"155 Avenue C","transit":"6 to Astor Pl · L to 1 Av","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of Sex","neighborhood":"Rose Hill","category":"Culture & Heritage","catClass":"culture","highlight":"Cultural history of sex and sexuality.","address":"233 Fifth Ave","transit":"6/R/W to 28 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Museum of the City of New York","neighborhood":"Museum Mile","category":"History","catClass":"history","highlight":"The city's own biography, in objects.","address":"1220 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"National Academy of Design","neighborhood":"Museum Mile","category":"Art","catClass":"art","highlight":"Historic honorary artists' academy and school.","address":null,"transit":"4/5/6 to 86 St or 96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"National Jazz Museum in Harlem","neighborhood":"Harlem","category":"Culture & Heritage","catClass":"culture","highlight":"Jazz history and a listening library.","address":null,"transit":"2/3 to 125 St · A/B/C/D to 125 St","network":null},{"region":"Manhattan","kind":"nyc","name":"National Museum of Mathematics (MoMath)","neighborhood":"Chelsea","category":"Science & Nature","catClass":"science","highlight":"Hands-on math, aimed at kids and the math-curious alike.","address":"11 E 26th St","transit":"C/E/1 to 23 St · L to 8 Av","network":null},{"region":"Manhattan","kind":"nyc","name":"National Museum of the American Indian (George Gustav Heye Center)","neighborhood":"Lower Manhattan","category":"Culture & Heritage","catClass":"culture","highlight":"Smithsonian outpost inside the old Custom House.","address":"1 Bowling Green","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"National September 11 Memorial & Museum","neighborhood":"Lower Manhattan","category":"History","catClass":"history","highlight":"The footprints of the Twin Towers, and the definitive record of 9/11.","address":"180 Greenwich St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Neue Galerie","neighborhood":"Museum Mile","category":"Art","catClass":"art","highlight":"German and Austrian art, including Klimt's Woman in Gold.","address":"1048 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"New Museum","neighborhood":"Lower Manhattan","category":"Art","catClass":"art","highlight":"Contemporary-only, in a stacked-box building on the Bowery.","address":"235 Bowery","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"New York City Fire Museum","neighborhood":"SoHo","category":"History","catClass":"history","highlight":"1904 firehouse packed with apparatus and history.","address":"278 Spring St","transit":"N/R/W to Prince St · 6 to Spring St","network":null},{"region":"Manhattan","kind":"nyc","name":"New York Earth Room","neighborhood":"SoHo","category":"Art","catClass":"art","highlight":"Walter De Maria's permanent 250 cubic yards of indoor dirt.","address":"141 Wooster St","transit":"N/R/W to Prince St · 6 to Spring St","network":null},{"region":"Manhattan","kind":"nyc","name":"New York Public Library, Stephen A. Schwarzman Building","neighborhood":"Midtown","category":"History","catClass":"history","highlight":"Beaux-Arts flagship library with rotating exhibitions and the Rose Reading Room.","address":"476 Fifth Ave","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"New York Transit Museum Gallery Annex","neighborhood":"Midtown","category":"History","catClass":"history","highlight":"Satellite of the Brooklyn transit museum, inside Grand Central.","address":"Grand Central Terminal","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"New-York Historical Society","neighborhood":"Upper West Side","category":"History","catClass":"history","highlight":"The city and state's oldest museum, right by the Natural History Museum.","address":"170 Central Park West","transit":"1/2/3/B/C to 72–86 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Nicholas Roerich Museum","neighborhood":"Upper West Side","category":"Art","catClass":"art","highlight":"Townhouse museum for the painter-philosopher's canvases.","address":"319 W 107th St","transit":"1/2/3/B/C to 72–86 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Paley Center for Media","neighborhood":"Midtown","category":"History","catClass":"history","highlight":"Archive of TV and radio you can watch on demand.","address":"25 W 52nd St","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Park Avenue Armory","neighborhood":"Upper East Side","category":"Art","catClass":"art","highlight":"Cavernous Gilded Age drill hall used for large-scale installations.","address":"643 Park Ave","transit":"4/5/6 to 68 St–86 St · Q to 72 St–96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Poster House","neighborhood":"Chelsea","category":"Design","catClass":"design","highlight":"The first US museum dedicated to poster design.","address":"119 W 23rd St","transit":"C/E/1 to 23 St · L to 8 Av","network":"both"},{"region":"Manhattan","kind":"nyc","name":"Rubin Museum of Art","neighborhood":"Chelsea","category":"Art","catClass":"art","highlight":"Himalayan art; closed its Chelsea galleries in 2024, now touring/partnering.","address":null,"transit":"C/E/1 to 23 St · L to 8 Av","network":null},{"region":"Manhattan","kind":"nyc","name":"Schomburg Center for Research in Black Culture","neighborhood":"Harlem","category":"Culture & Heritage","catClass":"culture","highlight":"NYPL's premier archive of Black history and culture.","address":"515 Malcolm X Blvd","transit":"2/3 to 125 St · A/B/C/D to 125 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Skyscraper Museum","neighborhood":"Battery Park","category":"Design","catClass":"design","highlight":"One-room deep-dive into the engineering of the NYC skyline.","address":"39 Battery Pl","transit":"1 to South Ferry · 4/5 to Bowling Green","network":null},{"region":"Manhattan","kind":"nyc","name":"Solomon R. Guggenheim Museum","neighborhood":"Museum Mile","category":"Art","catClass":"art","highlight":"Frank Lloyd Wright's spiral ramp, wrapped around modern art.","address":"1071 Fifth Ave","transit":"4/5/6 to 86 St or 96 St","network":null},{"region":"Manhattan","kind":"nyc","name":"South Street Seaport Museum","neighborhood":"Lower Manhattan","category":"Maritime & Military","catClass":"maritime","highlight":"Tall ships and the last stretch of NYC's 19th-century waterfront.","address":"12 Fulton St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Manhattan","kind":"nyc","name":"Statue of Liberty National Monument","neighborhood":"Liberty Island","category":"History","catClass":"history","highlight":"Ferry out to the pedestal and, with an advance pass, the crown.","address":null,"transit":"Statue Cruises ferry from Battery Park (4/5 to Bowling Green · 1 to South Ferry)","network":null},{"region":"Manhattan","kind":"nyc","name":"Studio Museum in Harlem","neighborhood":"Harlem","category":"Art","catClass":"art","highlight":"The hub for Black American and African diaspora artists.","address":"144 W 125th St","transit":"2/3 to 125 St · A/B/C/D to 125 St","network":"narm"},{"region":"Manhattan","kind":"nyc","name":"Sugar Hill Children's Museum of Art & Storytelling","neighborhood":"Harlem","category":"Children's","catClass":"children","highlight":"Free arts museum for young children in Sugar Hill.","address":"898 St Nicholas Ave","transit":"2/3 to 125 St · A/B/C/D to 125 St","network":"roam"},{"region":"Manhattan","kind":"nyc","name":"The Cloisters","neighborhood":"Washington Heights","category":"Art","catClass":"art","highlight":"The Met's medieval-art branch, built from actual European monasteries.","address":"99 Margaret Corbin Dr","transit":"A to 175 St/181 St · 1 to 181 St","network":null},{"region":"Manhattan","kind":"nyc","name":"The Morgan Library & Museum","neighborhood":"Midtown","category":"Art","catClass":"art","highlight":"J.P. Morgan's private library, illuminated manuscripts and all.","address":"225 Madison Ave","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"The Shed","neighborhood":"Hudson Yards","category":"Art","catClass":"art","highlight":"Moving-shell arts center for commissioned new work.","address":"545 W 30th St","transit":"7 to 34 St–Hudson Yards","network":null},{"region":"Manhattan","kind":"nyc","name":"Ukrainian Museum","neighborhood":"East Village","category":"Culture & Heritage","catClass":"culture","highlight":"Folk art, textiles, and archives of Ukrainian America.","address":"222 E 6th St","transit":"6 to Astor Pl · L to 1 Av","network":null},{"region":"Manhattan","kind":"nyc","name":"United Nations Visitor Centre","neighborhood":"Midtown","category":"History","catClass":"history","highlight":"Guided tours of the UN complex.","address":"405 E 42nd St","transit":"B/D/F/M to 42 St–Bryant Pk · 4/5/6/7/S to Grand Central–42 St","network":null},{"region":"Manhattan","kind":"nyc","name":"Whitney Museum of American Art","neighborhood":"Lower Manhattan","category":"Art","catClass":"art","highlight":"American art from 1900 on, at the foot of the High Line.","address":"99 Gansevoort St","transit":"4/5/6 to Wall St · R/W to Rector St · 1 to South Ferry","network":null},{"region":"Brooklyn","kind":"nyc","name":"A.I.R. Gallery","neighborhood":"Dumbo","category":"Art","catClass":"art","highlight":"The first all-female artists' cooperative gallery in the US.","address":null,"transit":"F to York St · A/C to High St","network":null},{"region":"Brooklyn","kind":"nyc","name":"BRIC House","neighborhood":"Downtown Brooklyn","category":"Art","catClass":"art","highlight":"Contemporary art and media nonprofit space.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Brooklyn","kind":"nyc","name":"Bone Museum","neighborhood":"Williamsburg","category":"Science & Nature","catClass":"science","highlight":"Small anatomy/osteology curiosity museum.","address":null,"transit":"L to Bedford Av · G to Metropolitan Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Brooklyn Botanic Garden","neighborhood":"Park Slope","category":"Science & Nature","catClass":"science","highlight":"Cherry Esplanade, the Japanese garden, and a conservatory.","address":"990 Washington Ave","transit":"2/3 to Grand Army Plaza · F/G to 7 Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Brooklyn Children's Museum","neighborhood":"Crown Heights","category":"Children's","catClass":"children","highlight":"The world's first children's museum, still going.","address":"145 Brooklyn Ave","transit":"2/3/4/5 to Franklin Av–Eastern Pkwy","network":null},{"region":"Brooklyn","kind":"nyc","name":"Brooklyn Museum","neighborhood":"Crown Heights","category":"Art","catClass":"art","highlight":"The borough's encyclopedic art museum, Egyptian wing and all.","address":"200 Eastern Pkwy","transit":"2/3/4/5 to Franklin Av–Eastern Pkwy","network":null},{"region":"Brooklyn","kind":"nyc","name":"Brooklyn Navy Yard Center at BLDG 92","neighborhood":"Wallabout","category":"History","catClass":"history","highlight":"The Navy Yard's own industrial history and current tenants.","address":"63 Flushing Ave","transit":"Check individual site for directions","network":null},{"region":"Brooklyn","kind":"nyc","name":"Center for Art and Culture of Bedford-Stuyvesant","neighborhood":"Bedford-Stuyvesant","category":"Art","catClass":"art","highlight":"Community arts center and gallery.","address":null,"transit":"A/C to Utica Av · C to Kingston–Throop Avs","network":null},{"region":"Brooklyn","kind":"nyc","name":"Center for Brooklyn History","neighborhood":"Brooklyn Heights","category":"History","catClass":"history","highlight":"Formerly the Brooklyn Historical Society; the borough's own archive.","address":"128 Pierrepont St","transit":"2/3 to Clark St · A/C to High St","network":null},{"region":"Brooklyn","kind":"nyc","name":"City Reliquary","neighborhood":"Williamsburg","category":"History","catClass":"history","highlight":"A storefront cabinet of curiosities about NYC itself.","address":"370 Metropolitan Ave","transit":"L to Bedford Av · G to Metropolitan Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Coney Island Museum","neighborhood":"Coney Island","category":"History","catClass":"history","highlight":"Sideshow and amusement-park ephemera above the boardwalk.","address":"1208 Surf Ave","transit":"D/F/N/Q to Coney Island–Stillwell Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Green-Wood Cemetery","neighborhood":"Greenwood Heights","category":"History","catClass":"history","highlight":"Historic cemetery with a visitor center, catacombs tours, and monuments.","address":"500 25th St","transit":"R to 25 St · F/G to Church Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Harbor Defense Museum","neighborhood":"Bay Ridge","category":"Maritime & Military","catClass":"maritime","highlight":"NYC's only military museum, inside active Fort Hamilton.","address":"230 Sheridan Loop","transit":"R to Bay Ridge Av/95 St","network":null},{"region":"Brooklyn","kind":"nyc","name":"Jewish Children's Museum","neighborhood":"Crown Heights","category":"Children's","catClass":"children","highlight":"Interactive Jewish culture and history for kids.","address":null,"transit":"2/3/4/5 to Franklin Av–Eastern Pkwy","network":null},{"region":"Brooklyn","kind":"nyc","name":"Lefferts Historic House","neighborhood":"Park Slope","category":"History","catClass":"history","highlight":"1780s Dutch farmhouse relocated into Prospect Park.","address":"Prospect Park","transit":"2/3 to Grand Army Plaza · F/G to 7 Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Living Torah Museum","neighborhood":"Borough Park","category":"Culture & Heritage","catClass":"culture","highlight":"Biblical-life dioramas run by a Hasidic community organization.","address":null,"transit":"D to 50 St · F to Church Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"New York Transit Museum","neighborhood":"Brooklyn Heights","category":"History","catClass":"history","highlight":"A decommissioned 1936 subway station full of vintage trains.","address":"Boerum Pl at Schermerhorn St","transit":"2/3 to Clark St · A/C to High St","network":null},{"region":"Brooklyn","kind":"nyc","name":"Old Stone House","neighborhood":"Park Slope","category":"History","catClass":"history","highlight":"Reconstructed 1699 Dutch farmhouse; Revolutionary War battle site.","address":"336 3rd St","transit":"2/3 to Grand Army Plaza · F/G to 7 Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Waterfront Museum","neighborhood":"Red Hook","category":"Maritime & Military","catClass":"maritime","highlight":"A 1914 wooden railroad barge turned floating museum.","address":"290 Conover St","transit":"No subway — B61 bus, or F/G to Smith–9 Sts + walk","network":null},{"region":"Brooklyn","kind":"nyc","name":"Weeksville Heritage Center","neighborhood":"Bedford-Stuyvesant","category":"History","catClass":"history","highlight":"Preserved homes from one of the first free Black communities in the US.","address":"158 Buffalo Ave","transit":"A/C to Utica Av · C to Kingston–Throop Avs","network":null},{"region":"Brooklyn","kind":"nyc","name":"Williamsburg Art & Historical Center","neighborhood":"Williamsburg","category":"Art","catClass":"art","highlight":"Rotating art shows inside a former bank.","address":null,"transit":"L to Bedford Av · G to Metropolitan Av","network":null},{"region":"Brooklyn","kind":"nyc","name":"Wyckoff House Museum","neighborhood":"Canarsie/Flatlands","category":"History","catClass":"history","highlight":"NYC's oldest building, a 1652 Dutch farmhouse.","address":"5816 Clarendon Rd","transit":"Check individual site for directions","network":null},{"region":"Queens","kind":"nyc","name":"Bayside Historical Society","neighborhood":"Bayside","category":"History","catClass":"history","highlight":"Local history housed in a former officers' club at Fort Totten.","address":"208-40 Totten Ave","transit":"LIRR (Port Washington branch) to Bayside","network":null},{"region":"Queens","kind":"nyc","name":"Bowne House","neighborhood":"Flushing","category":"History","catClass":"history","highlight":"1661 house tied to the fight for religious freedom in New Amsterdam.","address":"37-01 Bowne St","transit":"7 to Flushing–Main St","network":null},{"region":"Queens","kind":"nyc","name":"Godwin-Ternbach Museum","neighborhood":"Kew Gardens Hills","category":"Art","catClass":"art","highlight":"Queens College's teaching art museum.","address":"65-30 Kissena Blvd","transit":"F to Kew Gardens–Union Tpke + Q25/Q65 bus","network":null},{"region":"Queens","kind":"nyc","name":"Greater Astoria Historical Society","neighborhood":"Astoria","category":"History","catClass":"history","highlight":"Western Queens history and archives.","address":"35-20 Broadway","transit":"N/W to Astoria Blvd/Broadway · M/R to Steinway St","network":null},{"region":"Queens","kind":"nyc","name":"Jamaica Center for Arts & Learning","neighborhood":"Jamaica","category":"Art","catClass":"art","highlight":"Community arts center in a converted 1898 bank.","address":"161-04 Jamaica Ave","transit":"E/J/Z to Jamaica Center · LIRR to Jamaica","network":null},{"region":"Queens","kind":"nyc","name":"King Manor Museum","neighborhood":"Jamaica","category":"History","catClass":"history","highlight":"Home of Rufus King, a framer of the Constitution.","address":"150-03 Jamaica Ave","transit":"E/J/Z to Jamaica Center · LIRR to Jamaica","network":null},{"region":"Queens","kind":"nyc","name":"Kingsland Homestead","neighborhood":"Flushing","category":"History","catClass":"history","highlight":"18th-century farmhouse, home to the Queens Historical Society.","address":"143-35 37th Ave","transit":"7 to Flushing–Main St","network":null},{"region":"Queens","kind":"nyc","name":"Lewis H. Latimer House Museum","neighborhood":"Flushing","category":"History","catClass":"history","highlight":"Home of the Black inventor who helped perfect the lightbulb filament.","address":"34-41 137th St","transit":"7 to Flushing–Main St","network":null},{"region":"Queens","kind":"nyc","name":"Louis Armstrong House Museum","neighborhood":"Corona","category":"History","catClass":"history","highlight":"Armstrong's actual home, kept as he left it.","address":"34-56 107th St","transit":"7 to 103 St–Corona Plaza · 7 to Mets–Willets Point","network":null},{"region":"Queens","kind":"nyc","name":"MoMA PS1","neighborhood":"Long Island City","category":"Art","catClass":"art","highlight":"MoMA's experimental-art annex in an old school building.","address":"22-25 Jackson Ave","transit":"7 to Court Sq · E/M/G to Court Sq–23 St","network":null},{"region":"Queens","kind":"nyc","name":"Museum of the Moving Image","neighborhood":"Astoria","category":"Media","catClass":"media","highlight":"Film, TV, and video-game history, on the old Kaufman Astoria lot.","address":"36-01 35th Ave","transit":"N/W to Astoria Blvd/Broadway · M/R to Steinway St","network":null},{"region":"Queens","kind":"nyc","name":"New York Hall of Science","neighborhood":"Corona","category":"Science & Nature","catClass":"science","highlight":"Hands-on science museum built for the 1964 World's Fair.","address":"47-01 111th St","transit":"7 to 103 St–Corona Plaza · 7 to Mets–Willets Point","network":null},{"region":"Queens","kind":"nyc","name":"Noguchi Museum","neighborhood":"Long Island City","category":"Art","catClass":"art","highlight":"Isamu Noguchi's own sculptures, in a building he designed.","address":"9-01 33rd Rd","transit":"7 to Court Sq · E/M/G to Court Sq–23 St","network":"narm"},{"region":"Queens","kind":"nyc","name":"Queens County Farm Museum","neighborhood":"Glen Oaks","category":"History","catClass":"history","highlight":"NYC's last working historical farm, 47 acres.","address":"73-50 Little Neck Pkwy","transit":"No subway — Q46 bus from Union Tpke","network":null},{"region":"Queens","kind":"nyc","name":"Queens Museum","neighborhood":"Flushing","category":"Art","catClass":"art","highlight":"Home to the Panorama of the City of New York, a scale model of all five boroughs.","address":"New York City Building, Flushing Meadows","transit":"7 to Flushing–Main St","network":null},{"region":"Queens","kind":"nyc","name":"SculptureCenter","neighborhood":"Long Island City","category":"Art","catClass":"art","highlight":"Nonprofit contemporary sculpture space.","address":"44-19 Purves St","transit":"7 to Court Sq · E/M/G to Court Sq–23 St","network":null},{"region":"Queens","kind":"nyc","name":"Socrates Sculpture Park","neighborhood":"Astoria","category":"Art","catClass":"art","highlight":"Free outdoor sculpture park on the East River.","address":"32-01 Vernon Blvd","transit":"N/W to Astoria Blvd/Broadway · M/R to Steinway St","network":null},{"region":"Queens","kind":"nyc","name":"The Living Museum","neighborhood":"Queens Village","category":"Art","catClass":"art","highlight":"Outsider-art collective inside a psychiatric hospital building.","address":null,"transit":"No subway — Q1/Q36 bus, or LIRR to Queens Village","network":null},{"region":"Queens","kind":"nyc","name":"Vander Ende-Onderdonk House","neighborhood":"Ridgewood","category":"History","catClass":"history","highlight":"One of NYC's oldest Dutch Colonial stone farmhouses.","address":"1820 Flushing Ave","transit":"M to Seneca Av/Forest Av","network":null},{"region":"Queens","kind":"nyc","name":"Voelker Orth Museum, Bird Sanctuary & Victorian Garden","neighborhood":"Flushing","category":"History","catClass":"history","highlight":"Victorian house with a working period garden.","address":"149-19 38th Ave","transit":"7 to Flushing–Main St","network":null},{"region":"The Bronx","kind":"nyc","name":"Bartow-Pell Mansion Museum","neighborhood":"Pelham Bay","category":"History","catClass":"history","highlight":"1840s Greek Revival mansion and formal gardens.","address":"895 Shore Rd N","transit":"6 to Pelham Bay Park","network":"narm"},{"region":"The Bronx","kind":"nyc","name":"Bronx Children's Museum","neighborhood":"Concourse","category":"Children's","catClass":"children","highlight":"Pop-up and rotating-location children's museum.","address":null,"transit":"B/D to 161 St–Yankee Stadium · 4 to 161 St","network":null},{"region":"The Bronx","kind":"nyc","name":"Bronx Museum of the Arts","neighborhood":"Concourse","category":"Art","catClass":"art","highlight":"Contemporary art, free admission, on the Grand Concourse.","address":"1040 Grand Concourse","transit":"B/D to 161 St–Yankee Stadium · 4 to 161 St","network":"narm"},{"region":"The Bronx","kind":"nyc","name":"Bronx River Art Center","neighborhood":"West Farms","category":"Art","catClass":"art","highlight":"Community gallery and studio space along the Bronx River.","address":"1087 E Tremont Ave","transit":"2/5 to West Farms Sq–E Tremont Av","network":null},{"region":"The Bronx","kind":"nyc","name":"Bronx Zoo","neighborhood":"Fordham","category":"Science & Nature","catClass":"science","highlight":"The country's largest metropolitan zoo.","address":"2300 Southern Blvd","transit":"B/D to Fordham Rd · Metro-North to Fordham","network":null},{"region":"The Bronx","kind":"nyc","name":"City Island Nautical Museum","neighborhood":"City Island","category":"Maritime & Military","catClass":"maritime","highlight":"Volunteer-run maritime and local history museum.","address":"190 Fordham St","transit":"6 to Pelham Bay Park + Bx29 bus","network":null},{"region":"The Bronx","kind":"nyc","name":"Derfner Judaica Museum","neighborhood":"Riverdale","category":"Culture & Heritage","catClass":"culture","highlight":"Judaica collection inside the Hebrew Home retirement community.","address":"5961 Palisade Ave","transit":"1 to 231 St + Bx7/Bx10 bus, or Metro-North to Riverdale","network":null},{"region":"The Bronx","kind":"nyc","name":"Edgar Allan Poe Cottage","neighborhood":"Fordham","category":"History","catClass":"history","highlight":"The cottage where Poe wrote his last years' work.","address":"2640 Grand Concourse","transit":"B/D to Fordham Rd · Metro-North to Fordham","network":null},{"region":"The Bronx","kind":"nyc","name":"Fordham Museum of Greek, Etruscan and Roman Art","neighborhood":"Fordham","category":"Art","catClass":"art","highlight":"Small classical-antiquities collection at Fordham University.","address":null,"transit":"B/D to Fordham Rd · Metro-North to Fordham","network":null},{"region":"The Bronx","kind":"nyc","name":"Hall of Fame for Great Americans","neighborhood":"University Heights","category":"History","catClass":"history","highlight":"Open-air colonnade of bronze busts, on the old NYU campus (now Bronx CC).","address":"2155 University Ave","transit":"4 to Burnside Av","network":null},{"region":"The Bronx","kind":"nyc","name":"Lehman College Art Gallery","neighborhood":"Jerome Park","category":"Art","catClass":"art","highlight":"CUNY teaching gallery with rotating shows.","address":"250 Bedford Park Blvd W","transit":"4 to Mosholu Pkwy · B/D to Bedford Park Blvd","network":null},{"region":"The Bronx","kind":"nyc","name":"Maritime Industry Museum","neighborhood":"Throggs Neck","category":"Maritime & Military","catClass":"maritime","highlight":"SUNY Maritime College's shipping and seafaring collection.","address":"6 Pennyfield Ave","transit":"No subway — Bx40/Bx42 bus","network":null},{"region":"The Bronx","kind":"nyc","name":"New York Botanical Garden","neighborhood":"Fordham","category":"Science & Nature","catClass":"science","highlight":"250 acres including the last old-growth forest in NYC.","address":"2900 Southern Blvd","transit":"B/D to Fordham Rd · Metro-North to Fordham","network":null},{"region":"The Bronx","kind":"nyc","name":"New York Yankees Museum","neighborhood":"Concourse","category":"History","catClass":"history","highlight":"Team history inside Yankee Stadium.","address":"1 E 161st St","transit":"B/D to 161 St–Yankee Stadium · 4 to 161 St","network":null},{"region":"The Bronx","kind":"nyc","name":"Valentine-Varian House","neighborhood":"Norwood","category":"History","catClass":"history","highlight":"1758 fieldstone farmhouse, home of the Bronx historical society.","address":"3266 Bainbridge Ave","transit":"D to Norwood–205 St · 4 to Mosholu Pkwy","network":null},{"region":"The Bronx","kind":"nyc","name":"Van Cortlandt House Museum","neighborhood":"Riverdale","category":"History","catClass":"history","highlight":"The Bronx's oldest building, a 1748 Georgian manor.","address":"Van Cortlandt Park","transit":"1 to 231 St + Bx7/Bx10 bus, or Metro-North to Riverdale","network":null},{"region":"The Bronx","kind":"nyc","name":"Wave Hill","neighborhood":"Riverdale","category":"Science & Nature","catClass":"science","highlight":"Public garden and cultural center with Hudson River views.","address":"675 W 252nd St","transit":"1 to 231 St + Bx7/Bx10 bus, or Metro-North to Riverdale","network":null},{"region":"Staten Island","kind":"nyc","name":"Alice Austen House","neighborhood":"Rosebank","category":"History","catClass":"history","highlight":"Home and darkroom of pioneering photographer Alice Austen.","address":"2 Hylan Blvd","transit":"SIR to Clifton","network":null},{"region":"Staten Island","kind":"nyc","name":"Billiou-Stillwell-Perine House","neighborhood":"Old Town","category":"History","catClass":"history","highlight":"17th-century Dutch farmhouse, added onto for 200 years.","address":"1476 Richmond Rd","transit":"SIR to Grasmere","network":null},{"region":"Staten Island","kind":"nyc","name":"Conference House Museum","neighborhood":"Tottenville","category":"History","catClass":"history","highlight":"1680 manor house, site of a failed 1776 peace conference.","address":"298 Satterlee St","transit":"SIR to Tottenville (last stop)","network":null},{"region":"Staten Island","kind":"nyc","name":"Fort Wadsworth","neighborhood":"Fort Wadsworth","category":"Maritime & Military","catClass":"maritime","highlight":"NPS site with one of the country's oldest military installations, beneath the Verrazzano bridge.","address":"210 New York Ave","transit":"SIR to St. George + S51 bus","network":null},{"region":"Staten Island","kind":"nyc","name":"Garibaldi-Meucci Museum","neighborhood":"Rosebank","category":"Culture & Heritage","catClass":"culture","highlight":"House shared by Giuseppe Garibaldi and inventor Antonio Meucci.","address":"420 Tompkins Ave","transit":"SIR to Clifton","network":null},{"region":"Staten Island","kind":"nyc","name":"Historic Richmond Town","neighborhood":"Richmondtown","category":"History","catClass":"history","highlight":"Restored village of 30+ historic buildings; NYC's largest living-history site.","address":"441 Clarke Ave","transit":"SIR to Eltingville + S74 bus","network":null},{"region":"Staten Island","kind":"nyc","name":"Jacques Marchais Museum of Tibetan Art","neighborhood":"Egbertville","category":"Culture & Heritage","catClass":"culture","highlight":"Hillside terraced garden museum of Tibetan Buddhist art.","address":"338 Lighthouse Ave","transit":"SIR to New Dorp + S54 bus","network":null},{"region":"Staten Island","kind":"nyc","name":"National Lighthouse Museum","neighborhood":"St. George","category":"Maritime & Military","catClass":"maritime","highlight":"Former US Lighthouse Service depot, steps from the ferry terminal.","address":"200 The Promenade at Lighthouse Point","transit":"Staten Island Ferry (from Whitehall St, Manhattan) · SIR to St. George","network":null},{"region":"Staten Island","kind":"nyc","name":"Newhouse Center for Contemporary Art","neighborhood":"West New Brighton","category":"Art","catClass":"art","highlight":"Rotating contemporary art at Snug Harbor Cultural Center.","address":"1000 Richmond Terrace","transit":"SIR to Jefferson Av","network":null},{"region":"Staten Island","kind":"nyc","name":"Noble Maritime Collection","neighborhood":"West New Brighton","category":"Maritime & Military","catClass":"maritime","highlight":"Sailor-artist John Noble's studio and maritime art.","address":"1000 Richmond Terrace","transit":"SIR to Jefferson Av","network":"narm"},{"region":"Staten Island","kind":"nyc","name":"Sandy Ground Historical Museum","neighborhood":"South Shore","category":"Culture & Heritage","catClass":"culture","highlight":"History of the oldest continuously inhabited free Black community in the US.","address":"1538 Woodrow Rd","transit":"SIR to Prince's Bay/Huguenot","network":null},{"region":"Staten Island","kind":"nyc","name":"Seguine Mansion","neighborhood":"South Shore","category":"History","catClass":"history","highlight":"1838 Greek Revival mansion overlooking Prince's Bay.","address":"440 Seguine Ave","transit":"SIR to Prince's Bay/Huguenot","network":null},{"region":"Staten Island","kind":"nyc","name":"Staten Island Children's Museum","neighborhood":"West New Brighton","category":"Children's","catClass":"children","highlight":"Hands-on exhibits for younger kids, on Snug Harbor's grounds.","address":"1000 Richmond Terrace","transit":"SIR to Jefferson Av","network":null},{"region":"Staten Island","kind":"nyc","name":"Staten Island Museum","neighborhood":"West New Brighton","category":"History","catClass":"history","highlight":"The borough's oldest cultural institution; art, science, and history.","address":"1000 Richmond Terrace","transit":"SIR to Jefferson Av","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"African American Museum of Nassau County","neighborhood":"Hempstead","category":"Culture & Heritage","catClass":"culture","highlight":"Long Island's African-American history and contributions.","address":"110 N Franklin St, Hempstead","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Baldwin Historical Museum","neighborhood":"Baldwin","category":"History","catClass":"history","highlight":"Run by the Baldwin Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Bayville Historical Museum","neighborhood":"Bayville","category":"History","catClass":"history","highlight":"Open by appointment.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Cedarmere","neighborhood":"Roslyn Harbor","category":"History","catClass":"history","highlight":"Estate of poet-journalist William Cullen Bryant.","address":"225 Bryant Ave, Roslyn Harbor","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Center for Science Teaching and Learning","neighborhood":"Rockville Centre","category":"Science & Nature","catClass":"science","highlight":"Educational science facility and nature preserve.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Cradle of Aviation Museum","neighborhood":"Uniondale","category":"Science & Nature","catClass":"science","highlight":"Long Island's aviation-history museum, from Lindbergh to the lunar module.","address":"1 Davis Ave, Garden City","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Earle-Wightman House","neighborhood":"Oyster Bay","category":"History","catClass":"history","highlight":"Run by the Oyster Bay Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Elderfields Preserve","neighborhood":"Flower Hill","category":"History","catClass":"history","highlight":"Historic buildings, an art gallery, and a nature preserve.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Falaise Mansion","neighborhood":"Sands Point","category":"History","catClass":"history","highlight":"Harry Guggenheim's Normandy-style manor, inside Sands Point Preserve.","address":"127 Middleneck Rd, Sands Point","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Freeport Historical Museum","neighborhood":"Freeport","category":"History","catClass":"history","highlight":"Run by the Freeport Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Garvies Point Museum and Preserve","neighborhood":"Glen Cove","category":"Science & Nature","catClass":"science","highlight":"Long Island geology and Native American archaeology.","address":"50 Barry Dr, Glen Cove","transit":"Check individual site for directions","network":"narm"},{"region":"Nassau County, NY","kind":"suburb","name":"Hicksville Gregory Museum","neighborhood":"Hicksville","category":"Science & Nature","catClass":"science","highlight":"Fossils, butterflies, minerals, and antique telephones.","address":"480 S Broadway, Hicksville","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Hofstra University Museum of Art","neighborhood":"Hempstead","category":"Art","catClass":"art","highlight":"University collection of art, photography, and ethnographic objects.","address":"Hofstra University, Hempstead","transit":"Check individual site for directions","network":"narm"},{"region":"Nassau County, NY","kind":"suburb","name":"Holocaust Memorial and Tolerance Center of Nassau County","neighborhood":"Glen Cove","category":"Culture & Heritage","catClass":"culture","highlight":"Holocaust and tolerance education center.","address":"100 Crescent Beach Rd, Glen Cove","transit":"Check individual site for directions","network":"narm"},{"region":"Nassau County, NY","kind":"suburb","name":"Knothole","neighborhood":"North Hills","category":"Culture & Heritage","catClass":"culture","highlight":"Christopher Morley's writing cabin, preserved as a museum.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Levittown Historical Museum","neighborhood":"Levittown","category":"History","catClass":"history","highlight":"The archetype postwar suburb's own local museum.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Long Beach Historical Museum","neighborhood":"Long Beach","category":"History","catClass":"history","highlight":"Run by the Long Beach Historical & Preservation Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Long Island Children's Museum","neighborhood":"Uniondale","category":"Children's","catClass":"children","highlight":"Interactive children's museum next door to Cradle of Aviation.","address":"11 Davis Ave, Garden City","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Mill Neck Manor","neighborhood":"Mill Neck","category":"History","catClass":"history","highlight":"20th-century Tudor Revival mansion, monthly guided tours.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Nassau County Firefighters Museum and Education Center","neighborhood":"Uniondale","category":"History","catClass":"history","highlight":"Housed inside the Cradle of Aviation Museum.","address":"1 Davis Ave, Garden City","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Nassau County Museum of Art","neighborhood":"Roslyn Harbor","category":"Art","catClass":"art","highlight":"19th- and 20th-century European and American art on a former Frick estate.","address":"1 Museum Dr, Roslyn Harbor","transit":"Check individual site for directions","network":"narm"},{"region":"Nassau County, NY","kind":"suburb","name":"Old Bethpage Village Restoration","neighborhood":"Old Bethpage","category":"History","catClass":"history","highlight":"Recreated mid-19th-century farming village, 200+ acres.","address":"1303 Round Swamp Rd, Old Bethpage","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Old Westbury Gardens","neighborhood":"Old Westbury","category":"History","catClass":"history","highlight":"1906 Charles II-style mansion and 200 acres of formal gardens.","address":"71 Old Westbury Rd, Old Westbury","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Oyster Bay Railroad Museum","neighborhood":"Oyster Bay","category":"History","catClass":"history","highlight":"Historic LIRR depot and turntable.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Pagan-Fletcher House","neighborhood":"Valley Stream","category":"History","catClass":"history","highlight":"Run by the Valley Stream Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Phillips House Museum","neighborhood":"Rockville Centre","category":"History","catClass":"history","highlight":"Run by the Rockville Centre Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Planting Fields Arboretum State Historic Park","neighborhood":"Oyster Bay","category":"History","catClass":"history","highlight":"Gilded Age estate, arboretum, and Coe Hall historic house.","address":"1395 Planting Fields Rd, Oyster Bay","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Polish American Museum","neighborhood":"Port Washington","category":"Culture & Heritage","catClass":"culture","highlight":"Achievements of Polish heritage Americans.","address":"16 Belleview Ave, Port Washington","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Raynham Hall Museum","neighborhood":"Oyster Bay","category":"History","catClass":"history","highlight":"Revolutionary War-era house tied to the Culper Spy Ring.","address":"20 W Main St, Oyster Bay","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Rock Hall Museum","neighborhood":"Lawrence","category":"History","catClass":"history","highlight":"Mid-18th-century plantation-style manor house.","address":"199 Broadway, Lawrence","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Roslyn Landmark Society","neighborhood":"Roslyn","category":"History","catClass":"history","highlight":"Preserved historic village center and house museums.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Saddle Rock Grist Mill","neighborhood":"Saddle Rock","category":"History","catClass":"history","highlight":"Restored tidal grist mill.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Sagamore Hill National Historic Site","neighborhood":"Cove Neck","category":"History","catClass":"history","highlight":"Theodore Roosevelt's home and \"Summer White House.\"","address":"20 Sagamore Hill Rd, Oyster Bay","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Sands-Willets House","neighborhood":"Flower Hill","category":"History","catClass":"history","highlight":"Local-history house museum.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Science Museum of Long Island","neighborhood":"Plandome Manor","category":"Science & Nature","catClass":"science","highlight":"Hands-on science programs for children.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Sea Cliff Village Museum","neighborhood":"Sea Cliff","category":"History","catClass":"history","highlight":"Victorian kitchen, toy, and doll collection.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Steinberg Museum of Art at Hillwood","neighborhood":"Brookville","category":"Art","catClass":"art","highlight":"Long Island University's changing-exhibitions art museum.","address":"720 Northern Blvd, Brookville","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Tackapausha Museum and Preserve","neighborhood":"Seaford","category":"Science & Nature","catClass":"science","highlight":"Live animals and Long Island ecology exhibits.","address":"2201 Washington Ave, Seaford","transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Thomas Dodge House","neighborhood":"Port Washington","category":"History","catClass":"history","highlight":"Run by the Cow Neck Peninsula Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Nassau County, NY","kind":"suburb","name":"Wantagh Museum","neighborhood":"Wantagh","category":"History","catClass":"history","highlight":"Historic railroad station, rail car, and post office.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Bedford Museum","neighborhood":"Bedford","category":"History","catClass":"history","highlight":"Run by the Bedford Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Cropsey Homestead / Newington Cropsey Gallery","neighborhood":"Hastings-on-Hudson","category":"Art","catClass":"art","highlight":"Studio and paintings of Hudson River School artist Jasper Cropsey.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Donald M. Kendall Sculpture Gardens","neighborhood":"Purchase","category":"Art","catClass":"art","highlight":"45 outdoor sculptures at the PepsiCo headquarters.","address":"700 Anderson Hill Rd, Purchase","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Elijah Miller House","neighborhood":"White Plains","category":"History","catClass":"history","highlight":"1738 farmhouse used by General Washington during the war.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Hammond Museum and Japanese Stroll Garden","neighborhood":"North Salem","category":"Art","catClass":"art","highlight":"East Asian art and a Japanese stroll garden.","address":"28 Deveau Rd, North Salem","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Hastings Historical Society","neighborhood":"Hastings-on-Hudson","category":"History","catClass":"history","highlight":"Local-history museum and archive.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Horace Greeley House","neighborhood":"Chappaqua","category":"History","catClass":"history","highlight":"19th-century home of the newspaper editor, run by New Castle Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Hudson River Museum","neighborhood":"Yonkers","category":"Science & Nature","catClass":"science","highlight":"Art, natural history, and a planetarium overlooking the river.","address":"511 Warburton Ave, Yonkers","transit":"Check individual site for directions","network":"narm"},{"region":"Westchester County, NY","kind":"suburb","name":"Jacob Purdy House","neighborhood":"White Plains","category":"History","catClass":"history","highlight":"Washington's headquarters, run by the White Plains Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Jay Heritage Center","neighborhood":"Rye","category":"History","catClass":"history","highlight":"Home of and museum about John Jay.","address":"210 Boston Post Rd, Rye","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"John Jay Homestead State Historic Site","neighborhood":"Katonah","category":"History","catClass":"history","highlight":"Home of the first US Chief Justice.","address":"400 NY-22, Katonah","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Katonah Museum of Art","neighborhood":"Katonah","category":"Art","catClass":"art","highlight":"Non-collecting contemporary art museum with rotating exhibitions.","address":"134 Jay St, Katonah","transit":"Check individual site for directions","network":"narm"},{"region":"Westchester County, NY","kind":"suburb","name":"Kykuit (Rockefeller Estate)","neighborhood":"Sleepy Hollow / Mount Pleasant","category":"History","catClass":"history","highlight":"The Rockefeller family's 40-room hilltop mansion and art collection.","address":"381 N Broadway, Sleepy Hollow","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Lincoln Depot Museum","neighborhood":"Peekskill","category":"History","catClass":"history","highlight":"Lincoln's ties to Peekskill.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Lyndhurst","neighborhood":"Tarrytown","category":"History","catClass":"history","highlight":"Jay Gould's 19th-century Gothic Revival mansion on 67 acres.","address":"635 S Broadway, Tarrytown","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Merestead","neighborhood":"Mount Kisco","category":"History","catClass":"history","highlight":"Early-20th-century estate; tours by reservation.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Neuberger Museum of Art","neighborhood":"Purchase","category":"Art","catClass":"art","highlight":"Contemporary art on the SUNY Purchase campus.","address":"735 Anderson Hill Rd, Purchase","transit":"Check individual site for directions","network":"narm"},{"region":"Westchester County, NY","kind":"suburb","name":"Ossining Historical Society Museum","neighborhood":"Ossining","category":"History","catClass":"history","highlight":"Open by appointment.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Peekskill Museum","neighborhood":"Peekskill","category":"History","catClass":"history","highlight":"Local history and archives.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Philipsburg Manor House","neighborhood":"Sleepy Hollow","category":"History","catClass":"history","highlight":"Working 18th-century water-powered grist mill and farm.","address":"381 N Broadway, Sleepy Hollow","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Philipse Manor Hall State Historic Site","neighborhood":"Yonkers","category":"History","catClass":"history","highlight":"Colonial manor house museum, run since 1912.","address":"29 Warburton Ave, Yonkers","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Pound Ridge Museum","neighborhood":"Pound Ridge","category":"History","catClass":"history","highlight":"Run by the Pound Ridge Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Saint Paul's Church National Historic Site","neighborhood":"Mount Vernon","category":"Culture & Heritage","catClass":"culture","highlight":"Colonial church with a museum of the American Revolution.","address":"897 S Columbus Ave, Mount Vernon","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Sherwood House","neighborhood":"Yonkers","category":"History","catClass":"history","highlight":"1740 farmhouse, run by the Yonkers Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Square House Museum","neighborhood":"Rye","category":"History","catClass":"history","highlight":"18th-century inn, run by the Rye Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Stepping Stones","neighborhood":"Katonah","category":"History","catClass":"history","highlight":"Home of Bill W. and Lois Wilson, co-founders of Alcoholics Anonymous.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Sunnyside","neighborhood":"Tarrytown","category":"History","catClass":"history","highlight":"Washington Irving's riverside cottage.","address":"3 W Sunnyside Ln, Tarrytown","transit":"Check individual site for directions","network":null},{"region":"Westchester County, NY","kind":"suburb","name":"Tarrytown Historical Society Museum","neighborhood":"Tarrytown","category":"History","catClass":"history","highlight":"Tarrytown and Sleepy Hollow local history, in the Jacob Odell House.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Afro-American Historical and Cultural Society Museum","neighborhood":"Jersey City","category":"Culture & Heritage","catClass":"culture","highlight":"New Jersey African-American history and African artifacts.","address":"1841 Kennedy Blvd, Jersey City","transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Bayonne Community Museum","neighborhood":"Bayonne","category":"History","catClass":"history","highlight":"Restored museum facility (in development).","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Bayonne Fire Museum","neighborhood":"Bayonne","category":"History","catClass":"history","highlight":"Firefighting history and apparatus.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Hoboken Fire Museum","neighborhood":"Hoboken","category":"History","catClass":"history","highlight":"Vintage firefighting apparatus.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Hoboken Historical Museum","neighborhood":"Hoboken","category":"History","catClass":"history","highlight":"Hoboken's own history, in a former machine shop.","address":"1301 Hudson St, Hoboken","transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Kearny Museum","neighborhood":"Kearny","category":"History","catClass":"history","highlight":"Local history, inside the Kearny Public Library.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Liberty Science Center","neighborhood":"Jersey City","category":"Science & Nature","catClass":"science","highlight":"The region's biggest hands-on science museum, in Liberty State Park.","address":"222 Jersey City Blvd, Jersey City","transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Mana Contemporary","neighborhood":"Jersey City","category":"Art","catClass":"art","highlight":"Massive contemporary-art exhibition and studio complex.","address":"888 Newark Ave, Jersey City","transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Museum of Russian Art","neighborhood":"Jersey City","category":"Art","catClass":"art","highlight":"Contemporary Russian art.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Hudson County, NJ","kind":"suburb","name":"Richard Meier Model Museum","neighborhood":"Jersey City","category":"Design","catClass":"design","highlight":"Architectural models, sculptures, and collages by Richard Meier.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"African Art Museum of the SMA Fathers","neighborhood":"Tenafly","category":"Culture & Heritage","catClass":"culture","highlight":"African art collection run by the Society of African Missions.","address":"23 Bliss Ave, Tenafly","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Aviation Hall of Fame and Museum of New Jersey","neighborhood":"Teterboro","category":"Science & Nature","catClass":"science","highlight":"New Jersey's aviation and aerospace heritage, at Teterboro Airport.","address":"400 Fred Wehran Dr, Teterboro","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Belskie Museum of Art & Science","neighborhood":"Closter","category":"Art","catClass":"art","highlight":"Sculptor Abram Belskie's work plus rotating exhibitions.","address":"50 Tenakill Park, Closter","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Bergen Museum of Art and Science","neighborhood":"Hackensack","category":"Art","catClass":"art","highlight":"Currently between locations.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Fort Lee Historic Park","neighborhood":"Fort Lee","category":"Maritime & Military","catClass":"maritime","highlight":"American Revolution fort site above the Hudson, with exhibits.","address":"1588 Palisade Interstate Pkwy, Fort Lee","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Fort Lee Museum","neighborhood":"Fort Lee","category":"History","catClass":"history","highlight":"Local history in the 1922 Judge Moore House.","address":"1588 Palisade Interstate Pkwy, Fort Lee","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Garretson Forge and Farm","neighborhood":"Fair Lawn","category":"History","catClass":"history","highlight":"Living Dutch farm museum.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Hiram Blauvelt Art Museum","neighborhood":"Oradell","category":"Art","catClass":"art","highlight":"Wildlife art collection.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Historic New Bridge Landing","neighborhood":"River Edge","category":"History","catClass":"history","highlight":"Revolutionary War-era historic house complex ('the crossroads of the Revolution').","address":"1201 Main St, River Edge","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Little Red Schoolhouse","neighborhood":"Lyndhurst","category":"History","catClass":"history","highlight":"Run by the Lyndhurst Historical Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Maywood Station Museum","neighborhood":"Maywood","category":"History","catClass":"history","highlight":"Historic train station and railroad artifacts.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"New Jersey Naval Museum","neighborhood":"Hackensack","category":"Maritime & Military","catClass":"maritime","highlight":"Home of the WWII submarine USS Ling.","address":"78 River St, Hackensack","transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Pascack Historical Society Museum","neighborhood":"Park Ridge","category":"History","catClass":"history","highlight":"Local Pascack Valley history.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Ridgewood Schoolhouse Museum","neighborhood":"Ridgewood","category":"History","catClass":"history","highlight":"Run by the Ridgewood Historical Society.","address":null,"transit":"M to Seneca Av/Forest Av","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"The Hermitage","neighborhood":"Ho-Ho-Kus","category":"History","catClass":"history","highlight":"18th-century Gothic Revival home tied to Aaron Burr's wedding.","address":"335 N Franklin Tpke, Ho-Ho-Kus","transit":"Check individual site for directions","network":"narm"},{"region":"Bergen County, NJ","kind":"suburb","name":"Westwood Museum","neighborhood":"Westwood","category":"History","catClass":"history","highlight":"Run by the Westwood Heritage Society.","address":null,"transit":"Check individual site for directions","network":null},{"region":"Bergen County, NJ","kind":"suburb","name":"Wortendyke Barn Museum","neighborhood":"Park Ridge","category":"History","catClass":"history","highlight":"Dutch barn and farm exhibits.","address":null,"transit":"Check individual site for directions","network":null}];
+
+const regionSelect = document.getElementById("regionSelect");
+REGIONS.forEach(r => {
+  const opt = document.createElement("option");
+  opt.value = r.name;
+  opt.textContent = r.name + " (" + r.count + ")";
+  regionSelect.appendChild(opt);
+});
+
+const categorySelect = document.getElementById("categorySelect");
+CATEGORIES.forEach(c => {
+  const opt = document.createElement("option");
+  opt.value = c;
+  opt.textContent = c;
+  categorySelect.appendChild(opt);
+});
+
+let currentFilter = "all";
+let currentRegion = "";
+let currentCategory = "";
+let currentSearch = "";
+
+function networkBadge(net) {
+  if (!net) return "";
+  if (net === "both") return '<span class="badge badge-both">NARM + ROAM</span>';
+  if (net === "narm") return '<span class="badge badge-narm">NARM</span>';
+  return '<span class="badge badge-roam">ROAM</span>';
+}
+
+function escapeHtml(s) {
+  return (s || "").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function renderMuseums() {
+  const list = document.getElementById("museumList");
+  const info = document.getElementById("resultsInfo");
+  const searchLower = currentSearch.toLowerCase();
+
+  let filtered = MUSEUMS.filter(m => {
+    if (currentFilter === "nyc" && m.kind !== "nyc") return false;
+    if (currentFilter === "suburb" && m.kind !== "suburb") return false;
+    if (currentFilter === "network" && !m.network) return false;
+    if (currentRegion && m.region !== currentRegion) return false;
+    if (currentCategory && m.category !== currentCategory) return false;
+    if (searchLower) {
+      const haystack = (m.name + " " + m.neighborhood + " " + m.region + " " + m.category + " " + (m.highlight||"") + " " + (m.address||"")).toLowerCase();
+      const words = searchLower.split(/\s+/).filter(w => w.length > 0);
+      for (const word of words) {
+        if (!haystack.includes(word)) return false;
+      }
+    }
+    return true;
+  });
+
+  info.textContent = "Showing " + filtered.length + " of " + MUSEUMS.length + " museums";
+
+  if (filtered.length === 0) {
+    list.innerHTML = '<div class="no-results">No museums match your search. Try different keywords or clear filters.</div>';
+    return;
+  }
+
+  const groups = {};
+  filtered.forEach(m => {
+    if (!groups[m.region]) groups[m.region] = [];
+    groups[m.region].push(m);
+  });
+
+  let out = "";
+  const regionOrder = REGIONS.map(r => r.name);
+  const ordered = regionOrder.filter(r => groups[r]);
+
+  for (const region of ordered) {
+    const ms = groups[region];
+    out += '<div class="state-group" id="region-' + region.replace(/[^a-zA-Z0-9]/g,'') + '">';
+    out += '<div class="state-header"><h2>' + escapeHtml(region) + '</h2><span class="count">' + ms.length + ' museum' + (ms.length !== 1 ? 's' : '') + '</span></div>';
+
+    for (const m of ms) {
+      out += '<div class="museum-card">';
+      out += '<div class="museum-info">';
+      out += '<div class="museum-name-row"><span class="museum-name">' + escapeHtml(m.name) + '</span></div>';
+      const locBits = [m.neighborhood];
+      if (m.address) locBits.push(m.address);
+      out += '<div class="museum-loc">' + escapeHtml(locBits.join(' \u00b7 ')) + '</div>';
+      if (m.highlight) out += '<div class="museum-highlight">' + escapeHtml(m.highlight) + '</div>';
+      out += '<div class="museum-transit"><span class="label">Transit </span>' + escapeHtml(m.transit) + '</div>';
+      out += '</div>';
+      out += '<div class="museum-badges"><span class="badge badge-' + m.catClass + '">' + escapeHtml(m.category) + '</span>' + networkBadge(m.network) + '</div>';
+      out += '</div>';
+    }
+    out += '</div>';
+  }
+
+  list.innerHTML = out;
+}
+
+document.getElementById("searchInput").addEventListener("input", function(e) {
+  currentSearch = e.target.value;
+  renderMuseums();
+});
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", function() {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    this.classList.add("active");
+    currentFilter = this.dataset.filter;
+    renderMuseums();
+  });
+});
+
+regionSelect.addEventListener("change", function() { currentRegion = this.value; renderMuseums(); });
+categorySelect.addEventListener("change", function() { currentCategory = this.value; renderMuseums(); });
+
+const backBtn = document.getElementById("backToTop");
+window.addEventListener("scroll", function() {
+  backBtn.classList.toggle("visible", window.scrollY > 400);
+});
+backBtn.addEventListener("click", function() { window.scrollTo({ top: 0, behavior: "smooth" }); });
+
+renderMuseums();
+</script>
+</body>
+</html>
