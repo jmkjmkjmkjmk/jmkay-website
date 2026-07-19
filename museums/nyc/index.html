@@ -144,6 +144,16 @@
   .museum-name { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.4; }
   .museum-name a { color: var(--ink); text-decoration: none; transition: color 0.2s ease; }
   .museum-name a:hover { color: var(--deep-teal); }
+  .museum-website { margin-top: 2px; }
+  .museum-website a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--terracotta);
+    text-decoration: underline;
+    text-decoration-color: rgba(194,96,63,0.35);
+    text-underline-offset: 2px;
+  }
+  .museum-website a:hover { text-decoration-color: var(--terracotta); }
   .museum-loc { font-size: 13px; color: var(--ink-muted); margin: 3px 0; }
   .museum-highlight { font-size: 13px; font-style: italic; color: var(--ink-light); margin-bottom: 4px; line-height: 1.45; }
   .museum-hours { font-size: 12px; color: var(--ink-muted); line-height: 1.4; margin-bottom: 2px; }
@@ -214,7 +224,7 @@
 </nav>
 
 <div class="page-header">
-  <div class="breadcrumb"><a href="../index.html">Museum Directory</a> &rsaquo; NYC &amp; Close Suburbs</div>
+  <div class="breadcrumb"><a href="../index.html">Museum Directory</a> &rsaquo; NYC &amp; Close Suburbs &middot; <a href="map.html" style="color:var(--terracotta);border-bottom-color:rgba(194,96,63,0.35);">View as map &rarr;</a></div>
   <h1>NARM &amp; ROAM Museums Near New York</h1>
   <p class="page-subtitle">Only the museums in the NARM and ROAM reciprocal-membership networks &mdash; filtered to the five boroughs plus Nassau, Westchester, Hudson, and Bergen Counties.</p>
   <p class="page-note">No current NARM/ROAM members in Brooklyn or Hudson County, NJ &mdash; that can change as museums join. Transit is the nearest subway/rail station to the neighborhood, not a per-building lookup. Hours are as currently listed by each museum &mdash; verify before you go. Want the rest of the country? See the <a href="../index.html" style="color:var(--terracotta);">full reciprocal directory</a>.</p>
@@ -290,6 +300,10 @@ function escapeHtml(s) {
   return (s || "").replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function displayUrl(url) {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+}
+
 function renderMuseums() {
   const list = document.getElementById("museumList");
   const info = document.getElementById("resultsInfo");
@@ -346,6 +360,7 @@ function renderMuseums() {
       if (m.highlight) out += '<div class="museum-highlight">' + escapeHtml(m.highlight) + '</div>';
       if (m.hours) out += '<div class="museum-hours">' + escapeHtml(m.hours) + '</div>';
       out += '<div class="museum-transit"><span class="label">Transit </span>' + escapeHtml(m.transit) + '</div>';
+      if (m.website) out += '<div class="museum-website"><a href="' + escapeHtml(m.website) + '" target="_blank" rel="noopener">' + escapeHtml(displayUrl(m.website)) + ' \u2197</a></div>';
       out += '</div>';
       out += '<div class="museum-badges"><span class="badge badge-' + m.catClass + '">' + escapeHtml(m.category) + '</span>' + networkBadge(m.network) + '</div>';
       out += '</div>';

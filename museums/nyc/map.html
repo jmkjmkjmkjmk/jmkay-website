@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/x-icon" href="../../favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../../apple-touch-icon.png">
+<link rel="manifest" href="../../site.webmanifest">
+<title>NYC Reciprocal Museums Map &mdash; NARM &amp; ROAM &mdash; J. M. Kay</title>
+<meta name="description" content="Map of NARM and ROAM reciprocal-membership museums within reach of New York City.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6XM6RT038M');
+</script>
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7; --cream: #F5F0E8; --sand: #D4C5A9;
+    --ink: #1C1917; --ink-light: #44403C; --ink-muted: #78716C; --stone: #A8A29E;
+    --terracotta: #C2603F; --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A; --deep-teal-light: #2D7A7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif; background: var(--warm-white); color: var(--ink);
+    font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: sticky; top: 0; z-index: 200; background: rgba(253,251,247,0.95);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; text-decoration: none; line-height: 1;
+    font-family: 'Kay Display', serif; font-weight: 400; font-size: 20px;
+    text-transform: uppercase; color: var(--ink); letter-spacing: 0.03em;
+  }
+  .nav-brand .nav-dw { position: relative; width: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .nav-brand .nav-dp { width: 5px; height: 5px; background: var(--terracotta); transform: rotate(45deg); border-radius: 0.8px; }
+  .nav-right { display: flex; align-items: center; gap: 18px; }
+  .nav-right a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
+  .nav-right a:hover { color: var(--terracotta); }
+  .nav-right a.list-link { color: var(--terracotta); border-bottom: 1px solid rgba(194,96,63,0.35); }
+
+  .page-header { padding: 20px 24px 12px; max-width: 1280px; margin: 0 auto; }
+  .breadcrumb { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.5px; color: var(--ink-muted); margin-bottom: 8px; }
+  .breadcrumb a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--sand); }
+  .breadcrumb a:hover { color: var(--terracotta); }
+  .page-header h1 { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--ink); margin-bottom: 4px; }
+  .page-header p { font-size: 13.5px; color: var(--ink-muted); max-width: 720px; }
+
+  .legend {
+    max-width: 1280px; margin: 12px auto 0; padding: 0 24px 14px;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .legend button {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 12.5px; font-weight: 500;
+    padding: 5px 12px 5px 8px; border: 1px solid var(--sand); border-radius: 20px;
+    background: #fff; color: var(--ink-light); cursor: pointer; transition: all 0.15s ease;
+  }
+  .legend button .sw { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .legend button.active { background: var(--ink); color: var(--warm-white); border-color: var(--ink); }
+  .legend button.active .sw { box-shadow: 0 0 0 2px rgba(255,255,255,0.5); }
+  .legend button:hover { border-color: var(--terracotta); }
+
+  .layout {
+    max-width: 1280px; margin: 0 auto; padding: 0 24px 40px;
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 18px; align-items: start;
+  }
+  @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+  #map {
+    height: 640px; border-radius: 12px; border: 1px solid var(--sand);
+    position: sticky; top: 70px;
+  }
+  @media (max-width: 900px) { #map { height: 420px; position: relative; top: 0; } }
+
+  .list { display: flex; flex-direction: column; gap: 10px; max-height: 640px; overflow-y: auto; padding-right: 4px; }
+  @media (max-width: 900px) { .list { max-height: none; } }
+  .region-head {
+    font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--ink-muted);
+    margin: 10px 0 0; padding-bottom: 4px; border-bottom: 1px solid var(--sand);
+  }
+  .region-head:first-child { margin-top: 0; }
+  .mcard {
+    border: 1px solid var(--sand); border-radius: 8px; padding: 10px 12px;
+    background: #fff; cursor: pointer; transition: all 0.15s ease;
+  }
+  .mcard:hover { border-color: var(--terracotta); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  .mcard.hidden { display: none; }
+  .mcard .top { display: flex; align-items: center; gap: 8px; }
+  .mcard .sw { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .mcard .mname { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .mcard .mloc { font-size: 12px; color: var(--ink-muted); margin-top: 2px; margin-left: 17px; }
+
+  .leaflet-popup-content-wrapper { border-radius: 10px; }
+  .leaflet-popup-content { font-family: 'DM Sans', sans-serif; font-size: 13px; margin: 12px 14px; line-height: 1.5; }
+  .popup-name { font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--ink); display: block; margin-bottom: 3px; }
+  .popup-cat { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; display: inline-block; margin-bottom: 6px; }
+  .popup-line { display: block; color: var(--ink-light); margin-top: 3px; }
+  .popup-hours { display: block; color: var(--deep-teal); margin-top: 3px; font-size: 12px; }
+  .popup-links { margin-top: 8px; display: flex; gap: 14px; }
+  .popup-links a { color: var(--terracotta); text-decoration: none; font-weight: 600; font-size: 12.5px; }
+  .popup-links a:hover { text-decoration: underline; }
+
+  footer { background: var(--ink); padding: 32px 24px; text-align: center; }
+  .footer-brand { font-family: 'Kay Display', serif; font-size: 16px; color: var(--stone); letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px; }
+  .footer-sub { font-size: 12px; color: var(--ink-muted); }
+  .footer-sub a { color: var(--stone); text-decoration: none; }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span>KAY</span></a>
+  <div class="nav-right">
+    <a href="index.html" class="list-link">View as list</a>
+    <a href="../index.html">Full directory</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb"><a href="../index.html">Museum Directory</a> &rsaquo; <a href="index.html">NYC &amp; Close Suburbs</a> &rsaquo; Map</div>
+  <h1>NARM &amp; ROAM Museums Near New York, Mapped</h1>
+  <p>The same 32 reciprocal-network museums as the list view, plotted by neighborhood. Click a pin or a card for hours, address, and a link to the museum's site.</p>
+</div>
+
+<div class="legend" id="legend">
+  <button class="active" data-cat="all"><span class="sw" style="background:var(--ink);"></span>All</button>
+</div>
+
+<div class="layout">
+  <div id="map"></div>
+  <div class="list" id="list"></div>
+</div>
+
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+<script>
+const MUSEUMS = [{"name":"American Folk Art Museum","region":"Manhattan","neighborhood":"Upper West Side","category":"Art","highlight":"Self-taught and outsider art.","address":"2 Lincoln Square","network":"both","website":"https://folkartmuseum.org/","hours":"Wed-Sun 11:30am-6pm; Mon-Tue closed","catClass":"art","transit":"1/2/3/B/C to 72-86 St","kind":"nyc","lat":40.7739,"lon":-73.9838},{"name":"Bard Graduate Center","region":"Manhattan","neighborhood":"Upper West Side","category":"Art","highlight":"Decorative arts, design history, and material culture, run as a teaching gallery.","address":"18 W 86th St","network":"narm","website":"https://www.bgc.bard.edu/","hours":"Wed 11am-8pm, Thu-Sun 11am-5pm; Mon-Tue closed (when exhibitions on view)","catClass":"art","transit":"1/2/3/B/C to 72-86 St","kind":"nyc","lat":40.785542,"lon":-73.9705888},{"name":"Center for Jewish History","region":"Manhattan","neighborhood":"Chelsea","category":"Culture & Heritage","highlight":"Umbrella archive for five partner organizations researching Jewish history.","address":"15 W 16th St","network":"narm","website":"https://www.cjh.org/","hours":"Mon-Wed 9:30am-4:30pm, Thu 9:30am-8pm, Fri 10am-2pm, Sun 11am-5pm; Sat closed","catClass":"culture","transit":"C/E/1 to 23 St · L to 8 Av","kind":"nyc","lat":40.7380632,"lon":-73.9938027},{"name":"Cooper Hewitt, Smithsonian Design Museum","region":"Manhattan","neighborhood":"Museum Mile","category":"Design","highlight":"Design museum inside the old Carnegie mansion.","address":"2 E 91st St","network":"narm","website":"https://www.cooperhewitt.org/","hours":"Daily 10am-6pm","catClass":"design","transit":"4/5/6 to 86 St or 96 St","kind":"nyc","lat":40.7842843,"lon":-73.957699},{"name":"El Museo del Barrio","region":"Manhattan","neighborhood":"Museum Mile","category":"Culture & Heritage","highlight":"Latino and Caribbean art at the top of Museum Mile.","address":"1230 Fifth Ave","network":"narm","website":"https://elmuseo.org/","hours":"Thu-Sun 11am-5pm","catClass":"culture","transit":"4/5/6 to 86 St or 96 St","kind":"nyc","lat":40.7942,"lon":-73.9524},{"name":"Leslie-Lohman Museum of Art","region":"Manhattan","neighborhood":"SoHo","category":"Art","highlight":"The first LGBTQ+ art museum.","address":"26 Wooster St","network":"narm","website":"https://www.leslielohman.org/","hours":"Wed 12-5pm, Thu-Sun 12-6pm","catClass":"art","transit":"N/R/W to Prince St · 6 to Spring St","kind":"nyc","lat":40.7217683,"lon":-74.0030317},{"name":"Museum of American Illustration (Society of Illustrators)","region":"Manhattan","neighborhood":"Upper East Side","category":"Art","highlight":"Illustration art, from magazine covers to concept art.","address":"128 E 63rd St","network":"narm","website":"https://societyillustrators.org","hours":"Wed-Sat 11am-5pm; Sun-Tue closed","catClass":"art","transit":"4/5/6 to 68 St-86 St · Q to 72 St-96 St","kind":"nyc","lat":40.7647025,"lon":-73.9669118},{"name":"Museum of Arts and Design (MAD)","region":"Manhattan","neighborhood":"Upper West Side","category":"Art","highlight":"Craft and design at Columbus Circle.","address":"2 Columbus Circle","network":"narm","website":"https://madmuseum.org/","hours":"Tue-Wed & Fri-Sun 10am-6pm, Thu 12-8pm; Mon closed","catClass":"art","transit":"1/2/3/B/C to 72-86 St","kind":"nyc","lat":40.7673319,"lon":-73.9819361},{"name":"Museum of the City of New York","region":"Manhattan","neighborhood":"Museum Mile","category":"History","highlight":"The city's own biography, in objects.","address":"1220 Fifth Ave","network":"narm","website":"https://www.mcny.org","hours":"Daily 10am-6pm","catClass":"history","transit":"4/5/6 to 86 St or 96 St","kind":"nyc","lat":40.7936,"lon":-73.9524},{"name":"Poster House","region":"Manhattan","neighborhood":"Chelsea","category":"Design","highlight":"The first US museum dedicated to poster design.","address":"119 W 23rd St","network":"both","website":"https://posterhouse.org","hours":"Thu-Sun 10am-6pm (Fri to 9pm); Mon-Wed closed","catClass":"design","transit":"C/E/1 to 23 St · L to 8 Av","kind":"nyc","lat":40.7435881,"lon":-73.9933365},{"name":"Salmagundi Club","region":"Manhattan","neighborhood":"Greenwich Village","category":"Art","highlight":"Historic artists' club in a landmark Fifth Avenue brownstone, with public gallery shows.","address":"47 Fifth Ave","network":"narm","website":"https://salmagundi.org","hours":"Tue-Fri 1pm-6pm, Sat-Sun 1pm-5pm (public gallery hours)","catClass":"art","transit":"A/C/E/B/D/F/M to W 4 St-Wash Sq","kind":"nyc","lat":40.7346,"lon":-73.9946},{"name":"Sugar Hill Children's Museum of Art & Storytelling","region":"Manhattan","neighborhood":"Harlem","category":"Children's","highlight":"Free arts museum for young children in Sugar Hill.","address":"898 St Nicholas Ave","network":"roam","website":"https://www.sugarhillmuseum.org","hours":"Thu-Sun 10am-5pm; Mon-Wed closed","catClass":"children","transit":"2/3 to 125 St · A/B/C/D to 125 St","kind":"nyc","lat":40.8304543,"lon":-73.941171},{"name":"Asia Society Museum","region":"Manhattan","neighborhood":"Upper East Side","category":"Culture & Heritage","highlight":"Pan-Asian art and rotating exhibitions.","address":"725 Park Ave","network":"narm","website":"https://asiasociety.org/new-york","hours":"Wed-Sun 11am-5pm (Fri to 9pm Sep-Jun); Mon-Tue closed","catClass":"culture","transit":"4/5/6 to 68 St-86 St · Q to 72 St-96 St","kind":"nyc","lat":40.7698391,"lon":-73.9642913},{"name":"The Drawing Center","region":"Manhattan","neighborhood":"SoHo","category":"Art","highlight":"The only museum devoted entirely to drawings.","address":"35 Wooster St","network":"narm","website":"https://drawingcenter.org","hours":"Wed-Sun 12pm-6pm; Mon-Tue closed","catClass":"art","transit":"N/R/W to Prince St · 6 to Spring St","kind":"nyc","lat":40.7224437,"lon":-74.0028908},{"name":"The Frick Collection","region":"Manhattan","neighborhood":"Upper East Side","category":"Art","highlight":"Gilded Age mansion turned Old Masters collection.","address":"1 E 70th St","network":"both","website":"https://www.frick.org","hours":"Mon, Wed-Sun 10:30am-5:30pm; Tue closed","catClass":"art","transit":"4/5/6 to 68 St-86 St · Q to 72 St-96 St","kind":"nyc","lat":40.7712536,"lon":-73.9670961},{"name":"The One Club for Creativity","region":"Manhattan","neighborhood":"Chelsea","category":"Design","highlight":"Advertising and design industry club with occasional public exhibitions.","address":null,"network":"both","website":"https://www.oneclub.org","hours":"Mon-Fri 10am-6pm ET (special events/exhibition openings, no standing walk-in hours)","catClass":"design","transit":"C/E/1 to 23 St · L to 8 Av","kind":"nyc","lat":40.7464906,"lon":-74.0015283},{"name":"The Paley Center for Media","region":"Manhattan","neighborhood":"Midtown","category":"Media","highlight":"Archive of TV and radio you can watch on demand.","address":"25 W 52nd St","network":"narm","website":"https://www.paleycenter.org","hours":"Wed-Sun 12pm-6pm","catClass":"media","transit":"B/D/F/M to 42 St-Bryant Pk · 4/5/6/7/S to Grand Central-42 St","kind":"nyc","lat":40.7605811,"lon":-73.9775919},{"name":"The Studio Museum in Harlem","region":"Manhattan","neighborhood":"Harlem","category":"Art","highlight":"The hub for Black American and African diaspora artists.","address":"144 W 125th St","network":"narm","website":"https://www.studiomuseum.org","hours":"Sun, Wed, Thu 11am-6pm, Fri-Sat 11am-9pm; Mon-Tue closed","catClass":"art","transit":"2/3 to 125 St · A/B/C/D to 125 St","kind":"nyc","lat":40.8084179,"lon":-73.947616},{"name":"Bartow-Pell Mansion Museum","region":"The Bronx","neighborhood":"Pelham Bay","category":"History","highlight":"1840s Greek Revival mansion and formal gardens.","address":"895 Shore Rd N","network":"narm","website":"https://www.bartowpellmansionmuseum.org/","hours":"Wed, Sat, Sun 12-4pm; grounds daily 8:30am-dusk","catClass":"history","transit":"6 to Pelham Bay Park","kind":"nyc","lat":40.8719425,"lon":-73.8054998},{"name":"The Bronx Museum of the Arts","region":"The Bronx","neighborhood":"Concourse","category":"Art","highlight":"Contemporary art, free admission, on the Grand Concourse.","address":"1040 Grand Concourse","network":"narm","website":"https://bronxmuseum.org/","hours":"Wed-Sun 11am-6pm; Mon-Tue closed","catClass":"art","transit":"B/D to 161 St-Yankee Stadium · 4 to 161 St","kind":"nyc","lat":40.8310911,"lon":-73.9199471},{"name":"The Noguchi Museum","region":"Queens","neighborhood":"Long Island City","category":"Art","highlight":"Isamu Noguchi's own sculptures, in a building he designed.","address":"9-01 33rd Rd","network":"narm","website":"https://www.noguchi.org/","hours":"Wed-Sun 11am-6pm; Mon-Tue closed","catClass":"art","transit":"7 to Court Sq · E/M/G to Court Sq-23 St","kind":"nyc","lat":40.7669901,"lon":-73.9376072},{"name":"Noble Maritime Collection","region":"Staten Island","neighborhood":"West New Brighton","category":"Maritime & Military","highlight":"Sailor-artist John Noble's studio and maritime art.","address":"1000 Richmond Terrace","network":"narm","website":"https://noblemaritime.org/","hours":"Wed-Sun 12pm-5pm","catClass":"maritime","transit":"SIR to Jefferson Av (from St. George, via Staten Island Ferry)","kind":"nyc","lat":40.6418756,"lon":-74.1019417},{"name":"Garvies Point Museum and Preserve","region":"Nassau County, NY","neighborhood":"Glen Cove","category":"Science & Nature","highlight":"Long Island geology and Native American archaeology.","address":"50 Barry Dr, Glen Cove","network":"narm","website":"https://www.garviespointmuseum.com/","hours":"Tue-Sat 10am-4pm; Sun-Mon closed","catClass":"science","transit":"LIRR (Oyster Bay branch) to Glen Cove","kind":"suburb","lat":40.8596863,"lon":-73.6514474},{"name":"Holocaust Memorial and Tolerance Center of Nassau County","region":"Nassau County, NY","neighborhood":"Glen Cove","category":"Culture & Heritage","highlight":"Holocaust and tolerance education center.","address":"100 Crescent Beach Rd, Glen Cove","network":"narm","website":"https://www.hmtcli.org/","hours":"Mon-Fri 10am-4:30pm, Sat-Sun 12-4pm","catClass":"culture","transit":"LIRR (Oyster Bay branch) to Glen Cove","kind":"suburb","lat":40.8840898,"lon":-73.6415615},{"name":"Hofstra University Museum of Art","region":"Nassau County, NY","neighborhood":"Hempstead","category":"Art","highlight":"University collection of art, photography, and ethnographic objects.","address":"Hofstra University, Hempstead","network":"both","website":"https://www.hofstra.edu/museum/","hours":"Tue-Fri 11am-4pm, Sat-Sun 12-4pm","catClass":"art","transit":"LIRR (Hempstead branch) to Hempstead","kind":"suburb","lat":40.7169083,"lon":-73.6000225},{"name":"Nassau County Museum of Art","region":"Nassau County, NY","neighborhood":"Roslyn Harbor","category":"Art","highlight":"19th- and 20th-century European and American art on a former Frick estate.","address":"1 Museum Dr, Roslyn Harbor","network":"narm","website":"https://nassaumuseum.org/","hours":"Tue-Sun 11am-4:45pm","catClass":"art","transit":"LIRR (Port Washington branch) to Roslyn, then short cab/bus","kind":"suburb","lat":40.8096303,"lon":-73.6427417},{"name":"Katonah Museum of Art","region":"Westchester County, NY","neighborhood":"Katonah","category":"Art","highlight":"Non-collecting contemporary art museum with rotating exhibitions.","address":"134 Jay St, Katonah","network":"narm","website":"https://www.katonahmuseum.org/","hours":"Wed-Fri & Sun 12-5pm, Sat 10am-5pm; Mon-Tue closed","catClass":"art","transit":"Metro-North (Harlem line) to Katonah","kind":"suburb","lat":41.2627468,"lon":-73.6732798},{"name":"Hudson Valley MOCA","region":"Westchester County, NY","neighborhood":"Peekskill","category":"Art","highlight":"Contemporary art in a former factory building.","address":"1701 Main St, Peekskill","network":"narm","website":"https://www.hudsonvalleymoca.org/","hours":"Thu & Sat 11am-5pm; tours by appointment","catClass":"art","transit":"Metro-North (Hudson line) to Peekskill","kind":"suburb","lat":41.2932806,"lon":-73.906835},{"name":"Neuberger Museum of Art","region":"Westchester County, NY","neighborhood":"Purchase","category":"Art","highlight":"Contemporary art on the SUNY Purchase campus.","address":"735 Anderson Hill Rd, Purchase","network":"narm","website":"https://neuberger.org/","hours":"Wed-Sun 12pm-5pm, Mon-Tue closed; first Wed of month until 8pm","catClass":"art","transit":"Metro-North (Harlem line) to Purchase, or SUNY Purchase campus shuttle","kind":"suburb","lat":41.0476826,"lon":-73.7023563},{"name":"ArtsWestchester","region":"Westchester County, NY","neighborhood":"White Plains","category":"Art","highlight":"The county's arts council, with gallery space in the historic courthouse.","address":"31 Mamaroneck Ave, White Plains","network":"narm","website":"https://artswestchester.org/","hours":"Tue-Fri 12pm-5pm, Sat 12pm-6pm; Mon & Sun closed","catClass":"art","transit":"Metro-North (Harlem line) to White Plains","kind":"suburb","lat":41.0316249,"lon":-73.7659273},{"name":"Hudson River Museum","region":"Westchester County, NY","neighborhood":"Yonkers","category":"Science & Nature","highlight":"Art, natural history, and a planetarium overlooking the river.","address":"511 Warburton Ave, Yonkers","network":"narm","website":"https://www.hrm.org/","hours":"Wed-Fri 12pm-5pm, Sat-Sun 11am-5pm, first Fri of month 5-8pm","catClass":"science","transit":"Metro-North (Hudson line) to Yonkers","kind":"suburb","lat":40.9542326,"lon":-73.8966053},{"name":"The Hermitage","region":"Bergen County, NJ","neighborhood":"Ho-Ho-Kus","category":"History","highlight":"18th-century Gothic Revival home tied to Aaron Burr's wedding.","address":"335 N Franklin Tpke, Ho-Ho-Kus","network":"narm","website":"https://thehermitage.org/","hours":"Grounds Tue-Fri 10am-4pm, Sat-Sun 12pm-4pm; tours Fri-Sun 1:15/2:15/3:15pm","catClass":"history","transit":"NJ Transit (Bergen County line) to Ho-Ho-Kus","kind":"suburb","lat":41.0071284,"lon":-74.116627}];
+const COLORS = {"Art": "#1A4A4A", "History": "#C2603F", "Culture & Heritage": "#B8860B", "Science & Nature": "#7A8F6D", "Maritime & Military": "#3D4F5F", "Children's": "#9C4221", "Design": "#44403C", "Media": "#78716C"};
+const CAT_ORDER = ["Art", "History", "Culture & Heritage", "Science & Nature", "Maritime & Military", "Children's", "Design", "Media"];
+const REGION_ORDER = ["Manhattan","Brooklyn","Queens","The Bronx","Staten Island",
+  "Nassau County, NY","Westchester County, NY","Hudson County, NJ","Bergen County, NJ"];
+
+const map = L.map('map').setView([40.77, -73.85], 10);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  {attribution:'&copy; OpenStreetMap &copy; CARTO', maxZoom:19}).addTo(map);
+
+function pin(color) {
+  return L.divIcon({className:'', html:
+    `<div style="background:${color};width:20px;height:20px;border-radius:50% 50% 50% 0;
+      transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4);"></div>`,
+    iconSize:[20,20], iconAnchor:[10,20], popupAnchor:[0,-18]});
+}
+
+function dirLink(m) {
+  return `https://www.google.com/maps/dir/?api=1&destination=${m.lat},${m.lon}`;
+}
+
+const markers = {};
+MUSEUMS.forEach((m, i) => {
+  const color = COLORS[m.category] || '#78716C';
+  const website = m.website ? `<a href="${m.website}" target="_blank" rel="noopener">Website &#8599;</a>` : '';
+  const popupHtml = `<span class="popup-name">${m.name}</span>` +
+    `<span class="popup-cat" style="color:${color};">${m.category}</span>` +
+    `<span class="popup-line">${m.neighborhood}${m.address ? ' &middot; ' + m.address : ''}</span>` +
+    (m.hours ? `<span class="popup-hours">${m.hours}</span>` : '') +
+    `<div class="popup-links">${website}<a href="${dirLink(m)}" target="_blank" rel="noopener">Directions &#8599;</a></div>`;
+  const marker = L.marker([m.lat, m.lon], {icon: pin(color)}).addTo(map).bindPopup(popupHtml);
+  marker.bindTooltip(m.name);
+  markers[i] = marker;
+});
+
+// legend / filter buttons
+const legend = document.getElementById('legend');
+CAT_ORDER.forEach(cat => {
+  if (!MUSEUMS.some(m => m.category === cat)) return;
+  const btn = document.createElement('button');
+  btn.dataset.cat = cat;
+  btn.innerHTML = `<span class="sw" style="background:${COLORS[cat]};"></span>${cat}`;
+  legend.appendChild(btn);
+});
+
+function applyFilter(cat) {
+  MUSEUMS.forEach((m, i) => {
+    const show = (cat === 'all' || m.category === cat);
+    const mk = markers[i];
+    if (show) { if (!map.hasLayer(mk)) mk.addTo(map); }
+    else { if (map.hasLayer(mk)) map.removeLayer(mk); }
+  });
+  document.querySelectorAll('.mcard').forEach(c => {
+    c.classList.toggle('hidden', !(cat === 'all' || c.dataset.cat === cat));
+  });
+  document.querySelectorAll('.region-head').forEach(h => {
+    const region = h.dataset.region;
+    const anyVisible = MUSEUMS.some(m => m.region === region && (cat === 'all' || m.category === cat));
+    h.style.display = anyVisible ? 'block' : 'none';
+  });
+}
+
+legend.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  legend.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilter(btn.dataset.cat);
+});
+
+// build list grouped by region
+const list = document.getElementById('list');
+REGION_ORDER.forEach(region => {
+  const inRegion = MUSEUMS.map((m,i)=>({m,i})).filter(x => x.m.region === region);
+  if (!inRegion.length) return;
+  const head = document.createElement('div');
+  head.className = 'region-head';
+  head.dataset.region = region;
+  head.textContent = region + ' (' + inRegion.length + ')';
+  list.appendChild(head);
+  inRegion.forEach(({m, i}) => {
+    const card = document.createElement('div');
+    card.className = 'mcard';
+    card.dataset.cat = m.category;
+    const color = COLORS[m.category] || '#78716C';
+    card.innerHTML = `<div class="top"><span class="sw" style="background:${color};"></span><span class="mname">${m.name}</span></div>` +
+      `<div class="mloc">${m.neighborhood}</div>`;
+    card.addEventListener('click', () => {
+      map.setView([m.lat, m.lon], 15);
+      markers[i].openPopup();
+      if (window.innerWidth <= 900) document.getElementById('map').scrollIntoView({behavior:'smooth'});
+    });
+    list.appendChild(card);
+  });
+});
+</script>
+</body>
+</html>
