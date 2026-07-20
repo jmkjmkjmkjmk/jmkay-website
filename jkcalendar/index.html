@@ -56,7 +56,7 @@
 <body>
 <div class="wrap">
   <h1>Jonathan's travel</h1>
-  <div class="sub">Updated July 20 · flight numbers link to live tracking</div>
+  <div class="sub">Updated July 20 · past trips drop off automatically · flight numbers link to live tracking</div>
 
   <div class="months" id="months"></div>
   <div class="keys">
@@ -66,18 +66,8 @@
     <span><span class="dot" style="outline:1.5px solid var(--home);outline-offset:-1.5px"></span>Sep 4 — home</span>
   </div>
 
-  <!-- NYC -->
-  <div class="trip">
-    <div class="th"><h2><span class="accent" style="background:var(--personal)"></span>New York</h2><span class="dates">Fri Jul 17 – Mon Jul 20</span></div>
-    <div class="why">Personal.</div>
-    <table>
-      <tr><td class="ld">FRI 7/17</td><td class="fno"><a href="https://www.amtrak.com/track-your-train.html" target="_blank" rel="noopener">Acela 2158</a></td><td>DC Union Station <b>12:50 PM</b> → Moynihan <b>3:54 PM</b> <span class="tz">ET</span></td></tr>
-      <tr><td class="ld">MON 7/20</td><td class="fno"><a href="https://www.amtrak.com/track-your-train.html" target="_blank" rel="noopener">Acela 2113</a></td><td>Moynihan <b>10:00 AM</b> → DC Union Station <b>1:01 PM</b> <span class="tz">ET</span></td></tr>
-    </table>
-  </div>
-
   <!-- Pryor discovery -->
-  <div class="trip">
+  <div class="trip" data-end="2026-07-24">
     <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Pryor, Oklahoma</h2><span class="dates">Tue Jul 21 – Fri Jul 24</span></div>
     <div class="why">Work · via Tulsa.</div>
     <table>
@@ -85,13 +75,14 @@
       <tr><td class="ld">TUE 7/21</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA1594" target="_blank" rel="noopener">WN 1594</a></td><td>Chicago Midway <b>11:45 AM CT</b> → Tulsa <b>1:30 PM CT</b></td></tr>
       <tr><td class="ld">FRI 7/24</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA4051" target="_blank" rel="noopener">WN 4051</a></td><td>Tulsa <b>7:40 AM CT</b> → Nashville <b>9:20 AM CT</b> <span class="tz">(change planes)</span></td></tr>
       <tr><td class="ld">FRI 7/24</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA4562" target="_blank" rel="noopener">WN 4562</a></td><td>Nashville <b>11:15 AM CT</b> → DCA <b>2:00 PM ET</b></td></tr>
+      <tr><td class="ld">🏨 STAY</td><td class="fno" style="font-weight:650;white-space:normal">Fairfield Inn &amp; Suites Tulsa Catoosa</td><td>200 Elliott Lane, Catoosa OK · 3 nights · $124/night · conf 78DR2XOXBH <span class="tz">(918) 739-4790</span></td></tr>
     </table>
   </div>
 
-  <div class="homeband">home Jul 24–27</div>
+  <div class="homeband" data-end="2026-07-27">home Jul 24–27</div>
 
   <!-- CB discovery -->
-  <div class="trip">
+  <div class="trip" data-end="2026-07-31">
     <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Council Bluffs, Iowa</h2><span class="dates">Tue Jul 28 – Fri Jul 31</span></div>
     <div class="why">Work, with David · via Omaha.</div>
     <table>
@@ -99,13 +90,14 @@
       <tr><td class="ld">TUE 7/28</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA4318" target="_blank" rel="noopener">WN 4318</a></td><td>St. Louis <b>8:35 AM</b> → Omaha <b>9:50 AM</b> <span class="tz">CT</span></td></tr>
       <tr><td class="ld">FRI 7/31</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA4094" target="_blank" rel="noopener">WN 4094</a></td><td>Omaha <b>4:25 PM</b> → Chicago Midway <b>5:50 PM</b> <span class="tz">CT</span></td></tr>
       <tr><td class="ld">FRI 7/31</td><td class="fno"><a href="https://www.flightaware.com/live/flight/SWA2745" target="_blank" rel="noopener">WN 2745</a></td><td>Chicago Midway <b>7:00 PM CT</b> → BWI <b>9:55 PM ET</b></td></tr>
+      <tr><td class="ld">🏨 STAY</td><td class="fno" style="font-weight:650;white-space:normal">SpringHill Suites Council Bluffs</td><td>3216 Plaza View Dr, Council Bluffs IA · 3 nights · $129/night · conf 0JZG9W5TG2 <span class="tz">712-256-6500</span></td></tr>
     </table>
   </div>
 
-  <div class="homeband">home Aug 1–10</div>
+  <div class="homeband" data-end="2026-08-10">home Aug 1–10</div>
 
   <!-- Hamina -->
-  <div class="trip">
+  <div class="trip" data-end="2026-08-20">
     <div class="th"><h2><span class="accent" style="background:#7A6A94"></span>Finland</h2><span class="dates">Mon Aug 10 – Thu Aug 20</span></div>
     <div class="why">Work · via Helsinki, connecting in Reykjavík · Helsinki is 7 hours ahead.</div>
     <table>
@@ -113,13 +105,14 @@
       <tr><td class="ld">TUE 8/11</td><td class="fno"><a href="https://www.flightaware.com/live/flight/ICE342" target="_blank" rel="noopener">FI 342</a></td><td>Reykjavík <b>7:30 AM GMT</b> → Helsinki <b>2:00 PM EEST</b></td></tr>
       <tr><td class="ld">THU 8/20</td><td class="fno"><a href="https://www.flightaware.com/live/flight/ICE343" target="_blank" rel="noopener">FI 343</a></td><td>Helsinki <b>3:00 PM EEST</b> → Reykjavík <b>3:40 PM GMT</b></td></tr>
       <tr><td class="ld">THU 8/20</td><td class="fno"><a href="https://www.flightaware.com/live/flight/ICE643" target="_blank" rel="noopener">FI 643</a></td><td>Reykjavík <b>5:00 PM GMT</b> → BWI <b>7:25 PM ET</b></td></tr>
+      <tr><td class="ld">🏠 STAY</td><td class="fno" style="font-weight:650;white-space:normal">Airbnb — Entire Home</td><td>Metsärannantie 14, 49400 Hamina · check-in Aug 11 3:00 PM, out Aug 20 noon · conf HM9ZCC9P2B <span class="tz">Host Johanna +358 40 531 7747</span></td></tr>
     </table>
   </div>
 
-  <div class="homeband">home Aug 20 – Sep 8 · includes Sep 4</div>
+  <div class="homeband" data-end="2026-09-08">home Aug 20 – Sep 8 · includes Sep 4</div>
 
   <!-- Pryor production -->
-  <div class="trip">
+  <div class="trip" data-end="2026-09-14">
     <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Pryor, Oklahoma</h2><span class="dates">Tue Sep 8 – Mon Sep 14</span></div>
     <div class="why">Work · continues to Iowa Sep 14, no stop home.</div>
     <table>
@@ -129,7 +122,7 @@
   </div>
 
   <!-- CB production -->
-  <div class="trip">
+  <div class="trip" data-end="2026-09-20">
     <div class="th"><h2><span class="accent" style="background:var(--work)"></span>Council Bluffs, Iowa</h2><span class="dates">Mon Sep 14 – ~Sun Sep 20</span></div>
     <div class="why">Work, with David · return not booked yet.</div>
     <table>
@@ -140,7 +133,7 @@
   </div>
 
   <!-- Hamina 2 -->
-  <div class="trip tbd">
+  <div class="trip tbd" data-end="2026-09-26">
     <div class="th"><h2><span class="accent" style="background:#7A6A94"></span>Finland</h2><span class="dates">~Tue Sep 22 – Sat Sep 26</span></div>
     <div class="why">Work · dates set, flights not booked.</div>
   </div>
@@ -150,6 +143,7 @@
 
 <script>
 const AWAY={};
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
 function mark(f,t,c){const a=new Date(f+'T12:00:00'),b=new Date(t+'T12:00:00');for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){AWAY[d.toISOString().slice(0,10)]=c;}}
 mark('2026-07-17','2026-07-20','p');
 mark('2026-07-21','2026-07-24','w');
@@ -160,13 +154,14 @@ mark('2026-09-20','2026-09-20','t');
 mark('2026-09-22','2026-09-26','t');
 const MONTHS=[{y:2026,m:6,l:'July'},{y:2026,m:7,l:'August'},{y:2026,m:8,l:'September'}];
 const DOW=['S','M','T','W','T','F','S'];const mwrap=document.getElementById('months');
-MONTHS.forEach(({y,m,l})=>{const first=new Date(y,m,1),days=new Date(y,m+1,0).getDate();
+MONTHS.forEach(({y,m,l})=>{if(new Date(y,m+1,0)<TODAY)return;const first=new Date(y,m,1),days=new Date(y,m+1,0).getDate();
 let h='<div class="month"><h3>'+l+'</h3><div class="grid">';DOW.forEach(d=>h+='<div class="dow">'+d+'</div>');
 for(let i=0;i<first.getDay();i++)h+='<div class="d blank">·</div>';
 for(let d=1;d<=days;d++){const k=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
 let c='d'+(AWAY[k]?' '+AWAY[k]:'');if(k==='2026-09-04')c+=' bday';
 h+='<div class="'+c+'">'+d+'</div>';}
 h+='</div></div>';mwrap.innerHTML+=h;});
+document.querySelectorAll('.trip[data-end],.homeband[data-end]').forEach(el=>{if(new Date(el.dataset.end+'T00:00:00')<TODAY)el.style.display='none';});
 </script>
 </body>
 </html>
