@@ -2296,7 +2296,7 @@ function renderEvent(film) {
   const somePolling = film.showtimes.some(s => s.status === 'Polling');
   const isPoll = somePolling && !someConfirmed && !allPast;
   const pollBanner = isPoll
-    ? `<div class="poll-banner">📊 Picking a showtime — mark <strong>every</strong> screening you'd prefer. Jonathan will lock the most popular one.</div>`
+    ? `<div class="poll-banner">📊 Pick your preferred showtime.</div>`
     : '';
 
   return `
