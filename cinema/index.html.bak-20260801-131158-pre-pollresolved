@@ -289,34 +289,6 @@
   }
   .showtime.is-polling { background: rgba(26,74,74,0.025); }
 
-  /* Resolved poll: a showtime was chosen from several. */
-  .poll-resolved {
-    background: #EAF1EF;
-    border: 1px solid #C7DAD5;
-    border-left: 3px solid var(--teal);
-    color: #1A4A4A;
-    padding: 9px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    line-height: 1.45;
-    margin: 4px 0 12px;
-  }
-  .poll-resolved strong { font-weight: 600; }
-  .poll-resolved .dropped {
-    color: var(--ink-muted);
-    text-decoration: line-through;
-    text-decoration-thickness: 1px;
-  }
-  .status-tag.locked {
-    color: #1A4A4A;
-    background: #DCE9E6;
-    padding: 2px 8px;
-    border-radius: 999px;
-    letter-spacing: 0.08em;
-    font-size: 10px;
-    text-transform: uppercase;
-  }
-
   /* === Poll grid: day -> venue -> time chips === */
   .poll-grid { margin: 2px 0 6px; }
   .poll-day { margin-bottom: 14px; }
@@ -2131,30 +2103,6 @@ function getMonthLabel(isoStr) {
   return new Date(isoStr + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
 }
 
-// A Cancelled showtime is normally hidden. One exception: it lost a showtime
-// poll whose winner is Confirmed. Keeping it lets the card say what was chosen
-// and what was dropped, so a voter can see their vote landed.
-function pollLoserRows(events) {
-  const confirmedKeys = new Set(
-    events
-      .filter(e => e.status === 'Confirmed' && e.filmKey && String(e.filmKey).trim())
-      .map(e => String(e.filmKey).trim())
-  );
-  const keep = new Set();
-  events.forEach(e => {
-    if (e.status === 'Cancelled' && e.filmKey && confirmedKeys.has(String(e.filmKey).trim())) {
-      keep.add(e.row);
-    }
-  });
-  return keep;
-}
-
-// Drop Cancelled rows except poll losers (see above).
-function dropCancelled(events) {
-  const keep = pollLoserRows(events);
-  return events.filter(e => e.status !== 'Cancelled' || keep.has(e.row));
-}
-
 function groupEventsByFilm(events) {
   // Group events by FilmKey when present, else by title — each card represents
   // a film with 1+ showtimes. (FilmKey lets one film carry many showtimes
@@ -2331,38 +2279,24 @@ function renderEvent(film) {
   const slug = String(film.title).toLowerCase()
     .replace(/'/g, '').replace(/è/g, 'e')
     .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  // Split the group: live showtimes render as rows; dropped ones only appear
-  // inside the resolved-poll banner.
-  const live = film.showtimes.filter(s => s.status !== 'Cancelled');
-  const dropped = film.showtimes.filter(s => s.status === 'Cancelled');
-
-  const showtimeAnchors = live.map(st =>
+  const showtimeAnchors = film.showtimes.map(st =>
     `<span id="${slug}-${st.date}" class="showtime-anchor"></span>`
   ).join('');
 
   // Earliest showtime drives the data-date filter attribute (for "this week" filter)
-  const earliest = live[0];
+  const earliest = film.showtimes[0];
   const earliestDate = earliest ? earliest.date : '';
 
   // Status: if any Confirmed → Confirmed; if all Past → Past; else Tentative
-  const allConfirmed = live.every(s => s.status === 'Confirmed');
-  const someConfirmed = live.some(s => s.status === 'Confirmed');
-  const allPast = live.every(s => s.status === 'Past');
+  const allConfirmed = film.showtimes.every(s => s.status === 'Confirmed');
+  const someConfirmed = film.showtimes.some(s => s.status === 'Confirmed');
+  const allPast = film.showtimes.every(s => s.status === 'Past');
 
   // Poll mode: there are open Polling showtimes and nothing locked yet.
-  const somePolling = live.some(s => s.status === 'Polling');
+  const somePolling = film.showtimes.some(s => s.status === 'Polling');
   const isPoll = somePolling && !someConfirmed && !allPast;
   const pollBanner = isPoll
     ? `<div class="poll-banner">📊 Pick your preferred showtime.</div>`
-    : '';
-
-  // Poll resolved: a winner is locked and at least one sibling was dropped.
-  const winner = live.find(s => s.status === 'Confirmed');
-  const isResolved = dropped.length > 0 && !!winner;
-  const resolvedBanner = isResolved
-    ? `<div class="poll-resolved">✓ <strong>Showtime set: ${formatDate(winner.date)}, ${formatTime(winner.time)}</strong>` +
-      ` — picked from ${live.length + dropped.length} showtimes.` +
-      ` Not happening: ${dropped.map(d => `<span class="dropped">${formatTime(d.time)}</span>`).join(', ')}.</div>`
     : '';
 
   return `
@@ -2374,21 +2308,19 @@ function renderEvent(film) {
       <div class="event-body">
         <div class="event-meta-top">
           ${isPoll ? '<span class="status-tag polling">Poll open</span>' : ''}
-          ${isResolved ? '<span class="status-tag locked">Showtime set</span>' : ''}
-          ${someConfirmed && !isResolved ? '<span class="status-tag confirmed">Confirmed</span>' : ''}
+          ${someConfirmed ? '<span class="status-tag confirmed">Confirmed</span>' : ''}
           ${allPast ? '<span class="status-tag past">Past</span>' : ''}
         </div>
         <h2 class="event-title">${escapeHTML(film.title)}</h2>
         <div class="event-by">by ${escapeHTML(film.director || '')}${film.year ? ` (${film.year})` : ''}${film.length ? ` · ${escapeHTML(film.length)}` : ''}</div>
         <p class="event-desc">${escapeHTML(film.description || '')}</p>
         ${pollBanner}
-        ${resolvedBanner}
         <div class="event-showtimes">
-          ${isPoll ? renderPollGrid(film) : live.map(renderShowtime).join('')}
+          ${isPoll ? renderPollGrid(film) : film.showtimes.map(renderShowtime).join('')}
         </div>
         <div class="event-actions">
           ${film.letterboxd ? `<a href="${escapeHTML(film.letterboxd)}" target="_blank" class="action-link">Letterboxd ↗</a>` : ''}
-          <span class="showtime-count">${live.length} showtime${live.length === 1 ? '' : 's'}</span>
+          <span class="showtime-count">${film.showtimes.length} showtime${film.showtimes.length === 1 ? '' : 's'}</span>
         </div>
       </div>
     </article>
@@ -2669,7 +2601,8 @@ function setCache(key, data) {
 }
 
 function mergeWithBootstrap(events, bootstrap) {
-  return dropCancelled(events)
+  return events
+    .filter(e => e.status !== 'Cancelled')
     .map(e => {
       const match = bootstrap.find(b => b.title === e.title);
       return {
@@ -2700,10 +2633,10 @@ async function boot() {
   }
 
   // No cache — render bootstrap as instant fallback (upcoming only)
-  const initial = dropCancelled(bootstrap).filter(e => e.status !== 'Considering' && e.status !== 'Past');
+  const initial = bootstrap.filter(e => e.status !== 'Cancelled' && e.status !== 'Considering' && e.status !== 'Past');
   if (initial.length > 0) {
     renderCalendar(initial);
-    renderPipeline(dropCancelled(bootstrap));
+    renderPipeline(bootstrap.filter(e => e.status !== 'Cancelled'));
   }
   updateArchiveTabCount(bootstrap);
 
@@ -3004,7 +2937,7 @@ async function refetchAndRerender() {
     const all = live.events || [];
     setCache('state', all);
     window.__rsvpKnownEvents = all;
-    renderCalendar(dropCancelled(all).filter(e => e.status !== 'Past' && e.status !== 'Considering'));
+    renderCalendar(all.filter(e => e.status !== 'Past' && e.status !== 'Cancelled' && e.status !== 'Considering'));
     // If archive is currently visible, refresh it too
     if (archiveLoaded) {
       archiveLoaded = false;
