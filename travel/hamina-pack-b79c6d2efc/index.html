@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Hamina Packing — PRIVATE — Aug 10–20, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --warm-white:#FDFBF7;
+    --cream:#F5F0E8;
+    --ink:#1C1917;
+    --ink-light:#44403C;
+    --ink-muted:#78716C;
+    --terracotta:#C2603F;
+    --terracotta-light:#E8A88C;
+    --teal:#1A4A4A;
+    --sage:#7A8F6D;
+    --line:#E2DBD0;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--warm-white);
+    color:var(--ink);
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:16px;line-height:1.55;
+    padding-bottom:90px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- header ---------- */
+  header{background:var(--ink);color:var(--warm-white);padding:34px 0 30px;}
+  header .wrap{padding:0 20px;}
+  h1{
+    font-family:'Instrument Serif',Georgia,serif;
+    font-weight:400;font-size:2.6rem;line-height:1.05;
+    margin:0 0 6px;letter-spacing:-0.01em;
+  }
+  h1 .dot{
+    display:inline-block;width:11px;height:11px;background:var(--terracotta);
+    transform:rotate(45deg);border-radius:2px;margin:0 4px 0 2px;vertical-align:middle;
+  }
+  .sub{
+    font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--terracotta-light);margin:0 0 22px;
+  }
+  .conds{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.13);}
+  .cond{background:var(--ink);padding:12px 10px;}
+  .cond .n{font-family:'Instrument Serif',serif;font-size:1.45rem;line-height:1;display:block;margin-bottom:5px;}
+  .cond .l{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(253,251,247,.62);line-height:1.35;display:block;}
+
+  /* ---------- progress ---------- */
+  .prog-bar{position:sticky;top:0;z-index:20;background:var(--warm-white);border-bottom:1px solid var(--line);padding:11px 0;}
+  .prog-inner{display:flex;align-items:center;gap:12px;}
+  .track{flex:1;height:6px;background:var(--cream);border-radius:3px;overflow:hidden;}
+  .fill{height:100%;width:0%;background:var(--terracotta);transition:width .25s ease;}
+  .pct{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--ink-muted);white-space:nowrap;}
+  .reset{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);background:none;border:1px solid var(--line);border-radius:4px;padding:5px 9px;cursor:pointer;}
+  .reset:hover{color:var(--terracotta);border-color:var(--terracotta-light);}
+
+  /* ---------- sections ---------- */
+  section{margin:38px 0 0;}
+  h2{
+    font-family:'Instrument Serif',Georgia,serif;font-weight:400;
+    font-size:1.62rem;margin:0 0 4px;letter-spacing:-0.01em;
+  }
+  h2 .num{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--terracotta);letter-spacing:.14em;display:block;margin-bottom:7px;text-transform:uppercase;}
+  .lede{color:var(--ink-light);font-size:.94rem;margin:0 0 16px;max-width:62ch;}
+
+  /* ---------- items ---------- */
+  ul.items{list-style:none;margin:0;padding:0;border-top:1px solid var(--line);}
+  ul.items li{border-bottom:1px solid var(--line);}
+  label.item{display:flex;gap:12px;align-items:flex-start;padding:13px 4px;cursor:pointer;}
+  label.item input{
+    appearance:none;-webkit-appearance:none;flex:0 0 auto;
+    width:19px;height:19px;margin:2px 0 0;border:1.5px solid var(--ink-muted);
+    border-radius:4px;background:transparent;cursor:pointer;position:relative;transition:all .12s;
+  }
+  label.item input:checked{background:var(--terracotta);border-color:var(--terracotta);}
+  label.item input:checked::after{
+    content:'';position:absolute;left:5.5px;top:1.5px;width:5px;height:10px;
+    border:solid var(--warm-white);border-width:0 2px 2px 0;transform:rotate(43deg);
+  }
+  .txt{flex:1;min-width:0;}
+  .nm{font-weight:500;display:block;}
+  .qty{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--terracotta);letter-spacing:.06em;margin-left:7px;font-weight:700;}
+  .why{display:block;font-size:.855rem;color:var(--ink-muted);line-height:1.45;margin-top:2px;}
+  label.item input:checked ~ .txt .nm{color:var(--ink-muted);text-decoration:line-through;text-decoration-color:var(--terracotta-light);}
+  label.item input:checked ~ .txt .why{opacity:.5;}
+  .tag{display:inline-block;font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border-radius:3px;margin-left:6px;vertical-align:1px;}
+  .tag.wear{background:var(--teal);color:#fff;}
+  .tag.ppe{background:var(--terracotta);color:#fff;}
+  .tag.opt{background:var(--cream);color:var(--ink-muted);border:1px solid var(--line);}
+
+  /* ---------- callouts ---------- */
+  .card{background:var(--cream);border-left:3px solid var(--terracotta);padding:16px 18px;margin:16px 0;border-radius:0 5px 5px 0;}
+  .card.teal{border-left-color:var(--teal);}
+  .card h3{font-family:'DM Sans',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;margin:0 0 8px;color:var(--teal);}
+  .card p{margin:0 0 9px;font-size:.9rem;color:var(--ink-light);}
+  .card p:last-child{margin-bottom:0;}
+  .card ul{margin:0;padding-left:19px;font-size:.9rem;color:var(--ink-light);}
+  .card ul li{margin-bottom:5px;}
+
+  /* ---------- day plays ---------- */
+  .plays{display:grid;gap:12px;grid-template-columns:1fr 1fr;}
+  .play{border:1px solid var(--line);border-radius:6px;padding:15px 16px;background:#fff;}
+  .play h4{font-family:'Instrument Serif',serif;font-weight:400;font-size:1.14rem;margin:0 0 3px;}
+  .play .temp{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;color:var(--terracotta);display:block;margin-bottom:9px;}
+  .play ol{margin:0;padding-left:17px;font-size:.85rem;color:var(--ink-light);line-height:1.5;}
+  .play ol li{margin-bottom:4px;}
+
+  /* ---------- leave home ---------- */
+  .leave{border:1px dashed var(--line);border-radius:6px;padding:6px 18px;background:#fff;}
+  .leave li{padding:10px 0;border-bottom:1px solid var(--line);font-size:.9rem;color:var(--ink-light);list-style:none;}
+  .leave li:last-child{border-bottom:none;}
+  .leave li strong{color:var(--ink);font-weight:500;}
+  .leave ul{margin:0;padding:0;}
+
+  footer{margin:44px 0 0;padding:20px 0 10px;border-top:1px solid var(--line);font-family:'Space Mono',monospace;font-size:.63rem;letter-spacing:.06em;color:var(--ink-muted);text-transform:uppercase;}
+
+  @media(max-width:600px){
+    h1{font-size:2.05rem;}
+    .conds{grid-template-columns:1fr 1fr;}
+    .plays{grid-template-columns:1fr;}
+    .wrap{padding:0 16px;}
+    body{font-size:15.5px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>Hamina<span class="dot"></span>Packing</h1>
+    <p class="sub">Aug 10–20, 2026 &nbsp;·&nbsp; Carry-on + personal item &nbsp;·&nbsp; 9 nights, 8 working days</p>
+    <div class="conds">
+      <div class="cond"><span class="n">53–69°</span><span class="l">Daily swing<br>morning → afternoon</span></div>
+      <div class="cond"><span class="n">~24</span><span class="l">Rain days<br>in the month</span></div>
+      <div class="cond"><span class="n">16 hrs</span><span class="l">Daylight<br>sun down ~9:15pm</span></div>
+      <div class="cond"><span class="n">~10 mph</span><span class="l">Baltic wind<br>60° feels like 54°</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="prog-bar">
+  <div class="wrap prog-inner">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span class="pct" id="pct">0 / 0</span>
+    <button class="reset" id="reset">Reset</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="num">The problem</span>One day is two climates</h2>
+  <p class="lede">A 6:30am walk to the car is 53°F with wind off the Gulf. A 3pm interview outdoors is 69°F and humid. That's a 16-degree swing every single day, plus rain on most of them. You cannot solve this with one garment, and you can't carry two outfits a day in a carry-on.</p>
+  <div class="card">
+    <h3>So: three layers, and only the middle one changes</h3>
+    <p><strong>Base</strong> stays on all day — long sleeve, always. <strong>Mid</strong> is the dial: sweater in the morning, tied or stowed by noon. <strong>Shell</strong> is weather-only and lives in the bag.</p>
+    <p>This is why your long-sleeve collection is the right instinct. Long sleeves you can push up beat short sleeves you can't add to.</p>
+  </div>
+  <div class="card teal">
+    <h3>The heavy stuff stays home</h3>
+    <p>Nothing on this trip goes below 51°F. Heavy wool sweaters, insulated parkas, thermal-weight anything — all wrong, and all bulky. <strong>Medium is your entire workhorse tier. Light is your base tier. Heavy earns zero slots.</strong> That single cut is what makes carry-on possible.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">01</span>Wear on the plane</h2>
+  <p class="lede">Overnight BWI→KEF, then a 1h05 connection. Wear the four bulkiest things and the carry-on gets easy. Bonus: an overnight Icelandair cabin runs cold, so the mid layer earns its seat before you even land.</p>
+  <ul class="items" data-sec="plane">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Waterproof hooded jacket<span class="tag wear">worn</span></span><span class="why">Hip length, hood, a real shape to it. This is your most-used garment of the trip — wear it, don't pack it.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Merino crewneck sweater<span class="tag wear">worn</span></span><span class="why">Doubles as the plane blanket. Mid-weight, not chunky.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Long-sleeve base — the good one<span class="tag wear">worn</span></span><span class="why">You land at 2pm and drive straight to Hamina. Wear the one you'd be fine being seen in.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Dark trouser #1<span class="tag wear">worn</span></span><span class="why">Wool-blend or tech. Not the jeans — you want to sleep in these.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Waterproof shoes<span class="tag wear">worn</span></span><span class="why">Heaviest pair always goes on your feet. See Shoes below.</span></span></label></li>
+  </ul>
+  <div class="card">
+    <h3>On the checked bag you're not taking</h3>
+    <p>Your Icelandair fare includes checked bags — but the KEF connection outbound is <strong>1 hour 5 minutes</strong>. If a bag misses that, you land in Helsinki with nothing and a 2.5-hour drive east to a town where you won't be replacing it. Carry-on is the right call. Treat the free allowance as a fallback, not a plan.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>Tops — 7</h2>
+  <p class="lede">Five long-sleeve, two short. The short sleeves are mostly mid-layer fodder for the one or two warm afternoons, not standalone outfits.</p>
+  <ul class="items" data-sec="tops">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Fine-knit long-sleeve crew — dark<span class="qty">×1</span></span><span class="why">Merino if you have it. Charcoal or navy. Your default day.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Fine-knit long-sleeve crew — warm tone<span class="qty">×1</span></span><span class="why">Olive, oatmeal, rust. The one that keeps you from reading all-grey in Nordic light.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Button-down — brushed cotton or oxford<span class="qty">×1</span></span><span class="why">Your interview shirt. Works alone, works under the sweater with the collar out.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Button-down #2 — chambray or quiet check<span class="qty">×1</span></span><span class="why">Second interview day without repeating. Also the best thing to wear open over a tee.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Technical long-sleeve, quick-dry<span class="qty">×1</span><span class="tag ppe">site day</span></span><span class="why">Site visit and long-walk days. Dries overnight if you get caught out.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Short-sleeve tee — dark<span class="qty">×1</span></span><span class="why">Under the overshirt on a warm afternoon. Sleeps in a pinch.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Short-sleeve — the presentable one<span class="qty">×1</span></span><span class="why">A knit polo or a heavier tee. For the single 69° afternoon when nothing else is right.</span></span></label></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">03</span>Mid layers — 3</h2>
+  <p class="lede">This tier is where the trip is won. Three pieces at three different weights means you can meet any morning between 51° and 69° without carrying a fourth.</p>
+  <ul class="items" data-sec="mid">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Merino crewneck sweater, mid-weight<span class="qty">×1</span><span class="tag wear">worn</span></span><span class="why">The anchor. Over a button-down it's a meeting. Over a tee it's a walk.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Wool overshirt or chore coat<span class="qty">×1</span></span><span class="why">The style lever, and the single best-value item on this list. Mid layer, light outerwear, and the thing that makes a plain outfit look deliberate at dinner. Pick this over two more shirts.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Packable vest — thin down or fleece<span class="qty">×1</span></span><span class="why">Crushes to nothing, adds about 10°F, fits under the shell without bulk. Your cold-morning insurance.</span></span></label></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">04</span>Bottoms — 3</h2>
+  <p class="lede">All dark. Rain, gravel, site visits, and a car you'll be in and out of constantly — pale bottoms will look wrecked by day three and you can't wash them daily.</p>
+  <ul class="items" data-sec="bottoms">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Trouser #1 — wool-blend or tech<span class="qty">×1</span><span class="tag wear">worn</span></span><span class="why">Travel day and meeting days. Resists wrinkles, sheds a light drizzle.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Trouser #2 — dark twill or chino<span class="qty">×1</span><span class="tag ppe">site day</span></span><span class="why">Full-length required for the data center. Tough enough for field days.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Dark jeans<span class="qty">×1</span></span><span class="why">Evenings, the rest day, the flight home. Nothing pale or distressed.</span></span></label></li>
+  </ul>
+  <div class="card">
+    <h3>No shorts</h3>
+    <p>69°F with Baltic wind and rain is not shorts weather, and a data center site won't allow them regardless. They'd be dead weight in a carry-on.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>Socks &amp; underlayer</h2>
+  <p class="lede">Sized for one wash on night 5, with a day of slack. This is the tier that actually determines how long you can stay out — cold wet feet end a field day faster than anything else on this list.</p>
+  <ul class="items" data-sec="under">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Underwear — merino or synthetic<span class="qty">×6</span></span><span class="why">Not cotton. These need to dry overnight on a rack. Six covers 5 days plus a buffer day.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Merino socks<span class="qty">×4</span></span><span class="why">Non-negotiable. Wool stays warm wet; cotton doesn't. These carry the 53° mornings and the wet ground.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Everyday socks<span class="qty">×2</span></span><span class="why">Indoor days and the flight.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Thin merino base-layer top<span class="qty">×1</span></span><span class="why">Sleeps in a cool Finnish house, and rescues the one genuinely cold morning. Weighs nothing.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Sleep set<span class="qty">×1</span></span><span class="why">You're in a private house with a host contact — pack something you'd answer the door in.</span></span></label></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">06</span>Shoes — 2 pairs, and that's the limit</h2>
+  <p class="lede">The highest-leverage decision on the whole list. Two pairs, one worn, both able to handle wet ground. A third pair costs you roughly three shirts of packing volume.</p>
+  <ul class="items" data-sec="shoes">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Waterproof leather sneaker or low boot<span class="qty">×1</span><span class="tag wear">worn</span></span><span class="why">Your workhorse for 8 of 10 days. Must be genuinely waterproof, cushioned enough for hours of walking, and clean enough to walk into a meeting. If you own one pair that does all three, this trip is easy.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Clean minimal leather sneaker<span class="qty">×1</span></span><span class="why">Dinners, indoor days, and the pair you switch into when the first is drying.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Confirm site-visit footwear rule<span class="tag ppe">action</span></span><span class="why">Some Google DC sites require actual safety-toe, not just closed-toe — and some provide it on arrival. Ask before you go. This is the one item you cannot solve in Hamina.</span></span></label></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="num">07</span>Accessories</h2>
+  <p class="lede">Small tier, disproportionate payoff. The scarf is the best warmth-per-gram item you own and the sunglasses are not optional at this latitude.</p>
+  <ul class="items" data-sec="acc">
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Light merino scarf<span class="qty">×1</span></span><span class="why">Turns a 55° morning into a 62° one. Weighs nothing. Leave it off on the site-visit day — no loose ends near equipment.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Brimmed cap<span class="qty">×1</span></span><span class="why">Rain and 16 hours of sun. A brim beats a hood for keeping drizzle off your face while you're actually talking to someone.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Sunglasses<span class="qty">×1</span></span><span class="why">Nordic sun sits low for hours. Driving east into a 9pm sunset on the way back from a shoot is genuinely blinding.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Packable tote or small daypack<span class="qty">×1</span></span><span class="why">For the mid layer you shed at noon. Also your grocery bag — Finnish shops charge for them.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Swim shorts<span class="qty">×1</span><span class="tag opt">likely</span></span><span class="why">A rented Finnish house very often has a sauna, and you'll probably be offered one. Takes no space.</span></span></label></li>
+    <li><label class="item"><input type="checkbox"><span class="txt"><span class="nm">Travel wash — small bottle or sheets</span><span class="why">The wash plan below depends on this. Don't assume the house has detergent.</span></span></label></li>
+  </ul>
+  <div class="card">
+    <h3>Skip the umbrella</h3>
+    <p>Coastal wind at 10 mph destroys them and you'll be holding gear. Your hood is the plan.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">08</span>The wash</h2>
+  <p class="lede">You're in an entire house for 9 nights, not a hotel room. Finnish homes almost always have a real washing machine and a drying rack — often a drying cabinet too. This is a much bigger lever than the underwear-in-the-sink plan.</p>
+  <div class="card teal">
+    <h3>Wash on night 5 — around Aug 15–16</h3>
+    <ul>
+      <li><strong>Days 1–5</strong> run on fresh everything. Six pairs of underwear and six of socks cover it with a day of slack.</li>
+      <li><strong>Night 5</strong> — full machine wash: all underwear, all socks, the tees, the technical long-sleeve. Hang overnight.</li>
+      <li><strong>Days 6–10</strong> run on the clean set. Merino sweaters and trousers never get washed — air them by an open window instead.</li>
+      <li><strong>Confirm with Johanna</strong> that the machine is available to guests when you check in. If it isn't, you're still fine on the six-and-six, you just wash underwear in the sink on nights 5 and 8.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span>Day plays</h2>
+  <p class="lede">Four situations you'll actually hit. Built from the list above, so nothing here needs anything extra.</p>
+  <div class="plays">
+    <div class="play">
+      <h4>Interview day</h4>
+      <span class="temp">55° morning → 67° afternoon</span>
+      <ol>
+        <li>Button-down + merino sweater</li>
+        <li>Trouser #1, waterproof shoes</li>
+        <li>Shell in the tote, not on your body</li>
+        <li>Sweater comes off by 1pm — collar out, still reads put-together</li>
+      </ol>
+    </div>
+    <div class="play">
+      <h4>Data center site visit</h4>
+      <span class="temp">PPE goes over everything</span>
+      <ol>
+        <li>Technical long-sleeve + trouser #2</li>
+        <li><strong>No vest, no scarf</strong> — hi-vis won't sit right over bulk, and nothing should dangle</li>
+        <li>Closed-toe, full-length, sleeves down</li>
+        <li>Halls swing hot and cold — the base layer alone is correct</li>
+      </ol>
+    </div>
+    <div class="play">
+      <h4>Long walking day</h4>
+      <span class="temp">Hamina town, waterfront, on foot</span>
+      <ol>
+        <li>Long-sleeve base + vest under the shell</li>
+        <li>Merino socks, waterproof shoes</li>
+        <li>Cap for the drizzle, sunglasses for the 8pm sun</li>
+        <li>Shed the vest into the tote by midday</li>
+      </ol>
+    </div>
+    <div class="play">
+      <h4>Dinner with the team</h4>
+      <span class="temp">Working-smart, no formal peak</span>
+      <ol>
+        <li>Button-down + the overshirt</li>
+        <li>Dark jeans, clean leather sneakers</li>
+        <li>The overshirt is doing all the work here</li>
+        <li>Scarf if you're walking back after 9</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">10</span>Leave home</h2>
+  <p class="lede">The cuts that make the carry-on work. Every one of these is something the conditions actively argue against.</p>
+  <div class="leave">
+    <ul>
+      <li><strong>Anything heavy.</strong> Nothing drops below 51°F. A heavy sweater is three light layers of volume for one layer of use.</li>
+      <li><strong>The third pair of shoes.</strong> Costs about three shirts of space and you will not reach for it.</li>
+      <li><strong>Shorts.</strong> Wrong for the weather, banned on site.</li>
+      <li><strong>Pale or light-colored bottoms.</strong> Rain, gravel, and a rental car for ten days.</li>
+      <li><strong>The umbrella.</strong> The wind wins.</li>
+      <li><strong>A suit or blazer that needs care.</strong> No formal peak on this schedule — the overshirt covers the ceiling.</li>
+      <li><strong>Cotton socks and cotton underwear.</strong> They won't dry overnight, which breaks the wash plan.</li>
+      <li><strong>Backup electronics you have a duplicate of.</strong> The carry-on is volume-limited before it's weight-limited.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Hamina · Aug 10–20 2026 &nbsp;·&nbsp; Progress saves on this device
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY = 'hamina-packing-2026-08';
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('label.item input[type=checkbox]'));
+
+  // stable id per checkbox = section + index
+  boxes.forEach(function(b,i){
+    var sec = b.closest('ul') ? b.closest('ul').getAttribute('data-sec') : 'x';
+    b.dataset.key = sec + '-' + i;
+  });
+
+  function load(){
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ saved = {}; }
+    boxes.forEach(function(b){ b.checked = !!saved[b.dataset.key]; });
+  }
+  function save(){
+    var out = {};
+    boxes.forEach(function(b){ if(b.checked) out[b.dataset.key] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(out)); } catch(e){}
+  }
+  function render(){
+    var done = boxes.filter(function(b){ return b.checked; }).length;
+    var total = boxes.length;
+    document.getElementById('fill').style.width = total ? (done/total*100) + '%' : '0%';
+    document.getElementById('pct').textContent = done + ' / ' + total;
+  }
+
+  boxes.forEach(function(b){
+    b.addEventListener('change', function(){ save(); render(); });
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    if(!confirm('Clear every check?')) return;
+    boxes.forEach(function(b){ b.checked = false; });
+    save(); render();
+  });
+
+  load(); render();
+})();
+</script>
+</body>
+</html>
