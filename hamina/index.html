@@ -1035,6 +1035,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
     </div>
 
     <div class="essay">
+      <h3>A printable version</h3>
+      <p>There is a two-page field card at <a href="/hamina/card/" target="_blank" rel="noopener"><b>jmkay.com/hamina/card</b></a> — an August packing list on one side, and eating, sauna, practical and the fortress walk on the other. It is built to print at A4, double-sided, and to live in a sheet protector so it can be marked up with a marker and wiped clean.</p>
+    </div>
+
+    <div class="essay">
       <h3>Sources</h3>
       <p>Place data was assembled from operators' own sites, Visit Hamina and Visit Kotka-Hamina, the City of Helsinki's history portal, the Jewish Communities of Helsinki and Turku, Metsähallitus for the national parks, and OpenStreetMap for coordinates. Live rail data comes from <b>Digitraffic</b>, the open API of the Finnish Transport Infrastructure Agency, licensed CC BY 4.0. Map tiles are OpenStreetMap.</p>
       <p>Hours change. This guide records what was published at the time of research and flags what wasn't. It is not affiliated with any business, museum or authority listed.</p>
@@ -1051,12 +1056,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
 /* ─────────────────────────── DATA ─────────────────────────── */
 const CITY_VIEW={hamina:{c:[60.5150,27.2400],z:9},helsinki:{c:[60.1690,24.9400],z:13}};
 const COLORS={cafe:'#C2603F',food:'#1A4A4A',drinks:'#7A8F6D',market:'#8C5A3C',museum:'#44403C',
-  historic:'#78716C',history:'#6B4F3A',jewish:'#2F5D7C',queer:'#8E4585',odd:'#A0522D',
+  historic:'#78716C',history:'#6B4F3A',jewish:'#2F5D7C',queer:'#8E4585',sauna:'#B5651D',odd:'#A0522D',
   outdoor:'#5F7A52',shop:'#B8860B',practical:'#57534E'};
 const LABELS={cafe:'Coffee & bakeries',food:'Eating',drinks:'Drinks',market:'Food halls',
   museum:'Museums',historic:'Landmarks',history:'War & conflict history',jewish:'Jewish heritage',
-  queer:'Queer spaces',odd:'Odd spaces',outdoor:'Outdoors',shop:'Shops & clothes',practical:'Practical'};
-const ORDER=['cafe','food','drinks','market','museum','historic','history','jewish','queer','odd','outdoor','shop','practical'];
+  queer:'Queer spaces',sauna:'Saunas',odd:'Odd spaces',outdoor:'Outdoors',shop:'Shops & clothes',practical:'Practical'};
+const ORDER=['cafe','food','drinks','market','sauna','museum','historic','history','jewish','queer','odd','outdoor','shop','practical'];
 
 const PLACES=[
 /* ═════ HAMINA — COFFEE ═════ */
@@ -1259,10 +1264,101 @@ const PLACES=[
 {c:'hamina',cat:'odd',name:"S/S Hyöky",lat:60.56145,lng:27.18109,
  desc:"A museum vessel at the Tervasaari quay, tagged as both museum and cafe — a ship you can drink coffee on rather than tour.",
  addr:"Tullimakasiininranta, Tervasaari",area:"Hamina",web:"",hours:"Unverified",conf:"LOW",warn:"Turn up and look. No operator page found."},
-{c:'hamina',cat:'odd',name:"Rampsinkarin sauna",lat:60.55963,lng:27.18327,
- desc:"A sauna building attached to Rampsi on Tervasaari — two saunas, sea views, and the nearest year-round cold-water swimming spot to the town centre.",
+{c:'hamina',cat:'sauna',name:"Rampsinkarin sauna",lat:60.55963,lng:27.18327,
+ desc:"Two saunas attached to Rampsi on Tervasaari, with a sea-view cabinet, separate changing rooms and showers, covered terraces, and the Baltic a few steps down.",
  addr:"Tullimakasiininranta 21",area:"Hamina",web:"http://www.rampsi.fi/saunat.php",
- hours:"Rental sauna only in summer",conf:"MED",warn:"In August this is a booking, not a walk-in. The swim spot itself is free."},
+ hours:"Private hire only — from €55/hour, two-hour minimum",
+ warn:"The public ice-swimming shifts ended. There is now no drop-in sauna in Hamina itself. Book on +358 440 420 204."},
+
+{c:'hamina',cat:'sauna',name:"Camping Pitkät Hiekat — shore saunas",lat:60.52641,lng:27.25203,
+ desc:"Two hire saunas on pine-heath ground about twenty metres from the Gulf of Finland. The small one takes four or five and has a sea-view terrace; the large one has a lounge with a fireplace, a kitchen corner and two showers. Both electric, despite what the site's own metadata says.",
+ addr:"Pitkähiekat 32, about 6km from the centre",area:"Hamina",web:"https://www.campingpitkathiekat.fi/rantasaunat",
+ hours:"Bookable online daily through late October · small 10:00–21:00, large 13:00–21:00",
+ warn:"Non-campers can book — it's a public hourly product. Small €25/h, large €35/h. Towel set €7 a head. Same-day slots on +358 40 151 3446."},
+
+{c:'hamina',cat:'sauna',name:"Tykkimäen Sauna",lat:60.89116,lng:26.76095,
+ desc:"A 40m² public steam room seating about fifty on three tiers of pine, fired by a continuously heated gas stove holding over 2,500kg of olivine and ceramic — one of very few gas-stove public saunas in Finland, and the löyly is wet and heavy. Two sauna rafts on the lake as well, one wood-fired and one electric, and you swim in Käyrälampi year-round.",
+ addr:"Kuumakuja 10, Kouvola",area:"Kouvola",web:"https://tykkimaensauna.fi/",
+ hours:"Every day of the year · Mon–Thu 15–21, Fri 06–10 and 12–22, Sat–Sun 12–22",
+ warn:"The one genuine walk-in in the region — no booking, no time limit. About €17 including the swim. Swimsuit mandatory, mixed sauna. Towels not provided. ~55 min from Hamina."},
+
+{c:'hamina',cat:'sauna',name:"Sauna ja avanto ry",lat:60.52854,lng:26.55626,
+ desc:"Six saunas around a small private lake — a three-tier wood-fired main room, a raft sauna you can jump off the roof of, a trailer sauna, a tiny electric treehouse sauna entered through a floor hatch, and a mobile smoke sauna. The ice holes are kept open right through summer with ice made in two chest freezers, which is the entire point of the place. You feed the fires yourself.",
+ addr:"Jonakorventie 214, Pyhtää",area:"Pyhtää",web:"https://saunaavanto.yhdistysavain.fi/",
+ hours:"Year-round · public shift Saturdays 14:00–20:00, stay as long as you like",conf:"LOW",
+ warn:"€15 visitor. Book a slot ahead on +358 400 464 646. Swimwear required, towels not provided. THE PIN IS APPROXIMATE — no coordinate is published and the figure circulating online is 2.5km wrong. Navigate by the street address; the operator warns map apps put it on the wrong side of the road."},
+
+{c:'hamina',cat:'sauna',name:"Meriniemen sauna, Sapokka",lat:60.45859,lng:26.95117,
+ desc:"Two electric saunas in a low municipal building by the city architect, sitting in the middle of the Sapokka small-boat harbour beside the water-garden waterfall. You swim straight off the harbour. Changing rooms are segregated but the sauna rooms are mixed and swimsuit-on. Shifts run 90 minutes for sixteen to eighteen bathers.",
+ addr:"Meriniementie 1, Kotka",area:"Kotka",web:"https://marinacafelaituri.fi/kylmavesiuinti/",
+ hours:"Heated daily year-round — but in summer it is primarily for guest-harbour customers",conf:"MED",
+ warn:"€8.50 when they take non-boaters, which they do at peak season and not at the shoulders. August is genuinely borderline — the phone call to +358 44 239 9915 is mandatory, not optional."},
+
+{c:'hamina',cat:'sauna',name:"Luolasavusauna, Santalahti",lat:60.43804,lng:26.86170,
+ desc:"A genuine smoke sauna built underground in an arched rock cave, heated with local alder, the fire lit seven hours before the löyly so the stones and the room can settle. Twenty on the benches, joined to a 38° hot pool and an 8° cold pool with a fireplace room inside the cave and terraces looking out to open sea. The pools are drained and refilled with fresh water after every use.",
+ addr:"Santalahdentie 150, Mussalo, Kotka",area:"Kotka",web:"https://santalahti.fi/en/traditional-finnish-saunas/cave-sauna-spa/",
+ hours:"Year-round, Monday to Saturday · advance booking required for the heat-up",
+ warn:"Expensive and bookable without staying: €890 for four hours plus €25 a head. The glass sauna is the cheaper option at €450. Towels, sauna hats and bench towels included. +358 5 260 5055."},
+
+{c:'hamina',cat:'sauna',name:"Rankin joukkuesauna",lat:60.37737,lng:26.95848,
+ desc:"A large electric sauna at the sea's edge in the harbour of a former coastal-artillery island closed to civilians for a century. Five showers, a changing room big enough to eat in, a long terrace, and the beach ten metres away — rocky, so swim shoes help. A separate barrel sauna sits inland by the old barracks.",
+ addr:"Rankki island, Kotka archipelago",area:"Kotka",web:"https://kotkansaaret.fi/palvelut_rankki/",
+ hours:"Boat runs early June to end of August · advance booking",conf:"MED",
+ warn:"€13 a head including a towel, or €10 with your own — the cheapest island sauna in the region. Book on +358 44 715 0150. Verify the boat before promising yourself the sauna; the operator's route page has been showing a stale timetable."},
+
+{c:'hamina',cat:'sauna',name:"Savusauna, Koskisen tila",lat:60.70430,lng:27.18540,
+ desc:"A smoke sauna on a family farm on the north shore of Kannusjärvi, the district's biggest lake, about fifteen metres from the water. Eight bathers at a time, a covered grill shelter beside it, and a movable hot tub rentable separately. Visit Hamina lists it as the town's only savusauna.",
+ addr:"Yläpääntie 321, Kannusjärvi",area:"Hamina",web:"https://www.koskisentila.fi/vuokramokit/",
+ hours:"Heated by arrangement, roughly May to September",conf:"LOW",
+ warn:"You can book a sauna evening without renting a cottage — their words. Price is deliberately unpublished; phone Risto Koskinen on +358 400 803 775. THE PIN IS THE ROAD, not the farm — no mapped point exists. Call before driving."},
+
+{c:'hamina',cat:'sauna',name:"Kaunissaaren Majan rantasauna",lat:60.34591,lng:26.77372,
+ desc:"A shore sauna in the yard of the Maja inn, in a real old fishing village on a car-free outer island. Electric stove, showers, benches for four to six, and an outdoor whirlpool with a straight sea view included — about twenty people can be around the terrace, some in the tub while others bathe.",
+ addr:"Pienenkyläntie 2, Kaunissaari",area:"Pyhtää",web:"https://kaunissaari.fi/kaunissaaren-maja-hotelli/#sauna",
+ hours:"Daily 90-minute slots from 11:00 · private hire, book up to two weeks ahead",
+ warn:"From €70 for two. Getting there is the constraint — free state ferry from Kotka's Kuusinen harbour, about 1h20–1h30, no service Tuesdays, booking mandatory."},
+
+{c:'hamina',cat:'sauna',name:"Haapasaaren kansakoulun sauna",lat:60.28966,lng:27.19843,
+ desc:"A wood-fired sauna in the yard of the 1890 village schoolhouse on a tiny outer island with no mains water — the summer supply is piped only as far as the sauna corner. Ten people maximum. You swim in the sheltered natural harbour the village is built around.",
+ addr:"Haapasaari, Kotka",area:"Kotka",web:"https://www.haapasaari.net/koulu",
+ hours:"Advance order, not walk-in — you pay for a heating",conf:"MED",
+ warn:"€50 a session including firewood. Free ferry from Kuusinen, about two hours. The key and payment point is the island shop, whose summer hours end mid-August — ring +358 40 536 1427 first. Bring your own towel."},
+
+{c:'hamina',cat:'sauna',name:"Uimala Katariina",lat:60.45663,lng:26.93891,
+ desc:"Kotka's central swimming hall, with a 50-metre outdoor pool alongside that is the summer draw. Finnish swimming halls almost always have changing-room saunas on the ticket, but Kotka publishes nothing about this one.",
+ addr:"Puistotie 9–11, Kotka",area:"Kotka",web:"https://www.kotka.fi/vapaa-aika/liikunta/uimahallit/kotkan-uimala-katariina/",
+ hours:"Open all August · Mon–Tue and Thu–Fri 6:30–21, Wed 12–20, Sat–Sun 11–18",conf:"MED",
+ warn:"€5, walk-in. The one municipal pool in the region open through August. Ring +358 40 688 3802 to confirm the sauna before making a trip of it."},
+
+{c:'hamina',cat:'sauna',name:"Kantolan sauna, Sunila",lat:60.49353,lng:26.95795,
+ desc:"An Alvar Aalto log shore sauna from 1937, its terrace built out over the sea, looking across at the Sunila pulp mill that became a UNESCO World Heritage Site in July 2026. Electric, pre-heated, three showers, fireplace room. Architecturally the strongest sauna in the region.",
+ addr:"Kantokatu 5, Kotka",area:"Kotka",web:"https://sunilakantola.fi/",
+ hours:"Year-round · €150 for four hours minimum, book three working days ahead",conf:"MED",
+ warn:"They explicitly do not recommend swimming here — there is no marked spot. The pin is the main house; the 1937 sauna is a separate building at the water's edge. +358 44 244 7702."},
+
+{c:'hamina',cat:'sauna',name:"Virtakiven Sauna",lat:60.94312,lng:26.59700,
+ desc:"A three-storey, 800m² stone house built in 1925 by Armas Lindgren and Bertel Liljeqvist as the Voikkaa paper mill's workers' sauna, laundry and bakehouse, on the bank of the Kymijoki. The sauna is still in its original place — the bosses' sauna, now open to anyone who books it. Café, container bar in the yard, coffee roastery on site.",
+ addr:"Brejlinintie 8, Voikkaa, Kouvola",area:"Kouvola",web:"https://virtakivensauna.fi/",
+ hours:"Hire only — no public session. Around €220 for an evening",conf:"LOW",
+ warn:"Their website has been throwing a server error, so confirm before driving the 53km. Towels, seat covers and washing products are provided, which is rare. You can swim in the Kymijoki in summer. Text +358 50 433 9327."},
+
+{c:'hamina',cat:'sauna',name:"Sauna Obscura",lat:60.45250,lng:26.23400,
+ desc:"A wood-fired floating sauna that is simultaneously a working camera obscura — a pinhole projects the live Loviisa Bay landscape onto the interior walls, the steam, and the bathers' skin. An artwork by Heidi Lunabba, moored since 2017. You row yourself out in a boat left waiting on the shore with the firewood; swimming out puts you inside the projected image.",
+ addr:"Laivasilta 8, Loviisa",area:"Loviisa",web:"https://www.loviisa.fi/ihanaloviisa/kohdekortit/sauna-obscura/",
+ hours:"Summer only, from Midsummer · self-service, small groups, contact in advance",conf:"LOW",
+ warn:"The pin is the quay you depart from, not the sauna, which floats. 2026 dates and price aren't published. Needs some mobility and balance. +358 50 349 3029."},
+
+{c:'hamina',cat:'sauna',name:"Saunaseura Kipakka",lat:60.47353,lng:26.92726,shut:true,
+ desc:"The region's one genuine public sauna in the old sense — a korttelisauna on the ground floor of an ordinary apartment block, run on volunteer labour since 2000, and on a national list of Finland's most distinctive saunas for the spirit preserved in it. You change your temperature by changing where you sit. There is no water attached: no ice hole, no swimming.",
+ addr:"Saarenkatu 4, Hovinsaari, Kotka",area:"Kotka",web:"https://saunaseurakipakka.fi/",
+ hours:"Closed every summer. Heats Fridays from early October to late April",
+ warn:"Shut in August — listed because it is the real article and anyone here in autumn should know. €7 cash, no booking, anyone can drop in. Segregated shifts: women 16:30–18:00, men 18:00–21:00."},
+
+{c:'hamina',cat:'sauna',name:"Linnoituksen uimahalli",lat:60.56775,lng:27.19094,shut:true,
+ desc:"Hamina's town swimming hall, two minutes from the market square. Two saunas in each of the men's and women's washrooms on the swim ticket, an 8° cold pool and a 30° bubble pool indoors, plus an outdoor pool area with its own shared mixed sauna.",
+ addr:"Puistokatu 1",area:"Hamina",web:"https://www.hamina.fi/hyvinvointi-vapaa-aika/liikkuva-hamina/liikuntapaikat-ja-tilat/linnoituksen-uimahalli/",
+ hours:"CLOSED 3–23 August 2026 for maintenance · reopens 24 August",
+ warn:"€6 adult when open. Note the same maintenance window closes SpaHotel Hamina's pool section and gym. Cashier +358 40 199 1232."},
 {c:'hamina',cat:'odd',name:"Ulko-Tammio",lat:60.34746,lng:27.45735,
  desc:"The main excursion island of the Eastern Gulf of Finland National Park and the only one with a pier — marked trails, a bird tower, two restored cannons in their original positions, and a cave dug as a wartime crew shelter. Marketed as a deliberately phone-free island.",
  addr:"Outer archipelago",area:"Hamina",web:"https://www.visitkotkahamina.fi/en/places/ulko-tammio/",
@@ -1785,7 +1881,8 @@ function render(fit){
       list.appendChild(card);
 
       if(layer){
-        const mk=L.circleMarker([p.lat,p.lng],{radius:8,color:'#fff',weight:2,
+        if(!map){return;}
+      const mk=L.circleMarker([p.lat,p.lng],{radius:8,color:'#fff',weight:2,
           fillColor:p.shut?'#c9c1b5':COLORS[p.cat],fillOpacity:p.shut?.6:.95}).addTo(layer);
         mk._pn=p.name;
         mk.bindTooltip(p.name,{direction:'top'});
@@ -1800,14 +1897,14 @@ function render(fit){
     });
   });
   if(!shown.length) list.innerHTML='<p class="desc">Nothing matches. Try clearing the search or the filter.</p>';
-  if(fit) fitTo(shown);
+  if(fit && map) fitTo(shown);
 }
 
 document.getElementById('cities').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;
   document.querySelectorAll('#cities button').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); city=b.dataset.city;
-  if(map) map.setView(CITY_VIEW[city].c,CITY_VIEW[city].z); render(true);
+  if(map) if(map) map.setView(CITY_VIEW[city].c,CITY_VIEW[city].z); render(true);
 });
 document.getElementById('filters').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b) return;

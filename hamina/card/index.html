@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hamina Field Card — print</title>
+<style>
+  :root{
+    --ink:#111; --mid:#444; --grey:#777; --line:#bbb; --hair:#ddd; --accent:#000;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;color:var(--ink);
+    background:#e8e6e2;font-size:9pt;line-height:1.28;}
+
+  .screenbar{background:#1C1917;color:#FDFBF7;padding:14px 20px;font-size:13px;}
+  .screenbar b{color:#E8A88C;}
+  .screenbar button{background:#C2603F;color:#fff;border:none;border-radius:5px;
+    padding:7px 15px;font-size:13px;font-weight:700;cursor:pointer;margin-left:12px;}
+
+  .page{width:210mm;min-height:297mm;background:#fff;margin:14px auto;padding:11mm 11mm 9mm;
+    box-shadow:0 2px 14px rgba(0,0,0,.16);position:relative;}
+
+  h1{font-size:15pt;letter-spacing:-.2px;margin-bottom:1mm;}
+  h1 span{font-weight:400;color:var(--grey);font-size:10pt;}
+  .strap{font-size:8pt;color:var(--grey);border-bottom:1.5pt solid var(--ink);padding-bottom:2mm;margin-bottom:3mm;}
+
+  h2{font-size:8.5pt;text-transform:uppercase;letter-spacing:1.1px;
+    border-bottom:.8pt solid var(--ink);padding-bottom:1mm;margin:3.5mm 0 1.8mm;}
+  h2 .n{color:var(--grey);font-weight:400;text-transform:none;letter-spacing:0;float:right;}
+
+  .cols{column-count:2;column-gap:7mm;column-rule:.5pt solid var(--hair);}
+  .cols3{column-count:3;column-gap:5mm;}
+  .blk{break-inside:avoid;margin-bottom:2.5mm;}
+
+  /* checkbox rows */
+  ul{list-style:none;}
+  li{padding:.7mm 0;break-inside:avoid;display:flex;gap:1.8mm;align-items:flex-start;}
+  .bx{flex:0 0 auto;width:3.2mm;height:3.2mm;border:.7pt solid var(--mid);border-radius:.5mm;margin-top:.5mm;}
+  .qt{font-weight:700;margin-left:1mm;}
+  .sub{color:var(--grey);font-size:7.5pt;}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;}
+  td,th{padding:1mm 1.5mm 1mm 0;vertical-align:top;border-bottom:.4pt solid var(--hair);font-size:8pt;}
+  th{text-align:left;font-size:7pt;text-transform:uppercase;letter-spacing:.7px;color:var(--grey);border-bottom:.7pt solid var(--mid);}
+  .nm{font-weight:700;}
+  .dt{color:var(--mid);font-size:7.5pt;}
+  .ph{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  .alert{border:1pt solid var(--ink);padding:2mm 2.5mm;margin-bottom:2.5mm;break-inside:avoid;}
+  .alert b{display:block;font-size:8pt;text-transform:uppercase;letter-spacing:.8px;margin-bottom:1mm;}
+  .alert p{font-size:8pt;}
+  .alert.hard{background:var(--ink);color:#fff;}
+  .alert.hard b{color:#fff;}
+
+  .note{font-size:7.5pt;color:var(--mid);margin-top:1.2mm;}
+  .rule{border:0;border-top:.5pt solid var(--hair);margin:2mm 0;}
+
+  /* annotation zone */
+  .scribble{border:.8pt dashed var(--line);height:26mm;margin-top:2mm;position:relative;}
+  .scribble span{position:absolute;top:1.2mm;left:2mm;font-size:7pt;color:var(--grey);
+    text-transform:uppercase;letter-spacing:.8px;}
+  .foot{position:absolute;bottom:5mm;left:11mm;right:11mm;font-size:7pt;color:var(--grey);
+    border-top:.5pt solid var(--hair);padding-top:1.5mm;display:flex;justify-content:space-between;}
+
+  @media print{
+    @page{size:A4;margin:0;}
+    body{background:#fff;font-size:8.6pt;}
+    .screenbar{display:none;}
+    .page{margin:0;box-shadow:none;width:auto;min-height:auto;height:297mm;
+      page-break-after:always;padding:10mm 10mm 8mm;}
+    .page:last-child{page-break-after:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="screenbar">
+  <b>Two pages, A4, double-sided.</b> Print at 100% scale with margins set to None or Minimum, then slip into a sheet protector — page 1 is the packing tick-list, page 2 is the field reference. Dry-erase or wet-erase marker both wipe off the sleeve.
+  <button onclick="window.print()">Print</button>
+</div>
+
+<!-- ═══════════════ PAGE 1 — PACKING ═══════════════ -->
+<div class="page">
+  <h1>Hamina packing <span>· Aug 10–20 · carry-on + personal item · 9 nights</span></h1>
+  <div class="strap">53–69&deg;F daily swing &nbsp;·&nbsp; rain most days &nbsp;·&nbsp; ~10 mph Baltic wind &nbsp;·&nbsp; 16 hrs daylight, sun down ~21:15 &nbsp;·&nbsp; one wash ~day 4</div>
+
+  <div class="alert">
+    <b>The system</b>
+    <p>Base layer stays on all day, long sleeve always. Mid layer is the dial — sweater at 07:00, stowed by noon. Shell is weather-only and lives in the bag. <strong>Nothing drops below 51&deg;F, so heavy gets no slots</strong> — that single cut is what makes carry-on work.</p>
+  </div>
+
+  <div class="cols">
+
+    <div class="blk">
+      <h2>Wear on the plane <span class="n">5</span></h2>
+      <ul>
+        <li><span class="bx"></span><span>Waterproof hooded jacket <span class="sub">— most-used item of the trip</span></span></li>
+        <li><span class="bx"></span><span>Merino crewneck <span class="sub">— doubles as the plane blanket</span></span></li>
+        <li><span class="bx"></span><span>Long-sleeve base, the good one</span></li>
+        <li><span class="bx"></span><span>Trouser #1 <span class="sub">— wool-blend or tech, not the jeans</span></span></li>
+        <li><span class="bx"></span><span>Waterproof shoes <span class="sub">— heaviest pair on your feet</span></span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>Tops <span class="n">7</span></h2>
+      <ul>
+        <li><span class="bx"></span><span>Fine-knit long-sleeve, dark<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Fine-knit long-sleeve, warm tone<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Button-down, brushed cotton / oxford<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Button-down #2, chambray or check<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Technical long-sleeve, quick-dry<span class="qt">×1</span> <span class="sub">worksite</span></span></li>
+        <li><span class="bx"></span><span>Short-sleeve tee, dark<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Short-sleeve, the presentable one<span class="qt">×1</span></span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>Mid layers <span class="n">3</span></h2>
+      <ul>
+        <li><span class="bx"></span><span>Merino sweater, mid-weight<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Wool overshirt / chore coat<span class="qt">×1</span> <span class="sub">— the style lever; mid layer, outerwear and dinner jacket in one</span></span></li>
+        <li><span class="bx"></span><span>Packable vest, thin down or fleece<span class="qt">×1</span> <span class="sub">— adds ~10&deg;F, packs to nothing</span></span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>Bottoms <span class="n">3</span> · all dark</h2>
+      <ul>
+        <li><span class="bx"></span><span>Trouser #1, wool-blend or tech<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Trouser #2, dark twill<span class="qt">×1</span> <span class="sub">worksite: full length required</span></span></li>
+        <li><span class="bx"></span><span>Dark jeans<span class="qt">×1</span></span></li>
+      </ul>
+      <p class="note">No shorts — wrong for the weather, and banned on most worksites.</p>
+    </div>
+
+    <div class="blk">
+      <h2>Socks &amp; underlayer</h2>
+      <ul>
+        <li><span class="bx"></span><span>Underwear, merino or synthetic<span class="qt">×7</span></span></li>
+        <li><span class="bx"></span><span>Merino socks<span class="qt">×5</span> <span class="sub">— non-negotiable</span></span></li>
+        <li><span class="bx"></span><span>Everyday socks<span class="qt">×2</span></span></li>
+        <li><span class="bx"></span><span>Thin merino base-layer top<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Sleep set<span class="qt">×1</span></span></li>
+      </ul>
+      <p class="note">No cotton — it won't dry overnight and that breaks the wash plan.</p>
+    </div>
+
+    <div class="blk">
+      <h2>Shoes <span class="n">2 pairs, hard limit</span></h2>
+      <ul>
+        <li><span class="bx"></span><span>Waterproof leather sneaker or low boot <span class="sub">— worn; 8 of 10 days</span></span></li>
+        <li><span class="bx"></span><span>Clean minimal leather sneaker</span></li>
+        <li><span class="bx"></span><span><strong>Confirm any worksite footwear rule</strong> <span class="sub">— some sites require safety-toe, some issue it. The one thing you can't solve locally.</span></span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>Swim &amp; sauna</h2>
+      <ul>
+        <li><span class="bx"></span><span>Swim shorts, quick-dry<span class="qt">×2</span></span></li>
+        <li><span class="bx"></span><span>Pool slides / flip-flops<span class="qt">×1</span></span></li>
+        <li><span class="bx"></span><span>Quick-dry towel<span class="qt">×1</span> <span class="sub">— most regional saunas are BYO</span></span></li>
+        <li><span class="bx"></span><span>Wet bag / dry sack<span class="qt">×1</span></span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>Accessories</h2>
+      <ul>
+        <li><span class="bx"></span><span>Light merino scarf <span class="sub">— best warmth per gram; leave it off on any worksite</span></span></li>
+        <li><span class="bx"></span><span>Brimmed cap</span></li>
+        <li><span class="bx"></span><span>Sunglasses <span class="sub">— low Nordic sun until 21:00</span></span></li>
+        <li><span class="bx"></span><span>Packable tote or small daypack</span></li>
+        <li><span class="bx"></span><span>Travel wash, small</span></li>
+        <li><span class="bx"></span><span>Adapter, chargers, battery</span></li>
+      </ul>
+      <p class="note">Skip the umbrella — coastal wind wins. The hood is the plan.</p>
+    </div>
+
+    <div class="blk">
+      <h2>Leave home</h2>
+      <ul>
+        <li><span class="bx"></span><span>Anything heavy · the third pair of shoes · shorts · pale bottoms · umbrella · a suit that needs care · cotton socks and underwear · board shorts with a cotton liner · duplicate electronics</span></li>
+      </ul>
+    </div>
+
+    <div class="blk">
+      <h2>The wash · one load, ~day 4</h2>
+      <p class="note" style="font-size:8pt;color:var(--ink)">Hotel laundry in a town this size runs <strong>next-day</strong> — a morning drop-off returns the following evening, an evening drop-off costs two days. Ask for the cut-off on arrival. With one wash mid-trip the back half is the longer stretch, which is why it's seven pairs not six. Sweaters and trousers never go in — air them overnight.</p>
+      <p class="note"><strong>Backup:</strong> 24 Pesula at Prisma Kotka — the only self-service laundry in the region. Daily 07–22, ~35 min from Hamina, card payment, no booking.</p>
+    </div>
+
+  </div>
+
+  <div class="scribble"><span>Notes</span></div>
+
+  <div class="foot"><span>Page 1 of 2 — packing</span><span>Hamina · August 2026</span></div>
+</div>
+
+<!-- ═══════════════ PAGE 2 — FIELD CARD ═══════════════ -->
+<div class="page">
+  <h1>Hamina field card <span>· eating, sauna, practical, the fortress walk</span></h1>
+  <div class="strap">Street parking free everywhere in Hamina &nbsp;·&nbsp; Sundays close the town — plan them around Kotka &nbsp;·&nbsp; small places announce closures on Facebook only, so phone ahead</div>
+
+  <div class="alert hard">
+    <b>Closed during your stay</b>
+    <p><strong>SpaHotel pool + gym, and Hamina swimming hall: shut 3–23 Aug.</strong> Hamina town museums on winter hours from 9 Aug; Vehkalahti village museum shut. Kotka's Vellamo + Maretarium go winter hours 16 Aug, Vellamo's ships close and it shuts Mondays. Museum tug Merikarhu finished 5 Aug. Marian kirkko + Orthodox church interiors closed. Kotka church: renovation. Rampsi: private hire only now, no drop-in sauna in Hamina at all.</p>
+  </div>
+
+  <div class="cols">
+
+    <div class="blk">
+      <h2>Eat &amp; drink — Hamina</h2>
+      <table>
+        <tr><td class="nm">Konditoria Huovila</td><td class="dt">Mon–Fri 08–17, Sat 08:30–14</td></tr>
+        <tr><td class="nm">Söpösiili</td><td class="dt">daily to 19:30 — the Sunday option</td></tr>
+        <tr><td class="nm">Lounashuone Kerho</td><td class="dt">buffet Mon–Fri 10:30–14:30, €14</td></tr>
+        <tr><td class="nm">Restaurant mon ami</td><td class="dt">Wed–Sun · <strong>shut Mon–Tue</strong> · 050 436 5743</td></tr>
+        <tr><td class="nm">Rampsi</td><td class="dt">Mon–Sat 11:30, shut Sun · no bookings &lt;10</td></tr>
+        <tr><td class="nm">Café Kamu!</td><td class="dt">Mon–Fri, closes 14:30</td></tr>
+        <tr><td class="nm">Aitolahti</td><td class="dt">Mon–Fri 08–16 · lihapiirakka</td></tr>
+        <tr><td class="nm">Disas Fish</td><td class="dt">Mon–Sat 10–18, Sun 11–17 · shop only</td></tr>
+      </table>
+    </div>
+
+    <div class="blk">
+      <h2>Eat &amp; drink — Kotka</h2>
+      <table>
+        <tr><td class="nm">Keisarinsatama</td><td class="dt">daily, incl. Sun · 041 731 4763</td></tr>
+        <tr><td class="nm">Marina Cafe Laituri</td><td class="dt">Sapokka marina · open Sun</td></tr>
+        <tr><td class="nm">Kotkan Torikahvila</td><td class="dt">mornings · the posso</td></tr>
+        <tr><td class="nm">Kuusisen Kalamaja</td><td class="dt">Tue–Sat, soup 11–15</td></tr>
+      </table>
+    </div>
+
+    <div class="blk">
+      <h2>Sauna that works in August</h2>
+      <table>
+        <tr><td class="nm">Camping Pitkät Hiekat</td><td class="dt">6 km · sea · €25–35/h · <span class="ph">040 151 3446</span></td></tr>
+        <tr><td class="nm">Tykkimäen Sauna</td><td class="dt">Kouvola ~55 min · daily, walk-in, ~€17</td></tr>
+        <tr><td class="nm">Sauna ja avanto</td><td class="dt">Pyhtää · Sat 14–20 · €15 · <span class="ph">0400 464 646</span></td></tr>
+        <tr><td class="nm">Uimala Katariina</td><td class="dt">Kotka · open all Aug · €5 · <span class="ph">040 688 3802</span></td></tr>
+        <tr><td class="nm">Rankki island</td><td class="dt">€13 incl. towel · <span class="ph">044 715 0150</span></td></tr>
+        <tr><td class="nm">Santalahti cave smoke</td><td class="dt">Mon–Sat, book ahead · from €890/4h</td></tr>
+      </table>
+      <p class="note">Most are bring-your-own towel. Shower with soap first — enforced.</p>
+    </div>
+
+    <div class="blk">
+      <h2>Practical</h2>
+      <table>
+        <tr><td class="nm">S-market</td><td class="dt">Isoympyräkatu 15 · Mon–Sat 07–21, Sun 09–21</td></tr>
+        <tr><td class="nm">Alko</td><td class="dt">same block · Mon–Fri 09–21, Sat to 18 · <strong>shut Sun</strong></td></tr>
+        <tr><td class="nm">Pharmacy</td><td class="dt">Satamakatu 9 · Mon–Fri 08:30–20, Sat to 15</td></tr>
+        <tr><td class="nm">Kotka pharmacy</td><td class="dt">Kirkkokatu 10 · Sat–Sun 10–18 — the weekend fallback</td></tr>
+        <tr><td class="nm">Laundry</td><td class="dt">24 Pesula, Prisma Kotka · daily 07–22 · ~35 min</td></tr>
+        <tr><td class="nm">Fuel</td><td class="dt">ABC Satamakatu 2 · pumps 24/7</td></tr>
+      </table>
+      <p class="note">Nearest rail is Kotka (~25 km) — Hamina has no passenger service. Change at Kouvola for Helsinki.</p>
+    </div>
+
+    <div class="blk">
+      <h2>The Fortress Trail · 4 km</h2>
+      <p class="note" style="color:var(--ink);font-size:8pt">Starts at the Flag Tower, runs the ramparts, ends at Town Hall Square. Walk it either direction, leave it anywhere. Seven boards with QR codes along the way:</p>
+      <table>
+        <tr><td class="ph">1</td><td>Flag Tower — the bulwarks</td></tr>
+        <tr><td class="ph">2</td><td>Hämeenlinna Bastion — gunpowder</td></tr>
+        <tr><td class="ph">3</td><td>Rauhankatu — wildlife in the embankments</td></tr>
+        <tr><td class="ph">4</td><td>Central Bastion — the 58 vaults</td></tr>
+        <tr><td class="ph">5</td><td>Vyborg gate — military town</td></tr>
+        <tr><td class="ph">6</td><td>Reserve Officer School Park</td></tr>
+        <tr><td class="ph">7</td><td>Town Hall Square</td></tr>
+      </table>
+      <p class="note">Pikkuympyräkatu is a full 1 km circle. Museum Street runs ~15 heritage sites in one street.</p>
+    </div>
+
+    <div class="blk">
+      <h2>Worth the drive</h2>
+      <table>
+        <tr><td class="nm">Pyterlahti quarry</td><td class="dt">Virolahti · free · cut the St Isaac's columns</td></tr>
+        <tr><td class="nm">Salpalinja-museo</td><td class="dt">Miehikkälä 40 km · <strong>go before 16 Aug</strong></td></tr>
+        <tr><td class="nm">Langinkoski lodge</td><td class="dt">Kotka · daily 11–18 to 30 Aug · €10</td></tr>
+        <tr><td class="nm">Jewish cemetery</td><td class="dt">Pampyöli, 2.8 km E, by the Orthodox cemetery — unsigned</td></tr>
+        <tr><td class="nm">Sunila</td><td class="dt">Aalto mill estate · exteriors only</td></tr>
+        <tr><td class="nm">Repovesi NP</td><td class="dt">1h15 · suspension bridge</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="scribble" style="height:22mm"><span>Notes</span></div>
+
+  <div class="foot"><span>Page 2 of 2 — field card &nbsp;·&nbsp; full guide at <a href="/hamina/" style="color:inherit">jmkay.com/hamina</a></span><span>Hours change; phone ahead for anything you'd drive to</span></div>
+</div>
+
+</body>
+</html>
