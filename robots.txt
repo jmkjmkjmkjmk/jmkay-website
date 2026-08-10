@@ -12,6 +12,10 @@ Disallow: /minneapolis/
 Disallow: /scripts/
 Disallow: /CLAUDE.md
 Disallow: /DEPLOY-INSTRUCTIONS.md
+Disallow: /juno.html
+
+# NOTE: every Disallow rule must sit ABOVE this blank line, inside the
+# User-agent group. Anything appended below the Sitemap line is ignored
+# by crawlers. If a script appends here, fix the script.
 
 Sitemap: https://jmkay.com/sitemap.xml
-Disallow: /juno.html
