@@ -14,3 +14,4 @@ Disallow: /CLAUDE.md
 Disallow: /DEPLOY-INSTRUCTIONS.md
 
 Sitemap: https://jmkay.com/sitemap.xml
+Disallow: /juno.html

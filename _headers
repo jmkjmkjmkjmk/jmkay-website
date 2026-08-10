@@ -27,3 +27,6 @@
 
 /hamina/*
   X-Robots-Tag: noindex, nofollow
+
+/juno.html
+  X-Robots-Tag: noindex, nofollow
