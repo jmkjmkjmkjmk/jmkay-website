@@ -8,3 +8,4 @@ Disallow: /jkcalendar/
 Disallow: /travel/
 
 Sitemap: https://jmkay.com/sitemap.xml
+Disallow: /hamina/
