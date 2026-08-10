@@ -56,7 +56,13 @@
   </url>
   <url>
     <loc>https://jmkay.com/museums/</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-08-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://jmkay.com/museums/nyc/</loc>
+    <lastmod>2026-08-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

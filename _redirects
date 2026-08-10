@@ -3,3 +3,8 @@
 /CLAUDE.md              /404.html   404
 /DEPLOY-INSTRUCTIONS.md /404.html   404
 /scripts/*              /404.html   404
+
+# Deactivated pages. Files stay in the repo; delete the line to bring one back.
+/minneapolis            /404.html   404
+/minneapolis/           /404.html   404
+/minneapolis/*          /404.html   404
