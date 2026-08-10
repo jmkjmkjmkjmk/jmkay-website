@@ -6,7 +6,6 @@ Disallow: /share/
 Disallow: /x/
 Disallow: /jkcalendar/
 Disallow: /travel/
-Disallow: /hamina/
 Disallow: /cinema/
 Disallow: /minneapolis/
 Disallow: /scripts/
