@@ -6,6 +6,10 @@ Disallow: /share/
 Disallow: /x/
 Disallow: /jkcalendar/
 Disallow: /travel/
+Disallow: /hamina/
+Disallow: /cinema/
+Disallow: /scripts/
+Disallow: /CLAUDE.md
+Disallow: /DEPLOY-INSTRUCTIONS.md
 
 Sitemap: https://jmkay.com/sitemap.xml
-Disallow: /hamina/

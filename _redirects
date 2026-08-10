@@ -1,0 +1,5 @@
+# Internal repo files. Tracked in git for history, but never served publicly.
+# Netlify deploys the whole repo, so without these rules they are fetchable by URL.
+/CLAUDE.md              /404.html   404
+/DEPLOY-INSTRUCTIONS.md /404.html   404
+/scripts/*              /404.html   404

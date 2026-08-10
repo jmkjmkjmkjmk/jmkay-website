@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# Working backups and temp files — never deploy these
+*.bak
+*.bak-*
+*.tmp
+*.tmp[0-9]*
+*.before-*
