@@ -38,6 +38,7 @@ def _first_existing(*candidates):
 
 V2_DIR = _first_existing(
     os.path.expanduser("~/Desktop/CLAUDIUS/CASA FORTUNA/08_DRAFTS/v2"),
+    "/sessions/*/mnt/CLAUDIUS/CASA FORTUNA/08_DRAFTS/v2",
     "/sessions/*/mnt/CASA FORTUNA/08_DRAFTS/v2",
 )
 SITE_DIR = _first_existing(
