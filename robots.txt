@@ -8,6 +8,7 @@ Disallow: /jkcalendar/
 Disallow: /travel/
 Disallow: /cinema/
 Disallow: /minneapolis/
+Disallow: /hamina-press/
 Disallow: /scripts/
 Disallow: /CLAUDE.md
 Disallow: /DEPLOY-INSTRUCTIONS.md

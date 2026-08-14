@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kymen Sanomat online archive — Hamina inventory</title>
+<style>
+:root{--blue:#1A73E8;--ink:#202124;--mid:#5F6368;--line:#DADCE0;--grey50:#F8F9FA;}
+*{box-sizing:border-box}
+#gate{position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;padding:24px}
+#gate .box{max-width:340px;width:100%;text-align:left}
+#gate .eyebrow{font-family:'Roboto Mono',monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px}
+#gate h1{font-size:24px;line-height:1.18;margin:0 0 8px;font-weight:500}
+#gate p{font-size:13.5px;line-height:1.6;color:var(--mid);margin:0 0 18px}
+#gate input{width:100%;box-sizing:border-box;font-family:'Roboto Mono',monospace;font-size:15px;padding:11px 13px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+#gate input:focus{outline:none;border-color:var(--blue)}
+#gate button{margin-top:10px;width:100%;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:11px;border:none;border-radius:6px;background:var(--blue);color:#fff;cursor:pointer}
+#gate .err{color:#C5221F;font-size:12.5px;margin-top:10px;display:none}
+#gate.wrong .err{display:block}
+body.locked{overflow:hidden}
+body{margin:0;font-family:'Google Sans',Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.5}
+header{padding:36px 32px 20px;border-bottom:1px solid var(--line)}
+.eyebrow{font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid)}
+h1{font-size:30px;margin:10px 0 6px;font-weight:500;letter-spacing:-.01em}
+.sub{color:var(--mid);font-size:15px;max-width:78ch}
+.stats{display:flex;flex-wrap:wrap;gap:28px;padding:20px 32px;background:var(--grey50);border-bottom:1px solid var(--line)}
+.stat b{display:block;font-size:26px;font-weight:500}
+.stat span{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.callout{margin:0;padding:18px 32px;background:#FEF7E0;border-bottom:1px solid var(--line);font-size:14px;max-width:none}
+.callout b{font-weight:500}
+.controls{padding:18px 32px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:5}
+#q{width:100%;max-width:520px;padding:10px 14px;border:1px solid var(--line);border-radius:8px;font-size:14px;font-family:inherit}
+.frow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;align-items:center}
+.flabel{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-right:4px}
+button.f{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 13px;font-size:13px;font-family:inherit;cursor:pointer;color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+button.f:hover{background:var(--grey50)}
+button.f.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+button.f.on .dot{background:#fff !important}
+button.f b{font-weight:500;opacity:.7}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+main{padding:8px 32px 60px}
+.row{display:flex;gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
+.rdate{flex:0 0 84px;font-family:'Roboto Mono',monospace;font-size:12px;color:var(--mid);padding-top:3px}
+.rbody{flex:1;min-width:0}
+.rcluster{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.rfi{margin:0 0 4px;font-size:16px;font-weight:500;line-height:1.35}
+.rfi a{color:var(--ink);text-decoration:none}
+.rfi a:hover{color:var(--blue);text-decoration:underline}
+.ren{color:var(--mid);font-size:14px;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip,.wall{font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;border:1px solid var(--line);color:var(--mid)}
+.chip-negative{background:#FCE8E6;border-color:#F5C6C2;color:#C5221F}
+.chip-figure{background:#E8F0FE;border-color:#C6DAFC;color:#1967D2}
+.chip-retro{background:#FEF7E0;border-color:#FDE293;color:#B06000}
+.chip-person{background:#E6F4EA;border-color:#CEEAD6;color:#137333}
+.chip-correction{background:#F1F3F4}
+.wall-free{background:#E6F4EA;border-color:#CEEAD6;color:#137333}
+.wall-paid{background:#F1F3F4}
+.note{margin-top:9px;font-size:13.5px;color:var(--ink);background:var(--grey50);border-left:3px solid var(--line);padding:9px 13px;border-radius:0 6px 6px 0}
+h2.sec{font-size:19px;font-weight:500;margin:44px 0 4px}
+h2.sec + p{color:var(--mid);font-size:14px;margin:0 0 8px;max-width:78ch}
+.row.off .rfi{font-size:15px}
+footer{padding:26px 32px;border-top:1px solid var(--line);color:var(--mid);font-size:12.5px;background:var(--grey50)}
+#empty{padding:40px 0;color:var(--mid);display:none}
+@media(max-width:640px){header,.stats,.controls,main,footer,.callout{padding-left:18px;padding-right:18px}.row{flex-direction:column;gap:6px}}
+</style></head><body>
+
+<div id="gate">
+  <div class="box">
+    <div class="eyebrow">Hamina &middot; Desk research</div>
+    <h1>Kymen Sanomat archive inventory</h1>
+    <p>Shared reference material for the Hamina production. Enter the word you were given.</p>
+    <input id="gate-in" type="password" autocomplete="off" autocapitalize="off" spellcheck="false"
+           aria-label="Password" placeholder="Password">
+    <button id="gate-go" type="button">Open</button>
+    <div class="err">That isn't it &mdash; check with Jonathan.</div>
+  </div>
+</div>
+<script>
+(function () {
+  var g = document.getElementById('gate');
+  var i = document.getElementById('gate-in');
+  var b = document.getElementById('gate-go');
+  var KEY = 'jmkay.kymensanomat.gate';
+  var WORD = 'juno';
+
+  function unlock() {
+    g.parentNode.removeChild(g);
+    document.body.classList.remove('locked');
+    try { localStorage.setItem(KEY, '1'); } catch (e) {}
+  }
+  function tryIt() {
+    if (i.value.trim().toLowerCase() === WORD) { unlock(); }
+    else { g.classList.add('wrong'); i.value = ''; i.focus(); }
+  }
+
+  var seen = null;
+  try { seen = localStorage.getItem(KEY); } catch (e) {}
+  if (seen) { unlock(); }
+  else {
+    document.body.classList.add('locked');
+    b.addEventListener('click', tryIt);
+    i.addEventListener('keydown', function (e) { if (e.key === 'Enter') { tryIt(); } });
+    i.focus();
+  }
+})();
+</script>
+
+<header>
+  <div class="eyebrow">Hamina &middot; Desk research</div>
+  <h1>Kymen Sanomat online archive &mdash; Hamina coverage inventory</h1>
+  <p class="sub">A five-cluster sweep of kymensanomat.fi run on 3 August 2026, plus the free off-domain routes that carry the same reporting. Every row below was surfaced by a domain-restricted search or a fetched tag page. Nothing here is a quotation: the English lines are summaries, and article bodies sit behind a wall we did not cross.</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><b>93</b><span>Items catalogued</span></div>
+  <div class="stat"><b>2017</b><span>Archive floor</span></div>
+  <div class="stat"><b>23</b><span>Negative or critical</span></div>
+  <div class="stat"><b>13</b><span>Confirmed free to read</span></div>
+  <div class="stat"><b>22</b><span>Free 2007&ndash;2011 sources</span></div>
+  <div class="stat"><b>9</b><span>Off-domain routes</span></div>
+</div>
+
+<div class="controls">
+  <input id="q" type="search" placeholder="Search headlines, glosses and notes...">
+  <div class="frow"><span class="flabel">Cluster</span><button class="f" data-k="cluster" data-v="build"><span class="dot" style="background:#1A73E8"></span>Build and investment <b>24</b></button><button class="f" data-k="cluster" data-v="mill"><span class="dot" style="background:#E37400"></span>Mill closure and transition <b>8</b></button><button class="f" data-k="cluster" data-v="community"><span class="dot" style="background:#188038"></span>Community and economy <b>28</b></button><button class="f" data-k="cluster" data-v="energy"><span class="dot" style="background:#0097A7"></span>Energy, water, environment <b>14</b></button><button class="f" data-k="cluster" data-v="opinion"><span class="dot" style="background:#5F6368"></span>People and opinion <b>19</b></button></div>
+  <div class="frow"><span class="flabel">Year</span><button class="f" data-k="year" data-v="2017">2017</button><button class="f" data-k="year" data-v="2018">2018</button><button class="f" data-k="year" data-v="2019">2019</button><button class="f" data-k="year" data-v="2020">2020</button><button class="f" data-k="year" data-v="2021">2021</button><button class="f" data-k="year" data-v="2022">2022</button><button class="f" data-k="year" data-v="2023">2023</button><button class="f" data-k="year" data-v="2024">2024</button><button class="f" data-k="year" data-v="2025">2025</button><button class="f" data-k="year" data-v="2026">2026</button></div>
+  <div class="frow"><span class="flabel">Flag</span><button class="f" data-k="flag" data-v="figure">Carries a figure</button><button class="f" data-k="flag" data-v="negative">Negative or critical</button><button class="f" data-k="flag" data-v="retro">Retrospective / archive</button><button class="f" data-k="flag" data-v="person">Named voice</button><button class="f" data-k="flag" data-v="correction">Published correction</button><button class="f" id="clear">Clear all</button></div>
+</div>
+
+<main>
+  <div id="list">
+      <article class="row" data-cluster="community" data-year="2017"
+               data-flags="figure" data-wall="paid"
+               data-text="google on tukenut paikallisyhteisöjä yli miljoonalla eurolla google has backed local community groups with over eur 1m; third grant round opens oldest hamina-relevant item found anywhere in the sweep. refers to a grant programme already three rounds deep, so the programme itself predates the reachable archive.">
+        <div class="rdate">7.3.2017</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3975062" target="_blank" rel="noopener">Google on tukenut paikallisyhteisöjä yli miljoonalla eurolla</a></h3>
+          <div class="ren">Google has backed local community groups with over EUR 1m; third grant round opens</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Oldest Hamina-relevant item found anywhere in the sweep. Refers to a grant programme already three rounds deep, so the programme itself predates the reachable archive.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2017"
+               data-flags="" data-wall="unknown"
+               data-text="nettifirmojen yritysverot samalle viivalle editorial on levelling corporate tax for internet companies oldest item on the whole google tag, and it is not about hamina. marks the cms archive floor.">
+        <div class="rdate">25.9.2017</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3967822" target="_blank" rel="noopener">Nettifirmojen yritysverot samalle viivalle</a></h3>
+          <div class="ren">Editorial on levelling corporate tax for internet companies</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Oldest item on the whole Google tag, and it is not about Hamina. Marks the CMS archive floor.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2018"
+               data-flags="" data-wall="unknown"
+               data-text="rattijuoppo pakeni poliisia pyhtäältä kotkaan ja summaan drink-driver flees police through summa trivial content. included only because it is the oldest item on the summa tag, confirming the same archive floor from a second direction.">
+        <div class="rdate">6.1.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3964033" target="_blank" rel="noopener">Rattijuoppo pakeni poliisia Pyhtäältä Kotkaan ja Summaan</a></h3>
+          <div class="ren">Drink-driver flees police through Summa</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Trivial content. Included only because it is the oldest item on the Summa tag, confirming the same archive floor from a second direction.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="paid"
+               data-text="googlen kansainvälisessä videossa esitellään haminaa ja kotkaa google&#x27;s international promo video features hamina and kotka the &#x27;global visibility&#x27; benefit framing starts here.">
+        <div class="rdate">21.2.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3962312" target="_blank" rel="noopener">Googlen kansainvälisessä videossa esitellään Haminaa ja Kotkaa</a></h3>
+          <div class="ren">Google&#x27;s international promo video features Hamina and Kotka</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">The &#x27;global visibility&#x27; benefit framing starts here.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="paid"
+               data-text="google avasi haminaan uuden alustan pilvipalveluun google opens a new cloud-service platform at hamina earliest facility story online. hamina becomes a cloud region, not just a server hall.">
+        <div class="rdate">21.6.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3958196" target="_blank" rel="noopener">Google avasi Haminaan uuden alustan pilvipalveluun</a></h3>
+          <div class="ren">Google opens a new cloud-service platform at Hamina</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Earliest facility story online. Hamina becomes a cloud region, not just a server hall.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="paid"
+               data-text="google panostaa haminaan — euroopan viides google cloud platform -alue avattiin virallisesti europe&#x27;s fifth gcp region formally opened positions hamina inside google&#x27;s european tier.">
+        <div class="rdate">7.9.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3955966" target="_blank" rel="noopener">Google panostaa Haminaan — Euroopan viides Google Cloud Platform -alue avattiin virallisesti</a></h3>
+          <div class="ren">Europe&#x27;s fifth GCP region formally opened</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Positions Hamina inside Google&#x27;s European tier.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2018"
+               data-flags="" data-wall="paid"
+               data-text="google lisää tuulivoiman käyttöä google contracts the output of finnish wind parks to supply the site earliest energy-procurement item. raises the additionality question eight years before the national debate lands.">
+        <div class="rdate">11.9.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3955815" target="_blank" rel="noopener">Google lisää tuulivoiman käyttöä</a></h3>
+          <div class="ren">Google contracts the output of Finnish wind parks to supply the site</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Earliest energy-procurement item. Raises the additionality question eight years before the national debate lands.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="unknown"
+               data-text="tivi: haminaan rakennetaan valtaisa uusi datakeskus trade-press pickup: a huge new data centre planned for hamina not google. this is silent partner group. listed to prevent misattribution.">
+        <div class="rdate">29.10.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3954087" target="_blank" rel="noopener">Tivi: Haminaan rakennetaan valtaisa uusi datakeskus</a></h3>
+          <div class="ren">Trade-press pickup: a huge new data centre planned for Hamina</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">NOT GOOGLE. This is Silent Partner Group. Listed to prevent misattribution.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="unknown"
+               data-text="toimitusjohtaja vahvisti aikeet jättimäisen datakeskuksen tulosta haminaan ceo confirms giant data-centre plan for hamina also silent partner, not google. same caution.">
+        <div class="rdate">7.11.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3953759" target="_blank" rel="noopener">Toimitusjohtaja vahvisti aikeet jättimäisen datakeskuksen tulosta Haminaan</a></h3>
+          <div class="ren">CEO confirms giant data-centre plan for Hamina</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Also Silent Partner, not Google. Same caution.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2018"
+               data-flags="" data-wall="unknown"
+               data-text="google raivasi kansainvälisille toimijoille tien haminaan google cleared the path to hamina for international players the anchor-tenant argument, stated by hamina energia&#x27;s ceo.">
+        <div class="rdate">7.11.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3953749" target="_blank" rel="noopener">Google raivasi kansainvälisille toimijoille tien Haminaan</a></h3>
+          <div class="ren">Google cleared the path to Hamina for international players</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The anchor-tenant argument, stated by Hamina Energia&#x27;s CEO.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2018"
+               data-flags="" data-wall="unknown"
+               data-text="korjaukset tarpeen summan koulussa ennen sen ottamista käyttöön repairs needed at summa school before reopening village-level consequence thread. summa&#x27;s school had closed.">
+        <div class="rdate">10.12.2018</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3952521" target="_blank" rel="noopener">Korjaukset tarpeen Summan koulussa ennen sen ottamista käyttöön</a></h3>
+          <div class="ren">Repairs needed at Summa school before reopening</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Village-level consequence thread. Summa&#x27;s school had closed.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="yllätysratkaisu syntymässä husulan koulun ongelmaan — hamina ehkä palauttaa lakkautetun summan koulun käyttöön hamina may reopen the closed summa school instead of building new the clearest local trace of what the mill closure did to the village itself.">
+        <div class="rdate">14.1.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3951382" target="_blank" rel="noopener">Yllätysratkaisu syntymässä Husulan koulun ongelmaan — Hamina ehkä palauttaa lakkautetun Summan koulun käyttöön</a></h3>
+          <div class="ren">Hamina may reopen the closed Summa school instead of building new</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The clearest local trace of what the mill closure did to the village itself.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="" data-wall="paid"
+               data-text="googlen kymenlaaksoon jakamilla yhteisötuilla on hankittu mediataitoja, datakeskusosaamista ja 3d-tulostimia what the community grants actually bought: media skills, data-centre skills, 3d printers rare itemised account of grant outputs rather than headline totals.">
+        <div class="rdate">19.3.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3948807" target="_blank" rel="noopener">Googlen Kymenlaaksoon jakamilla yhteisötuilla on hankittu mediataitoja, datakeskusosaamista ja 3D-tulostimia</a></h3>
+          <div class="ren">What the community grants actually bought: media skills, data-centre skills, 3D printers</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Rare itemised account of grant outputs rather than headline totals.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2019"
+               data-flags="negative" data-wall="unknown"
+               data-text="googlella kaksi generaattoria kärähti two generators caught fire at google rare negative operational story.">
+        <div class="rdate">9.5.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3947011" target="_blank" rel="noopener">Googlella kaksi generaattoria kärähti</a></h3>
+          <div class="ren">Two generators caught fire at Google</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Rare negative operational story.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2019"
+               data-flags="figure" data-wall="paid"
+               data-text="google investoi 600 miljoonaa euroa uuteen palvelinkeskukseen haminassa eur 600m for a new server centre first of the two headline investment announcements.">
+        <div class="rdate">27.5.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3946404" target="_blank" rel="noopener">Google investoi 600 miljoonaa euroa uuteen palvelinkeskukseen Haminassa</a></h3>
+          <div class="ren">EUR 600m for a new server centre</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">First of the two headline investment announcements.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="figure negative" data-wall="paid"
+               data-text="googlen palvelinkeskuksen rakentaminen työllistää 1 200 ihmistä — valmis palvelinkeskus 40—60 henkilölle construction employs 1,200; the finished centre employs 40-60 the construction-vs-permanent jobs gap, stated plainly and early, by the boosterish coverage itself. three named local sources.">
+        <div class="rdate">27.5.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3946400" target="_blank" rel="noopener">Googlen palvelinkeskuksen rakentaminen työllistää 1 200 ihmistä — valmis palvelinkeskus 40—60 henkilölle</a></h3>
+          <div class="ren">Construction employs 1,200; the finished centre employs 40-60</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The construction-vs-permanent jobs gap, stated plainly and early, by the boosterish coverage itself. Three named local sources.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="pääkirjoitus: google kannustaa kasvuun editorial: google spurs growth editorial-board posture in 2019: uncomplicated enthusiasm.">
+        <div class="rdate">30.5.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3946291" target="_blank" rel="noopener">Pääkirjoitus: Google kannustaa kasvuun</a></h3>
+          <div class="ren">Editorial: Google spurs growth</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Editorial-board posture in 2019: uncomplicated enthusiasm.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="person" data-wall="paid"
+               data-text="palvelinkeskuksen johtaja lauri ikonen kumoaa sitkeän huhun site director answers ten questions; denies the rumour that staff are forbidden to say where they work names the secrecy perception as a local folk belief. first of the recurring transparency interviews.">
+        <div class="rdate">7.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942844" target="_blank" rel="noopener">Palvelinkeskuksen johtaja Lauri Ikonen kumoaa sitkeän huhun</a></h3>
+          <div class="ren">Site director answers ten questions; denies the rumour that staff are forbidden to say where they work</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">Names the secrecy perception as a local folk belief. First of the recurring transparency interviews.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="pääkirjoitus: googlen jalkautumiskiertueelle toivoisi jatkoa editorial: hope google&#x27;s community outreach tour continues the paper setting a community-engagement expectation.">
+        <div class="rdate">7.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3942845" target="_blank" rel="noopener">Pääkirjoitus: Googlen jalkautumiskiertueelle toivoisi jatkoa</a></h3>
+          <div class="ren">Editorial: hope Google&#x27;s community outreach tour continues</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The paper setting a community-engagement expectation.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="googlen toimitusjohtaja tulee ensimmäistä kertaa suomeen google ceo&#x27;s first finland visit curtain-raiser to the pichai announcement.">
+        <div class="rdate">17.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942429" target="_blank" rel="noopener">Googlen toimitusjohtaja tulee ensimmäistä kertaa Suomeen</a></h3>
+          <div class="ren">Google CEO&#x27;s first Finland visit</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Curtain-raiser to the Pichai announcement.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2019"
+               data-flags="figure" data-wall="paid"
+               data-text="googlelta uusi jätti-investointi haminaan — sundar pichai julkisti 600 miljoonan euron investoinnin pichai announces eur 600m the single biggest news day in the file.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942335" target="_blank" rel="noopener">Googlelta uusi jätti-investointi Haminaan — Sundar Pichai julkisti 600 miljoonan euron investoinnin</a></h3>
+          <div class="ren">Pichai announces EUR 600m</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">The single biggest news day in the file.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="person" data-wall="paid"
+               data-text="haminasta tulee euroopan google-pääkaupunki, kaupunginjohtaja hannu muhonen iloitsee mayor: the vacuum left by the summa paper mill is now filled and exceeded the mill-to-data-centre substitution claim, from the mayor, on the record.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942333" target="_blank" rel="noopener">Haminasta tulee Euroopan Google-pääkaupunki, kaupunginjohtaja Hannu Muhonen iloitsee</a></h3>
+          <div class="ren">Mayor: the vacuum left by the Summa paper mill is now filled and exceeded</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">The mill-to-data-centre substitution claim, from the mayor, on the record.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="kymen sanomat oli paikalla pääministerin ja google-johtajan tiedotustilaisuudessa video from the pm / google press conference archive video assets exist for this date. worth an assets request.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942332" target="_blank" rel="noopener">Kymen Sanomat oli paikalla pääministerin ja Google-johtajan tiedotustilaisuudessa</a></h3>
+          <div class="ren">Video from the PM / Google press conference</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Archive VIDEO assets exist for this date. Worth an assets request.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="maakuntajohtaja mikkola: nyt suurlippu salkoon hamina! regional director on the housing and services demands growth brings earliest framing of growth as a demand on the region rather than a pure gain.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942329" target="_blank" rel="noopener">Maakuntajohtaja Mikkola: Nyt suurlippu salkoon Hamina!</a></h3>
+          <div class="ren">Regional director on the housing and services demands growth brings</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Earliest framing of growth as a demand on the region rather than a pure gain.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="google kertoi solmineensa pitkäaikaisen sähkönhankintasopimuksen kahden tuulipuiston kanssa long-term power purchase agreements with two finnish wind farms energy procurement tied to the same announcement day.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942326" target="_blank" rel="noopener">Google kertoi solmineensa pitkäaikaisen sähkönhankintasopimuksen kahden tuulipuiston kanssa</a></h3>
+          <div class="ren">Long-term power purchase agreements with two Finnish wind farms</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Energy procurement tied to the same announcement day.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="esa sirviö: google tai joku muu yritys voi olla itäisen rantaradan tarvitsema yksityinen rahoittaja google floated as a private financier for the eastern coastal railway infrastructure spillover ambition. recurs for years.">
+        <div class="rdate">20.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942325" target="_blank" rel="noopener">Esa Sirviö: Google tai joku muu yritys voi olla Itäisen rantaradan tarvitsema yksityinen rahoittaja</a></h3>
+          <div class="ren">Google floated as a private financier for the eastern coastal railway</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Infrastructure spillover ambition. Recurs for years.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="" data-wall="paid"
+               data-text="google tuo haminaan lisää työpaikkoja — ”google on niin iso pulju, ettei sille käy niin kuin summan tehtaalle” street reaction: hope google is too big to go the way of the summa mill the best vox-pop in the file. mill-closure anxiety said out loud by a resident.">
+        <div class="rdate">21.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3942306" target="_blank" rel="noopener">Google tuo Haminaan lisää työpaikkoja — ”Google on niin iso pulju, ettei sille käy niin kuin Summan tehtaalle”</a></h3>
+          <div class="ren">Street reaction: hope Google is too big to go the way of the Summa mill</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">The best vox-pop in the file. Mill-closure anxiety said out loud by a resident.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="pääkirjoitus: google luottaa suomeen editorial: google trusts finland ">
+        <div class="rdate">21.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3942307" target="_blank" rel="noopener">Pääkirjoitus: Google luottaa Suomeen</a></h3>
+          <div class="ren">Editorial: Google trusts Finland</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="" data-wall="unknown"
+               data-text="lukijalta: suomi on erinomainen investointikohde reader letter: finland is an excellent investment destination reader-voice sample.">
+        <div class="rdate">21.9.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3942301" target="_blank" rel="noopener">Lukijalta: Suomi on erinomainen investointikohde</a></h3>
+          <div class="ren">Reader letter: Finland is an excellent investment destination</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Reader-voice sample.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2019"
+               data-flags="negative" data-wall="unknown"
+               data-text="etelä-kymenlaakson väestöennusteet ovat karua luettavaa grim population forecasts for the region; hamina below 20,000 baseline against which any google-reversed-the-decline claim must be read.">
+        <div class="rdate">1.10.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3941932" target="_blank" rel="noopener">Etelä-Kymenlaakson väestöennusteet ovat karua luettavaa</a></h3>
+          <div class="ren">Grim population forecasts for the region; Hamina below 20,000</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Baseline against which any Google-reversed-the-decline claim must be read.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2019"
+               data-flags="negative" data-wall="unknown"
+               data-text="tekstarit: monikohan seudun rakennusmies saa töitä googlen laajennusprojektista text-message column: how many local builders actually get work? earliest published local scepticism about who the construction jobs go to.">
+        <div class="rdate">2.10.2019</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/3941893" target="_blank" rel="noopener">Tekstarit: Monikohan seudun rakennusmies saa töitä Googlen laajennusprojektista</a></h3>
+          <div class="ren">Text-message column: how many local builders actually get work?</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Earliest published local scepticism about who the construction jobs go to.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2020"
+               data-flags="" data-wall="unknown"
+               data-text="googlen jätti-investoinnit summassa hyvässä vauhdissa — kuudes yksikkö rakenteilla sixth unit under construction, seventh soon progress marker.">
+        <div class="rdate">24.1.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3937789" target="_blank" rel="noopener">Googlen jätti-investoinnit Summassa hyvässä vauhdissa — kuudes yksikkö rakenteilla</a></h3>
+          <div class="ren">Sixth unit under construction, seventh soon</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Progress marker.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2020"
+               data-flags="figure" data-wall="paid"
+               data-text="google jakoi avustuksina noin 180 000 euroa about eur 180,000 in community grants distributed a hard single-year grant figure.">
+        <div class="rdate">30.1.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3937595" target="_blank" rel="noopener">Google jakoi avustuksina noin 180 000 euroa</a></h3>
+          <div class="ren">About EUR 180,000 in community grants distributed</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">A hard single-year grant figure.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2020"
+               data-flags="" data-wall="unknown"
+               data-text="vanhoihin opiskelija-asuntoihin majoitustiloja ulkomaisille työntekijöille kotkan mussalossa old student flats converted to housing for foreign workers housing-pressure consequence four years before the 2024 version of the same story.">
+        <div class="rdate">12.3.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3936081" target="_blank" rel="noopener">Vanhoihin opiskelija-asuntoihin majoitustiloja ulkomaisille työntekijöille Kotkan Mussalossa</a></h3>
+          <div class="ren">Old student flats converted to housing for foreign workers</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Housing-pressure consequence four years before the 2024 version of the same story.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2020"
+               data-flags="" data-wall="paid"
+               data-text="googlen yhteisötukiavustukset ovat haettavissa community grants open for application programme mechanics and eligibility.">
+        <div class="rdate">2.4.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3935241" target="_blank" rel="noopener">Googlen yhteisötukiavustukset ovat haettavissa</a></h3>
+          <div class="ren">Community grants open for application</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Programme mechanics and eligibility.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2020"
+               data-flags="" data-wall="unknown"
+               data-text="google pyrkii olemaan ensimmäinen hiilivapaa suuryritys 2030 mennessä — hamina tärkeä osa hamina placed at the centre of google&#x27;s carbon-free-by-2030 goal corporate climate framing transmitted into the local paper. source of the &#x27;carbon-free local energy since 2017&#x27; claim.">
+        <div class="rdate">14.9.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3928826" target="_blank" rel="noopener">Google pyrkii olemaan ensimmäinen hiilivapaa suuryritys 2030 mennessä — Hamina tärkeä osa</a></h3>
+          <div class="ren">Hamina placed at the centre of Google&#x27;s carbon-free-by-2030 goal</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Corporate climate framing transmitted into the local paper. Source of the &#x27;carbon-free local energy since 2017&#x27; claim.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2020"
+               data-flags="figure" data-wall="unknown"
+               data-text="nämä yritykset maksoivat eniten veroja etelä-kymenlaaksossa — haminassa tuike finland tuike finland is hamina&#x27;s top corporate taxpayer first tax-ranking datapoint in what becomes an annual series.">
+        <div class="rdate">4.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3926807" target="_blank" rel="noopener">Nämä yritykset maksoivat eniten veroja Etelä-Kymenlaaksossa — Haminassa Tuike Finland</a></h3>
+          <div class="ren">Tuike Finland is Hamina&#x27;s top corporate taxpayer</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">First tax-ranking datapoint in what becomes an annual series.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2020"
+               data-flags="" data-wall="unknown"
+               data-text="pääministeri sanna marin vierailee tänään haminassa googlen datakeskuksessa pm marin visits the data centre second pm-level visit in fourteen months.">
+        <div class="rdate">20.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3926110" target="_blank" rel="noopener">Pääministeri Sanna Marin vierailee tänään Haminassa Googlen datakeskuksessa</a></h3>
+          <div class="ren">PM Marin visits the data centre</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Second PM-level visit in fourteen months.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2020"
+               data-flags="figure" data-wall="unknown"
+               data-text="googlen datakeskuksen rakennustyöt valmistuvat ensi vuoden alussa — työmaalla noin 1 500 henkilöä päivässä about 1,500 workers a day on the expansion site best single peak-construction headcount figure in the file.">
+        <div class="rdate">20.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3926108" target="_blank" rel="noopener">Googlen datakeskuksen rakennustyöt valmistuvat ensi vuoden alussa — työmaalla noin 1 500 henkilöä päivässä</a></h3>
+          <div class="ren">About 1,500 workers a day on the expansion site</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Best single peak-construction headcount figure in the file.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2020"
+               data-flags="person" data-wall="free"
+               data-text="google raotti ovea datakeskukseensa — ”kaikki odotukset ovat ylittyneet”, sanoo kaupunginjohtaja google opens the door; the mayor says all expectations have been exceeded keystone piece and free to read. syndicated identically across four group titles. the most quotable official endorsement in the corpus.">
+        <div class="rdate">20.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/3166576" target="_blank" rel="noopener">Google raotti ovea datakeskukseensa — ”Kaikki odotukset ovat ylittyneet”, sanoo kaupunginjohtaja</a></h3>
+          <div class="ren">Google opens the door; the mayor says all expectations have been exceeded</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">Keystone piece and FREE TO READ. Syndicated identically across four group titles. The most quotable official endorsement in the corpus.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2020"
+               data-flags="figure" data-wall="paid"
+               data-text="kun kuudennen palvelinkeskuksen toiminta alkaa ensi vuonna, google rekrytoi noin 50 henkilöä lisää about 50 more hires when unit six starts; interior footage per-unit hiring ratio. also the source of the 3,600 direct-plus-indirect figure.">
+        <div class="rdate">20.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/3926094" target="_blank" rel="noopener">Kun kuudennen palvelinkeskuksen toiminta alkaa ensi vuonna, Google rekrytoi noin 50 henkilöä lisää</a></h3>
+          <div class="ren">About 50 more hires when unit six starts; interior footage</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Per-unit hiring ratio. Also the source of the 3,600 direct-plus-indirect figure.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2021"
+               data-flags="" data-wall="unknown"
+               data-text="googlen kuudes palvelinkeskusyksikkö valmistumassa, seuraavan rakentamisesta yhtiö vaikenee google silent on the next build the disclosure-reticence pattern, stated explicitly.">
+        <div class="rdate">13.2.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4005100" target="_blank" rel="noopener">Googlen kuudes palvelinkeskusyksikkö valmistumassa, seuraavan rakentamisesta yhtiö vaikenee</a></h3>
+          <div class="ren">Google silent on the next build</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The disclosure-reticence pattern, stated explicitly.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2021"
+               data-flags="figure" data-wall="paid"
+               data-text="työllistää jo melkein kuin paperitehdas — kuudes yksikkö valmistui now employs almost as many as the paper mill did; sixth unit complete the paper&#x27;s central comparison, finally asserted as fact. source of the &#x27;400 direct and indirect&#x27; figure.">
+        <div class="rdate">24.5.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4155621" target="_blank" rel="noopener">Työllistää jo melkein kuin paperitehdas — kuudes yksikkö valmistui</a></h3>
+          <div class="ren">Now employs almost as many as the paper mill did; sixth unit complete</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">The paper&#x27;s central comparison, finally asserted as fact. Source of the &#x27;400 direct and indirect&#x27; figure.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2021"
+               data-flags="retro" data-wall="unknown"
+               data-text="tiutinen nousi tuhkasta, summan metsä muuttui datakeskukseksi — historialliset ilmakuvat historical aerial photos show 80 years of landscape change visual asset. aerial imagery of the site across eight decades. re-run 28.05.2022.">
+        <div class="rdate">6.6.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4173219" target="_blank" rel="noopener">Tiutinen nousi tuhkasta, Summan metsä muuttui datakeskukseksi — historialliset ilmakuvat</a></h3>
+          <div class="ren">Historical aerial photos show 80 years of landscape change</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-retro">Retrospective / archive</span></div>
+          <div class="note">VISUAL ASSET. Aerial imagery of the site across eight decades. Re-run 28.05.2022.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2021"
+               data-flags="" data-wall="unknown"
+               data-text="google tähtää haminan seitsemännen palvelinyksikön käynnistämiseen vuoden päästä seventh unit permit pending; applicant named as tuike finland oy first clear naming of the permit-holding entity.">
+        <div class="rdate">29.7.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4240470" target="_blank" rel="noopener">Google tähtää Haminan seitsemännen palvelinyksikön käynnistämiseen vuoden päästä</a></h3>
+          <div class="ren">Seventh unit permit pending; applicant named as Tuike Finland Oy</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">First clear naming of the permit-holding entity.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2021"
+               data-flags="" data-wall="unknown"
+               data-text="pääkirjoitus | googlen palvelinkeskusalueen rakentamisen jatkuminen on odotettu piristysruiske editorial: continued construction is a welcome shot in the arm the paper&#x27;s own editorial position mid-build.">
+        <div class="rdate">26.8.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4269696" target="_blank" rel="noopener">Pääkirjoitus | Googlen palvelinkeskusalueen rakentamisen jatkuminen on odotettu piristysruiske</a></h3>
+          <div class="ren">Editorial: continued construction is a welcome shot in the arm</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The paper&#x27;s own editorial position mid-build.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2021"
+               data-flags="retro" data-wall="free"
+               data-text="arkistosta | kuinka jättiläinen ja pikkukaupunki löysivät toisensa archive reprint of a 14.6.2009 original: how the giant and the small town found each other the single most important find. the only pre-2018 kymen sanomat text reachable online, and only because the paper republished it. carries the line stating the original print date of 14.6.2009. tagged winwind oy alongside google and stora enso, meaning the 2009 reporting covered a rival bidder for the site. free with registration. reporter: johanna savolainen.">
+        <div class="rdate">10.9.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4289462" target="_blank" rel="noopener">Arkistosta | Kuinka jättiläinen ja pikkukaupunki löysivät toisensa</a></h3>
+          <div class="ren">Archive reprint of a 14.6.2009 original: how the giant and the small town found each other</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-retro">Retrospective / archive</span></div>
+          <div class="note">THE SINGLE MOST IMPORTANT FIND. The only pre-2018 Kymen Sanomat text reachable online, and only because the paper republished it. Carries the line stating the original print date of 14.6.2009. Tagged Winwind Oy alongside Google and Stora Enso, meaning the 2009 reporting covered a rival bidder for the site. Free with registration. Reporter: Johanna Savolainen.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2021"
+               data-flags="retro person" data-wall="paid"
+               data-text="summan tehtaalla työskennellyt olavi kemppi sai 10 vuotta sitten googlelta yhteydenoton mill worker olavi kemppi&#x27;s call from google, told ten years on the bridge figure: 25 years at the summa mill, then 10+ years at google on the same ground. establishes that hamina&#x27;s first data connections went live in september 2011. names ikonen, antti jarvinen, muhonen and mika lintila.">
+        <div class="rdate">10.9.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4289532" target="_blank" rel="noopener">Summan tehtaalla työskennellyt Olavi Kemppi sai 10 vuotta sitten Googlelta yhteydenoton</a></h3>
+          <div class="ren">Mill worker Olavi Kemppi&#x27;s call from Google, told ten years on</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-retro">Retrospective / archive</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">The bridge figure: 25 years at the Summa mill, then 10+ years at Google on the same ground. Establishes that Hamina&#x27;s first data connections went live in September 2011. Names Ikonen, Antti Jarvinen, Muhonen and Mika Lintila.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2021"
+               data-flags="" data-wall="paid"
+               data-text="googlelle tunnustus jäähdytysjärjestelmästä — palauttaa veden mereen samassa lämpötilassa award for the seawater cooling system; water returned at intake temperature the load-bearing thermal claim, and it has never been independently tested in the paper. appears once, in an award story.">
+        <div class="rdate">4.11.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4356084" target="_blank" rel="noopener">Googlelle tunnustus jäähdytysjärjestelmästä — palauttaa veden mereen samassa lämpötilassa</a></h3>
+          <div class="ren">Award for the seawater cooling system; water returned at intake temperature</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">The load-bearing thermal claim, and it has never been independently tested in the paper. Appears once, in an award story.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2022"
+               data-flags="correction" data-wall="unknown"
+               data-text="oikaisu: googlen uusi palvelinyksikkö ei aloita marraskuussa correction: the new unit will not start in november a published correction. useful as schedule-slippage evidence.">
+        <div class="rdate">22.2.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4488237" target="_blank" rel="noopener">Oikaisu: Googlen uusi palvelinyksikkö ei aloita marraskuussa</a></h3>
+          <div class="ren">Correction: the new unit will not start in November</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-correction">Published correction</span></div>
+          <div class="note">A published correction. Useful as schedule-slippage evidence.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2022"
+               data-flags="figure" data-wall="unknown"
+               data-text="fingrid lisää toisen päämuuntajan kotkaan — 14 miljoonan euron satsaus eur 14m fingrid transformer, partly to serve google&#x27;s expansion public grid spend attributable to the build.">
+        <div class="rdate">2.3.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4498440" target="_blank" rel="noopener">Fingrid lisää toisen päämuuntajan Kotkaan — 14 miljoonan euron satsaus</a></h3>
+          <div class="ren">EUR 14m Fingrid transformer, partly to serve Google&#x27;s expansion</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Public grid spend attributable to the build.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2022"
+               data-flags="retro person" data-wall="paid"
+               data-text="haminalainen anne ståhlberg ehti jo luulla olevansa eläkevirassa, kunnes summan tehdas lakkautettiin ståhlberg thought she had a job for life until the mill closed fifteen years ago the counterweight voice. the closure told as loss, not as prelude to google. anchors the closure announcement to 25 october 2007 and describes it as a total surprise to staff. carries both a shop-floor worker and mill director juha makimattila. reporter: antti kaarto, now acting editor-in-chief.">
+        <div class="rdate">17.4.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4554437" target="_blank" rel="noopener">Haminalainen Anne Ståhlberg ehti jo luulla olevansa eläkevirassa, kunnes Summan tehdas lakkautettiin</a></h3>
+          <div class="ren">Ståhlberg thought she had a job for life until the mill closed fifteen years ago</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-retro">Retrospective / archive</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">THE COUNTERWEIGHT VOICE. The closure told as loss, not as prelude to Google. Anchors the closure announcement to 25 October 2007 and describes it as a total surprise to staff. Carries both a shop-floor worker and mill director Juha Makimattila. Reporter: Antti Kaarto, now acting editor-in-chief.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="mill" data-year="2022"
+               data-flags="retro" data-wall="unknown"
+               data-text="arkistosta: tiutinen nousi tuhkasta, summan metsä muuttui datakeskukseksi archive re-run of the aerial-photo piece confirms the paper actively recirculates archive material. that habit is the lever for an access request.">
+        <div class="rdate">28.5.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#E37400"><span class="dot" style="background:#E37400"></span>Mill closure and transition</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4631995" target="_blank" rel="noopener">Arkistosta: Tiutinen nousi tuhkasta, Summan metsä muuttui datakeskukseksi</a></h3>
+          <div class="ren">Archive re-run of the aerial-photo piece</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-retro">Retrospective / archive</span></div>
+          <div class="note">Confirms the paper actively recirculates archive material. That habit is the lever for an access request.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2022"
+               data-flags="person" data-wall="paid"
+               data-text="varhaiseläkkeelle jäävä hannu muhonen, 63, ei kaupunginjohtajuutensa aikana hakenut kertaakaan muita töitä departing mayor exit interview muhonen&#x27;s own retrospective. he is the google-era mayor.">
+        <div class="rdate">1.8.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4759566" target="_blank" rel="noopener">Varhaiseläkkeelle jäävä Hannu Muhonen, 63, ei kaupunginjohtajuutensa aikana hakenut kertaakaan muita töitä</a></h3>
+          <div class="ren">Departing mayor exit interview</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">Muhonen&#x27;s own retrospective. He is the Google-era mayor.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2022"
+               data-flags="person" data-wall="paid"
+               data-text="”ei siellä ole mitään mystistä” — datakeskuksen johtaja vastasi 15 kysymykseen site director answers 15 reader questions on security and power use the most substantive q&amp;a in the file. ikonen mentions talking with former summa mill workers on the tour. notes compute per unit of energy up sixfold in five years.">
+        <div class="rdate">6.9.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4986385" target="_blank" rel="noopener">”Ei siellä ole mitään mystistä” — datakeskuksen johtaja vastasi 15 kysymykseen</a></h3>
+          <div class="ren">Site director answers 15 reader questions on security and power use</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">The most substantive Q&amp;A in the file. Ikonen mentions talking with former Summa mill workers on the tour. Notes compute per unit of energy up sixfold in five years.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2022"
+               data-flags="" data-wall="free"
+               data-text="pääkirjoitus | tietojen salaaminen lisääntyy — googlen datakeskus teki avoimuuskiertueen editorial: google ran a transparency tour while much of society closes up the first qualified editorial. approving, but notes not everything was disclosed even on a tour branded as openness. states tuike finland is south kymenlaakso&#x27;s largest corporate taxpayer.">
+        <div class="rdate">8.9.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/5009223" target="_blank" rel="noopener">Pääkirjoitus | Tietojen salaaminen lisääntyy — Googlen datakeskus teki avoimuuskiertueen</a></h3>
+          <div class="ren">Editorial: Google ran a transparency tour while much of society closes up</div>
+          <div class="chips"><span class="wall wall-free">Free</span></div>
+          <div class="note">THE FIRST QUALIFIED EDITORIAL. Approving, but notes not everything was disclosed even on a tour branded as openness. States Tuike Finland is South Kymenlaakso&#x27;s largest corporate taxpayer.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2022"
+               data-flags="figure negative" data-wall="paid"
+               data-text="verotiedot 2021 | tuike finland maksoi 2020 yhteisöveroa 30 miljoonaa, viime vuonna ei yhtään eur 30m corporate tax in 2020; zero in 2021, wiped out by depreciation the most citable local-tax volatility fact in the file. first sustained news-side pressure on google.">
+        <div class="rdate">10.11.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/5492325" target="_blank" rel="noopener">Verotiedot 2021 | Tuike Finland maksoi 2020 yhteisöveroa 30 miljoonaa, viime vuonna ei yhtään</a></h3>
+          <div class="ren">EUR 30m corporate tax in 2020; zero in 2021, wiped out by depreciation</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The most citable local-tax volatility fact in the file. First sustained news-side pressure on Google.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2022"
+               data-flags="figure correction negative" data-wall="paid"
+               data-text="oikaisu | ”nollavuoden” vaikutus vuoden 2023 verokertymään on kolmisen miljoonaa euroa correction: the zero year costs hamina about eur 3m in 2023 receipts a published correction quantifying the municipal hit. shows the paper working the tax story hard enough to get it wrong once.">
+        <div class="rdate">11.11.2022</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/5496224" target="_blank" rel="noopener">Oikaisu | ”Nollavuoden” vaikutus vuoden 2023 verokertymään on kolmisen miljoonaa euroa</a></h3>
+          <div class="ren">Correction: the zero year costs Hamina about EUR 3m in 2023 receipts</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span><span class="chip chip-correction">Published correction</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">A published correction quantifying the municipal hit. Shows the paper working the tax story hard enough to get it wrong once.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2023"
+               data-flags="" data-wall="unknown"
+               data-text="google antoi rahaa muun muassa haminan lukion striimaustekniikkaan ja kotkan nuoriso-orkesterille 2022 grant recipients listed named grantees become interview leads: hamina upper secondary, kotka youth orchestra, a rescue-dog organisation, kotka library.">
+        <div class="rdate">3.2.2023</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/5702049" target="_blank" rel="noopener">Google antoi rahaa muun muassa Haminan lukion striimaustekniikkaan ja Kotkan nuoriso-orkesterille</a></h3>
+          <div class="ren">2022 grant recipients listed</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Named grantees become interview leads: Hamina upper secondary, Kotka youth orchestra, a rescue-dog organisation, Kotka library.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2023"
+               data-flags="" data-wall="paid"
+               data-text="google selvittää, voisiko haminaan rakentaa vielä viisi palvelinkeskusta lisää eia opened for data centres 8-11; framed as not a promise establishes the long-run build pipeline. notable expectation management in the quote. also the first local-disruption framing: blasting, and flying-squirrel surveys required. one agent recorded this as 10.02.2023; treat the day as +/- 1.">
+        <div class="rdate">11.2.2023</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/5719745" target="_blank" rel="noopener">Google selvittää, voisiko Haminaan rakentaa vielä viisi palvelinkeskusta lisää</a></h3>
+          <div class="ren">EIA opened for data centres 8-11; framed as not a promise</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Establishes the long-run build pipeline. Notable expectation management in the quote. Also the first local-disruption framing: blasting, and flying-squirrel surveys required. One agent recorded this as 10.02.2023; treat the day as +/- 1.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2023"
+               data-flags="figure" data-wall="free"
+               data-text="verotiedot 2022 | google-yhtiö tuike finland palasi listaykköseksi tuike finland back at number one taxpayer second data point in the tax-volatility series.">
+        <div class="rdate">9.11.2023</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/6339249" target="_blank" rel="noopener">Verotiedot 2022 | Google-yhtiö Tuike Finland palasi listaykköseksi</a></h3>
+          <div class="ren">Tuike Finland back at number one taxpayer</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Second data point in the tax-volatility series.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2023"
+               data-flags="figure" data-wall="unknown"
+               data-text="kymenlaaksoon rakennetaan jättimäinen datakeskus — investoinnin arvo vähintään miljardi euroa atnorth data centre at myllykoski, kouvola; at least eur 1bn google is no longer the only regional load. changes the grid and water conversation.">
+        <div class="rdate">7.12.2023</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/6405043" target="_blank" rel="noopener">Kymenlaaksoon rakennetaan jättimäinen datakeskus — investoinnin arvo vähintään miljardi euroa</a></h3>
+          <div class="ren">atNorth data centre at Myllykoski, Kouvola; at least EUR 1bn</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">Google is no longer the only regional load. Changes the grid and water conversation.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2024"
+               data-flags="negative" data-wall="unknown"
+               data-text="google louhii, räjäyttelee ja murskaa summassa tänä vuonna blasting and crushing permit ahead of centre seven nuisance-level construction impact, permitted and dated.">
+        <div class="rdate">2.2.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/6532455" target="_blank" rel="noopener">Google louhii, räjäyttelee ja murskaa Summassa tänä vuonna</a></h3>
+          <div class="ren">Blasting and crushing permit ahead of centre seven</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Nuisance-level construction impact, permitted and dated.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2024"
+               data-flags="figure" data-wall="paid"
+               data-text="google investoi summaan miljardi euroa ja antaa hukkalämpönsä hyötykäyttöön ilmaiseksi eur 1bn; waste heat given free; 4,000 construction jobs the central modern investment story. total campus investment given as about eur 4.5bn; waste heat to cover about 80 percent of hamina district heating. the word &#x27;ilmaiseksi&#x27; (free) is doing heavy work.">
+        <div class="rdate">20.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/6779218" target="_blank" rel="noopener">Google investoi Summaan miljardi euroa ja antaa hukkalämpönsä hyötykäyttöön ilmaiseksi</a></h3>
+          <div class="ren">EUR 1bn; waste heat given free; 4,000 construction jobs</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">The central modern investment story. Total campus investment given as about EUR 4.5bn; waste heat to cover about 80 percent of Hamina district heating. The word &#x27;ilmaiseksi&#x27; (free) is doing heavy work.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2024"
+               data-flags="figure" data-wall="free"
+               data-text="google investoi miljardi euroa haminan datakeskuksen laajentamiseen — orpo: ”erittäin hieno uutinen suomelle” pm orpo reacts to the eur 1bn; about 100 new permanent staff free to read and syndicated. national political reaction folded into local coverage.">
+        <div class="rdate">20.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/6779556" target="_blank" rel="noopener">Google investoi miljardi euroa Haminan datakeskuksen laajentamiseen — Orpo: ”Erittäin hieno uutinen Suomelle”</a></h3>
+          <div class="ren">PM Orpo reacts to the EUR 1bn; about 100 new permanent staff</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-figure">Carries a figure</span></div>
+          <div class="note">FREE TO READ and syndicated. National political reaction folded into local coverage.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2024"
+               data-flags="" data-wall="free"
+               data-text="päätoimittajalta | googlen investointi onnenpotku haminalle editor-in-chief: a stroke of luck, driven by google&#x27;s ai push high-water mark of the celebratory line, signed at the masthead. explicitly ties google to a city wrestling with financial hardship.">
+        <div class="rdate">21.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/6783367" target="_blank" rel="noopener">Päätoimittajalta | Googlen investointi onnenpotku Haminalle</a></h3>
+          <div class="ren">Editor-in-chief: a stroke of luck, driven by Google&#x27;s AI push</div>
+          <div class="chips"><span class="wall wall-free">Free</span></div>
+          <div class="note">HIGH-WATER MARK of the celebratory line, signed at the masthead. Explicitly ties Google to a city wrestling with financial hardship.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2024"
+               data-flags="" data-wall="paid"
+               data-text="googlen jätti-investointi täyttää alueen majoitustiloja ja tuo pubeihin englanninkielistä puheensorinaa lodging filling up; english heard in the pubs texture gold. the best atmospheric piece in the file. hundreds to thousands of outside workers as new customers for shops and restaurants.">
+        <div class="rdate">26.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/6794994" target="_blank" rel="noopener">Googlen jätti-investointi täyttää alueen majoitustiloja ja tuo pubeihin englanninkielistä puheensorinaa</a></h3>
+          <div class="ren">Lodging filling up; English heard in the pubs</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">TEXTURE GOLD. The best atmospheric piece in the file. Hundreds to thousands of outside workers as new customers for shops and restaurants.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2024"
+               data-flags="negative" data-wall="unknown"
+               data-text="kotkalaisten ja haminalaisten määrä vähenee, vaikka suomen väkiluvun ennustetaan kasvavan population still falling despite national growth direct counterweight to any claim that google reversed the decline.">
+        <div class="rdate">24.10.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8009785" target="_blank" rel="noopener">Kotkalaisten ja haminalaisten määrä vähenee, vaikka Suomen väkiluvun ennustetaan kasvavan</a></h3>
+          <div class="ren">Population still falling despite national growth</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Direct counterweight to any claim that Google reversed the decline.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2024"
+               data-flags="negative" data-wall="unknown"
+               data-text="haminan hillonlahden liito-oravien elintila vähenee — rikosilmoituskin on harkinnassa flying-squirrel habitat shrinking; a criminal complaint under consideration the only environmental-harm story, and partly about other industry too. states the ely centre found on 20.06.2024 that the expansion would destroy breeding and resting sites contrary to nature protection law. a protected area on google&#x27;s plot was cleared by accident in 2020. one agent recorded 27.10.2024; treat the day as +/- 1.">
+        <div class="rdate">26.10.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8015210" target="_blank" rel="noopener">Haminan Hillonlahden liito-oravien elintila vähenee — rikosilmoituskin on harkinnassa</a></h3>
+          <div class="ren">Flying-squirrel habitat shrinking; a criminal complaint under consideration</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The only environmental-harm story, and partly about other industry too. States the ELY Centre found on 20.06.2024 that the expansion would destroy breeding and resting sites contrary to nature protection law. A protected area on Google&#x27;s plot was cleared by accident in 2020. One agent recorded 27.10.2024; treat the day as +/- 1.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2024"
+               data-flags="figure negative" data-wall="unknown"
+               data-text="verotiedot 2023 | yritysverot romahtivat haminassa ja kasvoivat kotkassa hamina corporate tax collapsed; tuike finland took large refunds third and sharpest volatility data point.">
+        <div class="rdate">8.11.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8048441" target="_blank" rel="noopener">Verotiedot 2023 | Yritysverot romahtivat Haminassa ja kasvoivat Kotkassa</a></h3>
+          <div class="ren">Hamina corporate tax collapsed; Tuike Finland took large refunds</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Third and sharpest volatility data point.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2024"
+               data-flags="negative" data-wall="paid"
+               data-text="nousevatko muidenkin vuokrat, kun haminan ja kotkan majoituspaikat täyttyvät googlen työntekijöistä? will everyone else&#x27;s rents rise? realtors and hoteliers disagree the first framing of google&#x27;s presence as a cost borne by residents.">
+        <div class="rdate">29.11.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8102706" target="_blank" rel="noopener">Nousevatko muidenkin vuokrat, kun Haminan ja Kotkan majoituspaikat täyttyvät Googlen työntekijöistä?</a></h3>
+          <div class="ren">Will everyone else&#x27;s rents rise? Realtors and hoteliers disagree</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The first framing of Google&#x27;s presence as a cost borne by residents.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="negative" data-wall="unknown"
+               data-text="yle: datakeskuksista ei merkittävää hyötyä suomelle — ”energiankulutus räjähtää käsiin” aalto professor: no significant economic value; energy use explodes the sharpest expert-level negative. prof jukka manner, aalto. national wire, carried locally.">
+        <div class="rdate">23.2.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/8313417" target="_blank" rel="noopener">Yle: Datakeskuksista ei merkittävää hyötyä Suomelle — ”Energiankulutus räjähtää käsiin”</a></h3>
+          <div class="ren">Aalto professor: no significant economic value; energy use explodes</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The sharpest expert-level negative. Prof Jukka Manner, Aalto. National wire, carried locally.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="build" data-year="2025"
+               data-flags="" data-wall="paid"
+               data-text="google hakee lupaa taas uudelle palvelinkeskukselle haminassa permit sought for the eighth server building confirms the pipeline is live. applicant tuike finland. note &#x27;palvelinkeskus&#x27; still in headline use in 2025.">
+        <div class="rdate">22.4.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#1A73E8"><span class="dot" style="background:#1A73E8"></span>Build and investment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8465331" target="_blank" rel="noopener">Google hakee lupaa taas uudelle palvelinkeskukselle Haminassa</a></h3>
+          <div class="ren">Permit sought for the eighth server building</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">Confirms the pipeline is live. Applicant Tuike Finland. Note &#x27;palvelinkeskus&#x27; still in headline use in 2025.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2025"
+               data-flags="" data-wall="unknown"
+               data-text="kotkaan rakennetaan uusi fingridin sähköasema new fingrid 110 kv sydanmaa substation, construction from may 2025 grid build-out is the physical trace of the load. the infrastructure story most likely under-covered.">
+        <div class="rdate">14.5.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8519574" target="_blank" rel="noopener">Kotkaan rakennetaan uusi Fingridin sähköasema</a></h3>
+          <div class="ren">New Fingrid 110 kV Sydanmaa substation, construction from May 2025</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Grid build-out is the physical trace of the load. The infrastructure story most likely under-covered.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="" data-wall="unknown"
+               data-text="suuret rakennushankkeet ovat lisänneet kalustettujen vuokra-asuntojen kysyntää furnished-rental demand up; operators warn of uncertainty housing-market response, with a caution about the boom&#x27;s durability.">
+        <div class="rdate">18.8.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8773514" target="_blank" rel="noopener">Suuret rakennushankkeet ovat lisänneet kalustettujen vuokra-asuntojen kysyntää</a></h3>
+          <div class="ren">Furnished-rental demand up; operators warn of uncertainty</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Housing-market response, with a caution about the boom&#x27;s durability.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2025"
+               data-flags="negative" data-wall="free"
+               data-text="lukijalta | merivesilaitoksen putkien sijoittelu aiheuttaa vaaran hillonlahdelle reader letter: seawater plant pipe routing endangers hillonlahti bay not google&#x27;s cooling loop. this is haminan merivesilaitos, a separate industrial process-water project. do not conflate.">
+        <div class="rdate">9.9.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/8831995" target="_blank" rel="noopener">Lukijalta | Merivesilaitoksen putkien sijoittelu aiheuttaa vaaran Hillonlahdelle</a></h3>
+          <div class="ren">Reader letter: seawater plant pipe routing endangers Hillonlahti bay</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">NOT GOOGLE&#x27;S COOLING LOOP. This is Haminan Merivesilaitos, a separate industrial process-water project. Do not conflate.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="negative" data-wall="unknown"
+               data-text="59 kaupungin asuinkustannukset vertailussa — lähes kaikki hinnat nousseet kotkassa ja haminassa housing costs up across the board in kotka and hamina affordability baseline.">
+        <div class="rdate">15.9.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8846798" target="_blank" rel="noopener">59 kaupungin asuinkustannukset vertailussa — lähes kaikki hinnat nousseet Kotkassa ja Haminassa</a></h3>
+          <div class="ren">Housing costs up across the board in Kotka and Hamina</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Affordability baseline.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2025"
+               data-flags="person" data-wall="paid"
+               data-text="ariane bayer kertoo, millaista on työskennellä googlen datakeskuksessa — toimistolle saa tuoda koiran a brazilian employee on working there; dogs allowed in the office the only named rank-and-file employee profile. lives in pyhtaa; at google since 2019, subcontractor before that. about 100 new jobs on top of about 400 existing. re-run as an arkistosta piece 21.02.2026.">
+        <div class="rdate">21.9.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8862378" target="_blank" rel="noopener">Ariane Bayer kertoo, millaista on työskennellä Googlen datakeskuksessa — toimistolle saa tuoda koiran</a></h3>
+          <div class="ren">A Brazilian employee on working there; dogs allowed in the office</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span><span class="chip chip-person">Named voice</span></div>
+          <div class="note">The only named rank-and-file employee profile. Lives in Pyhtaa; at Google since 2019, subcontractor before that. About 100 new jobs on top of about 400 existing. Re-run as an Arkistosta piece 21.02.2026.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="figure negative" data-wall="unknown"
+               data-text="haminan talousennusteet menivät roskiin — verotulot romahtamassa kahdella miljoonalla eurolla forecasts scrapped; tax revenue down eur 2m hamina&#x27;s fiscal reality running alongside the google boom, not after it.">
+        <div class="rdate">7.10.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8904064" target="_blank" rel="noopener">Haminan talousennusteet menivät roskiin — verotulot romahtamassa kahdella miljoonalla eurolla</a></h3>
+          <div class="ren">Forecasts scrapped; tax revenue down EUR 2m</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-figure">Carries a figure</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Hamina&#x27;s fiscal reality running alongside the Google boom, not after it.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="" data-wall="unknown"
+               data-text="haminan valtuustossa tasainen äänestys — kiinteistövero ei nouse property tax held, 20-17 vote property-tax politics in the host municipality.">
+        <div class="rdate">11.11.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/8991471" target="_blank" rel="noopener">Haminan valtuustossa tasainen äänestys — kiinteistövero ei nouse</a></h3>
+          <div class="ren">Property tax held, 20-17 vote</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">Property-tax politics in the host municipality.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2025"
+               data-flags="" data-wall="free"
+               data-text="lukijalta | jos datataloutta ei haluta kymenlaaksoon, se rakennetaan muualle reader: if the region rejects the data economy it gets built elsewhere the pro-development reader voice. its existence is evidence of a live local argument worth rebutting.">
+        <div class="rdate">13.11.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/8997158" target="_blank" rel="noopener">Lukijalta | Jos datataloutta ei haluta Kymenlaaksoon, se rakennetaan muualle</a></h3>
+          <div class="ren">Reader: if the region rejects the data economy it gets built elsewhere</div>
+          <div class="chips"><span class="wall wall-free">Free</span></div>
+          <div class="note">The pro-development reader voice. Its existence is evidence of a live local argument worth rebutting.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="negative" data-wall="free"
+               data-text="hs: rakennusliitto epäilee, että googlen datakeskuksen työmaalla on riistetty työntekijöitä construction union suspects exploitation of ukrainian refugee workers on the google site the hardest negative in the file. sourced to helsingin sanomat, not original local reporting. reported details not body-confirmed: an estonian subcontractor&#x27;s workers allegedly short up to half their wages; the same network previously linked to exploitation at the turku shipyard; workers registered to a different company than the one they worked for; pressure to sign voluntary-resignation agreements once the union began investigating. google reportedly said it was aware of problems in its subcontractor&#x27;s operations. wire twin at id 9063448, free on four group titles.">
+        <div class="rdate">9.12.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/9063602" target="_blank" rel="noopener">HS: Rakennusliitto epäilee, että Googlen datakeskuksen työmaalla on riistetty työntekijöitä</a></h3>
+          <div class="ren">Construction union suspects exploitation of Ukrainian refugee workers on the Google site</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">THE HARDEST NEGATIVE IN THE FILE. Sourced to Helsingin Sanomat, not original local reporting. Reported details not body-confirmed: an Estonian subcontractor&#x27;s workers allegedly short up to half their wages; the same network previously linked to exploitation at the Turku shipyard; workers registered to a different company than the one they worked for; pressure to sign voluntary-resignation agreements once the union began investigating. Google reportedly said it was aware of problems in its subcontractor&#x27;s operations. Wire twin at ID 9063448, free on four group titles.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2025"
+               data-flags="" data-wall="paid"
+               data-text="ekami ryhtyi kouluttamaan työvoimaa palvelinkeskuksiin — googlen tuella harjoitusdatakeskus vocational college builds a practice data centre in a former teaching kitchen, with google support the strongest single local-capability proof point, and a strong visual. eu-funded. assistant principal kimmo kallioniemi quoted.">
+        <div class="rdate">14.12.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/9074538" target="_blank" rel="noopener">Ekami ryhtyi kouluttamaan työvoimaa palvelinkeskuksiin — Googlen tuella harjoitusdatakeskus</a></h3>
+          <div class="ren">Vocational college builds a practice data centre in a former teaching kitchen, with Google support</div>
+          <div class="chips"><span class="wall wall-paid">Paywalled</span></div>
+          <div class="note">The strongest single local-capability proof point, and a strong visual. EU-funded. Assistant principal Kimmo Kallioniemi quoted.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2025"
+               data-flags="negative" data-wall="free"
+               data-text="lukijalta | datakiihkon kasvuun ei ole varauduttu reader: nobody prepared for the data frenzy; households will pay counterpoint to the pro-development letter five weeks earlier. the paper is now running both sides.">
+        <div class="rdate">16.12.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/9081161" target="_blank" rel="noopener">Lukijalta | Datakiihkon kasvuun ei ole varauduttu</a></h3>
+          <div class="ren">Reader: nobody prepared for the data frenzy; households will pay</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Counterpoint to the pro-development letter five weeks earlier. The paper is now running both sides.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="community" data-year="2026"
+               data-flags="negative" data-wall="unknown"
+               data-text="datakeskukset työllistävät lähivuosina kymmeniä tuhansia — katso kartta tens of thousands of jobs in coming years, mostly construction explicitly separates construction from operating employment.">
+        <div class="rdate">22.1.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Community and economy</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/9152473" target="_blank" rel="noopener">Datakeskukset työllistävät lähivuosina kymmeniä tuhansia — katso kartta</a></h3>
+          <div class="ren">Tens of thousands of jobs in coming years, mostly construction</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Explicitly separates construction from operating employment.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2026"
+               data-flags="negative" data-wall="unknown"
+               data-text="haminan merivesilaitokselle takapakkia — hallinto-oikeus kumosi hankkeen vesitalousluvan vaasa administrative court annuls the seawater plant&#x27;s water permit as unlawful a court finding that a hamina industrial seawater project was permitted on inadequate water and nature evidence. permit had been granted february 2025. again: not google&#x27;s cooling loop, but it sits in the same bay and the same public conversation.">
+        <div class="rdate">1.4.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/9348672" target="_blank" rel="noopener">Haminan Merivesilaitokselle takapakkia — hallinto-oikeus kumosi hankkeen vesitalousluvan</a></h3>
+          <div class="ren">Vaasa administrative court annuls the seawater plant&#x27;s water permit as unlawful</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">A court finding that a Hamina industrial seawater project was permitted on inadequate water and nature evidence. Permit had been granted February 2025. Again: NOT Google&#x27;s cooling loop, but it sits in the same bay and the same public conversation.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2026"
+               data-flags="" data-wall="unknown"
+               data-text="fingridistä arvioidaan, ettei datakeskusten sähkön kattaminen tuulivoimalla olisi ”tavatonta” fingrid: covering data-centre demand with wind would not be extraordinary the grid operator&#x27;s own read on the additionality question.">
+        <div class="rdate">5.5.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/9428138" target="_blank" rel="noopener">Fingridistä arvioidaan, ettei datakeskusten sähkön kattaminen tuulivoimalla olisi ”tavatonta”</a></h3>
+          <div class="ren">Fingrid: covering data-centre demand with wind would not be extraordinary</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The grid operator&#x27;s own read on the additionality question.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2026"
+               data-flags="negative" data-wall="free"
+               data-text="lukijalta | datakeskukset kuriin reader: rein the data centres in the most systematic critical letter. cites about 40 national projects under way and 20 more planned; that only seven existing centres employ more than 20 people; and a national electricity balance that does not close. tagged to hamina.">
+        <div class="rdate">8.5.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/9434825" target="_blank" rel="noopener">Lukijalta | Datakeskukset kuriin</a></h3>
+          <div class="ren">Reader: rein the data centres in</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The most systematic critical letter. Cites about 40 national projects under way and 20 more planned; that only seven existing centres employ more than 20 people; and a national electricity balance that does not close. Tagged to Hamina.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2026"
+               data-flags="" data-wall="unknown"
+               data-text="haminan merivesilaitos aikoo hakea vesitalouslupaa uudelleen seawater plant will reapply for the water permit the permit fight is live, not settled.">
+        <div class="rdate">2.6.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/9502633" target="_blank" rel="noopener">Haminan Merivesilaitos aikoo hakea vesitalouslupaa uudelleen</a></h3>
+          <div class="ren">Seawater plant will reapply for the water permit</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The permit fight is live, not settled.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2026"
+               data-flags="negative" data-wall="unknown"
+               data-text="korian datakeskuksen hulevedet johdetaan kymijokeen — ”voi olla merkittäviä vaikutuksia” koria data centre stormwater to be discharged into the kymi river the regional water story generalising beyond hamina.">
+        <div class="rdate">4.6.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/9507130" target="_blank" rel="noopener">Korian datakeskuksen hulevedet johdetaan Kymijokeen — ”voi olla merkittäviä vaikutuksia”</a></h3>
+          <div class="ren">Koria data centre stormwater to be discharged into the Kymi river</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The regional water story generalising beyond Hamina.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="energy" data-year="2026"
+               data-flags="" data-wall="unknown"
+               data-text="”pysäyttää investoinnit” — etujärjestö tyrmää aloitteen, joka pakottaisi datakeskukset kattamaan oman sähköntuotantonsa industry body rejects the bill requiring data centres to add their own generation the additionality fight is now national, and hamina is the reference case. over 100 mps reportedly signed the bill.">
+        <div class="rdate">29.6.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#0097A7"><span class="dot" style="background:#0097A7"></span>Energy, water, environment</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/uutissuomalainen/9577234" target="_blank" rel="noopener">”Pysäyttää investoinnit” — etujärjestö tyrmää aloitteen, joka pakottaisi datakeskukset kattamaan oman sähköntuotantonsa</a></h3>
+          <div class="ren">Industry body rejects the bill requiring data centres to add their own generation</div>
+          <div class="chips"><span class="wall wall-unk">Wall unknown</span></div>
+          <div class="note">The additionality fight is now national, and Hamina is the reference case. Over 100 MPs reportedly signed the bill.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2026"
+               data-flags="negative" data-wall="free"
+               data-text="lukijalta | miljardit eivät riitä — kymenlaakso tarvitsee enemmän kuin rakennustyömaita billions aren&#x27;t enough; regions succeed through collaboration, not single investments the most substantive local critique found, and it is thesis-research-based. argues kymenlaakso risks ending up with construction sites and little else.">
+        <div class="rdate">23.7.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/9639343" target="_blank" rel="noopener">Lukijalta | Miljardit eivät riitä — Kymenlaakso tarvitsee enemmän kuin rakennustyömaita</a></h3>
+          <div class="ren">Billions aren&#x27;t enough; regions succeed through collaboration, not single investments</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">The most substantive local critique found, and it is thesis-research-based. Argues Kymenlaakso risks ending up with construction sites and little else.</div>
+        </div>
+      </article>
+      <article class="row" data-cluster="opinion" data-year="2026"
+               data-flags="negative" data-wall="free"
+               data-text="lukijalta | osaajat eivät jää sinne, missä he eivät koe olevansa tervetulleita skilled people don&#x27;t stay where they don&#x27;t feel welcome talent-retention and inclusion angle. surfaced on a google-recruitment query.">
+        <div class="rdate">28.7.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>People and opinion</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paakirjoitus-mielipide/9651417" target="_blank" rel="noopener">Lukijalta | Osaajat eivät jää sinne, missä he eivät koe olevansa tervetulleita</a></h3>
+          <div class="ren">Skilled people don&#x27;t stay where they don&#x27;t feel welcome</div>
+          <div class="chips"><span class="wall wall-free">Free</span><span class="chip chip-negative">Negative or critical</span></div>
+          <div class="note">Talent-retention and inclusion angle. Surfaced on a Google-recruitment query.</div>
+        </div>
+      </article></div>
+  <div id="empty">Nothing matches those filters.</div>
+
+  <h2 class="sec">The 2007 to 2011 window, reachable free</h2>
+  <p>Added after a second sweep on 3 August 2026. The Kymen Sanomat web archive stops in 2017, but the closure-and-arrival period is <em>not</em> dark. Yle carries roughly eighty live articles from these years, free and unwalled, six of them in English. Stora Enso's own divestment release survives in full. The Finnish Parliament's written questions and interpellations are free full-text PDFs with the responsible minister's dated answer attached. Statistics Finland gives the employment collapse independently of any press account: Hamina paper-industry jobs 311 in 2007, 48 in 2008, 10 in 2009, with unemployment moving 10.3 to 12.2 to 15.1 percent over the same years. Two items below were fetched and read directly rather than relayed.</p>
+  
+      <article class="row off">
+        <div class="rdate">25.10.2007</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5807611" target="_blank" rel="noopener">Stora Enso vähentää ainakin 1 100 Suomessa</a></h3>
+          <div class="ren">Announcement day. At least 1,100 Finnish cuts; Summa and Kemijärvi named.</div>
+          <div class="note">Free, full text, live.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">25.10.2007</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle News (EN)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5807618" target="_blank" rel="noopener">Walkouts After Stora Enso Announces 1,100 Job Cuts in Finland</a></h3>
+          <div class="ren">English, same day.</div>
+          <div class="note">Free. English route into the announcement.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">30.10.2007</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Eduskunta</div>
+          <h3 class="rfi"><a href="https://www.eduskunta.fi/pdf/KK+428/2007" target="_blank" rel="noopener">KK 428/2007 — state ownership steering in Stora Enso&#x27;s decisions</a></h3>
+          <div class="ren">Written question by Markus Mustajärvi; answered 15.11.2007 by Minister Jyri Häkämies.</div>
+          <div class="note">Free full-text PDF. The minister&#x27;s dated answer is stapled to the question.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">1.12.2007</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Metsälehti via Farmit</div>
+          <h3 class="rfi"><a href="https://www.farmit.net/metsalehden-metsauutiset/2007/12/01/summan-tehtaan-lakkautus-nakyy-haminan-taloudessa" target="_blank" rel="noopener">Summan tehtaan lakkautus näkyy Haminan taloudessa</a></h3>
+          <div class="ren">About a EUR 3m hole in Hamina&#x27;s tax take by 2009; tax rate raised 19 to 19.5 percent; Mayor Muhonen quoted.</div>
+          <div class="note">Free. The original Metsälehti site has lost this era; the wire survives here.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">20.12.2007</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Eurofound (EU, EN)</div>
+          <h3 class="rfi"><a href="https://www.eurofound.europa.eu/en/resources/article/2007/massive-job-cuts-due-restructuring-paper-sector" target="_blank" rel="noopener">Massive job cuts due to restructuring in paper sector</a></h3>
+          <div class="ren">Best free English record of the closure decision and union reaction.</div>
+          <div class="note">Free, English.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">17.1.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>MTV Uutiset</div>
+          <h3 class="rfi"><a href="https://www.mtvuutiset.fi/artikkeli/stora-enso-jarkahtamaton-tehtaiden-sulkemisissa/1963134" target="_blank" rel="noopener">Stora Enso järkähtämätön tehtaiden sulkemisissa</a></h3>
+          <div class="ren">Co-determination outcome: 985 cut across Kemijärvi and Summa, 450 at Summa. CEO Karvinen doubles the support package to EUR 10m.</div>
+          <div class="note">Free, full text.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">28.1.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle News (EN)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5820635" target="_blank" rel="noopener">Church offers Crisis Counselling to Summa Paper Workers Losing their Jobs</a></h3>
+          <div class="ren">The human register, in English, two days before the shutdown.</div>
+          <div class="note">Free, English.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">30.1.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5820811" target="_blank" rel="noopener">Stora Enson Summan-tehdas hiljeni</a></h3>
+          <div class="ren">Shutdown day. Last running paper machine wound down at midday. Nearly 450 jobs. Mill opened March 1955.</div>
+          <div class="note">VERIFIED DIRECTLY 3.8.2026: live, free, full body, published 06:16.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">30.1.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Metsälehti via Farmit</div>
+          <h3 class="rfi"><a href="https://www.farmit.net/metsalehden-metsauutiset/2008/01/30/summan-tehdas-sulkee-ovensa" target="_blank" rel="noopener">Summan tehdas sulkee ovensa</a></h3>
+          <div class="ren">The last shift. Shop steward Pekka Kokkonen and mill director Juha Mäkimattila quoted. Stora Enso says it will not permit competing paper production on the site.</div>
+          <div class="note">Free. Two named voices from the closing day, and the no-competing-production covenant.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">8.2.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Eduskunta</div>
+          <h3 class="rfi"><a href="https://www.eduskunta.fi/pdf/VK+1/2008" target="_blank" rel="noopener">VK 1/2008 vp — interpellation on Stora Enso&#x27;s closures and state ownership policy</a></h3>
+          <div class="ren">Fifty-plus signatories led by Martti Korhonen. Debate PTK 7 and 8/2008; confidence vote 19.2.2008 (111 yes, 53 no).</div>
+          <div class="note">Free full-text PDF. Per-MP vote records available via the open-data API.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">23.5.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Eduskunta</div>
+          <h3 class="rfi"><a href="https://www.eduskunta.fi/pdf/KK+442/2008" target="_blank" rel="noopener">KK 442/2008 — effects of sludge handling on the REUSE of the Summa factory site</a></h3>
+          <div class="ren">Three local MPs across three parties. After the mill stopped, Stora Enso composted Kotka mill sludge on the Summa site instead of incinerating it, causing odour near the Uusi Summa homes, with a groundwater deposit, water intakes and a public beach nearby. Hamina&#x27;s environmental board objected; residents filed police reports.</div>
+          <div class="note">THE SINGLE BEST NEW FIND. An official, dated, cross-party record that the site&#x27;s own condition was blocking its reuse at exactly the moment new employment mattered most. Answered 27.6.2008 by Minister Jan Vapaavuori. In no public account of the Hamina story.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">11.12.2008</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle News (EN)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-6127288" target="_blank" rel="noopener">Winwind to Hire Hundreds</a></h3>
+          <div class="ren">Wind-turbine plant hiring in Hamina, framed against Summa&#x27;s losses.</div>
+          <div class="note">Free, English. The rival reuse story, before Google.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">12.2.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5723260" target="_blank" rel="noopener">Google perustaa datakeskuksen Stora Enson vanhalle Summan tehtaalle</a></h3>
+          <div class="ren">The announcement, 09:29. Google Finland MD Petri Kokko, Stora Enso CFO Markus Rauramo and deputy mayor Kari Halonen all quoted.</div>
+          <div class="note">Free, full text. The moment itself.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">12.2.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5723062" target="_blank" rel="noopener">Google osti paperitehdasrakennuksen — mitäs järkeä tässä on?</a></h3>
+          <div class="ren">Analysis on the day: why a search company buys a paper mill. Cheap power, cold water, proximity to Russia.</div>
+          <div class="note">Free. The siting logic explained contemporaneously.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">12.2.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>The Register (EN)</div>
+          <h3 class="rfi"><a href="https://www.theregister.com/2009/02/12/google_buys_defunct_paper_mill/" target="_blank" rel="noopener">Google pays $51.7m for newspaper destruction metaphor</a></h3>
+          <div class="ren">Carries an on-record same-day Google statement from Kay Oberbeck.</div>
+          <div class="note">Free, English.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">2.3.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Stora Enso</div>
+          <h3 class="rfi"><a href="https://www.globenewswire.com/news-release/2009/03/02/13935/0/en/Stora-Enso-finalises-divestment-of-Summa-Mill-premises-in-Finland.html" target="_blank" rel="noopener">Stora Enso finalises divestment of Summa Mill premises in Finland</a></h3>
+          <div class="ren">Stock exchange release, 07:00 GMT. About EUR 40m to the Google Group of Companies. EUR 38m operating-profit improvement of which about EUR 15m is a reversal of earlier impairment. Part of the site to be transferred onward to the CITY OF HAMINA for economic development, industrial-park expansion, or public park and recreation. CFO Markus Rauramo on the record.</div>
+          <div class="note">VERIFIED DIRECTLY 3.8.2026: full text read. THE BEST PRIMARY DOCUMENT IN THE FILE. Free, in English, Finnish and Swedish, from two independent mirrors. The onward transfer to the City of Hamina is the part nobody quotes.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">4.3.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Data Center Knowledge (EN)</div>
+          <h3 class="rfi"><a href="https://www.datacenterknowledge.com/hyperscalers/google-confirms-data-center-in-finland" target="_blank" rel="noopener">Google Confirms Data Center in Finland</a></h3>
+          <div class="ren">Google&#x27;s own numbers: EUR 200m, about 50 staff, testing in 2010.</div>
+          <div class="note">Free, English.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">14.6.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Kymen Sanomat (print)</div>
+          <h3 class="rfi"><a href="https://www.kymensanomat.fi/paikalliset/4289462" target="_blank" rel="noopener">Kuinka jättiläinen ja pikkukaupunki löysivät toisensa</a></h3>
+          <div class="ren">The courtship story. Reachable only as a 2021 republication; the print original is a known, dated target.</div>
+          <div class="note">The one print date we already know. Tagged Winwind Oy alongside Google and Stora Enso, which suggests a rival bidder was covered.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">13.8.2009</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5862339" target="_blank" rel="noopener">Summalaiset etsivät vieläkin töitä</a></h3>
+          <div class="ren">Eighteen months on, former Summa workers still job-hunting.</div>
+          <div class="note">Free. The honest-negative counterweight to the arrival story.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">25.5.2011</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Data Center Dynamics (EN)</div>
+          <h3 class="rfi"><a href="https://www.datacenterdynamics.com/en/news/googles-finland-data-center-pioneers-new-seawater-cooling/" target="_blank" rel="noopener">Google&#x27;s Finland data center pioneers new seawater cooling</a></h3>
+          <div class="ren">The best in-window engineering account. Joe Kava on the quarter-mile granite intake tunnel inherited from the mill, titanium plate exchangers, and 30 years of sea-temperature records.</div>
+          <div class="note">Free, English. The mill literally plumbing the data centre.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">21.6.2011</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5379746" target="_blank" rel="noopener">Stora Ensolle kallis lasku</a></h3>
+          <div class="ren">The Labour Court compensation ruling lands.</div>
+          <div class="note">Free. Followed next day by worker reaction: EUR 17,000 per paper-union member, called a token.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">10.9.2011</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#188038"><span class="dot" style="background:#188038"></span>Yle News (EN)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-5421764" target="_blank" rel="noopener">Google opens data centre in Hamina</a></h3>
+          <div class="ren">Opening day, in English. Minister Jyri Häkämies officiates.</div>
+          <div class="note">Free, English. Closes the arc.</div>
+        </div>
+      </article>
+
+  <h2 class="sec">Off-domain corroboration and free routes</h2>
+  <p>Yle is free to read and in several cases publishes in English. Two of the hardest Hamina stories are Yle's alone and appear nowhere in the Kymen Sanomat results. Group syndication also matters: wire stories filed under <code>/uutissuomalainen/</code> carry an identical numeric ID across kouvolansanomat.fi, ess.fi, keski-uusimaa.fi and esaimaa.fi, and every case tested came back free. Locally desked <code>/paikalliset/</code> stories get a different ID on each title, so those must be searched by headline.</p>
+  
+      <article class="row off">
+        <div class="rdate">20.11.2020</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/3-11657566" target="_blank" rel="noopener">Kesti liki 10 vuotta ennen kuin Googlen tarkoin varjelema Suomen datakeskus raotti ovensa</a></h3>
+          <div class="ren">Same-day corroboration of the keystone Kymen Sanomat piece</div>
+          <div class="note">Free.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">14.9.2021</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle MOT</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/20-312125" target="_blank" rel="noopener">Datakeskusten petetyt lupaukset — käsikirjoitus</a></h3>
+          <div class="ren">Investigative strand: the broken promises of data centres, published as a full transcript</div>
+          <div class="note">THE MOST IMPORTANT CRITICAL DOCUMENT FOUND. Predates the local paper&#x27;s turn by four years. Free.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">20.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle (English)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20089577" target="_blank" rel="noopener">Google&#x27;s planned Finnish data centre expansion to create 100 new jobs</a></h3>
+          <div class="ren">English-language version of the EUR 1bn announcement</div>
+          <div class="note">Free, English.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">20.5.2024</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20089673" target="_blank" rel="noopener">Google lahjoittaa energiayhtiölle ilmaiseksi hukkalämpöä 2 000 kotitalouteen — pienempiä laskuja on turha odottaa</a></h3>
+          <div class="ren">Free waste heat, but don&#x27;t expect smaller bills</div>
+          <div class="note">Directly qualifies the local paper&#x27;s positive framing. Date unconfirmed.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">19.8.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20177695" target="_blank" rel="noopener">Googlen datakeskuksen hukkalämpö lämmittää kohta lähes koko Haminan kaupungin</a></h3>
+          <div class="ren">About 75 percent of Hamina district heat from Google waste heat post-commissioning</div>
+          <div class="note">Note 75 percent here vs the 80 percent estimate carried locally.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">23.10.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle (English)</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20189966" target="_blank" rel="noopener">HS: Google puts plans for Finnish data centre expansion on ice</a></h3>
+          <div class="ren">An expansion pause, in English</div>
+          <div class="note">FLAG. Does not appear anywhere in the Kymen Sanomat results. Free.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">9.12.2025</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20198743" target="_blank" rel="noopener">HS: Googlen datakeskustyömaalla epäillään isoja ongelmia ukrainalaisten työntekijöiden työehdoissa</a></h3>
+          <div class="ren">Same-day corroboration of the labour story</div>
+          <div class="note">Free.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">14.1.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Yle</div>
+          <h3 class="rfi"><a href="https://yle.fi/a/74-20203996" target="_blank" rel="noopener">Puolalaiset paiskivat jopa 12 tunnin päiviä Googlen työmaalla Haminassa</a></h3>
+          <div class="ren">A second, later labour story: Polish workers, 12-hour days, an odd contract shown to an inspector</div>
+          <div class="note">FLAG. This escalation does not appear in the Kymen Sanomat results either. Free.</div>
+        </div>
+      </article>
+      <article class="row off">
+        <div class="rdate">30.4.2026</div>
+        <div class="rbody">
+          <div class="rcluster" style="color:#5F6368"><span class="dot" style="background:#5F6368"></span>Etelä-Suomen Sanomat</div>
+          <h3 class="rfi"><a href="https://www.ess.fi/paakirjoitus-mielipide/9412666" target="_blank" rel="noopener">Pääkirjoitus | Datakeskus voi tuoda hyvää, mutta syökö se liikaa sähköä?</a></h3>
+          <div class="ren">Sister-title editorial going further than Kymen Sanomat&#x27;s own has</div>
+          <div class="note">Free. Group-wide editorial posture is ahead of the Hamina paper&#x27;s.</div>
+        </div>
+      </article>
+</main>
+
+<footer>
+  Desk research compiled 3 August 2026. Two dates carry a one-day variance between sweeps and are marked in their notes. Figures shown are headline or standfirst level only and are not body-confirmed.
+</footer>
+
+<script>
+const state={cluster:new Set(),year:new Set(),flag:new Set()};
+const rows=[...document.querySelectorAll('#list .row')];
+const q=document.getElementById('q');
+function apply(){
+  const t=q.value.trim().toLowerCase();
+  let n=0;
+  rows.forEach(r=>{
+    const okC=!state.cluster.size||state.cluster.has(r.dataset.cluster);
+    const okY=!state.year.size||state.year.has(r.dataset.year);
+    const fl=r.dataset.flags.split(' ').filter(Boolean);
+    const okF=!state.flag.size||[...state.flag].every(f=>fl.includes(f));
+    const okT=!t||r.dataset.text.includes(t);
+    const show=okC&&okY&&okF&&okT;
+    r.style.display=show?'':'none';
+    if(show)n++;
+  });
+  document.getElementById('empty').style.display=n?'none':'block';
+}
+document.querySelectorAll('button.f').forEach(b=>{
+  if(b.id==='clear')return;
+  b.addEventListener('click',()=>{
+    const k=b.dataset.k,v=b.dataset.v;
+    if(state[k].has(v)){state[k].delete(v);b.classList.remove('on');}
+    else{state[k].add(v);b.classList.add('on');}
+    apply();
+  });
+});
+document.getElementById('clear').addEventListener('click',()=>{
+  Object.values(state).forEach(s=>s.clear());
+  document.querySelectorAll('button.f.on').forEach(b=>b.classList.remove('on'));
+  q.value='';apply();
+});
+q.addEventListener('input',apply);
+apply();
+</script>
+</body></html>

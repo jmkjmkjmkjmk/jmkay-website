@@ -25,6 +25,11 @@
   Referrer-Policy: no-referrer
   Cache-Control: private, no-store
 
+/hamina-press/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+  Cache-Control: private, no-store
+
 
 /juno.html
   X-Robots-Tag: noindex, nofollow
