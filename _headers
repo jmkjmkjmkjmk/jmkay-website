@@ -33,3 +33,7 @@
 
 /juno.html
   X-Robots-Tag: noindex, nofollow
+
+/x/summa-archive-1b0263f000/*
+  Basic-Auth: hamina:summa
+  X-Robots-Tag: noindex, nofollow

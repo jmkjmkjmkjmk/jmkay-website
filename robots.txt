@@ -13,6 +13,7 @@ Disallow: /scripts/
 Disallow: /CLAUDE.md
 Disallow: /DEPLOY-INSTRUCTIONS.md
 Disallow: /juno.html
+Disallow: /x/summa-archive-1b0263f000/
 
 # NOTE: every Disallow rule must sit ABOVE this blank line, inside the
 # User-agent group. Anything appended below the Sitemap line is ignored
