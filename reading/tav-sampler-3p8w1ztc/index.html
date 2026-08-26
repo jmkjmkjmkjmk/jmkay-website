@@ -19,32 +19,105 @@
     --warm-white:#FDFBF7; --cream:#F5F0E8; --sand:#D4C5A9;
     --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C; --stone:#A8A29E;
     --terracotta:#C2603F; --deep-teal:#1A4A4A; --line:#E4DDD0;
+    --prose-ink:#26211d; --panel:#FFFFFF;
+  }
+  html[data-theme="dark"] {
+    --warm-white:#191613; --cream:#211D18; --sand:#4A4238;
+    --ink:#EAE3D8; --ink-light:#C9C1B2; --ink-muted:#948C7E; --stone:#6E6659;
+    --line:#332E27; --prose-ink:#DFD8CB; --panel:#211D18;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
   body {
     font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--ink);
     font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    transition:background 0.25s ease, color 0.25s ease;
   }
+  button { font-family:inherit; }
 
-  /* slim top bar — wordmark only, deliberately quiet */
+  /* reading progress */
+  .progress { position:fixed; top:0; left:0; height:3px; width:0%;
+    background:var(--terracotta); z-index:80; transition:width 0.1s linear; }
+
+  /* sticky top bar */
   .topbar {
-    padding:22px 32px; display:flex; align-items:center; justify-content:center;
+    position:sticky; top:0; z-index:70;
+    padding:14px 18px; display:flex; align-items:center; justify-content:space-between;
     border-bottom:1px solid var(--line);
+    background:color-mix(in srgb, var(--warm-white) 88%, transparent);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  }
+  @supports not (background: color-mix(in srgb, red 50%, blue)) {
+    .topbar { background:var(--warm-white); }
   }
   .wordmark {
-    font-family:'Kay Display',serif; font-size:19px; text-transform:uppercase;
+    font-family:'Kay Display',serif; font-size:18px; text-transform:uppercase;
     letter-spacing:0.04em; color:var(--ink); text-decoration:none;
+    position:absolute; left:50%; transform:translateX(-50%);
   }
   .dot {
     display:inline-block; width:5px; height:5px; background:var(--terracotta);
     transform:rotate(45deg); border-radius:1px; margin:0 4px; vertical-align:middle;
   }
+  .tb-btn {
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-muted); background:none;
+    border:1px solid var(--line); border-radius:4px; padding:7px 12px; cursor:pointer;
+  }
+  .tb-btn:hover { color:var(--ink); border-color:var(--sand); }
+
+  /* panels */
+  .panel {
+    display:none; position:fixed; top:58px; z-index:75;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    box-shadow:0 12px 40px rgba(28,25,23,0.14); padding:14px;
+    max-width:340px; width:calc(100% - 28px);
+  }
+  .panel.open { display:block; }
+  #tocPanel { left:14px; }
+  #typePanel { right:14px; }
+  .panel-label {
+    font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--ink-muted); margin:2px 4px 10px;
+  }
+  .toc-item {
+    display:flex; align-items:baseline; gap:10px; width:100%; text-align:left;
+    background:none; border:none; padding:9px 8px; border-radius:5px; cursor:pointer;
+    color:var(--ink); font-size:15px;
+  }
+  .toc-item:hover { background:var(--cream); }
+  .toc-item.current { background:var(--cream); }
+  .toc-item.current .toc-title { color:var(--terracotta); }
+  .toc-num {
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-muted); min-width:46px;
+  }
+  .toc-title { font-family:'Instrument Serif',serif; font-size:17px; flex:1; }
+  .toc-time { font-family:'Space Mono',monospace; font-size:10px; color:var(--stone); }
+  .toc-foot { border-top:1px solid var(--line); margin-top:10px; padding-top:12px; }
+  .spot-btn {
+    width:100%; background:none; border:1px dashed var(--sand); border-radius:5px;
+    padding:10px; cursor:pointer; color:var(--ink-light); font-size:13.5px;
+  }
+  .spot-btn:hover { border-color:var(--terracotta); color:var(--ink); }
+  .spot-done { font-size:13px; color:var(--deep-teal); padding:8px 2px 2px; display:none; }
+  html[data-theme="dark"] .spot-done { color:#7FB5B5; }
+
+  .type-row { display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:6px 4px; }
+  .type-row .t-label { font-size:13.5px; color:var(--ink-light); }
+  .seg { display:flex; gap:6px; }
+  .seg button {
+    background:none; border:1px solid var(--line); border-radius:4px;
+    padding:6px 12px; cursor:pointer; color:var(--ink); font-size:14px;
+  }
+  .seg button:hover { border-color:var(--sand); }
+  .seg button.on { border-color:var(--terracotta); color:var(--terracotta); }
 
   .wrap { max-width:680px; margin:0 auto; padding:0 28px; }
 
   /* book title / framing */
-  .intro { padding:84px 0 8px; }
+  .intro { padding:72px 0 8px; }
   .eyebrow {
     font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.22em;
     text-transform:uppercase; color:var(--terracotta); margin-bottom:18px;
@@ -61,14 +134,22 @@
     border-top:1px solid var(--line); border-bottom:1px solid var(--line);
     padding:32px 0; margin-bottom:8px;
   }
-  .framing p {
-    font-size:16.5px; color:var(--ink-light); margin-bottom:16px;
-  }
+  .framing p { font-size:16.5px; color:var(--ink-light); margin-bottom:16px; }
   .framing p:last-child { margin-bottom:0; }
   .framing em { font-style:italic; }
+  .epub-line {
+    font-size:13.5px; color:var(--ink-muted); padding:14px 2px 0; text-align:center;
+  }
+  .epub-line a { color:var(--deep-teal); }
+  html[data-theme="dark"] .epub-line a { color:#7FB5B5; }
 
   /* chapters */
-  .chapter { padding:64px 0 8px; }
+  .divider { text-align:center; padding:58px 0 0; }
+  .dmark {
+    display:inline-block; width:9px; height:9px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:1.5px;
+  }
+  .chapter { padding:56px 0 8px; }
   .chapter-head { text-align:center; margin-bottom:44px; }
   .chapter-num {
     display:block; font-family:'Space Mono',monospace; font-size:12px;
@@ -81,15 +162,13 @@
   }
   .prose {
     font-family:'EB Garamond',serif; font-size:20px; line-height:1.66;
-    color:#26211d;
+    color:var(--prose-ink);
   }
   .prose p { margin-bottom:1.05em; }
   .prose p:first-of-type { text-indent:0; }
   .prose p + p { text-indent:1.4em; }
   .prose em { font-style:italic; }
-  .prose hr {
-    border:none; text-align:center; margin:34px 0; overflow:visible;
-  }
+  .prose hr { border:none; text-align:center; margin:34px 0; overflow:visible; }
   .prose hr::before {
     content:'\002A \00A0\00A0 \002A \00A0\00A0 \002A';
     color:var(--stone); letter-spacing:0.1em; font-family:'EB Garamond',serif;
@@ -100,11 +179,54 @@
     width:100%; height:auto; display:block; border-radius:4px;
     box-shadow:0 6px 22px rgba(28,25,23,0.10);
   }
-
-  /* feedback */
-  .feedback {
-    margin:72px 0 0; padding:40px 0 0; border-top:1px solid var(--line);
+  html[data-theme="dark"] .prose figure.ms-figure img {
+    box-shadow:0 6px 22px rgba(0,0,0,0.4);
   }
+
+  /* gap notes */
+  .gap-note { padding:58px 0 0; text-align:center; }
+  .gap-note p {
+    display:inline-block; max-width:460px; font-size:14px; font-style:italic;
+    color:var(--ink-muted); line-height:1.55;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:14px 6px;
+  }
+
+  /* per-chapter reactions */
+  .cr { margin-top:44px; text-align:center; }
+  .cr-row { display:flex; align-items:center; justify-content:center; gap:10px;
+    flex-wrap:wrap; }
+  .cr-q {
+    font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--stone);
+  }
+  .cr-btn {
+    background:none; border:1px solid var(--line); border-radius:16px;
+    padding:7px 16px; cursor:pointer; color:var(--ink-light); font-size:13.5px;
+  }
+  .cr-btn:hover { border-color:var(--sand); color:var(--ink); }
+  .cr-btn.on { border-color:var(--terracotta); color:var(--terracotta); }
+  .cr-more { display:flex; gap:8px; justify-content:center; margin-top:12px;
+    flex-wrap:wrap; }
+  .cr-more[hidden] { display:none; }
+  .cr-line {
+    width:min(340px, 100%); font-family:'DM Sans',sans-serif; font-size:14px;
+    color:var(--ink); background:var(--warm-white); border:1px solid var(--sand);
+    border-radius:16px; padding:8px 14px;
+  }
+  .cr-line:focus { outline:none; border-color:var(--terracotta); }
+  .cr-send {
+    background:var(--deep-teal); color:#fff; border:none; border-radius:16px;
+    padding:8px 18px; cursor:pointer; font-size:13.5px;
+  }
+  .cr-send:hover { background:var(--terracotta); }
+  .cr-done { font-size:13.5px; color:var(--deep-teal); margin-top:10px; }
+  html[data-theme="dark"] .cr-done { color:#7FB5B5; }
+
+  /* closing + feedback */
+  .closing { margin-top:72px; padding-top:32px; border-top:1px solid var(--line); }
+  .closing p { font-size:16.5px; color:var(--ink-light); }
+  .feedback { margin:40px 0 0; padding:40px 0 0; border-top:1px solid var(--line); }
   .feedback h3 {
     font-family:'Instrument Serif',serif; font-weight:400; font-size:26px;
     margin-bottom:8px;
@@ -122,9 +244,7 @@
     padding:12px 14px; line-height:1.5;
   }
   .field textarea { min-height:150px; resize:vertical; }
-  .field input:focus, .field textarea:focus {
-    outline:none; border-color:var(--terracotta);
-  }
+  .field input:focus, .field textarea:focus { outline:none; border-color:var(--terracotta); }
   .hp { position:absolute; left:-9999px; }
   button.send {
     font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500;
@@ -133,6 +253,17 @@
   }
   button.send:hover { background:var(--terracotta); }
   .thanks { display:none; color:var(--deep-teal); font-size:16.5px; padding:8px 0; }
+  html[data-theme="dark"] .thanks { color:#7FB5B5; }
+
+  /* continue pill */
+  .pill {
+    display:none; position:fixed; bottom:26px; left:50%; transform:translateX(-50%);
+    z-index:65; background:var(--ink); color:var(--warm-white);
+    border:none; border-radius:22px; padding:11px 22px; cursor:pointer;
+    font-size:14px; box-shadow:0 8px 28px rgba(28,25,23,0.25);
+  }
+  .pill.show { display:block; }
+  html[data-theme="dark"] .pill { background:var(--cream); color:var(--ink); }
 
   footer {
     margin-top:80px; padding:34px 0 60px; border-top:1px solid var(--line);
@@ -144,50 +275,81 @@
     .book-title { font-size:36px; }
     .prose { font-size:18.5px; }
     .chapter-title { font-size:28px; }
-    .intro { padding:60px 0 8px; }
+    .intro { padding:56px 0 8px; }
+    .tb-btn { padding:6px 9px; font-size:10px; }
   }
 </style>
 </head>
 <body>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
+
 <div class="topbar">
+  <button type="button" class="tb-btn" id="tocBtn" aria-expanded="false">Contents</button>
   <a class="wordmark" href="https://jmkay.com">J<span class="dot"></span>M<span class="dot"></span>KAY</a>
+  <button type="button" class="tb-btn" id="typeBtn" aria-expanded="false">Aa</button>
+</div>
+
+<div class="panel" id="tocPanel" role="menu">
+  <div class="panel-label">Contents</div>
+  <button type="button" class="toc-item" data-target="ch-prologue"><span class="toc-num"></span><span class="toc-title">Prologue</span><span class="toc-time">~5 minutes</span></button>
+  <button type="button" class="toc-item" data-target="ch-ch01"><span class="toc-num">One</span><span class="toc-title">Production Week</span><span class="toc-time">~1 hour</span></button>
+  <button type="button" class="toc-item" data-target="ch-sunday"><span class="toc-num">Six</span><span class="toc-title">Sunday</span><span class="toc-time">~55 minutes</span></button>
+  <button type="button" class="toc-item" data-target="ch-india"><span class="toc-num">Ten</span><span class="toc-title">India</span><span class="toc-time">~35 minutes</span></button>
+  <div class="toc-foot">
+    <button type="button" class="spot-btn" id="spotBtn">Stopping for now? Tap to let Jonathan know where you got to.</button>
+    <p class="spot-done" id="spotDone">Sent &mdash; thank you for reading this far.</p>
+  </div>
+</div>
+
+<div class="panel" id="typePanel">
+  <div class="panel-label">Reading settings</div>
+  <div class="type-row">
+    <span class="t-label">Text size</span>
+    <span class="seg"><button type="button" id="sizeDown" aria-label="Smaller text">&minus;</button><button type="button" id="sizeUp" aria-label="Larger text">+</button></span>
+  </div>
+  <div class="type-row">
+    <span class="t-label">Theme</span>
+    <span class="seg"><button type="button" id="themeLight">Light</button><button type="button" id="themeDark">Dark</button></span>
+  </div>
 </div>
 
 <div class="wrap">
 
-  <div class="intro">
+  <div class="intro" id="top">
     <div class="eyebrow">A reading &middot; in confidence</div>
     <h1 class="book-title">The Approved Version</h1>
     <div class="byline">a novel &middot; Jonathan Michael Kay</div>
     <div class="framing">
-      <p>Thank you for reading some of this. It is a novel I have been working on for a
-while, called <em>The Approved Version</em>.</p>
+      <p>Thank you for reading some of this. The book is a novel called
+<em>The Approved Version</em>.</p>
 
-<p>It follows Daniel Reiss, an American who arrives in Singapore in 2012 on a work
-contract he keeps meaning to leave, and the three years he ends up staying. His job is
-a kind of translation, for companies. He sits in the room where something real gets
-said, then he hands back the approved version that&rsquo;s safe to say out loud. The
-book is about what a life like that does to a person, and about the one relationship he
-could never find the words for, and lost.</p>
+<p>It follows Daniel Reiss, an American who moves to Singapore in 2012 for a
+two-year job and stays three. His work is making things safe to say: he sits in
+the room where the real thing gets said, then hands back the version that can go
+out. While he is there, a television crew films his life, and the version they
+air is missing someone. The book is about the years that version covers, and the
+person it leaves out.</p>
 
-<p>What you have here is a sample, not the whole book: a few chapters, enough to get
-a feel for the voice and what it is doing. They run in the book&rsquo;s order, so
-there are gaps between them. That is normal for a sample.</p>
+<p>What you have here is a sample: the opening of the book plus two chapters from the middle years, about 2½ hours of reading in all. The chapters run in the book&rsquo;s order, and where some are skipped a short note says what the gap holds.</p>
 
-<p>If anything lands, or doesn&rsquo;t, I would love to hear it. There is a box at the
-end &mdash; say as much or as little as you like. There are no wrong reactions.</p>
+<p>Read it however you like, in one sitting or five &mdash; the page remembers
+where you stopped. If you want to tell me something along the way, each chapter
+has a small row at the end for it, and there is a box at the very end for
+anything bigger. You can also just text me.</p>
 
 <p style="text-align:right;">&mdash; Jonathan</p>
 
     </div>
+    <p class="epub-line">Prefer an e-reader? <a href="the-approved-version-sample.epub" download>Download this sample as an EPUB</a>.</p>
   </div>
 
   
-  <section class="chapter">
+  
+  <section class="chapter" id="ch-prologue" data-title="Prologue">
     <header class="chapter-head">
-      <span class="chapter-num">Prologue</span>
-      <h2 class="chapter-title">Doha, 2019</h2>
+      
+      <h2 class="chapter-title">Prologue</h2>
     </header>
     <div class="prose">
       <p><em>Doha, 2019</em></p>
@@ -204,15 +366,30 @@ end &mdash; say as much or as little as you like. There are no wrong reactions.<
 <p>Two things are still in this room from that city. One is a phone that holds nine seconds of Arjun&rsquo;s uncle talking, with his head tipped my way, in a language I do not have, kept whole these five years, never translated, though the same phone holds the thing that would translate them, and the whole transaction would cost one tap.</p>
 <p>And this, the pages under my hands, is the other. I have written one account of a man before: a single entry, in the third person, mailed to a casting department. That is what this is: the one account I could never produce.</p>
     </div>
+    <div class="cr" data-chapter="Prologue" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
   </section>
 
-  <section class="chapter">
+  <div class="divider" aria-hidden="true"><span class="dmark"></span></div>
+  <section class="chapter" id="ch-ch01" data-title="Production Week">
     <header class="chapter-head">
       <span class="chapter-num">One</span>
       <h2 class="chapter-title">Production Week</h2>
     </header>
     <div class="prose">
       <p>Production week was filmed, which means there is a version of it you could still watch. It is in rotation; nobody needs me for it. This is the other one.</p>
+<figure class="ms-figure"><img src="/reading/_assets/ch1_tweets.png" alt="" /></figure>
+
 <p>What wakes me is the call in the rain tree outside the window, the room already bright at the seams of the blinds. It starts low and climbs, each pass higher and more insistent than the last, until the bird is no longer making a sound but making sure of me. Then it stops. Then, from the bottom, it starts again. It has woken me most mornings since my first week in the flat. I have never once been glad of it, and I could not tell you what it is. Under it, when I hold still, is a lower sound — a vehicle the size of a small truck arriving in the lot below, exactly where, days ago, the production said it would. The truck is early, or I am late; either way the machine that has come to film me is already on its mark, idling, while I am still horizontal.</p>
 <p>The telling goes back one night here. The morning does not stand up without it.</p>
 <p>The night before the crew arrives there are drinks, and I have agreed, mostly reluctantly, to be the reason for them. Graham insists on Neil Road, on the smallest bar on that strip of shophouses, over every roomier and better-cooled option, because his fondness for a place runs inverse to its square footage. He was the first person at the firm to put a hand out to me, at the security desk on my first morning, and he has been putting things in front of me ever since: bars, opinions, people I have known longer than he has. British, boat-tanned year-round, and built on the assumption that no room has ever wanted him to leave it. Drinks and shots and the kind of room where the bar is the back wall and the crowd is one set of men who have eaten at the hawker center beside another set who will stumble there later to soak up the drinks they have already forgotten. The room runs hot. The ceiling fan turns at a speed that is purely ceremonial, and by ten everyone has rolled their sleeves back or done away with sleeves, and shirts, entirely.</p>
@@ -427,9 +604,26 @@ end &mdash; say as much or as little as you like. There are no wrong reactions.<
 <p>He does something with his mouth that is not a smile and not a question. Not here, not yet.</p>
 <p>Outside, two men share a cigarette in the shophouse doorway opposite, one of them watching me through the smoke. I will be back on camera in the morning. The director will want one more walk past the pool. The light will be the same. It was. The light, at least, I can vouch for.</p>
     </div>
+    <div class="cr" data-chapter="Production Week" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
   </section>
 
-  <section class="chapter">
+  <aside class="gap-note">
+    <p>Between these two chapters the book goes back two years, to Daniel&rsquo;s arrival in Singapore and the start of things with Arjun. Four chapters are not included here; this one is a Sunday from the middle of those years.</p>
+  </aside>
+
+  <div class="divider" aria-hidden="true"><span class="dmark"></span></div>
+  <section class="chapter" id="ch-sunday" data-title="Sunday">
     <header class="chapter-head">
       <span class="chapter-num">Six</span>
       <h2 class="chapter-title">Sunday</h2>
@@ -630,9 +824,26 @@ end &mdash; say as much or as little as you like. There are no wrong reactions.<
 <p>She was right that I never read the notice. The pool put its warning in the window, big letters, a picture. I was paid to read rooms.</p>
 <p>There would be a great many more Sundays. I knew that, lying there — knew it the way you know the aircon will still be running when you wake. What I did not know, and could not have been made to believe by anyone, including Arjun, including the uncle, including Aunty Lim with all her information, was that they were a thing with a number on them. I thought they were weather. I thought they were the climate I had moved to.</p>
     </div>
+    <div class="cr" data-chapter="Sunday" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
   </section>
 
-  <section class="chapter">
+  <aside class="gap-note">
+    <p>A stretch of the book sits between these two, covering the back half of 2014. This one is December: Chennai, a family wedding, Daniel as not-quite-a-plus-one.</p>
+  </aside>
+
+  <div class="divider" aria-hidden="true"><span class="dmark"></span></div>
+  <section class="chapter" id="ch-india" data-title="India">
     <header class="chapter-head">
       <span class="chapter-num">Ten</span>
       <h2 class="chapter-title">India</h2>
@@ -731,14 +942,36 @@ end &mdash; say as much or as little as you like. There are no wrong reactions.<
 <p>Arjun is at the curb. The tuk-tuk he has hailed is idling at the edge of the entrance loop. The driver takes an elevated ramp, a single ridiculous lane thrown up to join two roads with no other way of meeting, which is not what tuk-tuks do; it runs toward the airport between fields and warehouses, and we ride at the only speed a tuk-tuk rides at up there while cars pass us and a truck passes us. The wind in the open side pulls at nothing of mine; the kurta is folded into the bag at my feet.</p>
 <p>I feel it pulling anyway.</p>
     </div>
+    <div class="cr" data-chapter="India" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
   </section>
+
+  <div class="closing">
+    <p>That is the end of this sample. There is a whole book on the other side of
+it; if you want the rest, say so below and I will send it.</p>
+
+  </div>
 
   <div class="feedback">
     <h3>Tell me what you think</h3>
-    <p class="lead">Anything at all &mdash; a line that stuck, a place you drifted, a feeling. No need to be tidy about it.</p>
+    <p class="lead">Where did you lean in, where did you drift, and how did the
+    last chapter sit with you? Say as much or as little as you like &mdash;
+    nothing is too small, and no need to be tidy about it.</p>
     <form name="reading-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="fbform">
       <input type="hidden" name="form-name" value="reading-feedback">
       <input type="hidden" name="reader" value="Group 2 — The sampler">
+      <input type="hidden" name="chapter" value="the end box">
+      <input type="hidden" name="reaction" value="">
       <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
       <div class="field">
         <label for="thoughts">Your thoughts</label>
@@ -757,20 +990,207 @@ end &mdash; say as much or as little as you like. There are no wrong reactions.<
 
 </div>
 
+<button type="button" class="pill" id="pill">Continue where you left off &darr;</button>
+
 <script>
+(function () {
+  var SLUG = 'tav-sampler-3p8w1ztc';
+  var READER = 'Group 2 — The sampler';
+
+  function store(k, v) { try { localStorage.setItem('tav:' + SLUG + ':' + k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem('tav:' + SLUG + ':' + k); } catch (e) { return null; } }
+
+  function post(fields) {
+    fields['form-name'] = 'reading-feedback';
+    fields['reader'] = READER;
+    var data = new URLSearchParams(fields).toString();
+    return fetch('/', { method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data });
+  }
+
+  /* ---- theme + text size ---- */
+  var sizes = [17, 18.5, 20, 21.5, 23];
+  var sizeIdx = parseInt(read('size') || '2', 10);
+  if (isNaN(sizeIdx) || sizeIdx < 0 || sizeIdx > 4) sizeIdx = 2;
+  function applySize() {
+    document.querySelectorAll('.prose').forEach(function (p) {
+      p.style.fontSize = sizes[sizeIdx] + 'px';
+    });
+  }
+  document.getElementById('sizeDown').addEventListener('click', function () {
+    if (sizeIdx > 0) { sizeIdx--; applySize(); store('size', sizeIdx); }
+  });
+  document.getElementById('sizeUp').addEventListener('click', function () {
+    if (sizeIdx < sizes.length - 1) { sizeIdx++; applySize(); store('size', sizeIdx); }
+  });
+  if (sizeIdx !== 2) applySize();
+
+  var themeL = document.getElementById('themeLight');
+  var themeD = document.getElementById('themeDark');
+  function applyTheme(t) {
+    if (t === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+    else { document.documentElement.removeAttribute('data-theme'); }
+    themeD.classList.toggle('on', t === 'dark');
+    themeL.classList.toggle('on', t !== 'dark');
+  }
+  themeL.addEventListener('click', function () { applyTheme('light'); store('theme', 'light'); });
+  themeD.addEventListener('click', function () { applyTheme('dark'); store('theme', 'dark'); });
+  applyTheme(read('theme') === 'dark' ? 'dark' : 'light');
+
+  /* ---- panels ---- */
+  var tocBtn = document.getElementById('tocBtn'), tocPanel = document.getElementById('tocPanel');
+  var typeBtn = document.getElementById('typeBtn'), typePanel = document.getElementById('typePanel');
+  function closePanels() {
+    tocPanel.classList.remove('open'); typePanel.classList.remove('open');
+    tocBtn.setAttribute('aria-expanded', 'false'); typeBtn.setAttribute('aria-expanded', 'false');
+  }
+  tocBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = tocPanel.classList.contains('open');
+    closePanels();
+    if (!open) { tocPanel.classList.add('open'); tocBtn.setAttribute('aria-expanded', 'true'); }
+  });
+  typeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = typePanel.classList.contains('open');
+    closePanels();
+    if (!open) { typePanel.classList.add('open'); typeBtn.setAttribute('aria-expanded', 'true'); }
+  });
+  document.addEventListener('click', function (e) {
+    if (!tocPanel.contains(e.target) && !typePanel.contains(e.target)) closePanels();
+  });
+
+  /* ---- chapters / TOC position ---- */
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
+  var tocItems = Array.prototype.slice.call(document.querySelectorAll('.toc-item'));
+  tocItems.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = document.getElementById(b.getAttribute('data-target'));
+      closePanels();
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  function currentChapter() {
+    var y = window.scrollY + 140, cur = null;
+    chapters.forEach(function (c) { if (c.offsetTop <= y) cur = c; });
+    return cur;
+  }
+  function markCurrent() {
+    var cur = currentChapter();
+    tocItems.forEach(function (b) {
+      b.classList.toggle('current', !!cur && b.getAttribute('data-target') === cur.id);
+    });
+  }
+
+  /* ---- progress + position memory ---- */
+  var bar = document.getElementById('progress');
+  var saveTimer = null;
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    bar.style.width = (pct * 100) + '%';
+    markCurrent();
+    if (saveTimer) return;
+    saveTimer = setTimeout(function () {
+      saveTimer = null;
+      if (window.scrollY > 300) { store('pos', String(window.scrollY)); store('pct', String(Math.round(pct * 100))); }
+    }, 800);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var pill = document.getElementById('pill');
+  var savedPos = parseInt(read('pos') || '0', 10);
+  var savedPct = parseInt(read('pct') || '0', 10);
+  if (savedPos > 900 && savedPct < 97 && window.scrollY < 300) {
+    pill.classList.add('show');
+    pill.addEventListener('click', function () {
+      pill.classList.remove('show');
+      window.scrollTo({ top: savedPos, behavior: 'smooth' });
+    });
+    setTimeout(function () { pill.classList.remove('show'); }, 12000);
+    window.addEventListener('scroll', function hidePill() {
+      if (window.scrollY > 600) { pill.classList.remove('show'); window.removeEventListener('scroll', hidePill); }
+    }, { passive: true });
+  }
+
+  /* ---- per-chapter reactions (reader-initiated only) ---- */
+  document.querySelectorAll('.cr').forEach(function (cr) {
+    cr.removeAttribute('hidden');
+    var chapter = cr.getAttribute('data-chapter');
+    var done = cr.querySelector('.cr-done');
+    var more = cr.querySelector('.cr-more');
+    var line = cr.querySelector('.cr-line');
+    var prior = read('r:' + chapter);
+    if (prior) {
+      cr.querySelector('.cr-row').style.display = 'none';
+      done.textContent = 'You said: ' + prior + '. Thank you.';
+      done.removeAttribute('hidden');
+      return;
+    }
+    var choice = null;
+    cr.querySelectorAll('.cr-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        choice = b.getAttribute('data-r');
+        cr.querySelectorAll('.cr-btn').forEach(function (x) { x.classList.toggle('on', x === b); });
+        more.removeAttribute('hidden');
+        line.focus();
+      });
+    });
+    cr.querySelector('.cr-send').addEventListener('click', function () {
+      if (!choice) return;
+      post({ chapter: chapter, reaction: choice, thoughts: line.value || '' })
+        .then(function () {
+          store('r:' + chapter, choice);
+          cr.querySelector('.cr-row').style.display = 'none';
+          more.setAttribute('hidden', '');
+          done.textContent = 'Noted — thank you.';
+          done.removeAttribute('hidden');
+        })
+        .catch(function () {
+          done.textContent = 'That did not send — the box at the end works too.';
+          done.removeAttribute('hidden');
+        });
+    });
+  });
+
+  /* ---- "where I got to" (reader-initiated) ---- */
+  var spotBtn = document.getElementById('spotBtn');
+  spotBtn.addEventListener('click', function () {
+    var cur = currentChapter();
+    var pct = read('pct') || '0';
+    post({
+      chapter: cur ? cur.getAttribute('data-title') : 'the letter',
+      reaction: 'stopped here',
+      thoughts: 'Reader marked their spot: about ' + pct + '% down the page.'
+    }).then(function () {
+      spotBtn.style.display = 'none';
+      document.getElementById('spotDone').style.display = 'block';
+    }).catch(function () {
+      spotBtn.textContent = 'That did not send — the box at the end works too.';
+    });
+  });
+
+  /* ---- end box ---- */
   var f = document.getElementById('fbform');
-  f.addEventListener('submit', function(e){
+  f.addEventListener('submit', function (e) {
     e.preventDefault();
     var data = new URLSearchParams(new FormData(f)).toString();
-    fetch('/', {method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:data})
-      .then(function(){
-        f.querySelector('button.send').style.display='none';
-        document.getElementById('thoughts').closest('.field').style.display='none';
-        document.getElementById('who').closest('.field').style.display='none';
-        document.getElementById('thanks').style.display='block';
+    fetch('/', { method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+      .then(function () {
+        f.querySelector('button.send').style.display = 'none';
+        document.getElementById('thoughts').closest('.field').style.display = 'none';
+        document.getElementById('who').closest('.field').style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
       })
-      .catch(function(){ document.getElementById('thanks').textContent='Hmm, that did not send — you can also just email me.'; document.getElementById('thanks').style.display='block'; });
+      .catch(function () {
+        var t = document.getElementById('thanks');
+        t.textContent = 'Hmm, that did not send — you can also just email me.';
+        t.style.display = 'block';
+      });
   });
+})();
 </script>
 
 </body>
