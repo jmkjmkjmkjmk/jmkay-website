@@ -62,10 +62,10 @@ BUILD_DIR = V2_DIR.parent / "_build"   # where chapter image assets (e.g. ch1_tw
 CHAPTER_PREFIXES = {
     "prologue": ("00_Frame_Prologue_Doha",   "Prologue",  "Doha, 2019", 0),
     "ch01":     ("Ch01_Production_Week",     "One",       "Production Week", 1),
-    "bugis":    ("Ch07_Bugis",               "Six",       "Bugis", 6),
-    "sunday":   ("Ch08_Sunday",              "Seven",     "Sunday", 7),
-    "india":    ("Ch13_India",               "Twelve",    "India", 12),
-    "cny":      ("Ch14_Chinese_New_Year",    "Thirteen",  "Chinese New Year", 13),
+    "bugis":    ("Ch07_Bugis",               "Five",      "Bugis", 6),
+    "sunday":   ("Ch08_Sunday",              "Six",       "Sunday", 7),
+    "india":    ("Ch13_India",               "Ten",       "India", 12),
+    "cny":      ("Ch14_Chinese_New_Year",    "Eleven",    "Chinese New Year", 13),
 }
 
 def _canonical_files():
