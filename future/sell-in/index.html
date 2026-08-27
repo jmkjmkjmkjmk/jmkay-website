@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Groundwork — sell-in cockpit (private)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Instrument+Serif&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--terra:#C2603F;--terra-lt:#E8A88C;--warm:#FDFBF7;--cream:#F5F0E8;--ink:#1C1917;
+ --ink-lt:#44403C;--ink-mut:#78716C;--teal:#1A4A4A;--sage:#7A8F6D;--line:#E7E0D6}
+html,body{margin:0;padding:0}
+body{background:var(--warm);color:var(--ink);font-family:"DM Sans",-apple-system,sans-serif;
+ font-size:16px;line-height:1.55}
+.wrap{max-width:960px;margin:0 auto;padding:0 22px 90px}
+header{background:var(--ink);color:var(--warm);padding:36px 0 30px}
+header .wrap{padding-bottom:0}
+.kick{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+ color:var(--terra-lt);margin:0 0 10px}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:44px;line-height:1.05;margin:0 0 12px}
+h1 .d{display:inline-block;width:13px;height:13px;background:var(--terra);transform:rotate(45deg);
+ border-radius:2px;margin-left:11px;vertical-align:middle}
+.sub{color:#CFC7BC;font-size:16.5px;margin:0;max-width:70ch}
+.warnband{background:var(--terra);color:#fff;padding:11px 0;font-family:"Space Mono",monospace;
+ font-size:12px;letter-spacing:.06em}
+.warnband .wrap{padding-top:0;padding-bottom:0}
+nav{position:sticky;top:0;z-index:30;background:var(--warm);border-bottom:1px solid var(--line);padding:9px 0}
+nav .inner{max-width:960px;margin:0 auto;padding:0 22px;display:flex;gap:7px;flex-wrap:wrap}
+nav button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 13px;font-size:13px;
+ color:var(--ink-lt);cursor:pointer;font-family:"DM Sans",sans-serif}
+nav button.on{background:var(--teal);border-color:var(--teal);color:#fff}
+section{margin:38px 0 0}
+section h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:29px;margin:0 0 4px;
+ color:var(--teal)}
+.why{font-size:14.5px;color:var(--ink-mut);margin:0 0 18px;max-width:76ch;
+ border-bottom:1px solid var(--line);padding-bottom:13px}
+.beat{border:1px solid var(--line);background:#fff;border-radius:6px;padding:13px 16px;margin:0 0 8px;
+ display:flex;gap:14px;align-items:flex-start}
+.beat.hero{border:2px solid var(--terra);background:#FCF4F1}
+.beat.done{opacity:.55}
+.n{font-family:"Instrument Serif",Georgia,serif;font-size:25px;color:var(--terra);line-height:1;
+ min-width:26px}
+.beat .bd{flex:1;min-width:0}
+.beat .t{font-size:16px;margin:0 0 5px;font-weight:500}
+.beat .one{font-size:15px;margin:0 0 6px;color:var(--teal)}
+.beat .sp{font-size:13.5px;margin:0;color:var(--ink-mut)}
+.beat .tick{border:1px solid var(--line);background:#fff;border-radius:5px;padding:5px 9px;
+ font-size:12px;cursor:pointer;color:var(--ink-mut);font-family:"DM Sans",sans-serif;white-space:nowrap}
+.beat .tick.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.obj{border:1px solid var(--line);background:#fff;border-radius:7px;padding:18px 20px;margin:0 0 12px}
+.obj h3{font-size:19px;margin:0 0 10px;color:var(--ink)}
+.obj .row{margin:0 0 11px;padding-left:14px;border-left:3px solid var(--line)}
+.obj .row:last-child{margin:0}
+.obj .row.ans{border-left-color:var(--sage);background:#F2F5F0;padding:11px 14px;border-radius:0 4px 4px 0}
+.obj .row.no{border-left-color:var(--terra)}
+.lbl{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+ color:var(--ink-mut);margin:0 0 4px}
+.obj p{margin:0;font-size:14.5px;color:var(--ink-lt)}
+.shape{background:var(--cream);border-radius:6px;padding:14px 18px;margin:0 0 16px;font-size:14.5px;
+ color:var(--ink-lt)}
+.shape b{color:var(--teal)}
+.risk{border:2px solid var(--terra);background:#FCF4F1;border-radius:7px;padding:18px 20px;margin:16px 0 0}
+.risk h3{font-size:19px;margin:0 0 8px;color:var(--terra)}
+.safe{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 0}
+.safecol{flex:1 1 300px}
+.safecol h4{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+ margin:0 0 8px}
+.safecol.yes h4{color:var(--sage)}
+.safecol.no h4{color:var(--terra)}
+.safecol li{font-size:14px;margin:0 0 6px;color:var(--ink-lt)}
+.safecol ul{margin:0;padding-left:18px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th{text-align:left;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--ink-mut);font-weight:400;padding:0 10px 8px 0;
+ border-bottom:1px solid var(--line)}
+td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-lt)}
+td.who{color:var(--ink);font-weight:500;white-space:nowrap}
+td .note{font-size:13px;color:var(--ink-mut);margin:5px 0 0}
+input[type=text]{width:100%;font-family:"DM Sans",sans-serif;font-size:14px;padding:7px 9px;
+ border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+.q{border:1px solid var(--line);background:#fff;border-radius:7px;padding:17px 20px;margin:0 0 10px}
+.q h3{font-size:18px;margin:0 0 9px}
+.q .stake{font-size:14.5px;color:var(--ink-lt);margin:0 0 10px}
+.q .rec,.q .def{font-size:14px;margin:0 0 5px;color:var(--ink-lt)}
+.q .rec b{color:var(--teal)}
+.q .def b{color:var(--ink-mut)}
+.ex{display:flex;gap:9px;flex-wrap:wrap}
+.exi{flex:1 1 210px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:13px 15px;
+ display:flex;gap:11px;align-items:flex-start}
+.exi.yes{border-left:4px solid var(--sage)}
+.exi.no{border-left:4px solid #D8D1C6}
+.exi .m{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-mut)}
+.exi .l{font-size:14.5px;margin:0 0 3px;color:var(--ink)}
+.prov{font-family:"Space Mono",monospace;font-size:10.5px;color:var(--ink-mut);margin:14px 0 0;
+ border-top:1px dashed var(--line);padding-top:9px;line-height:1.75}
+footer{background:var(--ink);padding:13px 0;margin-top:46px}
+footer .inner{max-width:960px;margin:0 auto;padding:0 22px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.act{border:1px solid #4A443E;background:transparent;color:var(--warm);padding:8px 14px;
+ font-family:"DM Sans",sans-serif;font-size:13px;border-radius:4px;cursor:pointer}
+.act.primary{background:var(--terra);border-color:var(--terra)}
+.fnote{color:#9A928A;font-family:"Space Mono",monospace;font-size:10.5px;flex:1;min-width:200px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;background:var(--teal);color:#fff;
+ padding:10px 18px;border-radius:5px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:60}
+.toast.show{opacity:1}
+@media(max-width:640px){h1{font-size:33px}.beat{flex-direction:column;gap:8px}}
+</style><style>
+.fnav{background:#141110;padding:9px 0;font-family:"DM Sans",-apple-system,sans-serif}
+.fnav .fin{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:6px;flex-wrap:wrap;
+ align-items:center}
+.fnav a{color:#CFC7BC;text-decoration:none;font-size:13px;padding:4px 11px;border-radius:20px;
+ border:1px solid #332E2A;white-space:nowrap}
+.fnav a:hover{border-color:#C2603F;color:#FDFBF7}
+.fnav a.here{background:#C2603F;border-color:#C2603F;color:#fff}
+/* ⚠ The board already defines a .tag rule that paints a filled grey chip, and it leaked
+   through onto the "private" marker in this bar — the injected page inherits the host page's
+   CSS, so anything reused here has to reset what it does not set. */
+.fnav .tag{font-family:"Space Mono",monospace;font-size:8.5px;letter-spacing:.12em;
+ text-transform:uppercase;color:#E8A88C;margin-left:7px;background:none;border:0;padding:0;
+ border-radius:0;display:inline;vertical-align:baseline;white-space:nowrap;line-height:1}
+.fnav a.here .tag{color:#FCEDE6;background:none}
+</style></head><body><div class="fnav"><div class="fin"><a href="/future/">Overview</a><a href="/future/board/">Morning board</a><a href="/future/plan/">The plan</a><a href="/future/sell-in/" class="here">Sell-in cockpit<span class="tag">private</span></a></div></div>
+<header><div class="wrap">
+  <p class="kick">J.M.Kay &middot; private &middot; built 27 August 2026</p>
+  <h1>Sell-in cockpit<span class="d"></span></h1>
+  <p class="sub">The talk track, what he pushes back on, who has seen what, and which of the
+    ten things he asked for actually exist today &mdash; five of them,
+    measured from disk rather than remembered.</p>
+</div></header>
+<div class="warnband"><div class="wrap">THIS PAGE IS NOT SHARED. It carries candid reads on how
+  a partner argues and a record of what has been said to whom.</div></div>
+<nav><div class="inner"><button type="button" data-go="track">a &middot; The talk track</button><button type="button" data-go="objections">b &middot; The objection bank</button><button type="button" data-go="socialise">c &middot; Who has seen what</button><button type="button" data-go="questions">d &middot; The three questions, live</button><button type="button" data-go="exists">e &middot; What exists, checked</button></div></nav>
+<main class="wrap"><section id="sec-track"><h2>a &middot; The talk track</h2><p class="why">The twelve slides as spoken beats. Not a script — the one sentence that has to land on each. Slide five is the meeting: everything before it earns the right to open the board, everything after is detail.</p><div id="track"></div></section><section id="sec-objections"><h2>b &middot; The objection bank</h2><p class="why">Five he actually raises, each from the record rather than from imagination, plus the sixth thing, which is a risk rather than an objection.</p><div class="shape">His push-back has a fixed shape in the record: <b>disarm</b>, name a specific downstream risk — usually optics or how a client will read it — then <b>defer to a named later checkpoint</b>. Answering the stated objection without answering the deferral is how a yes becomes a maybe.</div><div id="objections"></div></section><section id="sec-socialise"><h2>c &middot; Who has seen what</h2><p class="why">A socialise tracker, not a distribution list. The order is load-bearing — one row is blocked on another and the reason is in the row.</p><div id="socialise"></div></section><section id="sec-questions"><h2>d &middot; The three questions, live</h2><p class="why">With their defaults, so a silence is visibly a decision rather than a gap.</p><div id="questions"></div></section><section id="sec-exists"><h2>e &middot; What exists, checked</h2><p class="why">His ten, with the five that have a file test measured from disk right now. It goes stale the moment something gets built, so it is derived and never typed.</p><div id="exists"></div></section></main>
+<footer><div class="inner">
+  <button class="act primary" id="copy" type="button">Copy the track and the bank</button>
+  <button class="act" id="reset" type="button">Clear my marks</button>
+  <span class="fnote">Rebuild: python3 01_Opportunity-Universe/_bench/build_sell_in.py</span>
+</div></footer>
+<div class="toast" id="toast"></div>
+<script>window.__SELLIN__ = {"track": [{"key": "cover", "title": "Groundwork", "one": "Making the research method something a small team can run.", "spoken": "Two pages behind this. Three questions at the end. Everything else is decided.", "hero": false}, {"key": "quote", "title": "“We have to just replicate ourselves.”", "one": "Your sentence, on the drive.", "spoken": "I am not going to re-explain the idea back to you. I went and scored what we have against it.", "hero": false}, {"key": "split", "title": "The part that does not replicate yet", "one": "Getting the interviews is packaged. Turning evidence into something a client reads is not written down anywhere.", "spoken": "One test: could somebody we hire next month pick this up with nobody to call. It splits cleanly, and not where I expected.", "hero": false}, {"key": "recaps", "title": "The proof is the thing you already named", "one": "The recaps already ran, already changed somebody's temperature, and are now packaged so a second person can run them.", "spoken": "Your words, not mine — the single best thing, and the reason the Adria calls stopped being contentious.", "hero": false}, {"key": "board", "title": "And the second one is on screen", "one": "The morning dashboard you asked for on the drive is built.", "spoken": "You asked for this on the drive and I built it. Let me open the real one.", "hero": true}, {"key": "list", "title": "Your list, handed back", "one": "Ten things you committed to on the drives on 20 August.", "spoken": "I went back through the tapes rather than my memory. The timecodes are there if you want to check I have not put words in your mouth.", "hero": false}, {"key": "kit", "title": "What a new researcher gets on day one", "one": "Most of the kit already existed — it needed extracting rather than inventing.", "spoken": "Two things are genuinely new: a market scaffold, and the synthesis instruction, which does not exist and which I am writing.", "hero": false}, {"key": "bench", "title": "The bench", "one": "Juno hires them. I certify them.", "spoken": "That keeps you as the employer of record and it keeps me on the standard rather than on payroll. The first hard market stays the two of us.", "hero": false}, {"key": "money", "title": "What it costs, and where the margin is", "one": "The point of the model is that your margin per market goes up, not down.", "spoken": "A per-market model rather than a rate card. If it does not grow your margin I have built the wrong thing, and I would rather find that out over this page than in October.", "hero": false}, {"key": "sequence", "title": "The sequence", "one": "Nothing here needs a reply from you to keep moving.", "spoken": "If you say nothing until October, all of it still happens.", "hero": false}, {"key": "open", "title": "Three open questions", "one": "Each one carries what I would do and what happens if we do nothing.", "spoken": "A silence on any of these is a decision, and I would rather it were a deliberate one.", "hero": false}, {"key": "redraft", "title": "Where I want your redraft", "one": "Section six — the economics.", "spoken": "You did this with the interview guide in July and it came back better. You know what you can carry into a room and I am guessing at it.", "hero": false}], "objections": [{"trigger": "“Where's the quantitative?”", "protecting": "His only recorded criticism of the discovery work — “very high on qualitative, little on quantitative.” It is a real gap and he has said it out loud, so it will come again.", "answer": "Agree with it before he finishes the sentence, then show that the claim-validation line IS the quantitative answer — eight validated, two flagged, methodology published, negatives counted. The register is the instrument; it has rows and it can be audited.", "dont": "Do not defend the qualitative work. He is not attacking it, he is naming what a buyer will ask him."}, {"trigger": "Margin — “what does this cost me per market?”", "protecting": "The standing risk is not that the price is too high. It is that if the apparatus eats Juno's margin he does not argue: he quietly uses cheaper researchers and the standard erodes with no confrontation anywhere.", "answer": "Go first. The model is built to show his margin GROWING, against what a sourced research pass runs at today — the fee lands inside a saving rather than on top of one. Then hand him the open question: give me a range and I build against the bottom of it.", "dont": "Do not quote a rate. Do not offer a range you have not modelled — a range invites him to test it against a margin you cannot see."}, {"trigger": "Anything that reads as a fee renegotiation", "protecting": "He has pre-disclaimed fee negotiation twice, unprompted, which means he is watching for it. Ownership, licensing and pricing raised in the same breath as a plan all read as one move.", "answer": "Say plainly that nothing here changes what is already agreed, and that the plan prices what does not exist yet. Ownership is not in this meeting by decision — it travels on the framework deliverable's cover, separately.", "dont": "Do not raise ownership, licensing or the reservation in this room, even if he opens the door. A clause attached to a delivery is structure; attached to a plan it is a negotiation."}, {"trigger": "Optics and the public record", "protecting": "He killed the interviewee stipend on exactly this. His instinct is to ask how a thing looks if it surfaces later, in a market where somebody is already hostile.", "answer": "Meet it with the discipline rather than a reassurance: methodology published, negatives counted, consent and compensation rules written into the kit, and the client unnamed on every shareable surface — including the board on screen.", "dont": "Do not say “that won't happen.” Name the mechanism that makes it not happen."}, {"trigger": "Speed — “can this move faster?”", "protecting": "He does not push back on ambition. He pushes back on anything that slows the sale, because he owns the rooms and the pipeline.", "answer": "The sequence is built so nothing waits on him: the kit is done this month, September's certification pilot rides on trips already booked and costs nothing extra, and the meeting is one meeting in early October.", "dont": "Do not offer to compress September. The pilot only works because it happens inside real field conditions."}], "verbatim": "He repeats what you give him, verbatim, at speed — three documented instances of unverified figures leaving his mouth in client rooms. Anything said in this meeting can be in a prospect room the same week, without its hedge.", "saysafe": [{"ok": true, "text": "“Getting the interviews is packaged; the synthesis is not written down.”"}, {"ok": true, "text": "“Eight validated, two flagged” — the claim audit, as a shape."}, {"ok": true, "text": "“Methodology published, negatives counted.”"}, {"ok": true, "text": "“Further markets in motion.”"}, {"ok": true, "text": "“Juno hires the bench, I certify it.”"}, {"ok": true, "text": "“The model is built to grow your margin per market.”"}, {"ok": false, "text": "Any readiness percentage, and above all a zero. Say “not yet written down”."}, {"ok": false, "text": "Any count of further markets — the sanctioned phrase is “further markets in motion”."}, {"ok": false, "text": "Any rate, day rate, or per-seat figure — those live in the private file."}, {"ok": false, "text": "“Nobody else works this way.” Verbal only, in rooms he can back it conversationally, and never in writing until clearance."}, {"ok": false, "text": "“Turnkey”, “product”, “plug and play”. The sanctioned phrase is “proven instruments”."}, {"ok": false, "text": "“Independent” anywhere near the Halo Index in a draft."}, {"ok": false, "text": "The client's name on anything that could be forwarded."}], "socialise": [{"who": "David White", "what": "The deck, the board on screen, and the plan as the follow-up", "when": "first", "why": "The meeting this is built for."}, {"who": "Nick Szpara", "what": "The framing, verbally, before it appears in anything Dave reads", "when": "before Dave sees a split", "why": "His position in the split is OPEN by decision. He hears it from Jonathan first or it reads as having been decided around him."}, {"who": "Sapir", "what": "Nothing yet", "when": "after the MSA question is answered", "why": "The umbrella agreement is still unexecuted; do not add a second open thread to that one."}], "open": [{"q": "What is Juno's actual margin per market?", "stake": "It is the one number I cannot derive and you can. It is not an audit and I do not need the workings — I need to know what the platform fee has to sit inside.", "rec": "Give me a range rather than a number, and I will build the model against the bottom of it.", "def": "I price against my own estimate, and we find out in October whether it eats your margin — which is the version where you quietly stop using the apparatus and neither of us says so."}, {"q": "Which market does the bench debut in, and how far in?", "stake": "My read is the first hard market stays the two of us with an apprentice watching. But you know which rooms are survivable better than I do.", "rec": "Debut them somewhere forgiving, apprenticing, and keep the hard market ours.", "def": "We default to apprentice-only, which is the safe version and slower."}, {"q": "The name.", "stake": "Groundwork is a working name. I have not seen a reaction to it and I would rather have one before it is on anything a client sees.", "rec": "Leave it open until October and decide it with the positioning rather than before it.", "def": "It stays Groundwork by inertia, which is how names get decided badly."}], "exists": [{"label": "Your morning dashboard", "built": true}, {"label": "The AI line for the Oracle proposal", "built": true}, {"label": "Ask for the bigger number up front", "built": true}, {"label": "Who absorbs the surprises", "built": true}, {"label": "Eight validated, two flagged — the claim audit", "built": true}, {"label": "Speed as a priced deliverable", "built": false}, {"label": "Site community managers, early", "built": false}, {"label": "The stakeholder-category list", "built": false}, {"label": "Researcher names, and how we find more", "built": false}, {"label": "The educational repository", "built": false}]};</script>
+<script>
+(function(){
+ var D = window.__SELLIN__, KEY = "jmk-sellin-v1";
+ var st = {}; try { st = JSON.parse(localStorage.getItem(KEY)||"{}"); } catch(e){ st = {}; }
+ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
+ function el(t,c,x){var n=document.createElement(t); if(c)n.className=c;
+   if(x!==undefined&&x!==null)n.textContent=x; return n;}
+ function toast(m){var t=document.getElementById("toast"); t.textContent=m;
+   t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},1900);}
+
+ // ── a · the talk track ────────────────────────────────────────────────────────────
+ var TT = document.getElementById("track");
+ function drawTrack(){
+   TT.textContent="";
+   D.track.forEach(function(b,i){
+     var walked = !!(st.walked||{})[b.key];
+     var row = el("div","beat"+(b.hero?" hero":"")+(walked?" done":""));
+     row.appendChild(el("div","n", String(i+1)));
+     var bd = el("div","bd");
+     bd.appendChild(el("p","t", b.title));
+     bd.appendChild(el("p","one", b.one));
+     bd.appendChild(el("p","sp", "“" + b.spoken + "”"));
+     row.appendChild(bd);
+     var t = el("button","tick"+(walked?" on":""), walked ? "walked" : "mark walked");
+     t.addEventListener("click", function(){
+       st.walked = st.walked || {}; st.walked[b.key] = !walked; save(); drawTrack();
+     });
+     row.appendChild(t);
+     TT.appendChild(row);
+   });
+ }
+ drawTrack();
+
+ // ── b · the objection bank ────────────────────────────────────────────────────────
+ var OB = document.getElementById("objections");
+ D.objections.forEach(function(o){
+   var c = el("div","obj");
+   c.appendChild(el("h3", null, o.trigger));
+   [["What he is protecting", o.protecting, ""],
+    ["The answer", o.answer, "ans"],
+    ["Do not", o.dont, "no"]].forEach(function(r){
+     var d = el("div","row "+r[2]);
+     d.appendChild(el("div","lbl", r[0]));
+     d.appendChild(el("p", null, r[1]));
+     c.appendChild(d);
+   });
+   OB.appendChild(c);
+ });
+ var risk = el("div","risk");
+ risk.appendChild(el("h3", null, "And the sixth thing, which is not an objection"));
+ risk.appendChild(el("p", null, D.verbatim));
+ var safe = el("div","safe");
+ [["yes","Safe to say out loud", true],["no","Held", false]].forEach(function(col){
+   var s = el("div","safecol "+col[0]);
+   s.appendChild(el("h4", null, col[1]));
+   var ul = el("ul");
+   D.saysafe.filter(function(x){return x.ok===col[2];})
+            .forEach(function(x){ ul.appendChild(el("li", null, x.text)); });
+   s.appendChild(ul); safe.appendChild(s);
+ });
+ risk.appendChild(safe);
+ OB.appendChild(risk);
+
+ // ── c · who has seen what ─────────────────────────────────────────────────────────
+ var SOC = document.getElementById("socialise");
+ function drawSoc(){
+   SOC.textContent="";
+   var t = el("table"), thead = el("thead"), hr = el("tr");
+   ["Person","What they get","When","What they said"].forEach(function(h){
+     hr.appendChild(el("th", null, h)); });
+   thead.appendChild(hr); t.appendChild(thead);
+   var tb = el("tbody");
+   D.socialise.forEach(function(p){
+     var tr = el("tr");
+     tr.appendChild(el("td","who", p.who));
+     var td2 = el("td"); td2.appendChild(document.createTextNode(p.what));
+     td2.appendChild(el("p","note", p.why)); tr.appendChild(td2);
+     tr.appendChild(el("td", null, p.when));
+     var td4 = el("td"), inp = document.createElement("input");
+     inp.type = "text"; inp.placeholder = "not yet";
+     inp.value = (st.said||{})[p.who] || "";
+     inp.addEventListener("change", function(){
+       st.said = st.said || {}; st.said[p.who] = inp.value; save(); });
+     td4.appendChild(inp); tr.appendChild(td4);
+     tb.appendChild(tr);
+   });
+   t.appendChild(tb); SOC.appendChild(t);
+ }
+ drawSoc();
+
+ // ── d · the three questions, live ─────────────────────────────────────────────────
+ var Q = document.getElementById("questions");
+ D.open.forEach(function(q,i){
+   var c = el("div","q");
+   c.appendChild(el("h3", null, (i+1) + ". " + q.q));
+   c.appendChild(el("p","stake", q.stake));
+   var r = el("p","rec"); r.appendChild(el("b", null, "What I'd do. "));
+   r.appendChild(document.createTextNode(q.rec)); c.appendChild(r);
+   var d = el("p","def"); d.appendChild(el("b", null, "If we don't decide. "));
+   d.appendChild(document.createTextNode(q.def)); c.appendChild(d);
+   Q.appendChild(c);
+ });
+
+ // ── e · what exists, checked ──────────────────────────────────────────────────────
+ var EX = document.getElementById("exists"), grid = el("div","ex");
+ D.exists.forEach(function(x){
+   var c = el("div","exi "+(x.built?"yes":"no"));
+   var bd = el("div");
+   bd.appendChild(el("p","l", x.label));
+   bd.appendChild(el("div","m", x.built ? "exists" : "not built"));
+   c.appendChild(bd); grid.appendChild(c);
+ });
+ EX.appendChild(grid);
+
+ // ── nav ───────────────────────────────────────────────────────────────────────────
+ var buttons = [].slice.call(document.querySelectorAll("nav button"));
+ buttons.forEach(function(b){
+   b.addEventListener("click", function(){
+     var t = document.getElementById(b.getAttribute("data-go"));
+     if(t) t.scrollIntoView({behavior:"smooth", block:"start"});
+   });
+ });
+ window.addEventListener("scroll", function(){
+   var best=null;
+   buttons.forEach(function(b){
+     var t=document.getElementById(b.getAttribute("data-go"));
+     if(t && t.getBoundingClientRect().top < 140) best=b;
+   });
+   buttons.forEach(function(b){ b.classList.toggle("on", b===best); });
+ });
+
+ document.getElementById("copy").addEventListener("click", function(){
+   var L=["GROUNDWORK — talk track", ""];
+   D.track.forEach(function(b,i){ L.push((i+1)+". "+b.title); L.push("   "+b.one); });
+   L.push("", "OBJECTIONS");
+   D.objections.forEach(function(o){ L.push("· "+o.trigger); L.push("   "+o.answer); });
+   L.push("", "HELD — do not say");
+   D.saysafe.filter(function(x){return !x.ok;}).forEach(function(x){ L.push("   "+x.text); });
+   var t=L.join("\n");
+   if(navigator.clipboard){ navigator.clipboard.writeText(t)
+     .then(function(){toast("Copied.");}, function(){toast("Could not copy.");}); }
+   else { toast("Could not copy."); }
+ });
+ document.getElementById("reset").addEventListener("click", function(){
+   st = {}; save(); drawTrack(); drawSoc(); toast("Cleared.");
+ });
+})();
+</script>
+</body></html>

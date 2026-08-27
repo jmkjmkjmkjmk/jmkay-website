@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where everything is — morning board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Instrument+Serif&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--terra:#C2603F;--terra-lt:#E8A88C;--warm:#FDFBF7;--cream:#F5F0E8;--ink:#1C1917;
+ --ink-lt:#44403C;--ink-mut:#78716C;--teal:#1A4A4A;--sage:#7A8F6D;--line:#E7E0D6;
+ --amber:#B4802A}
+html,body{margin:0;padding:0}
+body{background:var(--warm);color:var(--ink);font-family:"DM Sans",-apple-system,sans-serif;
+ font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 90px}
+header{background:var(--ink);color:var(--warm);padding:38px 0 30px}
+header .wrap{padding-bottom:0}
+.kick{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+ color:var(--terra-lt);margin:0 0 10px}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:46px;line-height:1.04;margin:0 0 14px}
+h1 .d{display:inline-block;width:13px;height:13px;background:var(--terra);transform:rotate(45deg);
+ border-radius:2px;margin-left:11px;vertical-align:middle}
+.said{color:#CFC7BC;font-size:16.5px;margin:0;max-width:70ch;font-style:italic}
+.said b{color:var(--warm);font-style:normal}
+.stamp{font-family:"Space Mono",monospace;font-size:11px;color:#9A928A;margin-top:16px;line-height:1.7}
+.stamp b{color:var(--terra-lt);font-weight:400}
+
+.tiles{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 0}
+.tile{flex:1 1 150px;background:#26221F;border:1px solid #3A3430;border-radius:6px;padding:13px 15px}
+.tile .n{font-family:"Instrument Serif",Georgia,serif;font-size:34px;line-height:1;color:var(--warm)}
+.tile .n.hot{color:var(--terra-lt)}
+.tile .l{font-family:"Space Mono",monospace;font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+ color:#9A928A;margin-top:6px}
+
+.panel{margin:40px 0 0}
+.ph{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);
+ padding-bottom:9px;margin-bottom:16px}
+.panel h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:28px;margin:0;color:var(--teal)}
+.cnt{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+ color:var(--ink-mut)}
+.why{font-size:14.5px;color:var(--ink-mut);margin:0 0 15px;max-width:74ch}
+
+.row{border:1px solid var(--line);background:#fff;border-radius:6px;padding:13px 16px;margin:0 0 9px;
+ display:flex;gap:14px;align-items:flex-start}
+.row.p0,.row.p1{border-left:4px solid var(--terra)}
+.row.late{border-left:4px solid var(--terra);background:#FCF4F1}
+.row.soon{border-left:4px solid var(--amber)}
+.row.done{opacity:.62}
+.tag{font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.09em;color:#fff;background:var(--ink-mut);
+ border-radius:3px;padding:3px 7px;white-space:nowrap;margin-top:2px}
+.tag.p0,.tag.p1{background:var(--terra)}
+.tag.d{background:var(--teal);min-width:74px;text-align:center}
+.tag.d.late{background:var(--terra)}
+.tag.d.soon{background:var(--amber)}
+.bd{flex:1;min-width:0}
+.bd .t{font-size:15px;margin:0 0 5px}
+.bd .m{font-size:13px;color:var(--ink-mut);margin:0}
+.bd .m b{color:var(--ink-lt);font-weight:500}
+.bd .m .sep{color:var(--line);margin:0 7px}
+
+.day{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+ color:var(--ink-mut);margin:16px 0 7px}
+.moved{border-left:3px solid var(--sage);padding:2px 0 2px 13px;margin:0 0 9px}
+.moved p{margin:0;font-size:15px}
+.moved .q{font-family:"Space Mono",monospace;font-size:10.5px;color:var(--ink-mut);letter-spacing:.06em}
+
+.mk{display:flex;gap:12px;flex-wrap:wrap}
+.mkc{flex:1 1 260px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:16px 18px}
+.mkc h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:23px;margin:0 0 10px;color:var(--ink)}
+.mkc .nums{display:flex;gap:20px;margin:0 0 12px}
+.mkc .nums div .v{font-family:"Instrument Serif",Georgia,serif;font-size:27px;line-height:1;color:var(--terra)}
+.mkc .nums div .k{font-family:"Space Mono",monospace;font-size:9.5px;letter-spacing:.11em;
+ text-transform:uppercase;color:var(--ink-mut);margin-top:4px}
+.mkc .nx{font-size:13.5px;color:var(--ink-lt);margin:0;border-top:1px solid var(--line);padding-top:10px}
+
+.ask{border:1px solid var(--terra-lt);background:#FCF4F1;border-radius:6px;padding:15px 18px;margin:12px 0 0}
+.ask p{margin:0 0 7px;font-size:14.5px}
+.ask p:last-child{margin:0}
+.ask b{color:var(--terra)}
+.prov{font-family:"Space Mono",monospace;font-size:10.5px;color:var(--ink-mut);margin:11px 0 0;
+ border-top:1px dashed var(--line);padding-top:9px;line-height:1.75}
+.prov b{color:var(--ink-lt);font-weight:400}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 14px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:5px 13px;font-size:13px;
+ color:var(--ink-lt);cursor:pointer;font-family:"DM Sans",sans-serif}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.empty{font-size:14.5px;color:var(--ink-mut);font-style:italic;margin:0}
+footer{background:var(--ink);padding:14px 0;margin-top:50px}
+footer .inner{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.act{border:1px solid #4A443E;background:transparent;color:var(--warm);padding:8px 14px;
+ font-family:"DM Sans",sans-serif;font-size:13px;border-radius:4px;cursor:pointer}
+.act.primary{background:var(--terra);border-color:var(--terra)}
+.fnote{color:#9A928A;font-family:"Space Mono",monospace;font-size:10.5px;flex:1;min-width:200px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:var(--teal);color:#fff;
+ padding:10px 18px;border-radius:5px;font-size:14px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:60}
+.toast.show{opacity:1}
+@media(max-width:640px){h1{font-size:33px}.wrap{padding:0 16px 70px}.row{flex-direction:column;gap:8px}}
+</style><style>
+.fnav{background:#141110;padding:9px 0;font-family:"DM Sans",-apple-system,sans-serif}
+.fnav .fin{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:6px;flex-wrap:wrap;
+ align-items:center}
+.fnav a{color:#CFC7BC;text-decoration:none;font-size:13px;padding:4px 11px;border-radius:20px;
+ border:1px solid #332E2A;white-space:nowrap}
+.fnav a:hover{border-color:#C2603F;color:#FDFBF7}
+.fnav a.here{background:#C2603F;border-color:#C2603F;color:#fff}
+/* ⚠ The board already defines a .tag rule that paints a filled grey chip, and it leaked
+   through onto the "private" marker in this bar — the injected page inherits the host page's
+   CSS, so anything reused here has to reset what it does not set. */
+.fnav .tag{font-family:"Space Mono",monospace;font-size:8.5px;letter-spacing:.12em;
+ text-transform:uppercase;color:#E8A88C;margin-left:7px;background:none;border:0;padding:0;
+ border-radius:0;display:inline;vertical-align:baseline;white-space:nowrap;line-height:1}
+.fnav a.here .tag{color:#FCEDE6;background:none}
+</style></head><body><div class="fnav"><div class="fin"><a href="/future/">Overview</a><a href="/future/board/" class="here">Morning board</a><a href="/future/plan/">The plan</a><a href="/future/sell-in/">Sell-in cockpit<span class="tag">private</span></a></div></div>
+<header><div class="wrap">
+  <p class="kick">J.M.Kay &middot; for David White &middot; internal</p>
+  <h1>Where everything is<span class="d"></span></h1>
+  <p class="said">&ldquo;I&rsquo;d love to have this comprehensive dashboard that I can go to in the
+    morning, click on it, and basically see where everything is.&rdquo; <b>&mdash; you, on the drive,
+    20 August</b></p>
+  <div class="tiles"><div class="tile"><div class="n hot">25</div><div class="l">need you first</div></div><div class="tile"><div class="n hot">9</div><div class="l">dated inside a week</div></div><div class="tile"><div class="n">0</div><div class="l">dates gone past</div></div><div class="tile"><div class="n">28</div><div class="l">conversations on tape</div></div></div>
+  <p class="stamp">Built 27 August 2026, 21:04 &middot; <b>every row on this page was read from the
+    record at that moment. Nothing here is typed.</b><br>
+    Each panel says underneath it which file it came from and when that file last changed.<br>
+    The client is not named anywhere on this page &mdash; a screenshot forwards, so the labels say
+    &ldquo;the client&rdquo;.</p>
+</div></header>
+<main class="wrap"><section class="panel"><div class="ph"><h2>What needs you</h2></div><p class="why">51 open on the register with your name on it. Priority and date as the register holds them — nothing re-ranked here.</p><div id="needs"></div></section><section class="panel"><div class="ph"><h2>What is coming, and what has gone past</h2></div><p class="why">Every gate and field window in the engagement, from the one file that owns them. A date that has passed with nothing recorded against it stays on the page in red.</p><div id="dates"></div></section><section class="panel"><div class="ph"><h2>What moved</h2></div><p class="why">The delivery record&#x27;s own dated headlines, verbatim. If a day is missing, nothing was written that day.</p><div id="moved"></div></section><section class="panel"><div class="ph"><h2>The three markets</h2></div><p class="why">Conversations recorded, claims held, and the next date.</p><div id="markets"></div></section><section class="panel"><div class="ph"><h2>The pipeline</h2></div><p class="why">Where the next conversations stand.</p><div id="pipeline"></div></section></main>
+<footer><div class="inner">
+  <button class="act primary" id="copy" type="button">Copy this as a morning read</button>
+  <button class="act" id="print" type="button">Print</button>
+  <span class="fnote">Rebuild: python3 01_Opportunity-Universe/_bench/build_dave_board.py</span>
+</div></footer>
+<div class="toast" id="toast"></div>
+<script>window.__BOARD__ = {"title": "Where everything is", "built": "27 August 2026, 21:04", "needs": [{"id": "A331", "text": "Send Paula the IMPLAN parameter list. She runs the reports through the Greater Omaha Chamber research team UNDER A CODE NAME (no client, no project name) and shares results. Draft against the Pillar Crosswalk so outputs land in slots we already have; keep it short — she asked us not to make it onerous.", "pri": "P0", "when": "Aug 7", "due": "2026-08-07", "with": "Paula Hazlewood / Greater Omaha Chamber research team", "blocks": "Quantified halo + economic-impact section of the assessment", "shared": "Jonathan (draft); David (send)"}, {"id": "A352", "text": "Open the utility-participation conversation with Brian Cady, with a menu of formats. Adria report is second-hand, time-bound (\"in this moment\") and scoped to wraparound materials or case studies [T15] -- intelligence about how to approach him, not a refusal. Offer real options: on-camera interview, written statement, a line attributed to Council Bluffs Water Works rather than to him personally, a Board-approved statement, or background that travels as our finding. Pair with A287 (answer his own question about what the Water Board can talk about) -- giving him cover is what makes any format possible. Supersedes A286 as written.", "pri": "P0", "when": "Aug 7", "due": "2026-08-07", "with": "Brian Cady, CB Water Works", "blocks": "CB water card; rate-relief finding", "shared": "Jonathan / David"}, {"id": "A355", "text": "Establish what the client economics team actually received. Adria said Fabian team \"have all of the recordings from the qualitative interviews with Juno\" [T28]. Determine whether that means audio, transcripts or summaries; who holds it; and whether it is consistent with what our subjects consented to. Report to David before the Hamina field window adds ten days of new tape. ESCALATED 8/12 on the fold of the 8/06 schedule document, which had staged this same item and was never folded: the deadline this row set has now passed in the direction it was meant to prevent. Two Hamina recordings exist, neither carries a consent line, and the retro-confirmation notes under A376 are the repair. The consent half of this row is now the binding half, because the study cannot answer what subjects consented to while two subjects have not been asked.", "pri": "P0", "when": "Aug 13 (escalated; original Aug 8 missed)", "due": "2026-08-13", "with": "Adria Troyer; Fabian team", "blocks": "Consent-and-Clearance adjudication; Hamina tape", "shared": "Jonathan / David"}, {"id": "A377", "text": "Escalate A345 (interviewer disclosure) — HAM-2 is the fourth instance and the first inside a subject interview. On the Halli tape a Juno voice stated the narrative we were trying to disprove, called it \"proven false\", said \"we love hearing these kinds of stories\", and then supplied a percentage back to the subject. Add two lines to the Hamina field kit and the interview instrument before tomorrow: state the research question, never the desired answer; never repeat a figure back to a subject as established.", "pri": "P0", "when": "Aug 13 — before the next interview", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A433", "text": "Ask Adria for Hamina's confirmed operational headcount — and say the ask has already been made once, from the Finnish side, and went unanswered. Cursor's managing director uses 500–600 with Finnish national politicians because he could not get a number: *\"I tried to get that from the client, for some reason. And I just don't see the point\"* (HAM-4 [32:44]).", "pri": "P0", "when": "Next Adria touchpoint", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A130", "text": "DECISION: confirm the Hamina champion-profile target. Eduardo honest read = ~3-4 gettable interviews (six manageable) in a small shy town in holiday season vs the 6-champion-profile + 12-short-form SOW target. Hold the number and lean on street-casting + the committee-recipient path . or recalibrate now - better renegotiated in July than missed in August.", "pri": "P1", "when": "Before Aug 10", "due": "2026-08-01", "with": "David . Sarah Harper . Nick", "blocks": "Hamina deliverable set . SOW targets", "shared": "David / Sarah / Jonathan"}, {"id": "A131", "text": "DECISION + BUDGET: commit to interviewing in FINNISH with subtitles (not English) per Eduardo - Finns on camera speaking English reads as the American company made them -> disconnection. Requires an interpreter ON SET . longer interviews . and a subtitling workflow. Tell Nick; add the budget line.", "pri": "P1", "when": "Before Aug 10", "due": "2026-08-01", "with": "Nick . David . Sarah Harper", "blocks": "Hamina production plan . budget", "shared": "David / Sarah / Nick"}, {"id": "A272", "text": "David owes the PV-01 source (+82% Mayes assessed value) AND the 2008-dip correction BEFORE his Mayes/Pryor property-value timeline graphic circulates - register row 100 found Mayes home values tracked Oklahoma almost exactly (+97.1% vs +95.2%, 2007-2025, FHFA), so there is no client-attributable excess, and the '~10% 2008 dip' is REFUTED (prices rose 1.8%). One document closes both: Mayes County Assessor, Abstract of Assessed Valuation TY2008-2024.", "pri": "P1", "when": "Before the graphic circulates", "due": "2026-08-05", "with": "David White", "blocks": "Aug 7 Market Impact Assessment", "shared": "David White"}, {"id": "A333", "text": "Chase the stuck CB fact sheet: Paula co-drafted a Council Bluffs-specific fact sheet with Trent Fellers, has been round two or three times, and is waiting on the client's approval to put it before city council and the Mayor. Surface to Adria as a named, dated, unfulfilled commitment AND as a recommendation — it arms the ED lead, the water utility and the council at once.", "pri": "P1", "when": "Aug 7 (Project Update)", "due": "2026-08-07", "with": "Trent Fellers (the client) / Adria Troyer", "blocks": "Unfulfilled-commitments section of the internal report", "shared": ""}, {"id": "A353", "text": "Approach GRDA about Dan Sullivan participation, same menu of formats, then bring the options back to the client. Brian Wanglin raised a positioning question and left it open [T20]; Amy Murphy answered it the other way in the same breath, so the room is split rather than trending to no. Find out what Sullivan and GRDA are actually willing to do -- on-camera, written, utility-attributed, Board-approved -- and give Brian, Alex and Amy a set of formats to choose from rather than a yes/no on video.", "pri": "P1", "when": "Aug 10", "due": "2026-08-10", "with": "Dan Sullivan, GRDA", "blocks": "Pryor energy card; asset plan", "shared": "David / Jonathan"}, {"id": "A341", "text": "Ask the client for workforce home-ZIP distribution (Pryor, plus Council Bluffs for parity). Bui says most the client/Pryor workers live in Tulsa-metro suburbs -- Broken Arrow, Coweta, Jenks -- not Pryor [PR-B1 T034/T036]. If true at scale, a real share of payroll is spent, taxed and banked outside Mayes County, which reshapes the local-benefit argument.", "pri": "P1", "when": "Aug 12", "due": "2026-08-12", "with": "Adria Troyer (the client)", "blocks": "Local-economic-benefit claims in both markets", "shared": "Jonathan (ask); David (route to Adria)"}, {"id": "A417", "text": "Offer Kalevi Mattila a choice of formats rather than one ask. He is CEO of Haminan Energia and the source of the operational heat-share figure, and the utility conversation as invited names only Tuomas Uski. The formats are on camera, a written statement, attribution to the utility rather than to the person, a board-approved line, or background in our voice. Same play as GRDA and Council Bluffs Water Works. The schedule board already carries the instruction in its Haminan Energia prep note; nothing tracked it, which is why it is here. Folded 8/12 from the 8/06 schedule document.", "pri": "P1", "when": "Aug 13 — before the utility conversation", "due": "2026-08-13", "with": "Kalevi Mattila; Tuomas Uski; Petri Kekaelaeinen (Haminan Energia)", "blocks": "Hamina heat register rows; the utility conversation", "shared": "David / Sapir"}, {"id": "A166", "text": "Kim OOO ~Sept 5-10 logged; name the Hamina last-minute-edit coverage (David backup, or a trusted second set of eyes) - the OOO sits inside the Sept 5-9 minor-edit window.", "pri": "P1", "when": "By Aug 25", "due": "2026-08-25", "with": "Kim Ledgerwood . David", "blocks": "Hamina final-edit window (Sept 5-9)", "shared": "Sapir (calendar) / David (backup)"}, {"id": "A340", "text": "Chase the local-trades labour drain first-hand. Bui relayed a Pryor electrical-company owner who cannot staff because his people leave for the client wages and sustained work [PR-B1 T022]. Second-hand and unnamed; Pryor electrical contractors are a finite, findable list.", "pri": "P1", "when": "before September round", "due": "2026-09-01", "with": "Pryor electrical contractors", "blocks": "Honest-negatives section of the internal report", "shared": "Jonathan / David"}, {"id": "A345", "text": "Write the interviewer-disclosure rule: what we may assert as finding, as hypothesis, and about third parties, when talking to client-side people. Triggered by the 8/05 Bui call -- unverified figures went out, our office-park thesis was delivered as conclusion, and the competing Pryor data center was characterised as opaque and secretly buying land, to a client contractor. Pair with A337 (cross-subject attribution).", "pri": "P1", "when": "before September round", "due": "2026-09-01", "with": "", "blocks": "September round field kits", "shared": "Jonathan / David"}, {"id": "A50", "text": "Request the FINLAND EIR from the client — listed in the client's own asset tracker but NOT in the 7/9 drop (the Iowa + OK EIRs came; Finland's didn't). It's the Hamina economic anchor / third leg.", "pri": "P1", "when": "Next the client touch", "due": null, "with": "the client (via David)", "blocks": "Hamina economic anchor", "shared": "Jonathan / David"}, {"id": "A236", "text": "Deepen the Cherokee Nation partnership — route through Chief Chuck Hoskin Jr.'s office. The Nation is the region's biggest community investor and the client's direct relationship is thin; this is the license-to-operate opportunity.", "pri": "P1", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": "David / Sarah"}, {"id": "A247", "text": "Develop the \"the client did it right vs the newcomers did it wrong\" contrast using Ritchie as the credible, pro-the client voice — for the differentiation narrative. Handle with care; the client stays out of the Sun2O land fight.", "pri": "P1", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": "David / Jonathan"}, {"id": "A322", "text": "Raise echo-effect attribution with the chief economist's team: how to attribute the client's specific impact in crowded markets (Council Bluffs) vs. dominant-actor markets (Pryor); push for concrete deliverable and quantitative commitments", "pri": "P1", "when": "Aug 5 AM meeting", "due": null, "with": "", "blocks": "", "shared": "David/Jonathan"}, {"id": "A422", "text": "Re-earn the safety finding on camera in September, from a question that does not contain it. Ask what changed about how his crews work, and let him supply the scope himself. Do not ask whether the client improved safety in Finland. Same for the maintenance-economy question (Thread C q19), which was never asked at all.", "pri": "P1", "when": "Before the September round", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A424", "text": "Decide whether Ylitalo's two sensitive items travel attributed. The construction suspensions during regional escalation (row 188) and the refused material-cost relief (row 189's neighbour, [46:17]) are candid about his own client. He placed nothing off the record, which is exactly why the judgement is ours rather than his.", "pri": "P1", "when": "Before any Hamina client surface", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A430", "text": "Put register row 183 — the \"two people to around sixty\" firm — to the contractors who would know. Ylitalo is a prime with a thirteen-year view of the subcontractor tier and was never asked. Suviranta is his sub. Ask both.", "pri": "P1", "when": "Before the September round", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A437", "text": "Clear the two candid Cursor lines before either is attributed. the client's preference for its own international contractors over Finnish firms, and the \"I asked the client and got nothing\" line. Neither was placed off the record.", "pri": "P1", "when": "Before any Hamina client surface", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A446", "text": "Fix the field-kit capture protocol before September. Wednesday 12 Aug produced one conversation never recorded at all and one that survives as an 8:34 fragment, and a third tape arrived under the wrong subject's name. Name one person per interview responsible for starting, checking and labelling the recording in the room.", "pri": "P1", "when": "Before the September round", "due": null, "with": "", "blocks": "", "shared": "Jonathan / David"}, {"id": "A480", "text": "Get the client's go-ahead on the incremental cost of the additional Espoo crew for the Nokia interview, or stand it down. Windows are Tue 18 PM or Wed 19 business hours; both expire this week.", "pri": "P1", "when": "2026-08-18", "due": null, "with": "the client", "blocks": "", "shared": ""}, {"id": "A199", "text": "Aug 3 follow-up (Niels + Mika) - Sarah is scheduling; make sure Juno is represented/briefed (feeds Aug 10-20 field readiness).", "pri": "P2", "when": "Aug 3", "due": "2026-08-03", "with": "Sarah Harper . Niels Andersen . Mika (the client)", "blocks": "Hamina field readiness", "shared": "David / Sapir"}, {"id": "A180", "text": "Request the client's existing data-center drone/B-roll (establishing shots) via Sarah/Adria; 7/20 refinement (Kevin Tighe production call) - Nick may also grab a fence-line exterior establishing aerial as an edit fallback (no perimeter breach); David to socialize both asks with Sarah 7/21. [HYGIENE-PASS 2026-07-25: due date corrected 2026-07-21 -> 2026-08-15 (ahead of Sept production). No confirmation found that the client's drone/B-roll footage was received; still relevant for the Sept shoots.]", "pri": "P2", "when": "Jul 21", "due": "2026-08-15", "with": "Sarah Harper . Adria Troyer (the client) . Nick", "blocks": "establishing shots", "shared": "David / Sapir / Nick"}, {"id": "A418", "text": "Settle the economics and local-expert vendor shortlist, or close the item. Staged on 8/06 as a shortlist to Sapir for David to bless, and it has left no trace in the record since. Check first whether it is superseded by the research-partner pairing (Inspirans plus FCG Kotka) and the narrative-researcher hire; if it is, close it and say so rather than leaving it open. Folded 8/12 from the 8/06 schedule document.", "pri": "P2", "when": "Aug 15", "due": "2026-08-15", "with": "Sapir Ashkenazi; David White", "blocks": "", "shared": "Jonathan / David"}, {"id": "A401", "text": "Take Muller offer of a second conversation, after 25 August. “I am happy to visit with you again if you have got follow-up” [37:40], offered unprompted. She also fields calls from other superintendents weekly [22:18], which makes her the collection point for a what-other-markets-ask section in the Playbook. Do not schedule before the ballot.", "pri": "P2", "when": "After Aug 25", "due": "2026-08-26", "with": "Dr. Lisa Muller", "blocks": "Playbook . September Pryor round", "shared": ""}, {"id": "A337", "text": "Write the rule on cross-subject attribution before the September round: what we may attribute to a prior subject by name vs. what stays anonymous (\"others have told us\"). Triggered by the 8/05 call, where Cady and Mainwaring were named to Hazlewood and their positions characterised — collegial and productive, but subjects are now learning what other subjects said.", "pri": "P2", "when": "before September round", "due": "2026-09-01", "with": "", "blocks": "September production-round field kits", "shared": "Jonathan / David"}, {"id": "A97", "text": "Decide on Nick's olive-branch offer — share Juno's raw footage with the xWF team if they want it. If yes, route via Sarah/Adria and confirm rights/release coverage first. Goodwill + de-confliction gesture.", "pri": "P2", "when": "This week", "due": null, "with": "xWF (via Sarah) · Nick", "blocks": "xWF relationship · A93", "shared": "Jonathan / David / Nick"}, {"id": "A185", "text": "David: DC coffee with Tom (Pryor team) for the leadership-blocked transcripts/footage, informally; get territorial context from Adria first - keep private.", "pri": "P2", "when": "TBD", "due": null, "with": "Tom (Pryor team) . Adria Troyer", "blocks": "Pryor leadership footage", "shared": ""}, {"id": "A196", "text": "Await David's call on the Olavi advisor approach (a informal / b the client-blessed light cadence [rec] / c formal) AND whether to seek Adria's formal clarification that Kotka/region is in remit - both put to David in the 7/20 reply. On his answer: for (b) draft the Sarah/Mika blessing note (line up the pre-field call for the first week of Aug, ahead of the 10th, around Finnish summer holidays); if Adria clarification is wanted, draft that note too.", "pri": "P2", "when": "On David's reply", "due": null, "with": "David White . Sarah Harper . Mika (the client) . Adria Troyer", "blocks": "Olavi advisor cadence . Kotka remit", "shared": "Jonathan / David White"}, {"id": "A203", "text": "Track the roadshow ('Meet Your Neighbors') + datacenter.the client community hub as downstream homes for our impact stories; raise the long-term asset-ownership gap as a possible Juno 'repeatable framework' scope conversation.", "pri": "P2", "when": "Ongoing", "due": null, "with": "Emily Luepker . Adria Troyer (the client)", "blocks": "SOW/framework scope", "shared": ""}, {"id": "A228", "text": "Kim OOO ~Sept 5–10 logged + Hamina last-minute-edit coverage named (David backup; or a trusted second set of eyes)", "pri": "P2", "when": "Aug 25", "due": null, "with": "", "blocks": "", "shared": "Sapir (calendar) · David (backup)"}, {"id": "A237", "text": "Line up PM-surfaced voices: the Ritchies (Kim Ritchie), area ranchers, Councilor Clifton Hughes; + Zach Rash (veteran builder) and Eagle Ops (Owasso).", "pri": "P2", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": "David / Jenny"}, {"id": "A242", "text": "Line up new Pryor voices: Dean Majors (The Pulse), Tim Lawson (Pryor Information Publication), Barbara Hawkins (beginning-era chamber).", "pri": "P2", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": "David / Jenny"}, {"id": "A244", "text": "Book Doyle follow-up time (he offered \"the next couple weeks\"); pursue the local-business / \"Amazon boxes\" thread + consider filming his roadshow as an asset.", "pri": "P2", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": ""}, {"id": "A254", "text": "Resolve the Omaha-vs-Council Bluffs geographic scope for the halo framing with Chelsea (anchor CB / Iowa side, county-unit posture) before interviews begin", "pri": "P2", "when": "Mon–Tue 7/27–28", "due": null, "with": "Chelsea Marine", "blocks": "", "shared": "Jonathan / David"}, {"id": "A266", "text": "Adam Anderson (Pryor econ dev) virtual chat — econ-impact/development reports since '07", "pri": "P2", "when": "this week", "due": null, "with": "", "blocks": "", "shared": ""}, {"id": "A279", "text": "Ask the client (via Allison Eastman) to confirm the IWCC relationship record: the ~2007–09 IT-lab grant, the current lab rebuild and regional-training plan, subsequent grants, advisory-board participation and school visits.", "pri": "P2", "when": "2026-08-05", "due": null, "with": "", "blocks": "", "shared": "Jonathan → David"}, {"id": "A280", "text": "Ask the client what is actually public about financing utility expansion in the region, without sourcing the question to the contractor.", "pri": "P2", "when": "2026-08-05", "due": null, "with": "", "blocks": "", "shared": ""}, {"id": "A287", "text": "Answer Cady's own question: *\"which of these improvements can the Water Board talk about?\"* He asked the same thing on 7/22. It is a request for cover, and it is answerable.", "pri": "P2", "when": "2026-08-05", "due": null, "with": "", "blocks": "", "shared": "Jonathan → David"}, {"id": "A290", "text": "Route Mainwaring's finding that the belief \"the client paid no taxes\" is rising to Adria as a measurable communications problem in the market.", "pri": "P2", "when": "2026-07-30", "due": null, "with": "", "blocks": "", "shared": "Jonathan → David"}, {"id": "A300", "text": "Take the storytelling-vs-economic-report question into the Adria meeting, aligned with Sarah beforehand", "pri": "P2", "when": "Thu/Fri Jul 30–31", "due": null, "with": "", "blocks": "", "shared": "Jonathan + David"}, {"id": "A325", "text": "Cherokee Nation outreach: route questions through Erin for sensitivity guidance before further contact; no direct push in the meantime", "pri": "P2", "when": "before next contact", "due": null, "with": "", "blocks": "", "shared": "David/Jonathan"}, {"id": "A326", "text": "Vector the client's logo file from Sarah for design work (Sarah confirms the existing file is correct; presentations were carrying a stale one)", "pri": "P2", "when": "this week", "due": null, "with": "", "blocks": "", "shared": "David (track down)"}, {"id": "A328", "text": "Record: Jonathan and Nick off the cross-functional invites (this and all future); confirmed on the call. Calendar hygiene only, no deliverable", "pri": "P2", "when": "done on call", "due": null, "with": "", "blocks": "", "shared": ""}, {"id": "A329", "text": "Hamina invoice invites: Kari sends Aug 5; David steps in if not", "pri": "P2", "when": "Aug 5", "due": null, "with": "", "blocks": "", "shared": "Kari (send); David (backstop)"}, {"id": "A387", "text": "Make the watershed-over-time joint data ask to the client. It is the fourth halo category from the 7/17 directive and the only one with no footprint in the register or the action list. The reconcile half of the original item is closed; register row 31 is SUPPORTED and the withdrawal-versus-consumption basis is settled from the client's own environmental reports. What remains is the cooperation half: watershed and water-health trend data over time, asked for jointly rather than argued. Pair with A354 so the water findings rest on more than two individuals.", "pri": "P2", "when": "September round", "due": null, "with": "the client water team . Adria Troyer", "blocks": "Resources & Environment section, both US assessments", "shared": "Jonathan / David"}, {"id": "A245", "text": "Add CBC ammunition-plant CEO (incoming park neighbor) as a big-industry echo contact.", "pri": "P3", "when": "TBD", "due": null, "with": "", "blocks": "", "shared": ""}], "dates": [{"date": "2026-08-25", "end": "2026-08-27", "display": "Aug 25–27", "label": "the client's stakeholders review of Hamina v1 (per the client-approved plan)", "market": "Hamina", "kind": "gate", "days": -2, "late": false, "src": "Operating Plan, client-approved 2026-07-14"}, {"date": "2026-08-27", "end": null, "display": "Aug 27", "label": "Adria final review of Hamina v1", "market": "Hamina", "kind": "gate", "days": 0, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — milestone table (\"Aug 27 Adria final review\")"}, {"date": "2026-08-27", "end": null, "display": "Aug 27", "label": "the client's comments back on Hamina V1 (flagship film, photo selects, Market Impact Assessment V1)", "market": "Hamina", "kind": "gate", "days": 0, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-08-28", "end": null, "display": "Aug 28", "label": "Presentation to VP — interim sign-off on plan components (moved here from the Aug 25–27 window per the approved plan)", "market": "Programme", "kind": "gate", "days": 1, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — moved from the Aug 25-27 window"}, {"date": "2026-08-29", "end": null, "display": "Sat Aug 29", "label": "Juno delivers Hamina Flagship V2 + Champion Profiles V1", "market": "Hamina", "kind": "gate", "days": 2, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-08-31", "end": null, "display": "Mon Aug 31", "label": "the client's reviews Flagship V3 + Champion Profiles V2; marketing's 3–5 short-form picks (15–30 sec) also due", "market": "Hamina", "kind": "gate", "days": 4, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-09-01", "end": null, "display": "Sept 1", "label": "SOW end date", "market": "Programme", "kind": "gate", "days": 5, "late": false, "src": "SOW, executed 2026-06-30"}, {"date": "2026-09-02", "end": "2026-09-03", "display": "Sept 2–3", "label": "Final presentation of Tier-1 assets (films, profiles, short-form) — Hamina Delivery", "market": "Hamina", "kind": "gate", "days": 6, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — milestone table (\"Sept 2–3 Final presentation of Tier-1 assets\")"}, {"date": "2026-09-02", "end": null, "display": "Wed Sept 2", "label": "Juno delivers Flagship V3 + Champion Profiles V2 + short-form set", "market": "Hamina", "kind": "gate", "days": 6, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-09-03", "end": null, "display": "Thu Sept 3", "label": "Final-final review — Sarah / Adria / VP", "market": "Hamina", "kind": "gate", "days": 7, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-09-04", "end": null, "display": "Sept 3–5", "label": "J4 — Playbook/Framework v1 to Juno; feedback by Sept 7, the client Sept 9", "market": "Programme", "kind": "gate", "days": 8, "late": false, "src": "Review-ramp decision 2026-07-14, recorded in _os/proposals.json `review_ramp_note`: every draft goes Juno-first (J# tranches) before the client"}, {"date": "2026-09-07", "end": null, "display": "Mon Sept 7", "label": "All final Hamina assets delivered (ahead of the Sept 9 announcement)", "market": "Hamina", "kind": "gate", "days": 11, "late": false, "src": "Hamina V1 delivery thread — Sapir → Sarah Harper/Adria Troyer (cc Dave), 2026-08-25 9:32pm ET; revision schedule recorded in STATE 2026-08-26 (reconcile-on-boot)"}, {"date": "2026-09-09", "end": "2026-09-13", "display": "Sept 9–13", "label": "Pryor PRODUCTION shoot — post-announcement (crew Nick/Dylan/Greg TBC)", "market": "Pryor", "kind": "field", "days": 13, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — milestone table (\"Sept 9–13 Pryor production shoot\")"}, {"date": "2026-09-09", "end": "2026-09-10", "display": "Sept 9–10", "label": "Finland announcement peg", "market": "Hamina", "kind": "peg", "days": 13, "late": false, "src": "Finland call pt2, 2026-07-08 — _command/_meetings/2026-07-08_Butterfly_Finland-pt2_notes.md: \"Announcement Sept 9 is FIXED (Sarah) — cannot shift.\" Sarah Harper (the client) named it on the call; the 2026-07-10 calendar-sync note is a secondary record of the same date."}, {"date": "2026-09-09", "end": null, "display": "By Sept 9", "label": "Framework v1 / MARKET Intelligence Playbook delivered to the client (client-approved plan name)", "market": "Programme", "kind": "gate", "days": 13, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — the client-approved deliverable name"}, {"date": "2026-09-14", "end": "2026-09-20", "display": "Sept 14–20", "label": "Council Bluffs PRODUCTION shoot — back-to-back after Pryor (crew TBC; dates per Sapir 7/15+7/16)", "market": "Council Bluffs", "kind": "field", "days": 18, "late": false, "src": "Sapir, team call 2026-07-15 and 2026-07-16"}, {"date": "2026-09-22", "end": "2026-09-26", "display": "Sept 22–26", "label": "Hamina 2nd visit — post-announcement market reaction shoot", "market": "Hamina", "kind": "field", "days": 26, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — milestone table (\"Sept 22–26 Hamina second production shoot\")"}, {"date": "2026-09-25", "end": null, "display": "Sept 25–27", "label": "J5 — US v1 sets to Juno; feedback by Sept 27, the client wall Sept 28", "market": "Programme", "kind": "gate", "days": 29, "late": false, "src": "Review-ramp decision 2026-07-14, recorded in _os/proposals.json `review_ramp_note`: every draft goes Juno-first (J# tranches) before the client"}, {"date": "2026-09-28", "end": null, "display": "By Sept 28", "label": "Pryor + Council Bluffs v1 edits delivered to the client (pushed from Sept 24 — agreed 7/15 Planner review, restated 7/16 team call)", "market": "Programme", "kind": "gate", "days": 32, "late": false, "src": "Planner review 2026-07-15, restated team call 2026-07-16"}, {"date": "2026-09-30", "end": null, "display": "Sept 29–Oct 2", "label": "J6 — cross-market finals to Juno; the client delivery early Oct", "market": "Programme", "kind": "gate", "days": 34, "late": false, "src": "Review-ramp decision 2026-07-14, recorded in _os/proposals.json `review_ramp_note`: every draft goes Juno-first (J# tranches) before the client"}, {"date": "2026-10-05", "end": null, "display": "early Oct", "label": "Cross-market finals — Impact Report, Toolkit, Executive Presentation, Framework v1", "market": "Programme", "kind": "gate", "days": 39, "late": false, "src": "Operating Plan, client-approved 2026-07-14 — milestone table (\"Early Oct Cross-market finals\")"}], "moved": [{"date": "2026-08-27", "ago": 0, "qual": "orientation streamline ~16:30 ET", "head": "the roll had been refusing itself since 16 August; pickup read set cut ~65%"}, {"date": "2026-08-27", "ago": 0, "qual": "press capture ~15:30 ET", "head": "NPR/Gulf States on data-center NDAs; the transparency finding becomes a national pattern with a counter-model"}, {"date": "2026-08-27", "ago": 0, "qual": "inbox pass ~8:53 ET", "head": "quiet; two threads self-closed, DC Works quote now with Marko"}, {"date": "2026-08-26", "ago": 1, "qual": "translation verification", "head": "every transcript now states how it became English; four client's queries traced; two source tapes missing"}, {"date": "2026-08-26", "ago": 1, "qual": "reconcile-on-boot", "head": "Hamina V1 delivered to the client a day past target; three pocket missives owe decisions; RECONCILE-QUEUE clean"}, {"date": "2026-08-26", "ago": 1, "qual": "inbox pass ~8:26 ET", "head": "V1 shipped; timeline through 9/9; a Thursday meeting to confirm"}, {"date": "2026-08-25", "ago": 2, "qual": "inbox pass ~1:15 ET", "head": "two owed-status replies flagged; both are JK's call"}, {"date": "2026-08-25", "ago": 2, "qual": "inbox pass ~12:10 ET", "head": "quiet; XFN update deck shared for the COB the client delivery"}, {"date": "2026-08-25", "ago": 2, "qual": "inbox pass ~10:10 ET", "head": "Kim accepts the Data Center capitalization reading"}, {"date": "2026-08-25", "ago": 2, "qual": "", "head": "the register learned which tape a claim came off (C3), and two real zeros fell out"}, {"date": "2026-08-25", "ago": 2, "qual": "", "head": "root cleared, all 49 pointers resolve, and a 14-day gate fired on schedule"}, {"date": "2026-08-24", "ago": 3, "qual": "evening", "head": "every signal on the board now means something"}, {"date": "2026-08-24", "ago": 3, "qual": "PM (latest", "head": "§4c cleared, the market registry built, the first module ported"}, {"date": "2026-08-24", "ago": 3, "qual": "PM (later", "head": "gate-streamlining pass (§4b): the ladder made answerable"}, {"date": "2026-08-24", "ago": 3, "qual": "PM", "head": "capture close-out: Part B run, 1.37 GB retired, the board made answerable"}, {"date": "2026-08-24", "ago": 3, "qual": "PM", "head": "inbox pass: champion-cut decision staged, Nokia locked into the six"}, {"date": "2026-08-24", "ago": 3, "qual": "PM", "head": "the document sweep: the handover's own mechanical list would have destroyed the Oracle lead"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "the PayPal run, and the glossary gap it exposed"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "the Hamina ear-check lands, and catches the interpreter in Pakkanen's mouth"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "the three unexamined tails are empty, and the finding is recorded"}, {"date": "2026-08-24", "ago": 3, "qual": "later", "head": "the ear-check gets an attribution fix, and the corpus gets a sweep"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "Hamina citation clearance, Session 1: the track was never unusable, it was unlabelled"}, {"date": "2026-08-24", "ago": 3, "qual": "~11:10 AM ET", "head": "Butterfly Inbox pass: one item (already answered) + a smoke FAIL to flag"}, {"date": "2026-08-24", "ago": 3, "qual": "PM", "head": "the convention parity sweep: the guards could not read what we ship"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "document-sweep handover written, and `_deliverables` turns out not to be the problem"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "JK adjudicates the verification drift; the day-board and schedule tracker retire"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "phase windows: spent surfaces now close themselves, and two earlier findings were wrong"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "recording pipeline board: 35 recordings, 11 stages, computed from disk, and the verification tier is drifting on 17 tapes"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "the apparatus sweep: 138 live surfaces, ~30 earn their place, and two look live that are not"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "inbox pass (scheduled, 11:05 ET): quiet, one expense receipt self-send, no reply owed"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "inbox pass (scheduled): Kim returns the Hamina copyedit with two scope questions, reply staged"}, {"date": "2026-08-23", "ago": 4, "qual": "", "head": "inbox pass (scheduled, 12:15 ET): one new item, one stale draft flagged"}, {"date": "2026-08-24", "ago": 3, "qual": "", "head": "Kim's read lands, a rebuild eats it, and the guards turn out to run on the wrong side"}, {"date": "2026-08-23", "ago": 4, "qual": "", "head": "the quote track deploys, and the Quote Register could not see two fifths of the corpus"}, {"date": "2026-08-22", "ago": 5, "qual": "", "head": "the Nokia determination closes, and the citation guard was blind a fourth time"}], "markets": [{"name": "Pryor", "talked": 11, "claims": 125, "next": "Sept 9–13 — Pryor PRODUCTION shoot — post-announcement (crew Nick/Dylan/Greg TBC)", "next_days": 13}, {"name": "Council Bluffs", "talked": 8, "claims": 102, "next": "Sept 14–20 — Council Bluffs PRODUCTION shoot — back-to-back after Pryor (crew TBC; dates per Sapir 7/15+7/16)", "next_days": 18}, {"name": "Hamina", "talked": 9, "claims": 105, "next": "Aug 25–27 — the client's stakeholders review of Hamina v1 (per the client-approved plan)", "next_days": -2}], "pipeline": [{"name": "Oracle", "last": "2026-08-27", "where": "What the client receives on 9 September is the runnable version of a model that is considerab..."}, {"name": "New Mexico", "last": "2026-08-20", "where": "The Jupiter scan came back, and it moves the sale from storytelling to validation"}, {"name": "Jupiter", "last": "2026-08-20", "where": "The forward calendar runs to 2029, and the pipeline story was wrong again"}], "pipeline_ask": "Nothing in the record tracks where a conversation stands — only that it happened. These are the names, with the date each was last written down.", "pipeline_rec": "Tell me where you keep the pipeline, and this panel reads it every morning like the rest of the page. If it lives in your head, that is the answer and we build the smallest thing that gets it out.", "src": {"needs": {"file": "the delivery record · _command/_trackers/Action-Register.xlsx", "read": "2026-08-27", "note": "476 rows on the register; these are the open ones with his name on them"}, "dates": {"file": "the delivery record · _command/_os/gates.json", "read": "2026-08-27", "note": "the single owner of every date in the engagement"}, "moved": {"file": "the delivery record · STATE.md", "read": "2026-08-27", "note": "every dated entry in the last 14 days, headline verbatim — the log is written several times a day, so the default cut is short"}, "markets": {"file": "the delivery record · _command/_os/corpus.py", "read": "2026-08-26", "note": "conversations on tape (28 recorded of 31) and register rows by market"}, "pipeline": {"file": "this workspace · STATE.md", "read": "2026-08-27", "note": "names as they appear in the log, dated by the entry that mentions them — there is no pipeline source anywhere to read"}}};</script>
+<script>
+(function(){
+ var D = window.__BOARD__;
+ function el(t,c,x){var n=document.createElement(t); if(c)n.className=c;
+   if(x!==undefined&&x!==null)n.textContent=x; return n;}
+ function toast(m){var t=document.getElementById("toast"); t.textContent=m;
+   t.classList.add("show"); setTimeout(function(){t.classList.remove("show");},1900);}
+ function meta(parts){
+   var p=el("p","m"), first=true;
+   parts.forEach(function(x){
+     if(!x || !x[1]) return;
+     if(!first) p.appendChild(el("span","sep","·"));
+     first=false;
+     p.appendChild(el("b", null, x[0]+"\u00a0"));
+     p.appendChild(document.createTextNode(x[1]));
+   });
+   return first ? null : p;
+ }
+ function prov(host, s, extra){
+   var p=el("p","prov");
+   p.appendChild(el("b",null,"Read from\u00a0"));
+   p.appendChild(document.createTextNode(s.file || "(nothing — see above)"));
+   if(s.read){ p.appendChild(el("b",null,"\u00a0\u00a0\u00b7\u00a0\u00a0last changed\u00a0")); p.appendChild(document.createTextNode(s.read)); }
+   if(s.note){ p.appendChild(document.createElement("br"));
+               p.appendChild(document.createTextNode(s.note)); }
+   if(extra){ p.appendChild(document.createElement("br")); p.appendChild(document.createTextNode(extra)); }
+   host.appendChild(p);
+ }
+
+ // ── what needs you ────────────────────────────────────────────────────────────────
+ var NEEDS = document.getElementById("needs"), filter="hot";
+ function drawNeeds(){
+   NEEDS.textContent="";
+   var chips=el("div","chips");
+   [["hot","Priority one and above"],["dated","Has a date"],["all","Everything with your name on it"]]
+   .forEach(function(c){
+     var b=el("button","chip"+(filter===c[0]?" on":""), c[1]);
+     b.addEventListener("click",function(){filter=c[0];drawNeeds();});
+     chips.appendChild(b);
+   });
+   NEEDS.appendChild(chips);
+   var rows=D.needs.filter(function(r){
+     if(filter==="hot") return r.pri==="P0"||r.pri==="P1";
+     if(filter==="dated") return !!r.due;
+     return true;
+   });
+   if(!rows.length){ NEEDS.appendChild(el("p","empty","Nothing in this cut.")); }
+   rows.forEach(function(r){
+     var cls="row "+(r.pri||"").toLowerCase();
+     var row=el("div",cls);
+     row.appendChild(el("div","tag "+(r.pri||"").toLowerCase(), r.pri));
+     var bd=el("div","bd");
+     bd.appendChild(el("p","t", r.text));
+     var m=meta([["", r.when],["with", r.with],["blocks", r.blocks],["shared with", r.shared],
+                 ["", r.id]]);
+     if(m) bd.appendChild(m);
+     row.appendChild(bd); NEEDS.appendChild(row);
+   });
+   prov(NEEDS, D.src.needs);
+ }
+ drawNeeds();
+
+ // ── the dates ─────────────────────────────────────────────────────────────────────
+ var DATES=document.getElementById("dates"), horizon=21;
+ function drawDates(){
+   DATES.textContent="";
+   var chips=el("div","chips");
+   [[21,"Next three weeks"],[45,"Next six weeks"],[999,"Everything ahead"]].forEach(function(c){
+     var b=el("button","chip"+(horizon===c[0]?" on":""), c[1]);
+     b.addEventListener("click",function(){horizon=c[0];drawDates();});
+     chips.appendChild(b);
+   });
+   DATES.appendChild(chips);
+   var rows=D.dates.filter(function(d){return d.late || d.days<=horizon;});
+   if(!rows.length){ DATES.appendChild(el("p","empty","Nothing inside this horizon.")); }
+   rows.forEach(function(d){
+     var soon = d.days>=0 && d.days<=7;
+     var row=el("div","row"+(d.late?" late":(soon?" soon":"")));
+     var when = d.late ? "PASSED" : (d.days===0 ? "TODAY" : (d.days===1?"tomorrow":"in "+d.days+"d"));
+     row.appendChild(el("div","tag d"+(d.late?" late":(soon?" soon":"")), when));
+     var bd=el("div","bd");
+     bd.appendChild(el("p","t", d.label));
+     var m=meta([["", d.display],["", d.market],["", d.kind==="field"?"field window":""]]);
+     if(m) bd.appendChild(m);
+     row.appendChild(bd); DATES.appendChild(row);
+   });
+   prov(DATES, D.src.dates);
+ }
+ drawDates();
+
+ // ── what moved ────────────────────────────────────────────────────────────────────
+ var MOVED=document.getElementById("moved"), back=1;
+ function drawMoved(){
+   MOVED.textContent="";
+   var chips=el("div","chips");
+   [[1,"Since yesterday"],[7,"Last week"],[14,"Last fortnight"]].forEach(function(c){
+     var b=el("button","chip"+(back===c[0]?" on":""), c[1]);
+     b.addEventListener("click",function(){back=c[0];drawMoved();});
+     chips.appendChild(b);
+   });
+   MOVED.appendChild(chips);
+   var rows=D.moved.filter(function(m){return m.ago<=back;});
+   if(!rows.length){ MOVED.appendChild(el("p","empty","Nothing was written to the record in this window.")); }
+   var lastDay=null;
+   rows.forEach(function(m){
+     if(m.date!==lastDay){ MOVED.appendChild(el("div","day", m.date)); lastDay=m.date; }
+     var b=el("div","moved");
+     b.appendChild(el("p",null,m.head));
+     if(m.qual) b.appendChild(el("p","q",m.qual));
+     MOVED.appendChild(b);
+   });
+   prov(MOVED, D.src.moved);
+ }
+ drawMoved();
+
+ // ── the markets ───────────────────────────────────────────────────────────────────
+ var MK=document.getElementById("markets"), grid=el("div","mk");
+ D.markets.forEach(function(m){
+   var c=el("div","mkc");
+   c.appendChild(el("h3",null,m.name));
+   var nums=el("div","nums");
+   [[m.talked,"on tape"],[m.claims,"claims held"]].forEach(function(p){
+     var d=el("div"); d.appendChild(el("div","v",String(p[0]))); d.appendChild(el("div","k",p[1]));
+     nums.appendChild(d);
+   });
+   c.appendChild(nums);
+   c.appendChild(el("p","nx", m.next ? m.next : "Nothing dated ahead."));
+   grid.appendChild(c);
+ });
+ MK.appendChild(grid);
+ prov(MK, D.src.markets);
+
+ // ── the pipeline ──────────────────────────────────────────────────────────────────
+ var PL=document.getElementById("pipeline");
+ D.pipeline.forEach(function(p){
+   var row=el("div","row");
+   row.appendChild(el("div","tag","NAMED"));
+   var bd=el("div","bd");
+   bd.appendChild(el("p","t", p.name));
+   var m=meta([["last written down", p.last],["in", p.where]]);
+   if(m) bd.appendChild(m);
+   row.appendChild(bd); PL.appendChild(row);
+ });
+ var ask=el("div","ask");
+ var a1=el("p"); a1.appendChild(el("b",null,"This is the one panel with nothing behind it. "));
+ a1.appendChild(document.createTextNode(D.pipeline_ask));
+ ask.appendChild(a1);
+ var a2=el("p"); a2.appendChild(el("b",null,"What I'd do. "));
+ a2.appendChild(document.createTextNode(D.pipeline_rec));
+ ask.appendChild(a2);
+ PL.appendChild(ask);
+ prov(PL, D.src.pipeline);
+
+ // ── copy the whole thing as a morning read ────────────────────────────────────────
+ document.getElementById("copy").addEventListener("click", function(){
+   var L=[D.title+" — "+D.built, ""];
+   L.push("NEEDS YOU ("+D.needs.length+")");
+   D.needs.slice(0,12).forEach(function(r){ L.push("  ["+r.pri+"] "+r.text+(r.when?"  ("+r.when+")":"")); });
+   L.push("", "DATES");
+   D.dates.filter(function(d){return d.late||d.days<=21;}).forEach(function(d){
+     L.push("  "+(d.late?"PASSED":"in "+d.days+"d")+"  "+d.display+" — "+d.label); });
+   L.push("", "MOVED");
+   D.moved.filter(function(m){return m.ago<=back;}).forEach(function(m){ L.push("  "+m.date+"  "+m.head); });
+   L.push("", "MARKETS");
+   D.markets.forEach(function(m){ L.push("  "+m.name+": "+m.talked+" on tape, "+m.claims+" claims held"); });
+   var t=L.join("\n");
+   if(navigator.clipboard){ navigator.clipboard.writeText(t).then(function(){toast("Copied.");},
+     function(){toast("Could not copy — select the page instead.");}); }
+   else { toast("Could not copy — select the page instead."); }
+ });
+ document.getElementById("print").addEventListener("click", function(){ window.print(); });
+})();
+</script>
+</body></html>

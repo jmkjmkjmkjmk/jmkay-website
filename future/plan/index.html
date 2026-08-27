@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<title>Groundwork — the plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Instrument+Serif&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--terra:#C2603F;--terra-lt:#E8A88C;--warm:#FDFBF7;--cream:#F5F0E8;--ink:#1C1917;
+ --ink-lt:#44403C;--ink-mut:#78716C;--teal:#1A4A4A;--sage:#7A8F6D;--line:#E7E0D6}
+html,body{margin:0;padding:0}
+body{background:var(--warm);color:var(--ink);font-family:"DM Sans",-apple-system,sans-serif;
+ font-size:17px;line-height:1.62}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px 90px}
+header{background:var(--ink);color:var(--warm);padding:44px 0 34px;margin:0 0 40px}
+header .wrap{padding-bottom:0}
+.kick{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+ color:var(--terra-lt);margin:0 0 12px}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:46px;line-height:1.05;margin:0 0 10px}
+h1 .d{display:inline-block;width:13px;height:13px;background:var(--terra);transform:rotate(45deg);
+ border-radius:2px;margin-left:11px;vertical-align:middle}
+header p{color:#CFC7BC;margin:0;font-size:16.5px;max-width:64ch}
+h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:30px;color:var(--teal);
+ margin:44px 0 14px;line-height:1.15}
+h3{font-size:20px;margin:30px 0 10px}
+p{margin:0 0 17px}
+strong{font-weight:600;color:var(--ink)}
+em{color:var(--ink-lt)}
+ul{padding-left:22px;margin:0 0 18px}
+li{margin:0 0 9px}
+hr{border:0;border-top:1px solid var(--line);margin:38px 0}
+blockquote{margin:0 0 18px;padding:0 0 0 16px;border-left:3px solid var(--line);color:var(--ink-lt)}
+code{font-family:"Space Mono",monospace;font-size:.88em;background:var(--cream);padding:2px 5px;border-radius:3px}
+a{color:var(--teal)}
+.card{display:block;border:1px solid var(--line);background:#fff;border-radius:8px;padding:20px 24px;
+ margin:0 0 12px;text-decoration:none;color:inherit}
+.card:hover{border-color:var(--terra)}
+.card h3{margin:0 0 6px;color:var(--ink)}
+.card p{margin:0;font-size:15px;color:var(--ink-mut)}
+.card .meta{font-family:"Space Mono",monospace;font-size:10.5px;letter-spacing:.13em;
+ text-transform:uppercase;color:var(--terra);margin:0 0 8px}
+.note{background:var(--cream);border-radius:8px;padding:17px 22px;margin:30px 0 0;font-size:15px;
+ color:var(--ink-lt)}
+.note b{color:var(--ink)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding-top:18px;
+ font-family:"Space Mono",monospace;font-size:10.5px;color:var(--ink-mut);line-height:1.8}
+
+.fnav{background:#141110;padding:9px 0;font-family:"DM Sans",-apple-system,sans-serif}
+.fnav .fin{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:6px;flex-wrap:wrap;
+ align-items:center}
+.fnav a{color:#CFC7BC;text-decoration:none;font-size:13px;padding:4px 11px;border-radius:20px;
+ border:1px solid #332E2A;white-space:nowrap}
+.fnav a:hover{border-color:#C2603F;color:#FDFBF7}
+.fnav a.here{background:#C2603F;border-color:#C2603F;color:#fff}
+/* ⚠ The board already defines a .tag rule that paints a filled grey chip, and it leaked
+   through onto the "private" marker in this bar — the injected page inherits the host page's
+   CSS, so anything reused here has to reset what it does not set. */
+.fnav .tag{font-family:"Space Mono",monospace;font-size:8.5px;letter-spacing:.12em;
+ text-transform:uppercase;color:#E8A88C;margin-left:7px;background:none;border:0;padding:0;
+ border-radius:0;display:inline;vertical-align:baseline;white-space:nowrap;line-height:1}
+.fnav a.here .tag{color:#FCEDE6;background:none}
+</style></head><body>
+<div class="fnav"><div class="fin"><a href="/future/">Overview</a><a href="/future/board/">Morning board</a><a href="/future/plan/" class="here">The plan</a><a href="/future/sell-in/">Sell-in cockpit<span class="tag">private</span></a></div></div><header><div class="wrap"><p class="kick">J.M.Kay &middot; unlisted</p><h1>Groundwork<span class="d"></span></h1><p>Making the research method something a small team can run. Draft for David White &middot; 27 August 2026.</p></div></header><main class="wrap">
+<p>Two pages, then the detail. Three questions are open at the end, each with what I would do and
+what happens if we do nothing. Everything else here is decided and I am not asking you to
+reopen it unless you want to.</p>
+<hr />
+<h2>1 · We replicate ourselves. Here is the part that does not replicate yet.</h2>
+<p>Your sentence, from the drive: <em>we have to just replicate ourselves. You don't necessarily
+need to go to New Mexico — you just need to instruct somebody how to go to New Mexico and what
+questions to ask.</em> And then the hard part, which you also named: <em>the trick is synthesising it
+all. Is there somebody who can take a battery company and an Oracle and synthesise it? And
+have you quality control?</em></p>
+<p>I went through everything we have built across the three markets and scored it by one test:
+could somebody we hire next month pick this up and use it, with nobody to call. The answer
+splits cleanly, and not where I expected.</p>
+<p><strong>Going to a market and getting the interviews is largely packaged.</strong> So is recording it,
+filing it, and closing a market out. The instruments exist, they are blank, and they work.</p>
+<p><strong>Turning verified evidence into a finding, and a finding into something a client reads, is
+not written down anywhere.</strong> Not partially — not at all. That is the honest answer to your
+question, and it is the thing this plan is mostly about. Everything else is packaging.</p>
+<h2>2 · The proof is the thing you already named</h2>
+<p>The recaps. Your words: the single best thing, circulating through the booth, advertising for
+Juno, and the reason the Adria calls stopped being contentious. That is the model for all of
+this — something that already ran, already changed somebody's temperature, then packaged so a
+second person can run it.</p>
+<p>Second piece of proof, and I would rather show you than describe it: <strong>the morning dashboard
+you asked for on the drive is built.</strong> One place, every market, what moved. Ten minutes at the
+top of the meeting.</p>
+<h2>3 · Your list, handed back</h2>
+<p>Ten things you committed to on the drives on 20 August. I went back through the tapes rather
+than my memory, so the timecodes are there if you want to check I have not put words in your
+mouth. Five now exist.</p>
+<ul>
+<li><strong>Your morning dashboard.</strong> <em>“I'd love to have this comprehensive dashboard I can go to in
+the morning.”</em> Built.</li>
+<li><strong>The AI line for the Oracle proposal.</strong> <em>“Before I go to Oracle, I will definitely make
+sure everything is in.”</em> Named, scoped, and priced as a systems line rather than as hours —
+hours invite <em>the machine did it, why am I paying</em>.</li>
+<li><strong>Ask for the bigger number up front.</strong> <em>“Once you ask for it to get approved, that's it.”</em>
+Now a standing rule, with the contingency mechanism written beside it.</li>
+<li><strong>Who absorbs the surprises.</strong> <em>“I'm not going to eat your surprise.”</em> Written down, rather
+than living in one sentence on one recording.</li>
+<li><strong>Eight validated, two flagged.</strong> Your claim-audit idea is now a service line, because you
+were right that nobody else is offering it.</li>
+<li><strong>Speed as a priced deliverable</strong> — the thing DC Works taught you to name.</li>
+<li><strong>Site community managers, early.</strong> Not built. It belongs in the field kit and it is a half-
+day.</li>
+<li><strong>The stakeholder-category list</strong> you can hand a new client in a first meeting — the one
+where you guarantee there are divisions they had not thought of.</li>
+<li><strong>Researcher names, and how we find more.</strong> Section 5.</li>
+<li><strong>The educational repository.</strong> Noted, not started, and I would leave it until there is a
+bench to read it.</li>
+</ul>
+<h2>4 · What a new researcher gets on day one</h2>
+<p>The kit is real and most of it already exists — it needed extracting rather than inventing.
+Five blank instruments, the interview guide as a fill-in rather than as three markets' worth
+of notes, the evidence discipline, the citation grammar, the consent and compensation rules,
+and a reference set of finished work so they can see what good looks like before they try to
+produce it.</p>
+<p><strong>The one genuinely new build is a market scaffold</strong> — one command that stands up a new
+market's folders, its empty registers, and the checks, and tells you whether it is ready.
+Without it the method is repeatable in principle and hand-assembled in practice.</p>
+<p><strong>And the synthesis instruction, which does not exist and which I am writing.</strong> I would rather
+show you one worked example — evidence to finding to report section — than describe it. That
+is the piece the whole thing rests on and I am not going to claim it is done.</p>
+<h2>5 · The bench</h2>
+<p><strong>Juno hires them. I certify them.</strong> That keeps you as the employer of record and the
+commercial relationship, and it keeps me on the standard rather than on payroll. It is the
+simplest version and I think it is the right one.</p>
+<p>Recruit tier one regionally — local fluency beats travel budget, and it is better for the
+work. The profile is a field journalist with diligence discipline: comfort in a strange town,
+long-form non-leading interviewing, evidence hygiene, writing that survives a fact-check. Not
+an agency account person.</p>
+<p>There is a one-page checklist of what a researcher has to be able to do before they run a
+market alone. It is in the appendix. It is a checklist, not a programme — you asked for names
+and a way to vet them, and that is what this is.</p>
+<p><strong>On the first hard market: it stays the two of us, with somebody in the periphery watching
+and learning.</strong> That was your read on the drive and I think it is right. A bench debuting
+publicly in the hardest room we have had is a bad first outing for something we want to sell.</p>
+<h2>6 · What it costs, and where the margin is</h2>
+<p>Attached is a per-market model rather than a rate card. The shape: a per-market platform fee
+that covers the instruments, the registers and the standards function; field hours billed as
+hours; and the central function — transcription, diarisation, the evidence machinery — run
+centrally and priced as part of the platform rather than donated as good practice.</p>
+<p><strong>It is run centrally on purpose.</strong> It is the only way the standard is the same in every
+market, and it is what the platform fee actually buys. A regionally-hired researcher will not
+run this on a laptop and should not have to.</p>
+<p>The model shows the per-market cost against what a sourced research pass runs at today. <strong>The
+point of it is that your margin per market goes up, not down</strong> — if it does not, I have built
+the wrong thing and I would rather find that out over this page than in October.</p>
+<p>Because you employ the bench, the delivery hours are yours. What I am pricing is the method,
+the instruments and the standards function — the things that make the hours worth more than
+the hours.</p>
+<h2>7 · The sequence</h2>
+<ul>
+<li><strong>Now to the end of the month.</strong> The kit gets blanked and dated. Nothing needs you.</li>
+<li><strong>September is the field.</strong> Three trips, and I will shadow one candidate researcher under
+real conditions while I am already there. That is the certification pilot and it costs nothing
+extra.</li>
+<li><strong>Late September.</strong> The scaffold and one worked synthesis example get built.</li>
+<li><strong>Early October.</strong> One meeting. I will open with the dashboard on screen.</li>
+</ul>
+<p><strong>Nothing here needs a reply from you to keep moving.</strong> If you say nothing until October, all
+of it still happens.</p>
+<h2>8 · Three open questions</h2>
+<p><strong>1. What is Juno's actual margin per market?</strong></p>
+<p>It is the one number I cannot derive and you can. It is not an audit and I do not need the
+workings — I need to know what the platform fee has to sit inside.</p>
+<p><em>What I'd do.</em> Give me a range rather than a number, and I will build the model against the
+bottom of it.
+<em>If we don't decide.</em> I price against my own estimate, and we find out in October whether it
+eats your margin — which is the version where you quietly stop using the apparatus and neither
+of us says so.</p>
+<p><strong>2. Which market does the bench debut in, and how far in?</strong></p>
+<p>My read is the first hard market stays the two of us with an apprentice watching. But you know
+which rooms are survivable better than I do.</p>
+<p><em>What I'd do.</em> Debut them somewhere forgiving, apprenticing, and keep the hard market ours.
+<em>If we don't decide.</em> We default to apprentice-only, which is the safe version and slower.</p>
+<p><strong>3. The name.</strong></p>
+<p>Groundwork is a working name. I have not seen a reaction to it and I would rather have one
+before it is on anything a client sees.</p>
+<p><em>What I'd do.</em> Leave it open until October and decide it with the positioning rather than
+before it.
+<em>If we don't decide.</em> It stays Groundwork by inertia, which is how names get decided badly.</p>
+<h2>9 · Where I want your redraft</h2>
+<p>You did this with the interview guide in July and it came back better. The section I most want
+your version of is section 6 — the economics — because you know what you can carry into a room
+and I am guessing at it.</p>
+<hr />
+<p><em>Appendix: the researcher checklist, the per-market model, and the kit inventory.</em></p><footer>Unlisted &middot; not indexed, not in the sitemap, not linked from jmkay.com.<br>Generated from _bench/plan_content.py &mdash; edit the module, never this page.</footer></main></body></html>

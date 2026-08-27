@@ -37,3 +37,8 @@
 /x/summa-archive-1b0263f000/*
   Basic-Auth: hamina:summa
   X-Robots-Tag: noindex, nofollow
+
+/future/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+  Cache-Control: private, no-store
