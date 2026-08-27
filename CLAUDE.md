@@ -48,6 +48,7 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 - Post 05 "What Nearly Two Decades in Healthcare Taught Me About Story" → `writing/two-decades-healthcare-story.html` (Jun 11; slug `two-decades-healthcare-story`)
 - Cinema page → `cinema/index.html` (Bethesda Cinematheque, unlisted/noindex)
 - Private reading share → `reading/<slug>/index.html` (select chapters of the novel *The Approved Version*, unlisted/noindex; one per-group secret link; Netlify-Forms comment box `reading-feedback`; build via `scripts/build_reading_pages.py`, see `scripts/READING_PAGES_README.md`; `/reading/` in robots.txt + _headers; NOT in nav/sitemap. Staged 2026-06-29 — live on push.)
+- Groundwork / Juno partnership pack → `future/` (hub + `future/board|plan|sell-in/`, unlisted/noindex; `Disallow: /future/` sits INSIDE the User-agent group in robots.txt and a `/future/*` block in `_headers` carries noindex, noarchive, `Cache-Control: private, no-store`; NOT in nav/sitemap; **no password — unlisted is not private**, and the sell-in cockpit is JK-private content living there by explicit instruction. Do NOT hand-edit these pages: rebuild with `Collab with Juno/01_Opportunity-Universe/_bench/publish_to_site.py`, which regenerates all four and re-runs the pack's refusals. The board is regenerated daily — re-publish after any rebuild. Staged 2026-08-27 — live on push.)
 
 (There are also the AAS + Aradhana case-study pages. Page count is no longer "6" — verify against the live sitemap, not this note.)
 
