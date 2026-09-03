@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Groundwork Field Card</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}
+:root{
+  --terra:#C2603F; --terra-dp:#9E4A2E; --terra-pale:#FBF1EC;
+  --teal:#1A4A4A; --teal-pale:#EDF2F1;
+  --sage:#5F7A52; --sage-pale:#F1F5EE;
+  --warm:#FDFBF7; --cream:#F5F0E8;
+  --ink:#1C1917; --ink-lt:#3F3A35; --ink-mut:#7A716A; --line:#E4DCD1;
+  --shadow:0 1px 2px rgba(28,25,23,.05);
+}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{background:var(--warm);color:var(--ink);
+  font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--terra);outline-offset:2px;border-radius:3px}
+
+header{background:var(--ink);color:var(--warm);padding:38px 0 32px}
+.kick{font-family:"Space Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:#E2A98E;margin:0 0 12px}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(38px,8vw,54px);
+  line-height:1.02;margin:0 0 14px;text-wrap:balance;letter-spacing:-.01em}
+h1 .d{display:inline-block;width:12px;height:12px;background:var(--terra);transform:rotate(45deg);
+  border-radius:2px;margin-left:12px;vertical-align:middle}
+.sub{color:#C9C0B6;font-size:17px;margin:0;max-width:60ch}
+
+nav{position:sticky;top:0;z-index:40;background:rgba(253,251,247,.96);
+  backdrop-filter:saturate(1.4) blur(6px);border-bottom:1px solid var(--line)}
+nav .inner{max-width:820px;margin:0 auto;padding:9px 20px;display:flex;gap:6px;
+  overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+  font-size:14px;color:var(--ink-lt);text-decoration:none;white-space:nowrap;flex:0 0 auto}
+nav a:hover{border-color:var(--teal);color:var(--teal)}
+
+main{padding-bottom:96px}
+section{margin:44px 0 0;scroll-margin-top:64px}
+h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:31px;line-height:1.1;
+  margin:0 0 6px;color:var(--teal);text-wrap:balance}
+.lede{font-size:16px;color:var(--ink-mut);margin:0 0 20px;max-width:62ch;
+  border-bottom:1px solid var(--line);padding-bottom:14px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;
+  box-shadow:var(--shadow)}
+.lbl{font-family:"Space Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-mut);margin:0 0 7px}
+
+/* the two pitches */
+.pitch{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:0 8px 8px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--ink-mut);margin:0 0 12px}
+.pitch p.say{font-family:"Instrument Serif",Georgia,serif;font-size:23px;line-height:1.38;
+  margin:0;color:var(--ink)}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--cream);border-radius:6px;
+  padding:7px 13px;font-size:13.5px;color:var(--ink-lt);cursor:pointer;
+  font-family:"DM Sans",sans-serif}
+button.act:hover{border-color:var(--teal);color:var(--teal)}
+
+/* the eight lines */
+.line{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:16px 18px}
+.line .no{font-family:"Instrument Serif",Georgia,serif;font-size:27px;color:var(--terra);
+  line-height:1;min-width:24px;font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:700;letter-spacing:-.005em}
+.line .hook{font-family:"Instrument Serif",Georgia,serif;font-size:19px;line-height:1.4;
+  margin:0 0 9px;color:var(--teal)}
+.line .arr{font-size:14.5px;color:var(--ink-mut);margin:0}
+
+/* objections */
+.obj{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--ink);font-weight:700}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 5px 5px 0;
+  margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--sage);background:var(--sage-pale)}
+.rail.no{border-left-color:var(--terra);background:var(--terra-pale)}
+/* what the client owes. Deliberately NOT terracotta: on these surfaces terracotta means stop
+   or escalate, and an obligation is neither. */
+.rail.ask{border-left-color:var(--teal);background:var(--teal-pale)}
+.rail.ask p{color:#173F3E}
+.rail p{margin:0;font-size:15.5px;color:var(--ink-lt)}
+.rail.yes p{color:#31402A}
+.rail.no p{color:#6E3722}
+
+/* the say / do not say ledger */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.col .head{padding:11px 18px;font-family:"Space Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.col.yes .head{background:var(--sage)}
+.col.no .head{background:var(--terra)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--ink-mut);margin-top:3px}
+
+/* sequence */
+.step{display:flex;gap:15px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+  border-radius:8px;padding:15px 18px}
+.step .when{font-family:"Space Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--terra);min-width:88px;padding-top:4px;
+  font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px}
+
+/* phases */
+.phase{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:700;display:flex;align-items:baseline;
+  gap:11px}
+.phase h3 .n{font-family:"Space Mono",ui-monospace,monospace;font-size:12px;color:var(--terra);
+  font-weight:700}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+
+/* first-call questions */
+.q{background:#fff;border:1px solid var(--line);border-radius:8px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--teal)}
+.q.on{background:var(--teal-pale);border-color:var(--teal)}
+.q .ask{font-family:"Instrument Serif",Georgia,serif;font-size:21px;line-height:1.35;margin:0;
+  color:var(--ink);display:flex;gap:12px;align-items:flex-start}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:6px}
+.q.on .box{background:var(--teal);border-color:var(--teal);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--ink-mut);margin:10px 0 0 31px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--ink-lt);cursor:pointer;font-family:"DM Sans",sans-serif}
+.chip.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.tally{font-family:"Space Mono",ui-monospace,monospace;font-size:13px;color:var(--ink-mut);
+  margin:14px 0 0;font-variant-numeric:tabular-nums}
+
+.note{background:var(--cream);border-radius:8px;padding:16px 19px;font-size:15.5px;
+  color:var(--ink-lt)}
+.note b{color:var(--teal)}
+footer{border-top:1px solid var(--line);margin-top:52px;padding:22px 0 0;font-size:13.5px;
+  color:var(--ink-mut)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--ink);
+  color:var(--warm);padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;
+  pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,button.act,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--ink)}
+  .sub{color:var(--ink-mut)} .kick{color:var(--terra)}
+  section{break-inside:avoid;margin-top:22px}
+  .card,.line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style><style>
+.knav{background:#141110;padding:9px 0;font-family:"DM Sans",-apple-system,sans-serif}
+.knav .kin{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:6px;flex-wrap:wrap}
+.knav a{color:#CFC7BC;text-decoration:none;font-size:13px;padding:4px 11px;border-radius:20px;
+ border:1px solid #332E2A;white-space:nowrap;background:none}
+.knav a:hover{border-color:#C2603F;color:#FDFBF7}
+.knav a.here{background:#C2603F;border-color:#C2603F;color:#fff}
+</style></head><body data-board="field-card"><div class="knav"><div class="kin"><a href="/kit/">Where we are</a><a href="/kit/board/">The board</a><a href="/kit/dallas/">Dallas</a><a href="/kit/card/" class="here">Field card</a><a href="/kit/first-call/">First call</a><a href="/kit/engagement/">Engagement shape</a></div></div><header><div class="wrap">
+  <p class="kick">Juno Collective &middot; the Groundwork Method &middot; for the room</p>
+  <h1>Field card<span class="d"></span></h1>
+  <p class="sub">What to open with, what to say, what can be promised without a phone call, and what has to wait for one.</p>
+</div></header>
+<nav><div class="inner"><a href="#open">Open</a><a href="#pitch">The thirty seconds</a><a href="#lines">Eight lines</a><a href="#push">Push-back</a><a href="#boundary">Commit or come back</a><a href="#words">Words</a><a href="#next">After</a></div></nav>
+<main class="wrap"><section id="open">
+<h2>Open with this</h2>
+<p class="lede">Ask it, then stop talking. The answer tells you which of the eight lines below the conversation is about.</p>
+<div class="pitch"><p class="say">You are going to be asked what your facility has actually done for this town — by a reporter, a county board, or your own chief executive. Can you answer that today with something that holds up?</p></div>
+</section><section id="pitch">
+<h2>The thirty seconds</h2>
+<p class="lede">Two versions, for the two rooms that come up. The category is community evidence — the discipline between corporate communications, which asserts, and community engagement, which convenes.</p>
+<div class="stack"><div class="pitch">
+  <p class="lbl">Default</p>
+  <p class="when">A room you are trusted in</p>
+  <p class="say" id="pitch0">The thing nobody budgets for when they build in a small town is listening. That is where we start — hours with the people living the change, the mayor and the man who runs the diner alike. Then every claim that comes out of it goes through a register with a source and a verdict attached, so what you publish holds when somebody hostile reads it.</p>
+  <div class="tools"><button class="act" type="button" data-copy="#pitch0">Copy</button></div>
+</div><div class="pitch">
+  <p class="lbl">Formal</p>
+  <p class="when">A sceptical room, or one with procurement in it</p>
+  <p class="say" id="pitch1">When a company builds something big in a small place, the story gets told with or without them, and the loudest version is rarely the truest. We field long-form interviews in the market, verify every claim against a sourced record, and hand back an evidence base your own team can publish from. Negatives are counted. That is what makes it defensible.</p>
+  <div class="tools"><button class="act" type="button" data-copy="#pitch1">Copy</button></div>
+</div></div>
+</section><section id="lines">
+<h2>The eight lines</h2>
+<p class="lede">Say the hook, not the name. The hook is what a buyer recognises as their own
+problem; the name is what goes on the invoice.</p>
+<div class="stack"><div class="line"><div class="no">1</div><div class="bd">
+  <h3>Market Impact Assessment</h3>
+  <p class="hook">“You are about to be asked what your facility has done for this town, and today you do not have an answer that holds.”</p>
+  <p class="arr">A sourced evidence base: every claim registered and verdicted, the friction map, and the honest picture. Weeks rather than quarters.</p>
+</div></div><div class="line"><div class="no">2</div><div class="bd">
+  <h3>Story &amp; Champion Mapping</h3>
+  <p class="hook">“Your best story is being told badly, by you. The people the community would actually believe have not been asked.”</p>
+  <p class="arr">The story inventory and a consented champion map, plus the stakeholder universe — who the story touches, from officials to your own site staff.</p>
+</div></div><div class="line"><div class="no">3</div><div class="bd">
+  <h3>Community Storytelling Program</h3>
+  <p class="hook">“You have messaging. You do not have stories anyone carries.”</p>
+  <p class="arr">Flagship film, champion profiles, short-form, photography and the activation toolkit — every asset traceable to the evidence base.</p>
+</div></div><div class="line"><div class="no">4</div><div class="bd">
+  <h3>The Halo Index</h3>
+  <p class="hook">“Your investment number means nothing to the average citizen. What did the place actually get?”</p>
+  <p class="arr">A banded, annually re-scored measure of what a facility gives back, across five dimensions. Methodology published, negatives counted.</p>
+</div></div><div class="line"><div class="no">5</div><div class="bd">
+  <h3>Community Intelligence</h3>
+  <p class="hook">“Every time someone leaves your team, your market knowledge leaves with them.”</p>
+  <p class="arr">The registers, the stakeholder map and the champion record as a living system — institutional memory that survives turnover.</p>
+</div></div><div class="line"><div class="no">6</div><div class="bd">
+  <h3>The Playbook &amp; Certified Researchers</h3>
+  <p class="hook">“You want this everywhere you operate and you cannot clone the team that did the first three.”</p>
+  <p class="arr">The codified method plus researchers trained and certified against it — the same standard everywhere, verified by gates rather than by hope.</p>
+</div></div><div class="line"><div class="no">7</div><div class="bd">
+  <h3>The Program Portal</h3>
+  <p class="hook">“Your team is halfway around the world and you have no idea what is happening.”</p>
+  <p class="arr">One always-current place: schedule, deliverables, assets with thumbnails, transcripts. Nobody has to ask.</p>
+</div></div><div class="line"><div class="no">8</div><div class="bd">
+  <h3>Claim Validation</h3>
+  <p class="hook">“Your own materials already say ‘unvalidated’ in the footnote. Anyone hostile reads that footnote before they read your investment number.”</p>
+  <p class="arr">The claims you already publish, taken one at a time and verdicted against the record — the ones that hold with their sources attached, the ones that do not, flagged.</p>
+</div></div></div>
+<h2 style="margin-top:36px;font-size:24px">Same shape, other sectors</h2>
+<div class="grid2" style="margin-top:14px"><div class="card"><p class="lbl">Data centers</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">The gold rush, in pain now, with budgets to match.</p></div><div class="card"><p class="lbl">Semiconductor and CHIPS fabs</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">Federal visibility, identical shape.</p></div><div class="card"><p class="lbl">Energy, wind, nuclear restarts</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">Community trust is the licensing battle.</p></div><div class="card"><p class="lbl">Pharma manufacturing</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">The mega-plant build-outs.</p></div><div class="card"><p class="lbl">Infrastructure, rail, defense</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">The same problem wearing different clothes.</p></div><div class="card"><p class="lbl">Economic development offices</p><p style="margin:0;font-size:15px;color:var(--ink-lt)">The method flipped — help a place win the next facility.</p></div></div>
+</section><section id="push">
+<h2>When they push back</h2>
+<p class="lede">Six that come up every time. The answer is short on purpose — a long answer
+reads as a defence.</p>
+<div class="stack"><div class="obj"><h3>“We already have an agency.”</h3>
+  <div class="rail yes"><p>Your agency tells the story. This verifies it first, then hands the evidence base over for them to activate. It makes their work stronger and it makes it defensible.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not position against the incumbent. The evidence base is upstream of what they do.</p></div>
+</div><div class="obj"><h3>“How is this different from a survey?”</h3>
+  <div class="rail yes"><p>Surveys ask opinions. This audits reality — sourced metrics, on-the-record interviews, claims carrying verdicts. It is closer to diligence than to research.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not say “more rigorous”. Name the instrument: a register with rows anyone can audit.</p></div>
+</div><div class="obj"><h3>“Why should anyone trust your number?”</h3>
+  <div class="rail yes"><p>Because the register shows its work. Every input sourced, every verdict recorded, negatives included and visibly lowering the score. Methodology published.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not reach for the word independent. The claim is the published method, not a status.</p></div>
+</div><div class="obj"><h3>“Are you not just doing PR with extra steps?”</h3>
+  <div class="rail yes"><p>Public relations starts from what the company wants said. This starts from what the town actually says, and only what survives verification is published.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not get defensive. The distinction is the sale.</p></div>
+</div><div class="obj"><h3>“How much of this is AI?”</h3>
+  <div class="rail yes"><p>It does the synthesis and the systems work — transcription, cross-referencing, holding every market to one standard. It never generates a quote and it never sources a claim.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not price it as hours. Hours invite “the machine did it, why am I paying”.</p></div>
+</div><div class="obj"><h3>“What if the evidence comes back bad?”</h3>
+  <div class="rail yes"><p>Then you know before your critics publish it, with a map of exactly where the friction is and what would change it.</p></div>
+  <div class="rail no"><p class="lbl">Do not</p><p>Do not soften this. A validation nobody can fail is a press release, and buyers know it.</p></div>
+</div></div>
+</section><section id="boundary">
+<h2>Commit, or come back</h2>
+<p class="lede">The left column can be said in the room without checking with anyone. The right
+column gets one sentence — “let me come back to you on that” — and a call afterwards.</p>
+<div class="ledger">
+  <div class="col yes"><div class="head">Commit to this in the room</div><ul><li>That a first market gets scoped and into the field in weeks rather than quarters.</li><li>That every published claim carries its source and its verdict.</li><li>That negatives are in scope and get counted.</li><li>That interviews are long-form, on the record and consented.</li><li>That the standard is the same in every market, because the standards function runs centrally rather than market by market.</li><li>That the incumbent agency keeps the activation work.</li><li>That a discovery conversation costs them nothing.</li></ul></div>
+  <div class="col no"><div class="head">Come back on this</div><ul><li>Any price, rate, budget range or commercial structure.<span class='why'>There is one answer and it is not yours to give in the room.</span></li><li>Any date, or any duration in weeks.<span class='why'>A number said out loud becomes a commitment. Scoping sets it.</span></li><li>Who the flagship client is.<span class='why'>“A global technology company” carries every room, and a screenshot forwards.</span></li><li>Anything that puts the category claim in writing.<span class='why'>Say it in a room. Never in an email, until clearance and a second logo exist.</span></li><li>Scoring a market for a client who also wants us to publish for them.<span class='why'>The two cannot sit in one contract. There is a regulatory clock on it.</span></li><li>A named reference, or a case study with a logo on it.<span class='why'>Nothing is cleared for naming yet.</span></li></ul></div>
+</div>
+</section><section id="words">
+<h2>Words that travel, words that do not</h2>
+<p class="lede">Anything said in a room reaches an email by the end of the week. These are the
+phrases that survive the trip and the ones that do not.</p>
+<div class="ledger">
+  <div class="col yes"><div class="head">Say</div><ul><li>“A global technology company.”</li><li>“Further markets in motion.”</li><li>“Methodology published, negatives counted.”</li><li>“Proven instruments.”</li><li>“Eight validated, two flagged” — the claim audit, as a shape.</li><li>“Across the three markets.”</li></ul></div>
+  <div class="col no"><div class="head">Do not say</div><ul><li>Any count of further markets.<span class='why'>The sanctioned phrase is “further markets in motion”.</span></li><li>Any rate, day rate or per-seat figure.<span class='why'>Those live in one private file.</span></li><li>“Turnkey”, “product”, “plug and play”.<span class='why'>The sanctioned phrase is “proven instruments”.</span></li><li>“Independent”, anywhere near the Halo Index.<span class='why'>Use “methodology published, negatives counted”.</span></li><li>“Nobody else works this way” — in writing.<span class='why'>Verbal only, in a room you can back it in.</span></li><li>The client&#x27;s name on anything that could be forwarded.<span class='why'>A screenshot forwards.</span></li><li>Any readiness percentage, and above all a zero.<span class='why'>Say “not yet written down”.</span></li><li>“Storytelling” or “narrative”, in a New Mexico room.<span class='why'>Those are liability words there. Use the validation framing.</span></li></ul></div>
+</div>
+</section><section id="next">
+<h2>After a good conversation</h2>
+<p class="lede">Four moves, and only the first happens in the room.</p>
+<div class="stack"><div class="step"><div class="when">In the room</div><p>Offer a discovery conversation, not a proposal. It is the only ask.</p></div><div class="step"><div class="when">Same day</div><p>Send the leave-behind. It is written to be forwarded internally.</p></div><div class="step"><div class="when">Within the week</div><p>Hand the name over. The first-call sheet gets run against them.</p></div><div class="step"><div class="when">Then</div><p>Scoping, which is where a price and a date come from.</p></div></div>
+</section>
+<footer>Juno Collective. Internal use. The client is never named on this page, because a screenshot forwards.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  var toast=document.getElementById('toast');
+  function say(m){if(!toast)return;toast.textContent=m;toast.classList.add('up');
+    setTimeout(function(){toast.classList.remove('up');},1600);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>

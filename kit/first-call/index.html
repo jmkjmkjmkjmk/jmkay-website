@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Juno First Call</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}
+:root{
+  --terra:#C2603F; --terra-dp:#9E4A2E; --terra-pale:#FBF1EC;
+  --teal:#1A4A4A; --teal-pale:#EDF2F1;
+  --sage:#5F7A52; --sage-pale:#F1F5EE;
+  --warm:#FDFBF7; --cream:#F5F0E8;
+  --ink:#1C1917; --ink-lt:#3F3A35; --ink-mut:#7A716A; --line:#E4DCD1;
+  --shadow:0 1px 2px rgba(28,25,23,.05);
+}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{background:var(--warm);color:var(--ink);
+  font-family:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--terra);outline-offset:2px;border-radius:3px}
+
+header{background:var(--ink);color:var(--warm);padding:38px 0 32px}
+.kick{font-family:"Space Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:#E2A98E;margin:0 0 12px}
+h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:clamp(38px,8vw,54px);
+  line-height:1.02;margin:0 0 14px;text-wrap:balance;letter-spacing:-.01em}
+h1 .d{display:inline-block;width:12px;height:12px;background:var(--terra);transform:rotate(45deg);
+  border-radius:2px;margin-left:12px;vertical-align:middle}
+.sub{color:#C9C0B6;font-size:17px;margin:0;max-width:60ch}
+
+nav{position:sticky;top:0;z-index:40;background:rgba(253,251,247,.96);
+  backdrop-filter:saturate(1.4) blur(6px);border-bottom:1px solid var(--line)}
+nav .inner{max-width:820px;margin:0 auto;padding:9px 20px;display:flex;gap:6px;
+  overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;
+  font-size:14px;color:var(--ink-lt);text-decoration:none;white-space:nowrap;flex:0 0 auto}
+nav a:hover{border-color:var(--teal);color:var(--teal)}
+
+main{padding-bottom:96px}
+section{margin:44px 0 0;scroll-margin-top:64px}
+h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:31px;line-height:1.1;
+  margin:0 0 6px;color:var(--teal);text-wrap:balance}
+.lede{font-size:16px;color:var(--ink-mut);margin:0 0 20px;max-width:62ch;
+  border-bottom:1px solid var(--line);padding-bottom:14px}
+.stack{display:flex;flex-direction:column;gap:10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;
+  box-shadow:var(--shadow)}
+.lbl{font-family:"Space Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-mut);margin:0 0 7px}
+
+/* the two pitches */
+.pitch{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);
+  border-radius:0 8px 8px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--ink-mut);margin:0 0 12px}
+.pitch p.say{font-family:"Instrument Serif",Georgia,serif;font-size:23px;line-height:1.38;
+  margin:0;color:var(--ink)}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--cream);border-radius:6px;
+  padding:7px 13px;font-size:13.5px;color:var(--ink-lt);cursor:pointer;
+  font-family:"DM Sans",sans-serif}
+button.act:hover{border-color:var(--teal);color:var(--teal)}
+
+/* the eight lines */
+.line{display:flex;gap:16px;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:16px 18px}
+.line .no{font-family:"Instrument Serif",Georgia,serif;font-size:27px;color:var(--terra);
+  line-height:1;min-width:24px;font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:700;letter-spacing:-.005em}
+.line .hook{font-family:"Instrument Serif",Georgia,serif;font-size:19px;line-height:1.4;
+  margin:0 0 9px;color:var(--teal)}
+.line .arr{font-size:14.5px;color:var(--ink-mut);margin:0}
+
+/* objections */
+.obj{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--ink);font-weight:700}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 5px 5px 0;
+  margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--sage);background:var(--sage-pale)}
+.rail.no{border-left-color:var(--terra);background:var(--terra-pale)}
+/* what the client owes. Deliberately NOT terracotta: on these surfaces terracotta means stop
+   or escalate, and an obligation is neither. */
+.rail.ask{border-left-color:var(--teal);background:var(--teal-pale)}
+.rail.ask p{color:#173F3E}
+.rail p{margin:0;font-size:15.5px;color:var(--ink-lt)}
+.rail.yes p{color:#31402A}
+.rail.no p{color:#6E3722}
+
+/* the say / do not say ledger */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.col .head{padding:11px 18px;font-family:"Space Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#fff}
+.col.yes .head{background:var(--sage)}
+.col.no .head{background:var(--terra)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--ink-mut);margin-top:3px}
+
+/* sequence */
+.step{display:flex;gap:15px;align-items:flex-start;background:#fff;border:1px solid var(--line);
+  border-radius:8px;padding:15px 18px}
+.step .when{font-family:"Space Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--terra);min-width:88px;padding-top:4px;
+  font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px}
+
+/* phases */
+.phase{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:700;display:flex;align-items:baseline;
+  gap:11px}
+.phase h3 .n{font-family:"Space Mono",ui-monospace,monospace;font-size:12px;color:var(--terra);
+  font-weight:700}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+
+/* first-call questions */
+.q{background:#fff;border:1px solid var(--line);border-radius:8px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--teal)}
+.q.on{background:var(--teal-pale);border-color:var(--teal)}
+.q .ask{font-family:"Instrument Serif",Georgia,serif;font-size:21px;line-height:1.35;margin:0;
+  color:var(--ink);display:flex;gap:12px;align-items:flex-start}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:6px}
+.q.on .box{background:var(--teal);border-color:var(--teal);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--ink-mut);margin:10px 0 0 31px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--ink-lt);cursor:pointer;font-family:"DM Sans",sans-serif}
+.chip.on{background:var(--sage);border-color:var(--sage);color:#fff}
+.tally{font-family:"Space Mono",ui-monospace,monospace;font-size:13px;color:var(--ink-mut);
+  margin:14px 0 0;font-variant-numeric:tabular-nums}
+
+.note{background:var(--cream);border-radius:8px;padding:16px 19px;font-size:15.5px;
+  color:var(--ink-lt)}
+.note b{color:var(--teal)}
+footer{border-top:1px solid var(--line);margin-top:52px;padding:22px 0 0;font-size:13.5px;
+  color:var(--ink-mut)}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--ink);
+  color:var(--warm);padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;
+  pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,button.act,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--ink)}
+  .sub{color:var(--ink-mut)} .kick{color:var(--terra)}
+  section{break-inside:avoid;margin-top:22px}
+  .card,.line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style><style>
+.knav{background:#141110;padding:9px 0;font-family:"DM Sans",-apple-system,sans-serif}
+.knav .kin{max-width:1000px;margin:0 auto;padding:0 22px;display:flex;gap:6px;flex-wrap:wrap}
+.knav a{color:#CFC7BC;text-decoration:none;font-size:13px;padding:4px 11px;border-radius:20px;
+ border:1px solid #332E2A;white-space:nowrap;background:none}
+.knav a:hover{border-color:#C2603F;color:#FDFBF7}
+.knav a.here{background:#C2603F;border-color:#C2603F;color:#fff}
+</style></head><body data-board="first-call"><div class="knav"><div class="kin"><a href="/kit/">Where we are</a><a href="/kit/board/">The board</a><a href="/kit/dallas/">Dallas</a><a href="/kit/card/">Field card</a><a href="/kit/first-call/" class="here">First call</a><a href="/kit/engagement/">Engagement shape</a></div></div><header><div class="wrap">
+  <p class="kick">Juno Collective &middot; the Groundwork Method &middot; discovery</p>
+  <h1>First call<span class="d"></span></h1>
+  <p class="sub">Run a first conversation without needing anyone else on the line. Five questions, the list that turns the call, and the four conditions worth slowing down for.</p>
+</div></header>
+<nav><div class="inner"><a href="#before">Before</a><a href="#trigger">Why now</a><a href="#questions">Five questions</a><a href="#universe">Who they know</a><a href="#slow">Slow down</a><a href="#after">After</a></div></nav>
+<main class="wrap"><section id="before">
+<h2>Before you dial</h2>
+<p class="lede">Three things, and none of them takes long. Walking in knowing what they publish
+is the difference between a discovery call and a capability pitch.</p>
+<div class="stack"><div class="step"><div class="when">01</div><p>Who is on the call, and what does each of them own.</p></div><div class="step"><div class="when">02</div><p>What the company publishes today about that site — the impact page, the press release, the annual report line.</p></div><div class="step"><div class="when">03</div><p>What the local press in that market has run this quarter.</p></div></div>
+</section><section id="trigger">
+<h2>Why now</h2>
+<p class="lede">Something moved, or they would not have taken the call. Tap the one that is
+true — it sets the clock and usually names the budget holder.</p>
+<div class="chips"><div class="chip" data-k="trig0">A permit, rezoning or public-comment fight.</div><div class="chip" data-k="trig1">An announcement, an expansion, or a second phase.</div><div class="chip" data-k="trig2">A reporter, a county board or a chief executive asking a question nobody can answer.</div><div class="chip" data-k="trig3">An agency that is not landing.</div><div class="chip" data-k="trig4">A score or a ranking they received and do not trust.</div><div class="chip" data-k="trig5">Nothing yet — they are early, and want to get it right.</div></div>
+</section><section id="questions">
+<h2>The five questions</h2>
+<p class="lede">Ask them in order. Each one is short enough to ask and then stop talking, which
+is where the answer comes from.</p>
+<div class="stack"><div class="q" data-k="q0">
+  <p class="ask"><span class="box"></span><span>What are you being asked to prove, and who is asking?</span></p>
+  <p class="listen"><b>Listen for.</b> A chief executive, a county board and a journalist are three different buyers with three different clocks. The answer sets the urgency and usually the budget holder.</p>
+</div><div class="q" data-k="q1">
+  <p class="ask"><span class="box"></span><span>What do you publish today about community impact, and where did those numbers come from?</span></p>
+  <p class="listen"><b>Listen for.</b> Listen for modelled figures with no local source. That is the claim-validation opening, and it is the fastest line to sell because their own footnote already concedes it.</p>
+</div><div class="q" data-k="q2">
+  <p class="ask"><span class="box"></span><span>If a sceptic wanted to check you, who would they call first?</span></p>
+  <p class="listen"><b>Listen for.</b> Most cannot name anyone. The inability to answer is the gap, and saying so plainly is more persuasive than any capability slide.</p>
+</div><div class="q" data-k="q3">
+  <p class="ask"><span class="box"></span><span>Has anyone spent time in the market listening, or is this all from the corporate side?</span></p>
+  <p class="listen"><b>Listen for.</b> “We ran a survey” is a no. A survey is not a record, and saying so gently costs nothing.</p>
+</div><div class="q" data-k="q4">
+  <p class="ask"><span class="box"></span><span>What is on the calendar in the next quarter that this has to be ready for?</span></p>
+  <p class="listen"><b>Listen for.</b> A real date means a real budget. No date means they are exploring, which is fine — it changes the follow-up, not the interest.</p>
+</div></div>
+</section><section id="universe">
+<h2>Who they have actually spoken to</h2>
+<p class="lede">Read the list. Ask which of them they have actually spoken to. Most buyers name three or four, and the rest of the list is the offer.</p>
+<div class="chips"><div class="chip" data-k="u0">Elected city and county officials</div><div class="chip" data-k="u1">County and city staff</div><div class="chip" data-k="u2">The utility</div><div class="chip" data-k="u3">The school district</div><div class="chip" data-k="u4">The community college</div><div class="chip" data-k="u5">The workforce board</div><div class="chip" data-k="u6">The chamber of commerce</div><div class="chip" data-k="u7">The industrial park or site authority</div><div class="chip" data-k="u8">Suppliers and trades on the build</div><div class="chip" data-k="u9">Faith and civic organisations</div><div class="chip" data-k="u10">Tribal government, where applicable</div><div class="chip" data-k="u11">Local press</div><div class="chip" data-k="u12">Adjacent landowners</div><div class="chip" data-k="u13">Emergency services</div><div class="chip" data-k="u14">The hospital</div><div class="chip" data-k="u15">Housing and the rental market</div></div>
+<p class="tally" id="tally"></p>
+<div class="note" style="margin-top:16px"><b>Say it plainly.</b> The gap on this list is not a
+criticism of them. It is the reason the work exists, and naming it out loud lands better than
+any capability slide.</div>
+</section><section id="slow">
+<h2>When to slow it down</h2>
+<p class="lede">Four conditions that make an engagement worse than no engagement. None of them
+is a reason to end the relationship — they are reasons to change what gets sold, or when.</p>
+<div class="stack"><div class="obj"><h3>They want a predetermined answer.</h3><div class="rail no"><p>A validation nobody can fail is worthless to them and damaging to us.</p></div></div><div class="obj"><h3>They cannot give access to the market.</h3><div class="rail no"><p>The method starts in the town. Without doors it is a desk exercise.</p></div></div><div class="obj"><h3>They want the score and the publishing in one contract.</h3><div class="rail no"><p>Scoring a market absorbs that market&#x27;s credible reviewers. It has to be separated.</p></div></div><div class="obj"><h3>Nothing is built or announced yet.</h3><div class="rail no"><p>There is no record to measure. Stay in touch and revisit at announcement.</p></div></div></div>
+</section><section id="after">
+<h2>Before the file closes</h2>
+<p class="lede">Closing the file properly while the call is still fresh beats reconstructing it later.</p>
+<div class="stack"><div class="step"><div class="when">Step 1</div><p>Log the answers while they are fresh.</p></div><div class="step"><div class="when">Step 2</div><p>Name which of the eight lines the conversation was actually about.</p></div><div class="step"><div class="when">Step 3</div><p>Route it for scoping — that is where a price and a date come from.</p></div><div class="step"><div class="when">Step 4</div><p>Send the leave-behind if it has not gone already.</p></div><div class="step"><div class="when">Step 5</div><p>Set the follow-up date before you close the file.</p></div></div>
+<div class="note" style="margin-top:16px"><b>Clear the marks</b> before the next call, or the
+last conversation's answers get read as this one's.
+<button class="act" type="button" id="clear" style="margin-left:10px">Clear this call</button>
+</div>
+</section>
+<footer>Juno Collective. Internal use. Answers are held on this device only.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  var toast=document.getElementById('toast');
+  function say(m){if(!toast)return;toast.textContent=m;toast.classList.add('up');
+    setTimeout(function(){toast.classList.remove('up');},1600);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>
