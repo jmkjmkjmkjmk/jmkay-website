@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<title>Cultural Calendar &mdash; J. M. Kay</title>
+<meta name="description" content="Early music, chamber, and choral concerts around Washington, DC that I'm tracking &mdash; updated periodically.">
+<meta property="og:title" content="Cultural Calendar &mdash; J. M. Kay">
+<meta property="og:description" content="Early music, chamber, and choral concerts around Washington, DC that I'm tracking.">
+<meta property="og:image" content="https://jmkay.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jmkay.com/culture/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cultural Calendar &mdash; J. M. Kay">
+<meta name="twitter:description" content="Early music, chamber, and choral concerts around Washington, DC that I'm tracking.">
+<meta name="twitter:image" content="https://jmkay.com/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6XM6RT038M');
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+    --deep-teal-light: #2D7A7A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex; align-items: center; text-decoration: none; line-height: 1;
+    font-family: 'Kay Display', serif; font-weight: 400; font-size: 20px;
+    text-transform: uppercase; color: var(--ink); letter-spacing: 0.03em;
+  }
+  .nav-brand .nav-dw { position: relative; width: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .nav-brand .nav-dp { width: 5px; height: 5px; background: var(--terracotta); transform: rotate(45deg); border-radius: 0.8px; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400;
+    letter-spacing: 0.5px; color: var(--ink-muted); text-decoration: none; transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+
+  .page-header { padding: 140px 48px 48px; max-width: 720px; margin: 0 auto; }
+  .page-label {
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--ink-muted); margin-bottom: 14px;
+  }
+  .page-title { font-family: 'Instrument Serif', serif; font-size: 42px; color: var(--ink); line-height: 1.2; margin-bottom: 16px; }
+  .page-intro { font-size: 17px; color: var(--ink-light); line-height: 1.7; max-width: 560px; }
+  .page-updated { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--stone); margin-top: 18px; letter-spacing: 0.3px; }
+
+  .event-list { max-width: 720px; margin: 0 auto; padding: 0 48px 100px; }
+  .event-item { display: block; padding: 28px 0; border-top: 1px solid rgba(212,197,169,0.4); }
+  .event-item:last-child { border-bottom: 1px solid rgba(212,197,169,0.4); }
+  .event-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
+  .event-date { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--ink-light); }
+  .event-tag {
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--terracotta);
+  }
+  .event-title { font-family: 'Instrument Serif', serif; font-size: 24px; color: var(--ink); line-height: 1.3; margin-bottom: 6px; }
+  .event-desc { font-size: 14.5px; color: var(--ink-light); line-height: 1.6; }
+  .event-note { font-size: 13px; color: var(--stone); margin-top: 4px; font-style: italic; }
+
+  footer { background: var(--ink); padding: 40px 48px; text-align: center; }
+  .footer-brand { font-family: 'Kay Display', serif; font-size: 16px; color: var(--stone); letter-spacing: 0.03em; text-transform: uppercase; margin-bottom: 8px; }
+  .footer-sub { font-size: 12px; color: var(--ink-muted); }
+  .footer-sub a { color: var(--stone); text-decoration: none; }
+  .footer-sub a:hover { color: var(--terracotta-light); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .page-header { padding: 120px 24px 40px; }
+    .page-title { font-size: 32px; }
+    .event-list { padding: 0 24px 80px; }
+    .event-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../writing.html">Perspectives</a>
+    <a href="../index.html#services">Services</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-label">Personal</div>
+  <h1 class="page-title">Cultural Calendar</h1>
+  <p class="page-intro">Early music, chamber, and choral concerts around Washington, DC, Maryland, and Virginia that I'm tracking this season.</p>
+  <div class="page-updated">Updated September 7, 2026 &middot; past dates drop off automatically</div>
+</div>
+
+<div class="event-list">
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">Virtual</span><span class="event-date">Wed, September 9, 2026 &middot; 6:00 PM</span></div>
+    <h2 class="event-title">Folger Early Music Seminar: Monteverdi's Legacy</h2>
+    <p class="event-desc">Online seminar (not a live performance) &middot; via Zoom</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Thu, September 10, 2026 &middot; 6:30 PM</span></div>
+    <h2 class="event-title">Rafael Quirant, countertenor</h2>
+    <p class="event-desc">Spanish Cultural Center of the Embassy of Spain &middot; Washington, DC</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">VA</span><span class="event-date">Thu, September 10, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">Danqi Zeng, baroque violin</h2>
+    <p class="event-desc">St Paul's Episcopal Church &middot; Alexandria, VA</p>
+    <p class="event-note">Same program repeats 9/11 at Live! at 10th &amp; G, DC.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Fri, September 11, 2026 &middot; 6:00 PM</span></div>
+    <h2 class="event-title">Danqi Zeng, baroque violin</h2>
+    <p class="event-desc">Live! at 10th &amp; G &middot; Washington, DC</p>
+    <p class="event-note">Same program as 9/10 at St Paul's, Alexandria.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Fri, September 11, 2026 &middot; time TBD</span></div>
+    <h2 class="event-title">The Folger Consort: Monteverdi's Legacy</h2>
+    <p class="event-desc">Folger Theatre &middot; Washington, DC</p>
+    <p class="event-note">3-night run, September 11&ndash;13. Check Folger Theatre for exact time.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">VA</span><span class="event-date">Sat, September 12, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">Relic: The Blood of the Rose</h2>
+    <p class="event-desc">St Paul's Episcopal Church &middot; Alexandria, VA</p>
+    <p class="event-note">Repeats 9/13 at Capitol Hill Presbyterian, DC.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sat, September 12, 2026 &middot; time TBD</span></div>
+    <h2 class="event-title">The Folger Consort: Monteverdi's Legacy</h2>
+    <p class="event-desc">Folger Theatre &middot; Washington, DC</p>
+    <p class="event-note">Night 2 of the 3-night run.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sun, September 13, 2026 &middot; 4:00 PM</span></div>
+    <h2 class="event-title">Relic: The Blood of the Rose</h2>
+    <p class="event-desc">Capitol Hill Presbyterian Church &middot; Washington, DC</p>
+    <p class="event-note">Repeat of 9/12 at St Paul's, Alexandria.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sun, September 13, 2026 &middot; time TBD</span></div>
+    <h2 class="event-title">The Folger Consort: Monteverdi's Legacy</h2>
+    <p class="event-desc">Folger Theatre &middot; Washington, DC</p>
+    <p class="event-note">Final night of the 3-night run.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Thu, September 17, 2026 &middot; 7:30 PM</span></div>
+    <h2 class="event-title">Musica Spira presents: Cozzolani's Mass for Four Voices</h2>
+    <p class="event-desc">St Bernadette Catholic Church &middot; Silver Spring, MD</p>
+    <p class="event-note">Repeats 9/18 at St Peter's on Capitol Hill, DC.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Fri, September 18, 2026 &middot; 7:30 PM</span></div>
+    <h2 class="event-title">Musica Spira presents: Cozzolani's Mass for Four Voices</h2>
+    <p class="event-desc">St Peter's on Capitol Hill &middot; Washington, DC</p>
+    <p class="event-note">Repeat of 9/17 at St Bernadette, Silver Spring.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Fri, September 18, 2026 &middot; 8:30 PM</span></div>
+    <h2 class="event-title">Candlelight: Vivaldi's Four Seasons and More</h2>
+    <p class="event-desc">Martin Luther King Jr. Memorial Library &middot; Washington, DC</p>
+    <p class="event-note">Ticketed commercial series, not a church concert.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sun, September 20, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">These Distracted Times</h2>
+    <p class="event-desc">Susie Napper (viola da gamba), Elisabeth Wright (harpsichord), Jeffrey Cohan (baroque flute) &middot; St Mark's Episcopal Church, Washington, DC</p>
+    <p class="event-note">3-city run: DC 9/20, Baltimore 9/21, Annapolis 9/22.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Mon, September 21, 2026 &middot; 6:30 PM</span></div>
+    <h2 class="event-title">Ronn McFarlane with Ayreheart</h2>
+    <p class="event-desc">Elkridge Assembly Rooms &middot; Elkridge, MD</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Mon, September 21, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">These Distracted Times</h2>
+    <p class="event-desc">Susie Napper, Elisabeth Wright, Jeffrey Cohan &middot; St Ignatius Church, Baltimore, MD</p>
+    <p class="event-note">3-city run: DC 9/20, Baltimore 9/21, Annapolis 9/22.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Tue, September 22, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">These Distracted Times</h2>
+    <p class="event-desc">Susie Napper, Elisabeth Wright, Jeffrey Cohan &middot; St Anne's Episcopal Church, Annapolis, MD</p>
+    <p class="event-note">Final stop of the 3-city run.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sat, September 26, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">A Chaconne for Peace</h2>
+    <p class="event-desc">Les Voix Humaines: Melisande Corriveau, Susie Napper, Elisabeth Wright, Jeffrey Cohan &middot; St Mark's Episcopal Church, Washington, DC</p>
+    <p class="event-note">3-show run: DC 9/26, Baltimore 9/27 (2pm), Annapolis 9/27 (7pm).</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Sat, September 26, 2026 &middot; 7:30 PM</span></div>
+    <h2 class="event-title">Mountainside Baroque: Handel's First Oratorio &mdash; Esther</h2>
+    <p class="event-desc">Performing Arts Center at Garrett College &middot; McHenry, MD</p>
+    <p class="event-note">Oratorio, longer than a typical concert. Repeats 9/27 at Trinity Lutheran, Hagerstown.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">VA</span><span class="event-date">Sat, September 26, 2026 &middot; time TBD</span></div>
+    <h2 class="event-title">Early Music Workshop with Severall Friends</h2>
+    <p class="event-desc">St George's Episcopal Church &middot; Arlington, VA</p>
+    <p class="event-note">Workshop, not a concert. Check listing for exact time.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Sun, September 27, 2026 &middot; 2:00 PM</span></div>
+    <h2 class="event-title">A Chaconne for Peace</h2>
+    <p class="event-desc">Les Voix Humaines &middot; St Ignatius Church, Baltimore, MD</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">VA</span><span class="event-date">Sun, September 27, 2026 &middot; 3:00 PM</span></div>
+    <h2 class="event-title">A Distant Mirror: The Twilight of the Gothic Era &amp; Dawn of the Renaissance</h2>
+    <p class="event-desc">Severall Friends &middot; St George's Episcopal Church, Arlington, VA</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Sun, September 27, 2026 &middot; 4:00 PM</span></div>
+    <h2 class="event-title">Mountainside Baroque: Handel's First Oratorio &mdash; Esther</h2>
+    <p class="event-desc">Trinity Lutheran Church &middot; Hagerstown, MD</p>
+    <p class="event-note">Repeat of 9/26 at Garrett College, McHenry.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">MD</span><span class="event-date">Sun, September 27, 2026 &middot; 7:00 PM</span></div>
+    <h2 class="event-title">A Chaconne for Peace</h2>
+    <p class="event-desc">Les Voix Humaines &middot; St Anne's Episcopal Church, Annapolis, MD</p>
+    <p class="event-note">Final stop of the 3-show run.</p>
+  </a>
+
+  <a class="event-item" style="text-decoration:none;">
+    <div class="event-meta"><span class="event-tag">DC</span><span class="event-date">Sun, October 4, 2026 &middot; 4:00 PM</span></div>
+    <h2 class="event-title">Washington Bach Consort: Chorale Architecture</h2>
+    <p class="event-desc">From Expectation to Fulfillment &middot; National Presbyterian Church, Washington, DC</p>
+  </a>
+
+</div>
+
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+</footer>
+
+</body>
+</html>
