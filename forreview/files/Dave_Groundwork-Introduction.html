@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Groundwork, and what the expansion is really asking for</title><style>
+*{box-sizing:border-box}
+:root{
+  --ink:#101614; --slate:#1E2A27; --slate2:#2A3835; --moss:#7E9455; --moss-l:#A8BC80;
+  --moss-tint:#F1F4EE; --earth:#B0754A; --paper:#FBFAF8; --card:#FFFFFF; --line:#E2E6E3;
+  --mute:#6B7873; --body:#39443F;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+a{color:var(--slate)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-radius:3px}
+
+header{background:linear-gradient(160deg,var(--slate) 0%,#243330 60%,#2B3A33 100%);color:#fff;
+  padding:54px 0 46px}
+.kick{color:var(--moss-l);font-size:12px;letter-spacing:.22em;font-weight:700;margin:0 0 14px;
+  text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 14px;font-weight:800;
+  letter-spacing:-.02em;text-wrap:balance}
+h1 .d{display:inline-block;width:10px;height:10px;background:var(--moss);border-radius:50%;
+  margin-left:12px;vertical-align:middle}
+.sub{font-size:18px;color:#C6D2CB;max-width:64ch;margin:0}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(30,42,39,.97);
+  backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid #2F403C}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;gap:20px;height:50px;
+  align-items:center;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{color:#C6D2CB;font-size:13px;white-space:nowrap;padding:4px 0;text-decoration:none;
+  border-bottom:2px solid transparent;flex:0 0 auto}
+nav a:hover{color:#fff;border-color:var(--moss)}
+
+main{padding-bottom:88px}
+section{margin:48px 0 0;scroll-margin-top:64px}
+h2{font-size:13px;letter-spacing:.2em;color:var(--moss);font-weight:800;margin:0 0 6px;
+  text-transform:uppercase}
+.lede{font-size:15.5px;color:var(--mute);margin:0 0 18px;max-width:70ch;
+  border-bottom:1px solid var(--line);padding-bottom:12px}
+.para{font-size:17px;line-height:1.62;margin:0 0 16px;max-width:68ch;color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  box-shadow:0 1px 0 var(--moss) inset,0 6px 18px rgba(30,42,39,.06)}
+.card h3{margin:0 0 8px;font-size:17px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.card p{margin:0;font-size:15px;color:var(--body);line-height:1.58}
+.lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:0 0 7px}
+
+.note{background:var(--moss-tint);border-radius:12px;padding:16px 20px;font-size:15.5px;
+  color:var(--body)}
+.hold{background:#FBF6F1;border:1px dashed var(--earth);border-radius:12px;padding:16px 20px;
+  color:var(--body)}
+.hold b{color:var(--earth);font-size:12px;letter-spacing:.14em;font-weight:800}
+
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0 0;font-size:13.5px;
+  color:var(--mute)}
+footer code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--slate);
+  color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--slate)}
+  .sub{color:var(--mute)} .kick{color:var(--moss)}
+  section{break-inside:avoid;margin-top:22px}
+  .card{break-inside:avoid;box-shadow:none}
+}
+
+/* ── the field kit's components, on the Groundwork palette (reskin, 9 September 2026).
+   Ported from _field_shell so the kit could change identity without changing markup.
+   Colour roles: slate where the kit used teal, moss where it used sage, earth where it
+   used terracotta (stop / escalate), moss-tint where it used cream. One typeface. ── */
+:root{--slate-tint:#EEF2F0;--earth-tint:#FBF6F1;--earth-dp:#8F5D38}
+.pitch{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--slate);
+  border-radius:0 12px 12px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--mute);margin:0 0 12px}
+.pitch p.say{font-size:21px;line-height:1.4;margin:0;color:var(--ink);font-weight:600;
+  letter-spacing:-.01em}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--moss-tint);border-radius:8px;
+  padding:7px 13px;font-size:13.5px;color:var(--body);cursor:pointer;font:inherit;font-size:13.5px}
+button.act:hover{border-color:var(--slate);color:var(--slate)}
+.line{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:16px 18px}
+.line .no{font-size:24px;color:var(--moss);line-height:1.1;min-width:26px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.line .hook{font-size:17.5px;line-height:1.42;margin:0 0 9px;color:var(--slate);font-weight:500}
+.line .arr{font-size:14.5px;color:var(--mute);margin:0}
+.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--slate);font-weight:800}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 6px 6px 0;margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--moss);background:var(--moss-tint)}
+.rail.no{border-left-color:var(--earth);background:var(--earth-tint)}
+.rail.ask{border-left-color:var(--slate);background:var(--slate-tint)}
+.rail p{margin:0;font-size:15.5px;color:var(--body)}
+.rail.yes p{color:#3A4A2A}
+.rail.no p{color:#6B4326}
+.rail.ask p{color:var(--slate)}
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.col .head{padding:11px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;font-weight:800}
+.col.yes .head{background:var(--moss)}
+.col.no .head{background:var(--earth)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line);color:var(--body)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--mute);margin-top:3px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+.step .when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--earth);
+  min-width:88px;padding-top:4px;font-weight:800;font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px;color:var(--body)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:800;display:flex;align-items:baseline;
+  gap:11px;color:var(--slate)}
+.phase h3 .n{font-size:12px;color:var(--moss);font-weight:800;letter-spacing:.08em}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.movegrp{margin:26px 0 0;padding:20px 0 4px;border-top:2px solid var(--slate)}
+.movegrp h3.mv{font-size:21px;margin:0 0 4px;font-weight:800;display:flex;align-items:baseline;gap:12px;color:var(--slate)}
+.movegrp h3.mv .n{font-size:12px;color:var(--earth);font-weight:800;letter-spacing:.12em}
+.movegrp .stack{margin-top:12px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--slate)}
+.q.on{background:var(--slate-tint);border-color:var(--slate)}
+.q .ask{font-size:19px;line-height:1.38;margin:0;color:var(--ink);display:flex;gap:12px;
+  align-items:flex-start;font-weight:500}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:5px}
+.q.on .box{background:var(--slate);border-color:var(--slate);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--mute);margin:10px 0 0 31px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--body);cursor:pointer;font:inherit;font-size:14.5px}
+.chip.on{background:var(--moss);border-color:var(--moss);color:#fff}
+.tally{font-size:13px;color:var(--mute);margin:14px 0 0;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em}
+.note b{color:var(--slate)}
+@media print{
+  button.act{display:none}
+  .line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style></head><body data-board="dave-groundwork-intro"><header><div class="wrap">
+  <p class="kick">For Dave &middot; from Jonathan &middot; 9 September 2026</p>
+  <h1>Groundwork, and what the expansion is really asking for<span class="d"></span></h1>
+  <p class="sub">One page on the thing that already sits underneath the three markets we have run.</p>
+</div></header>
+
+<main class="wrap"><section id="page"><p class="para">On the drive out of Hamina you put the whole problem in two sentences. We have to replicate ourselves: instruct somebody how to go to New Mexico and what questions to ask. And then the hard part: somebody has to synthesize it, and somebody has to quality-control it. Three weeks later the client sent a list of further markets. This page is about what already sits underneath the three markets we have run, because it answers both halves.</p><p class="para">Butterfly did not produce three markets of findings. It produced a way of turning a field week into an evidence base a client can check. Every recorded conversation is transcribed and the speakers are named. Every claim sits on a Claims Register with a verdict and a source, and every figure on a slide traces back to the tape or the document it came from. A set of checks stops a document going out with an unsourced number, a contested figure stated as fact, or a name the client has retired, and a market cannot close until what it taught has been written down for the next one. That is Groundwork. It has a name because it has to be handed to someone.</p><p class="para">This week, measured rather than remembered: the full set of checks ran green with nothing carried over, from a red that had stood for a fortnight, and every fix was made at the source rather than on the page. A new market now inherits its deliverable names, its translation note and its citation rules on the day it is created, and nobody types them. The whole estate can be measured with one command, by anyone, and the measurement answers the first question a second operator asks: what is this, and is anyone using it. The build got smaller and the verdict got greener on the same day, which argues for the method rather than for the effort.</p><p class="para">The client has already told us what they want, in their own asset notes. They ask for hard numbers and economic impact, for construction set against ongoing employment, for evidence that businesses are doing well and that the way of life is consistent, and, in the line that matters most, for what a new community needs to know from a community that has a longstanding data center. Six of the eight substance lines are evidence propositions. They have written a research brief and filed it under content. The community-to-community dialogue they ask for is the one format on that list an agency cannot deliver, because it needs a longstanding market’s evidence base to answer a new market’s questions, and we have one.</p><p class="para">Roughly half of the list you sent already sits inside research we have done. Loudoun is on it, and Loudoun is already the comparable in our own evidence base, on the county’s own figure for what data centers contribute to its general fund. Muskogee County and Stillwater sit in the same regulatory and ratepayer environment as Pryor, which is already worked. That is the answer to why us rather than an agency, and it is about what a further market inherits rather than what it costs.</p><p class="para">I am not claiming that the product is built. The part that travels is measured and ordered; the first modules have moved and the rest are queued with their blockers named. I am not claiming a market count, because three numbers are in circulation and none goes on a surface until you say which list is the list. And nothing here is about rate or licensing. That waits on a read of the agreements, and this page leaves the space open on purpose.</p><p class="para">Two things from you. Which list is the list. And an hour with the board open, so you can see the thing rather than read about it.</p></section>
+<footer>Internal to the partnership. The client is not named on this page; the markets are. Rebuild: <code>python3 01_Opportunity-Universe/_bench/build_dave_intro.py</code>.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var t=document.getElementById('toast');
+  window.gwToast=function(m){if(!t)return;t.textContent=m;t.classList.add('up');
+    setTimeout(function(){t.classList.remove('up');},1400);};
+})();
+
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  function say(m){if(window.gwToast)window.gwToast(m);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>

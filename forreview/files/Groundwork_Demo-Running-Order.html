@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Showing the method — the running order</title><style>
+*{box-sizing:border-box}
+:root{
+  --ink:#101614; --slate:#1E2A27; --slate2:#2A3835; --moss:#7E9455; --moss-l:#A8BC80;
+  --moss-tint:#F1F4EE; --earth:#B0754A; --paper:#FBFAF8; --card:#FFFFFF; --line:#E2E6E3;
+  --mute:#6B7873; --body:#39443F;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+a{color:var(--slate)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-radius:3px}
+
+header{background:linear-gradient(160deg,var(--slate) 0%,#243330 60%,#2B3A33 100%);color:#fff;
+  padding:54px 0 46px}
+.kick{color:var(--moss-l);font-size:12px;letter-spacing:.22em;font-weight:700;margin:0 0 14px;
+  text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 14px;font-weight:800;
+  letter-spacing:-.02em;text-wrap:balance}
+h1 .d{display:inline-block;width:10px;height:10px;background:var(--moss);border-radius:50%;
+  margin-left:12px;vertical-align:middle}
+.sub{font-size:18px;color:#C6D2CB;max-width:64ch;margin:0}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(30,42,39,.97);
+  backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid #2F403C}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;gap:20px;height:50px;
+  align-items:center;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{color:#C6D2CB;font-size:13px;white-space:nowrap;padding:4px 0;text-decoration:none;
+  border-bottom:2px solid transparent;flex:0 0 auto}
+nav a:hover{color:#fff;border-color:var(--moss)}
+
+main{padding-bottom:88px}
+section{margin:48px 0 0;scroll-margin-top:64px}
+h2{font-size:13px;letter-spacing:.2em;color:var(--moss);font-weight:800;margin:0 0 6px;
+  text-transform:uppercase}
+.lede{font-size:15.5px;color:var(--mute);margin:0 0 18px;max-width:70ch;
+  border-bottom:1px solid var(--line);padding-bottom:12px}
+.para{font-size:17px;line-height:1.62;margin:0 0 16px;max-width:68ch;color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  box-shadow:0 1px 0 var(--moss) inset,0 6px 18px rgba(30,42,39,.06)}
+.card h3{margin:0 0 8px;font-size:17px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.card p{margin:0;font-size:15px;color:var(--body);line-height:1.58}
+.lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:0 0 7px}
+
+.note{background:var(--moss-tint);border-radius:12px;padding:16px 20px;font-size:15.5px;
+  color:var(--body)}
+.hold{background:#FBF6F1;border:1px dashed var(--earth);border-radius:12px;padding:16px 20px;
+  color:var(--body)}
+.hold b{color:var(--earth);font-size:12px;letter-spacing:.14em;font-weight:800}
+
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0 0;font-size:13.5px;
+  color:var(--mute)}
+footer code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--slate);
+  color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--slate)}
+  .sub{color:var(--mute)} .kick{color:var(--moss)}
+  section{break-inside:avoid;margin-top:22px}
+  .card{break-inside:avoid;box-shadow:none}
+}
+
+/* ── the field kit's components, on the Groundwork palette (reskin, 9 September 2026).
+   Ported from _field_shell so the kit could change identity without changing markup.
+   Colour roles: slate where the kit used teal, moss where it used sage, earth where it
+   used terracotta (stop / escalate), moss-tint where it used cream. One typeface. ── */
+:root{--slate-tint:#EEF2F0;--earth-tint:#FBF6F1;--earth-dp:#8F5D38}
+.pitch{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--slate);
+  border-radius:0 12px 12px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--mute);margin:0 0 12px}
+.pitch p.say{font-size:21px;line-height:1.4;margin:0;color:var(--ink);font-weight:600;
+  letter-spacing:-.01em}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--moss-tint);border-radius:8px;
+  padding:7px 13px;font-size:13.5px;color:var(--body);cursor:pointer;font:inherit;font-size:13.5px}
+button.act:hover{border-color:var(--slate);color:var(--slate)}
+.line{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:16px 18px}
+.line .no{font-size:24px;color:var(--moss);line-height:1.1;min-width:26px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.line .hook{font-size:17.5px;line-height:1.42;margin:0 0 9px;color:var(--slate);font-weight:500}
+.line .arr{font-size:14.5px;color:var(--mute);margin:0}
+.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--slate);font-weight:800}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 6px 6px 0;margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--moss);background:var(--moss-tint)}
+.rail.no{border-left-color:var(--earth);background:var(--earth-tint)}
+.rail.ask{border-left-color:var(--slate);background:var(--slate-tint)}
+.rail p{margin:0;font-size:15.5px;color:var(--body)}
+.rail.yes p{color:#3A4A2A}
+.rail.no p{color:#6B4326}
+.rail.ask p{color:var(--slate)}
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.col .head{padding:11px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;font-weight:800}
+.col.yes .head{background:var(--moss)}
+.col.no .head{background:var(--earth)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line);color:var(--body)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--mute);margin-top:3px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+.step .when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--earth);
+  min-width:88px;padding-top:4px;font-weight:800;font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px;color:var(--body)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:800;display:flex;align-items:baseline;
+  gap:11px;color:var(--slate)}
+.phase h3 .n{font-size:12px;color:var(--moss);font-weight:800;letter-spacing:.08em}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--slate)}
+.q.on{background:var(--slate-tint);border-color:var(--slate)}
+.q .ask{font-size:19px;line-height:1.38;margin:0;color:var(--ink);display:flex;gap:12px;
+  align-items:flex-start;font-weight:500}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:5px}
+.q.on .box{background:var(--slate);border-color:var(--slate);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--mute);margin:10px 0 0 31px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--body);cursor:pointer;font:inherit;font-size:14.5px}
+.chip.on{background:var(--moss);border-color:var(--moss);color:#fff}
+.tally{font-size:13px;color:var(--mute);margin:14px 0 0;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em}
+.note b{color:var(--slate)}
+@media print{
+  button.act{display:none}
+  .line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style></head><body data-board="groundwork-demo-running-order"><header><div class="wrap">
+  <p class="kick">Groundwork &middot; the demo &middot; 9 September 2026</p>
+  <h1>Showing the method<span class="d"></span></h1>
+  <p class="sub">Fifteen minutes, three surfaces and one thing happening live. Written so that someone other than Jonathan could run it, with the fallback for a room without wifi and the list of what is never said.</p>
+</div></header>
+<nav><div class="inner"><a href="#surfaces">On screen</a><a href="#order">Running order</a><a href="#room">The room</a><a href="#clip">The clip</a><a href="#before">Before</a><a href="#never">Never said</a><a href="#wrong">If it breaks</a><a href="#gate">The gate</a><a href="#after">After</a></div></nav>
+<main class="wrap">
+<section id="surfaces"><h2>What is on screen</h2>
+<p class="lede">Three surfaces and one live action, in the order they appear. Each is checked for on disk when this page is built.</p>
+<div class="stack"><div class="line"><div class="no">1</div><div class="bd"><p class="lbl">surface</p><h3>The register</h3><p class="hook">A claim, who said it, where, what it rests on, and its verdict. Filter to a held row: that row has never reached a page the client sees.</p><p class="arr"><a href="file:///Users/jonathankay/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/Evidence-and-Claims-Register_Dashboard.html" target="_blank" rel="noopener">_command/Evidence-and-Claims-Register_Dashboard.html</a></p><p class="arr">Fallback shot: <a href="01_Opportunity-Universe/_bench/_assets/demo/register.png" target="_blank" rel="noopener">register.png</a></p></div></div><div class="line"><div class="no">2</div><div class="bd"><p class="lbl">live action</p><h3>The intake, live</h3><p class="hook">A recording dropped in a folder transcribes itself, names its speakers against stored voiceprints, builds a page for checking the naming by ear, and files itself under a name that carries the market, the language and the room size.</p><p class="arr"><code>_command/_meetings/_inbox/</code></p><p class="arr">Fallback shot: <a href="01_Opportunity-Universe/_bench/_assets/demo/intake.png" target="_blank" rel="noopener">intake.png</a></p></div></div><div class="line"><div class="no">3</div><div class="bd"><p class="lbl">surface</p><h3>A page the client sees</h3><p class="hook">The one shareable status surface. Every figure on it is the say-safe wording, and the held figures are simply not there.</p><p class="arr"><a href="file:///Users/jonathankay/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/Butterfly-Status.html" target="_blank" rel="noopener">_command/Butterfly-Status.html</a></p><p class="arr">Fallback shot: <a href="01_Opportunity-Universe/_bench/_assets/demo/status.png" target="_blank" rel="noopener">status.png</a></p></div></div><div class="line"><div class="no">4</div><div class="bd"><p class="lbl">surface</p><h3>The gate</h3><p class="hook">One command. It refuses a send that would leak the rate, cite a held figure, print an internal label, or leave a market without its learnings logged. GO or NO-GO, in the terminal, in front of them.</p><p class="arr"><a href="http://localhost:8477/open?path=%2FUsers%2Fjonathankay%2FDesktop%2FCLAUDIUS%2FWork%2FJuno-Google-RFP%2F_command%2Fpreflight_juno.sh" target="_blank" rel="noopener">_command/preflight_juno.sh</a></p><p class="arr">Fallback: the captured text under <a href="#gate">The gate</a>.</p></div></div></div></section>
+
+<section id="order"><h2>The running order</h2>
+<p class="lede">Fifteen minutes. The italic line under each step is spoken, not read. Pick the run, then Start and Stop each step; the page keeps both timings.</p>
+<p class="runs-pick"><label><input type="radio" name="run" value="1" checked> Run one</label> &nbsp; <label><input type="radio" name="run" value="2"> Run two</label> &nbsp; <button class="act" id="clear-runs">Clear timings</button></p>
+<div class="stack"><div class="step"><div class="when">00:00<br><span class="mut">1 min</span></div><div class="bd"><h3>Open</h3><p class="do">Screen already mirrored. Four tabs open in this order: register, the inbox folder in Finder, the status page, a Terminal in the delivery project. Nothing else on screen.</p><p class="say">Every method gets described. This one I can show you, because it runs on its own. Fifteen minutes, three screens and one thing happening live.</p><div class="timer" data-step="0"><button class="act" data-start="0">Start</button><button class="act" data-stop="0">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div><div class="step"><div class="when">01:00<br><span class="mut">3 min</span></div><div class="bd"><h3>The register</h3><p class="do">Open the register. Pick one row that is SUPPORTED and read its source aloud. Then filter to HELD and pick one. Say why it is held. Do not scroll; two rows is the demonstration.</p><p class="say">Every factual claim from every conversation lands here with who said it, where, what it rests on and a verdict. A held claim never reaches a page the client sees. That is not a rule someone remembers; it is a build that refuses.</p><div class="timer" data-step="1"><button class="act" data-start="1">Start</button><button class="act" data-stop="1">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div><div class="step"><div class="when">04:00<br><span class="mut">5 min</span></div><div class="bd"><h3>The intake, live</h3><p class="do">Drag the demo clip from the desktop into the inbox folder. Say the name aloud as you drop it: market, subject, room size, language. In the Terminal, start the gate now; it takes about two and a half minutes and runs while the tape does. Within about fifteen seconds the agent picks the tape up; the transcript and the ear-check page follow. While it runs, explain the two tokens on the filename and why a person supplies them. When the ear-check page appears, open it and play one turn.</p><p class="say">The recording is the only thing a person has to make. The name carries the two facts a machine cannot know: how many voices were in the room, and what language they spoke. Everything after that is derived, which is why a fourth market inherits it on day one.</p><div class="timer" data-step="2"><button class="act" data-start="2">Start</button><button class="act" data-stop="2">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div><div class="step"><div class="when">09:00<br><span class="mut">3 min</span></div><div class="bd"><h3>A page the client sees</h3><p class="do">Open the status page. Point at one figure and say the wording it uses. Then say which figure is missing from it and why. Do not open the register again; the point is the distance between the two surfaces.</p><p class="say">This is what the client opens. The number on it is the wording we can defend, sourced back to the row you just saw. The one you will not find on it is held, and the page cannot print it.</p><div class="timer" data-step="3"><button class="act" data-start="3">Start</button><button class="act" data-stop="3">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div><div class="step"><div class="when">12:00<br><span class="mut">2 min</span></div><div class="bd"><h3>The gate</h3><p class="do">The gate you started during the drop has finished. Read the GO line and one of the checks it passed. If it says NO-GO, read the reason aloud; that is the demonstration working.</p><p class="say">One command runs every check before anything leaves. It has refused a real send. A method whose own check is always red is a checklist people ship past; this one is a check.</p><div class="timer" data-step="4"><button class="act" data-start="4">Start</button><button class="act" data-stop="4">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div><div class="step"><div class="when">14:00<br><span class="mut">1 min</span></div><div class="bd"><h3>Close</h3><p class="do">Close the tabs. Say the one line and stop.</p><p class="say">That is the method: recordings in, an evidence base out, and a close-out that will not let a market finish until what it taught is written down for the next one. What we would do next is run it somewhere new.</p><div class="timer" data-step="5"><button class="act" data-start="5">Start</button><button class="act" data-stop="5">Stop</button><span class="t1" data-run="1"></span><span class="t2" data-run="2"></span></div></div></div></div><div class="card"><h3>Run zero, virtual, 2026-09-09</h3><p class="arr">say lines at 150 words a minute; action allowances from the do lines; the gate measured on the Mac. Measured on the Mac: the gate took 141 seconds and returned GO; the intake agent is loaded.</p><table class="vr"><tr><th>Step</th><th>Allotted</th><th>Estimated</th><th></th></tr><tr><td>Open</td><td>1:00</td><td>0:30</td><td>fits</td></tr><tr><td>The register</td><td>3:00</td><td>1:27</td><td>fits</td></tr><tr><td>The intake, live</td><td>5:00</td><td>3:30</td><td>fits</td></tr><tr><td>A page the client sees</td><td>3:00</td><td>1:01</td><td>fits</td></tr><tr><td>The gate</td><td>2:00</td><td>0:38</td><td>fits</td></tr><tr><td>Close</td><td>1:00</td><td>0:26</td><td>fits</td></tr><tr><th>Total</th><th>15:00</th><th>7:32</th><th></th></tr></table><p class="arr">The unknown is the tape: transcription and speaker naming on the Mac for a ninety-second clip is allowed a little over three minutes inside the intake step, and only a real run measures it. The gate is now started during the drop so its two and a half minutes overlap the tape rather than following it.</p></div></section>
+
+<section id="room"><h2>Who the room is</h2>
+<div class="hold"><b>PARTNER ROOM ONLY</b><p>This order is written for David and the Juno side, who know the client. The register and the status page name the client and its markets on every row, so this order cannot be run for a prospect as it stands; a prospect room needs the same three surfaces built from the engagement template with the client unnamed, which does not exist yet and is a build, not a redaction.</p></div></section>
+
+<section id="clip"><h2>The demo clip</h2>
+<div class="note"><b>PR-99_Demo-Clip_k2_langen.m4a</b><br>A ninety-second clip, two voices, English, recorded for this purpose and about nothing. Never a real interview: the room would be watching a subject's words go past on screen, and the say-safe table exists precisely so that does not happen by accident. The name carries the room size and the language, as every tape must, and the tape number is deliberately out of range so it can never be mistaken for a field recording.</div></section>
+
+<section id="before"><h2>Before the room</h2>
+<p class="lede">Seven checks, each with the command that answers it. Run them in this order on the Mac, the morning of.</p>
+<div class="stack"><div class="card"><h3>The intake agent is loaded</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c97307287">Copy</button></div><pre id="c97307287">launchctl list com.butterfly.interview-intake &amp;&amp; echo "intake agent: loaded"</pre></div></div><div class="card"><h3>ButterflyIntake.app has Full Disk Access (nothing runs without it)</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c26737601">Copy</button></div><pre id="c26737601">tail -n 5 "$HOME/Library/Logs/butterfly-intake-debug.log"</pre></div></div><div class="card"><h3>The demo clip exists on the desktop, already named</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c94937570">Copy</button></div><pre id="c94937570">ls -la "$HOME/Desktop/PR-99_Demo-Clip_k2_langen.m4a"</pre></div></div><div class="card"><h3>The inbox is empty, so the drop is the only thing that happens</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c82280654">Copy</button></div><pre id="c82280654">ls "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/_meetings/_inbox/"</pre></div></div><div class="card"><h3>The register and the status page open from disk</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c31283491">Copy</button></div><pre id="c31283491">open "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/Evidence-and-Claims-Register_Dashboard.html" "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/Butterfly-Status.html"</pre></div></div><div class="card"><h3>The gate runs green before the room, so a NO-GO in the room is a real one</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c36511935">Copy</button></div><pre id="c36511935">cd "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP" &amp;&amp; bash _command/preflight_juno.sh | tail -n 3</pre></div></div><div class="card"><h3>The fallback folder is on the desktop for a laptop that will not mirror</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c32248403">Copy</button></div><pre id="c32248403">open "$HOME/Desktop/CLAUDIUS/Work/Collab with Juno/01_Opportunity-Universe/_bench/_assets/demo/"</pre></div></div></div></section>
+
+<section id="never"><h2>What is never said</h2>
+<p class="lede">Derived from the say-safe table at build: 3 figures are held from the room entirely; 16 may be spoken in exactly this wording. The caution and the reason behind each are private and are not on this page.</p><div class="obj"><div class="rail no"><p>“55% benefits Finland” stays off the screen and out of the room.</p></div><div class="rail no"><p>Finland electricity-tax figures stays off the screen and out of the room.</p></div><div class="rail no"><p>Pryor OK tax-break figures stays off the screen and out of the room.</p></div><div class="rail yes"><p>Iowa / Council Bluffs investment: Use ~$13.8B (independent, DCD) — or the CB-local $6.8B+.</p></div><div class="rail yes"><p>Jobs multiplier: Only ever as “a [the client] claim we will independently test.”</p></div><div class="rail yes"><p>Hamina district heating: State it as a ceiling and it is safe: heat from the campus covers up to 70–75% of Hamina's district heat (Mattila, YLE 2025), or up to 80% (Haminan Energia's own published target). Finnish jopa = 'up to' — keep the words 'up to'. Realised Jan–Mar 2026 was about one third, so the honest pairing is the ceiling alongside price stability and decarbonization.</p></div><div class="rail yes"><p>Pryor water: ~1.1B gal used, ~253M returned, ~850M evaporated (~24% offset) — and name the wrong-watershed replenishment caveat, it's on the public record.</p></div><div class="rail yes"><p>Pryor vs statewide Oklahoma: Pryor = ~$3B+ invested, ~800 jobs.</p></div><div class="rail yes"><p>Mullin “millions in tax revenue” (NYT): Attribute it, and show where it lands (county + schools, not the town).</p></div><div class="rail yes"><p>Nebraska weatherization: “$70–105 / month per weatherized home.”</p></div><div class="rail yes"><p>Iowa $2.7B / ~5,500 jobs: Context with Tech Assn of Iowa: all Iowa DCs = 9,139 jobs.</p></div><div class="rail yes"><p>Safe anchors: Loudoun County's own 38%-of-general-fund figure · Duane Arnold 615 MW (canon is right; [the client] rounds ~600) · Hamina before-picture (660 jobs lost, mill closed 2008).</p></div><div class="rail yes"><p>New $7B Iowa investment (2026): Cite as an announced forward pledge ($7B over 2 yrs — new Cedar Rapids DC + CB expansion).</p></div><div class="rail yes"><p>[the client] water replenishment (120%): A real $17M 2026 portfolio; the Iowa piece = ~5,000 western-Iowa acres to perennial cover.</p></div><div class="rail yes"><p>MidAmerican 27% profit-margin: If it surfaces, give both sides — the claim and the CFO's rebuttal.</p></div><div class="rail yes"><p>MAIP water-permit ceiling (Pryor): ~1.1B gal is [the client's] Pryor draw (row 31), disclosed on our terms.</p></div><div class="rail yes"><p>GRDA coal life-extension (Pryor): Hold both: ~372 MW new local solar and a ~$76M coal-unit life-extension on the same grid.</p></div><div class="rail yes"><p>Finland DC tax + waste-heat subsidy: Rate reclassified 1.7.2026 (~€47M/yr state revenue); a 10-yr waste-heat/efficiency subsidy — Hamina likely qualifies.</p></div><div class="rail yes"><p>Hamina population: Use 19,113 (Dec 31 2025); forecast 18,025 by 2030.</p></div></div></section>
+
+<section id="wrong"><h2>If something goes wrong</h2>
+<div class="stack"><div class="card"><h3>The drop does nothing for a minute</h3><p>Say so. Open the fallback ear-check page from the desktop folder and continue; the pipeline is shown, not simulated. After the room: read the debug log.</p></div><div class="card"><h3>The tape halts with an _ATTENTION_ note</h3><p>Open the note. It carries the one command that restarts the tape. Run it in the Terminal in front of them; a halt that names its own fix is part of the method.</p></div><div class="card"><h3>The gate says NO-GO</h3><p>Read the reason aloud. It is the demonstration. Do not fix it in the room.</p></div><div class="card"><h3>The laptop will not mirror</h3><p>The desktop folder holds a shot of each surface and the gate's last output as text. Run the order from those; the live drop is the only step that is lost.</p></div><div class="card"><h3>Someone asks for a number</h3><p>Give the say-safe wording, or say it is held. Nothing else.</p></div></div></section>
+
+<section id="gate"><h2>The gate's last run</h2>
+<p class="lede">Captured text, for the room that cannot run it. Refresh it the morning of by running the sixth check above and pasting nothing: the build reads the capture file.</p>
+<div class="cmd"><div class="cmdhead"><span class="lbl">the gate, last captured run</span></div><pre>── Project Butterfly preflight ──────────────────────
+  [32mPASS[0m  canonical present: STATE.md
+  [32mPASS[0m  canonical present: PROJECT-INSTRUCTIONS.md
+  [32mPASS[0m  canonical present: CLOSE-OUT-CASCADE.md
+  [32mPASS[0m  canonical present: SESSION-REGISTER.md
+  [33mWARN[0m  loose files at root (move into a subfolder, or add to ROOT_CANONICAL):
+           Project Activity Log.md
+  [32mPASS[0m  dashboard file links all resolve (1651 checked)
+  [32mPASS[0m  dashboard complete — every artifact is linked/navigable
+  [32mPASS[0m  session register retired (stub in place; STATE.md is the ledger)
+  [32mPASS[0m  deliverables/roles/gating tracker present
+  [32mPASS[0m  no junk files outside _Archive/ (.DS_Store / lock files)
+  [32mPASS[0m  no hourly-rate leak in shareable docs (_budget/_trackers exempt)
+  [32mPASS[0m  pre-send sweep clean (client corpus)
+  [32mPASS[0m  generator clearance (every client generator gated or declared)
+  [32mPASS[0m  name alignment (META · ROOM · headers · filenames · register)
+  [32mPASS[0m  translation provenance (every transcript tagged, every tag matches the tape)
+  [32mPASS[0m  54 wrapper(s) run python, 0 without the prefix; 3 __pycache__ folder(s) in the tree
+  [33mWARN[0m  3 __pycache__ folder(s) inside the tree — cannot be deleted from the mounted shell; a bare python3 in a terminal reads them. Mac Terminal: python3 _command/_os/pycache_guard.py prints the purge line.
+  [32mPASS[0m  0 row(s) closed by their own text but not by their Status column
+  [32mPASS[0m  0 second home(s) for a registered rule or crew set; 3 note(s)
+  [32mPASS[0m  0 one-shot script(s) writing into a live surface path
+  [32mPASS[0m  30 in 13 generator(s); 0 file(s) rose above baseline
+  [32mPASS[0m  9 subject-facing file(s), 0 supplied frame(s)
+  [31mFAIL[0m  the tree got messier — sweep it (bash _command/sweep_project_hygiene.sh --commit), then re-run; or --accept and say why in STATE
+             bak_beside_source          573   ceiling 572 no slack   (+1)
+  [32mPASS[0m  detector fixtures (155 case(s), 0 failing)
+  [32mPASS[0m  translation note (every surface quoting Finnish-origin material says how it became English)
+  [32mPASS[0m  no exemption has outlived its date
+  [32mPASS[0m  conversation counts current on live surfaces
+  [32mPASS[0m  every recording past the age threshold has closed out
+  [32mPASS[0m  every diarization resolves to the audio it was built from
+  [32mPASS[0m  jargon scan clean (client surfaces)
+  [32mPASS[0m  apparatus scan clean (client + internal)
+  [32mPASS[0m  every gate names where its date came from
+  [32mPASS[0m  promotion parity — every published surface is current
+  [32mPASS[0m  no personal-brand tells on Butterfly surfaces
+  [32mPASS[0m  reference grammar self-check
+  [32mPASS[0m  register verify() + verify_interviews() clean
+  [32mPASS[0m  release gate (no held row cited on a client surface; source/artifact in step)
+  [32mPASS[0m  delivered transcript headers match the tape flags
+  [32mPASS[0m  every recording's claims reach the Claims Register
+  [32mPASS[0m  every market that is closing has its learnings logged and classed
+  [32mPASS[0m  STATE.md session-log entry present for today (2026-09-09)
+  [33mWARN[0m  STATE.md has over-long entries from before 2026-09-02 (grandfathered, will clear at the next roll):
+           57 lines: ### 2026-09-01 10:30 PM ET (Cloud session) — the evidence spine closes: every naked row mapped, and reading the documents changed six of them
+           34 lines: ### 2026-09-01 6:40 PM ET (Cloud session) — correction: the Uski conversation, and figures.json was three weeks stale
+           43 lines: ### 2026-09-01 6:00 PM ET (Cloud session) — the Hamina record split filmed/not-filmed, and the heat-exchange pull
+           45 lines: ### 2026-09-01 (Cloud session, late) — a Hamina conversation that was in no registry at all
+           52 lines: ### 2026-09-01 (Cloud session, alignment) — banner gone, and a gate so a name cannot drift again
+  [32mPASS[0m  deck builds available locally (python3 carries python-pptx)
+─────────────────────────────────────────────────────
+MANUAL checks (judgment — not automated):
+  • Numbers parity — budget xlsx == proposal == email == brief == STATE (CLOSE-OUT step 2)
+  • Pillar/claim consistency — one framing across memos (see Fact-Check-Scrub doc)
+  • Parallel-session reconcile — any client artifact a parallel session also touched? (.session_claim / STATE ⚠ PARALLEL-MERGE MARKER)
+  • If sending: the merged feedback / deliverable reads as current to [the client]
+─────────────────────────────────────────────────────
+  [31m▶ NO-GO[0m — 1 NEW or EXPIRED row(s) above. These are not the standing carries.</pre></div></section>
+
+<section id="after"><h2>After the room</h2>
+<p class="lede">The drop files a real tape into the delivery estate. It comes out again, and nothing about it cascades.</p>
+<div class="stack"><div class="card"><h3>Move the demo tape's outputs out of the corpus</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c2642608">Copy</button></div><pre id="c2642608">cd "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP/_command/_meetings" &amp;&amp; mkdir -p "_to_delete/demo-tape" &amp;&amp; mv PR-99_* _READY_PR-99* "_to_delete/demo-tape/" 2&gt;/dev/null; ls "_to_delete/demo-tape"</pre></div></div><div class="card"><h3>Confirm nothing cascaded</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c61974855">Copy</button></div><pre id="c61974855">cd "$HOME/Desktop/CLAUDIUS/Work/Juno-Google-RFP" &amp;&amp; grep -rl "PR-99" _command/register_data.py _command/_os/_transcribe_work 2&gt;/dev/null; echo "(nothing above means nothing cascaded)"</pre></div></div><div class="card"><h3>Record the timing on the running order itself</h3><div class="cmd"><div class="cmdhead"><span class="lbl">on the Mac</span><button class="act" data-copy="#c16728494">Copy</button></div><pre id="c16728494">open "$HOME/Desktop/CLAUDIUS/Work/Collab with Juno/Groundwork_Demo-Running-Order.html"</pre></div></div></div></section>
+<style>
+.step .bd{flex:1;min-width:0}
+.step .when{line-height:1.3}
+.step .mut{color:var(--mute);font-weight:500;letter-spacing:0;text-transform:none;font-size:11px}
+.step h3{margin:0 0 6px;font-size:16.5px;font-weight:800;color:var(--slate)}
+.step p.do{margin:0 0 8px;font-size:15px;color:var(--body)}
+.step p.say{margin:0 0 10px;font-size:15.5px;color:var(--slate);border-left:3px solid var(--moss);
+  padding-left:12px;font-style:italic}
+.timer{display:flex;gap:8px;align-items:center;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:12.5px;color:var(--mute)}
+.timer span:empty::before{content:"—"}
+.cmd{margin:10px 0 0}
+.cmdhead{display:flex;justify-content:space-between;align-items:center;margin:0 0 4px}
+.cmd pre{margin:0;background:var(--slate);color:#E6ECE8;padding:12px 14px;border-radius:8px;
+  font-size:12.5px;line-height:1.5;overflow-x:auto;white-space:pre-wrap;word-break:break-all}
+.cmd .lbl{margin:0}
+.runs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+table.vr{border-collapse:collapse;margin:8px 0 0;font-size:14px}table.vr th,table.vr td{border-bottom:1px solid var(--line);padding:6px 12px 6px 0;text-align:left}table.vr th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+</style><script>
+(function(){
+  var KEY='gw-demo-runs';var st={};
+  try{st=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){st={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}
+  function run(){return document.querySelector('input[name=run]:checked').value;}
+  function fmt(ms){var s=Math.round(ms/1000);return Math.floor(s/60)+':'+('0'+s%60).slice(-2);}
+  function paint(){
+    document.querySelectorAll('.timer').forEach(function(t){
+      var i=t.dataset.step;['1','2'].forEach(function(r){
+        var el=t.querySelector('[data-run="'+r+'"]');var v=(st[r]||{})[i];
+        el.textContent=v&&v.stop?('run '+r+' '+fmt(v.stop-v.start)):(v&&v.start?'run '+r+' running':'');
+      });
+    });
+  }
+  document.querySelectorAll('[data-start]').forEach(function(b){b.addEventListener('click',function(){
+    var r=run();st[r]=st[r]||{};st[r][b.dataset.start]={start:Date.now()};save();paint();});});
+  document.querySelectorAll('[data-stop]').forEach(function(b){b.addEventListener('click',function(){
+    var r=run();var v=(st[r]||{})[b.dataset.stop];if(!v||!v.start)return;v.stop=Date.now();save();paint();});});
+  var clr=document.getElementById('clear-runs');
+  if(clr){clr.addEventListener('click',function(){st={};save();paint();});}
+  document.querySelectorAll('input[name=run]').forEach(function(x){x.addEventListener('change',paint);});
+  paint();
+})();
+</script>
+
+<footer>Internal to the partnership. Every surface named here is checked for on disk at build; the redaction list is derived from the say-safe table, not typed. Rebuild: <code>python3 01_Opportunity-Universe/_bench/build_demo_order.py</code>.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var t=document.getElementById('toast');
+  window.gwToast=function(m){if(!t)return;t.textContent=m;t.classList.add('up');
+    setTimeout(function(){t.classList.remove('up');},1400);};
+})();
+
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  function say(m){if(window.gwToast)window.gwToast(m);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>

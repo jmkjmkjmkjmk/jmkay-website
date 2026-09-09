@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Groundwork Engagement Shape</title><style>
+*{box-sizing:border-box}
+:root{
+  --ink:#101614; --slate:#1E2A27; --slate2:#2A3835; --moss:#7E9455; --moss-l:#A8BC80;
+  --moss-tint:#F1F4EE; --earth:#B0754A; --paper:#FBFAF8; --card:#FFFFFF; --line:#E2E6E3;
+  --mute:#6B7873; --body:#39443F;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+a{color:var(--slate)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-radius:3px}
+
+header{background:linear-gradient(160deg,var(--slate) 0%,#243330 60%,#2B3A33 100%);color:#fff;
+  padding:54px 0 46px}
+.kick{color:var(--moss-l);font-size:12px;letter-spacing:.22em;font-weight:700;margin:0 0 14px;
+  text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 14px;font-weight:800;
+  letter-spacing:-.02em;text-wrap:balance}
+h1 .d{display:inline-block;width:10px;height:10px;background:var(--moss);border-radius:50%;
+  margin-left:12px;vertical-align:middle}
+.sub{font-size:18px;color:#C6D2CB;max-width:64ch;margin:0}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(30,42,39,.97);
+  backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid #2F403C}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;gap:20px;height:50px;
+  align-items:center;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{color:#C6D2CB;font-size:13px;white-space:nowrap;padding:4px 0;text-decoration:none;
+  border-bottom:2px solid transparent;flex:0 0 auto}
+nav a:hover{color:#fff;border-color:var(--moss)}
+
+main{padding-bottom:88px}
+section{margin:48px 0 0;scroll-margin-top:64px}
+h2{font-size:13px;letter-spacing:.2em;color:var(--moss);font-weight:800;margin:0 0 6px;
+  text-transform:uppercase}
+.lede{font-size:15.5px;color:var(--mute);margin:0 0 18px;max-width:70ch;
+  border-bottom:1px solid var(--line);padding-bottom:12px}
+.para{font-size:17px;line-height:1.62;margin:0 0 16px;max-width:68ch;color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  box-shadow:0 1px 0 var(--moss) inset,0 6px 18px rgba(30,42,39,.06)}
+.card h3{margin:0 0 8px;font-size:17px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.card p{margin:0;font-size:15px;color:var(--body);line-height:1.58}
+.lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:0 0 7px}
+
+.note{background:var(--moss-tint);border-radius:12px;padding:16px 20px;font-size:15.5px;
+  color:var(--body)}
+.hold{background:#FBF6F1;border:1px dashed var(--earth);border-radius:12px;padding:16px 20px;
+  color:var(--body)}
+.hold b{color:var(--earth);font-size:12px;letter-spacing:.14em;font-weight:800}
+
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0 0;font-size:13.5px;
+  color:var(--mute)}
+footer code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--slate);
+  color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--slate)}
+  .sub{color:var(--mute)} .kick{color:var(--moss)}
+  section{break-inside:avoid;margin-top:22px}
+  .card{break-inside:avoid;box-shadow:none}
+}
+
+/* ── the field kit's components, on the Groundwork palette (reskin, 9 September 2026).
+   Ported from _field_shell so the kit could change identity without changing markup.
+   Colour roles: slate where the kit used teal, moss where it used sage, earth where it
+   used terracotta (stop / escalate), moss-tint where it used cream. One typeface. ── */
+:root{--slate-tint:#EEF2F0;--earth-tint:#FBF6F1;--earth-dp:#8F5D38}
+.pitch{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--slate);
+  border-radius:0 12px 12px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--mute);margin:0 0 12px}
+.pitch p.say{font-size:21px;line-height:1.4;margin:0;color:var(--ink);font-weight:600;
+  letter-spacing:-.01em}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--moss-tint);border-radius:8px;
+  padding:7px 13px;font-size:13.5px;color:var(--body);cursor:pointer;font:inherit;font-size:13.5px}
+button.act:hover{border-color:var(--slate);color:var(--slate)}
+.line{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:16px 18px}
+.line .no{font-size:24px;color:var(--moss);line-height:1.1;min-width:26px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.line .hook{font-size:17.5px;line-height:1.42;margin:0 0 9px;color:var(--slate);font-weight:500}
+.line .arr{font-size:14.5px;color:var(--mute);margin:0}
+.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--slate);font-weight:800}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 6px 6px 0;margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--moss);background:var(--moss-tint)}
+.rail.no{border-left-color:var(--earth);background:var(--earth-tint)}
+.rail.ask{border-left-color:var(--slate);background:var(--slate-tint)}
+.rail p{margin:0;font-size:15.5px;color:var(--body)}
+.rail.yes p{color:#3A4A2A}
+.rail.no p{color:#6B4326}
+.rail.ask p{color:var(--slate)}
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.col .head{padding:11px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;font-weight:800}
+.col.yes .head{background:var(--moss)}
+.col.no .head{background:var(--earth)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line);color:var(--body)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--mute);margin-top:3px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+.step .when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--earth);
+  min-width:88px;padding-top:4px;font-weight:800;font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px;color:var(--body)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:800;display:flex;align-items:baseline;
+  gap:11px;color:var(--slate)}
+.phase h3 .n{font-size:12px;color:var(--moss);font-weight:800;letter-spacing:.08em}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.movegrp{margin:26px 0 0;padding:20px 0 4px;border-top:2px solid var(--slate)}
+.movegrp h3.mv{font-size:21px;margin:0 0 4px;font-weight:800;display:flex;align-items:baseline;gap:12px;color:var(--slate)}
+.movegrp h3.mv .n{font-size:12px;color:var(--earth);font-weight:800;letter-spacing:.12em}
+.movegrp .stack{margin-top:12px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--slate)}
+.q.on{background:var(--slate-tint);border-color:var(--slate)}
+.q .ask{font-size:19px;line-height:1.38;margin:0;color:var(--ink);display:flex;gap:12px;
+  align-items:flex-start;font-weight:500}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:5px}
+.q.on .box{background:var(--slate);border-color:var(--slate);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--mute);margin:10px 0 0 31px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--body);cursor:pointer;font:inherit;font-size:14.5px}
+.chip.on{background:var(--moss);border-color:var(--moss);color:#fff}
+.tally{font-size:13px;color:var(--mute);margin:14px 0 0;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em}
+.note b{color:var(--slate)}
+@media print{
+  button.act{display:none}
+  .line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style></head><body data-board="engagement-shape"><header><div class="wrap">
+  <p class="kick">Juno Collective &middot; the Groundwork Method &middot; scoping</p>
+  <h1>Engagement shape<span class="d"></span></h1>
+  <p class="sub">What a market engagement is, phase by phase — what the client receives at each one, and what the client has to supply for it to work.</p>
+</div></header>
+<nav><div class="inner"><a href="#phases">Four moves</a><a href="#standing">Always true</a><a href="#scope">What sits inside</a><a href="#route">Route these</a></div></nav>
+<main class="wrap"><section id="phases">
+<h2>Four moves, ten phases</h2>
+<p class="lede">In order, and the order matters: the ground cannot start before the audit, and
+synthesis cannot start before the ground. Phases overlap; they do not swap. The budget model
+prices these same ten phases.</p>
+<div class="movegrp">
+  <h3 class="mv"><span class="n">01</span>Audit and gap-find</h3>
+  <p class="lede" style="margin-top:0">What is already said about the market, and what nobody has checked.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">0</span>Spin-up</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>A dated calendar with every wall sourced, a market folder, and the citation prefix every later reference carries.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>The market brief, the dates your side already holds, and one named person who can open doors.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">1</span>Audit and gap-find</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>Every claim already published about the market, on the register with its source.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>The claims you already publish and the documents behind them.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">02</span>Baseline the before-picture</h3>
+  <p class="lede" style="margin-top:0">Where the market stood before, on an instrument every market shares.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">2</span>Baseline the before-picture</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The before-picture on two instruments, the material delta and the belief delta, on the same scale as every other market.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Access to your own baseline data where it exists.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">03</span>Discover on the ground</h3>
+  <p class="lede" style="margin-top:0">The rooms, the tape, and the register that grows from them.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">3</span>Champion mapping and outreach</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The champion map: who speaks for the market, tiered, with consent status and a contact path.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Site contacts, and introductions where a door needs opening.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">4</span>Discovery visit</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>Long-form conversations on the record, each recording named for its market, room and language, with consent captured where it happened.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Nothing while the team is on the ground. That is the point of the visit.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">5</span>Production visit</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>Film and photography per the deliverable set, with releases on file for everyone filmed.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Brand direction, and any subject your side wants in frame.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">6</span>Capture to transcript to intel-delta</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>Transcripts with speakers named and checked, every claim registered, and a read of what each conversation changed.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Your source documents for anything a conversation contradicts.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">04</span>Synthesize</h3>
+  <p class="lede" style="margin-top:0">The findings, the review, and what the next market inherits.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">7</span>Synthesis</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The Market Impact Assessment, the story spines, the champion profiles, and the evidence and sources behind each.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>One review pass from your team.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">8</span>The review ramp</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The team&#x27;s read, then your preview, then the wall: every send cleared the checks.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Approvals, on the dates the calendar names.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">9</span>Close-out and codify</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The evidence base, the citation index and the market record in a form your own team or agency can work from; what the market taught, classed, in the next market&#x27;s kit.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>A decision on what stays live.</p></div>
+  </div>
+</div></div>
+</div>
+</section><section id="standing">
+<h2>True of every engagement</h2>
+<p class="lede">Four facts that hold whatever was bought, and that can be said to a client
+before anything is scoped.</p>
+<div class="grid2"><div class="card"><p class="lbl">Standing</p><p style="margin:0 0 7px;font-weight:700;font-size:16px">The standards function runs centrally.</p><p style="margin:0;font-size:15px;color:var(--mute)">It is the only way the standard is the same in every market, and it is not a per-market line item.</p></div><div class="card"><p class="lbl">Standing</p><p style="margin:0 0 7px;font-weight:700;font-size:16px">Field costs are reimbursable and sit outside the fee.</p><p style="margin:0;font-size:15px;color:var(--mute)">Travel, lodging and ground transport are billed at cost.</p></div><div class="card"><p class="lbl">Standing</p><p style="margin:0 0 7px;font-weight:700;font-size:16px">Durations are set at scoping, not before.</p><p style="margin:0;font-size:15px;color:var(--mute)">Market size, access and the number of claims already published all move it.</p></div><div class="card"><p class="lbl">Standing</p><p style="margin:0 0 7px;font-weight:700;font-size:16px">Pricing is set per engagement.</p><p style="margin:0;font-size:15px;color:var(--mute)">Route every commercial question to Jonathan before answering it.</p></div></div>
+</section><section id="scope">
+<h2>What can sit inside it</h2>
+<p class="lede">The phases are the same whichever lines the engagement carries. What changes is
+what arrives at the deliverables phase.</p>
+<div class="stack"><div class="line"><div class="no">1</div><div class="bd"><h3>Market Impact Assessment</h3><p class="arr">A sourced evidence base: every claim registered and verdicted, the friction map, and the honest picture. Weeks rather than quarters.</p></div></div><div class="line"><div class="no">2</div><div class="bd"><h3>Story &amp; Champion Mapping</h3><p class="arr">The story inventory and a consented champion map, plus the stakeholder universe — who the story touches, from officials to your own site staff.</p></div></div><div class="line"><div class="no">3</div><div class="bd"><h3>Community Storytelling Program</h3><p class="arr">Flagship film, champion profiles, short-form, photography and the activation toolkit — every asset traceable to the evidence base.</p></div></div><div class="line"><div class="no">4</div><div class="bd"><h3>The Halo Index</h3><p class="arr">A banded, annually re-scored measure of what a facility gives back, across five dimensions. Methodology published, negatives counted.</p></div></div><div class="line"><div class="no">5</div><div class="bd"><h3>Community Intelligence</h3><p class="arr">The registers, the stakeholder map and the champion record as a living system — institutional memory that survives turnover.</p></div></div><div class="line"><div class="no">6</div><div class="bd"><h3>The Playbook &amp; Certified Researchers</h3><p class="arr">The method as it is actually run and kept current, plus researchers trained against it: the same standard everywhere, verified by robust gates.</p></div></div><div class="line"><div class="no">7</div><div class="bd"><h3>The Program Portal</h3><p class="arr">One always-current place: schedule, deliverables, assets with thumbnails, transcripts. Nobody has to ask.</p></div></div><div class="line"><div class="no">8</div><div class="bd"><h3>Claim Validation</h3><p class="arr">The claims you already publish, taken one at a time and verdicted against the record — the ones that hold with their sources attached, the ones that do not, flagged.</p></div></div></div>
+</section><section id="route">
+<h2>Questions this page does not answer</h2>
+<p class="lede">Three things a client will ask that belong to one person. Answering them from
+here is how a number becomes a commitment before anyone has scoped it.</p>
+<div class="stack"><div class="obj"><h3>Any price, rate, budget range or commercial structure.</h3><div class="rail no"><p>There is one answer and it is not yours to give in the room.</p></div></div><div class="obj"><h3>Any date, or any duration in weeks.</h3><div class="rail no"><p>A number said out loud becomes a commitment. Scoping sets it.</p></div></div><div class="obj"><h3>Who the flagship client is.</h3><div class="rail no"><p>“A global technology company” carries every room, and a screenshot forwards.</p></div></div></div>
+</section>
+<footer>Juno Collective. Internal use. Durations and pricing are set at scoping and appear nowhere on this page by design.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var t=document.getElementById('toast');
+  window.gwToast=function(m){if(!t)return;t.textContent=m;t.classList.add('up');
+    setTimeout(function(){t.classList.remove('up');},1400);};
+})();
+
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  function say(m){if(window.gwToast)window.gwToast(m);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>

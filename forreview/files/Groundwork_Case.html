@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta name="robots" content="noindex,nofollow,noarchive"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The case for Groundwork</title><style>
+*{box-sizing:border-box}
+:root{
+  --ink:#101614; --slate:#1E2A27; --slate2:#2A3835; --moss:#7E9455; --moss-l:#A8BC80;
+  --moss-tint:#F1F4EE; --earth:#B0754A; --paper:#FBFAF8; --card:#FFFFFF; --line:#E2E6E3;
+  --mute:#6B7873; --body:#39443F;
+}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:70px}
+html,body{margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);
+  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 24px}
+a{color:var(--slate)}
+:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-radius:3px}
+
+header{background:linear-gradient(160deg,var(--slate) 0%,#243330 60%,#2B3A33 100%);color:#fff;
+  padding:54px 0 46px}
+.kick{color:var(--moss-l);font-size:12px;letter-spacing:.22em;font-weight:700;margin:0 0 14px;
+  text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.08;margin:0 0 14px;font-weight:800;
+  letter-spacing:-.02em;text-wrap:balance}
+h1 .d{display:inline-block;width:10px;height:10px;background:var(--moss);border-radius:50%;
+  margin-left:12px;vertical-align:middle}
+.sub{font-size:18px;color:#C6D2CB;max-width:64ch;margin:0}
+
+nav{position:sticky;top:0;z-index:50;background:rgba(30,42,39,.97);
+  backdrop-filter:saturate(160%) blur(8px);border-bottom:1px solid #2F403C}
+nav .inner{max-width:860px;margin:0 auto;padding:0 24px;display:flex;gap:20px;height:50px;
+  align-items:center;overflow-x:auto;scrollbar-width:none}
+nav .inner::-webkit-scrollbar{display:none}
+nav a{color:#C6D2CB;font-size:13px;white-space:nowrap;padding:4px 0;text-decoration:none;
+  border-bottom:2px solid transparent;flex:0 0 auto}
+nav a:hover{color:#fff;border-color:var(--moss)}
+
+main{padding-bottom:88px}
+section{margin:48px 0 0;scroll-margin-top:64px}
+h2{font-size:13px;letter-spacing:.2em;color:var(--moss);font-weight:800;margin:0 0 6px;
+  text-transform:uppercase}
+.lede{font-size:15.5px;color:var(--mute);margin:0 0 18px;max-width:70ch;
+  border-bottom:1px solid var(--line);padding-bottom:12px}
+.para{font-size:17px;line-height:1.62;margin:0 0 16px;max-width:68ch;color:var(--ink)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;
+  box-shadow:0 1px 0 var(--moss) inset,0 6px 18px rgba(30,42,39,.06)}
+.card h3{margin:0 0 8px;font-size:17px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.card p{margin:0;font-size:15px;color:var(--body);line-height:1.58}
+.lbl{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);
+  font-weight:700;margin:0 0 7px}
+
+.note{background:var(--moss-tint);border-radius:12px;padding:16px 20px;font-size:15.5px;
+  color:var(--body)}
+.hold{background:#FBF6F1;border:1px dashed var(--earth);border-radius:12px;padding:16px 20px;
+  color:var(--body)}
+.hold b{color:var(--earth);font-size:12px;letter-spacing:.14em;font-weight:800}
+
+footer{border-top:1px solid var(--line);margin-top:56px;padding:22px 0 0;font-size:13.5px;
+  color:var(--mute)}
+footer code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,90px);background:var(--slate);
+  color:#fff;padding:11px 20px;border-radius:999px;font-size:14px;
+  transition:transform .2s,opacity .2s;z-index:60;opacity:0;visibility:hidden;pointer-events:none}
+.toast.up{transform:translate(-50%,0);opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav,.toast{display:none}
+  body{font-size:12pt}
+  header{background:#fff;color:var(--ink);padding:0 0 12px;border-bottom:2px solid var(--slate)}
+  .sub{color:var(--mute)} .kick{color:var(--moss)}
+  section{break-inside:avoid;margin-top:22px}
+  .card{break-inside:avoid;box-shadow:none}
+}
+
+/* ── the field kit's components, on the Groundwork palette (reskin, 9 September 2026).
+   Ported from _field_shell so the kit could change identity without changing markup.
+   Colour roles: slate where the kit used teal, moss where it used sage, earth where it
+   used terracotta (stop / escalate), moss-tint where it used cream. One typeface. ── */
+:root{--slate-tint:#EEF2F0;--earth-tint:#FBF6F1;--earth-dp:#8F5D38}
+.pitch{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--slate);
+  border-radius:0 12px 12px 0;padding:20px 22px}
+.pitch .when{font-size:14px;color:var(--mute);margin:0 0 12px}
+.pitch p.say{font-size:21px;line-height:1.4;margin:0;color:var(--ink);font-weight:600;
+  letter-spacing:-.01em}
+.pitch .tools{display:flex;gap:8px;margin:15px 0 0}
+button.act{border:1px solid var(--line);background:var(--moss-tint);border-radius:8px;
+  padding:7px 13px;font-size:13.5px;color:var(--body);cursor:pointer;font:inherit;font-size:13.5px}
+button.act:hover{border-color:var(--slate);color:var(--slate)}
+.line{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:16px 18px}
+.line .no{font-size:24px;color:var(--moss);line-height:1.1;min-width:26px;font-weight:800;
+  font-variant-numeric:tabular-nums}
+.line .bd{flex:1;min-width:0}
+.line h3{font-size:16.5px;margin:0 0 8px;font-weight:800;letter-spacing:-.005em;color:var(--slate)}
+.line .hook{font-size:17.5px;line-height:1.42;margin:0 0 9px;color:var(--slate);font-weight:500}
+.line .arr{font-size:14.5px;color:var(--mute);margin:0}
+.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.obj h3{font-size:18px;margin:0 0 12px;color:var(--slate);font-weight:800}
+.rail{padding:11px 15px;border-left:3px solid var(--line);border-radius:0 6px 6px 0;margin:0 0 9px}
+.rail:last-child{margin:0}
+.rail.yes{border-left-color:var(--moss);background:var(--moss-tint)}
+.rail.no{border-left-color:var(--earth);background:var(--earth-tint)}
+.rail.ask{border-left-color:var(--slate);background:var(--slate-tint)}
+.rail p{margin:0;font-size:15.5px;color:var(--body)}
+.rail.yes p{color:#3A4A2A}
+.rail.no p{color:#6B4326}
+.rail.ask p{color:var(--slate)}
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.col .head{padding:11px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:#fff;font-weight:800}
+.col.yes .head{background:var(--moss)}
+.col.no .head{background:var(--earth)}
+.col ul{list-style:none;margin:0;padding:6px 0}
+.col li{padding:11px 18px;font-size:15.5px;border-bottom:1px solid var(--line);color:var(--body)}
+.col li:last-child{border-bottom:0}
+.col li .why{display:block;font-size:13.5px;color:var(--mute);margin-top:3px}
+.step{display:flex;gap:15px;align-items:flex-start;background:var(--card);
+  border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+.step .when{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--earth);
+  min-width:88px;padding-top:4px;font-weight:800;font-variant-numeric:tabular-nums}
+.step p{margin:0;font-size:16px;color:var(--body)}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.phase h3{font-size:17.5px;margin:0 0 12px;font-weight:800;display:flex;align-items:baseline;
+  gap:11px;color:var(--slate)}
+.phase h3 .n{font-size:12px;color:var(--moss);font-weight:800;letter-spacing:.08em}
+.pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.movegrp{margin:26px 0 0;padding:20px 0 4px;border-top:2px solid var(--slate)}
+.movegrp h3.mv{font-size:21px;margin:0 0 4px;font-weight:800;display:flex;align-items:baseline;gap:12px;color:var(--slate)}
+.movegrp h3.mv .n{font-size:12px;color:var(--earth);font-weight:800;letter-spacing:.12em}
+.movegrp .stack{margin-top:12px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
+  cursor:pointer;transition:border-color .12s,background .12s}
+.q:hover{border-color:var(--slate)}
+.q.on{background:var(--slate-tint);border-color:var(--slate)}
+.q .ask{font-size:19px;line-height:1.38;margin:0;color:var(--ink);display:flex;gap:12px;
+  align-items:flex-start;font-weight:500}
+.q .box{flex:0 0 auto;width:19px;height:19px;border:2px solid var(--line);border-radius:4px;
+  margin-top:5px}
+.q.on .box{background:var(--slate);border-color:var(--slate);position:relative}
+.q.on .box::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.q .listen{font-size:14.5px;color:var(--mute);margin:10px 0 0 31px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;
+  font-size:14.5px;color:var(--body);cursor:pointer;font:inherit;font-size:14.5px}
+.chip.on{background:var(--moss);border-color:var(--moss);color:#fff}
+.tally{font-size:13px;color:var(--mute);margin:14px 0 0;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em}
+.note b{color:var(--slate)}
+@media print{
+  button.act{display:none}
+  .line,.obj,.phase,.q,.pitch,.col{break-inside:avoid;box-shadow:none}
+}
+</style></head><body data-board="groundwork-case"><header><div class="wrap">
+  <p class="kick">Groundwork &middot; the case behind the one-pager &middot; 9 September 2026</p>
+  <h1>The case for Groundwork<span class="d"></span></h1>
+  <p class="sub">What three markets actually built, what the client has asked for in its own words, what a further market inherits, and what is deliberately not being claimed.</p>
+</div></header>
+<nav><div class="inner"><a href="#one">The case in one paragraph</a><a href="#built">What was built</a><a href="#proof">What became provable this week</a><a href="#asked">What the client asked for, in their own words</a><a href="#reach">Where the evidence already reaches</a><a href="#board">The failure mode only this fixes</a><a href="#not">What is deliberately not claimed</a><a href="#worth">What it is worth</a><a href="#next">Where this leaves the conversation</a></div></nav>
+<main class="wrap"><section id="one"><h2>The case in one paragraph</h2><p class="para">Butterfly did not produce three markets of findings. It produced a working, checked way of turning a field week into an evidence base a client can rely on, and it ran that way three times: 30 recorded conversations across three markets, 390 rows on the Claims Register with a verdict and a source on each, a citation rule that traces a figure on a slide to the tape or the document it came from, a clearance rule for what can be said to whom, 23 checks that stop a send and run in one command, and a close-out that will not let a market finish until what it taught is written down. It is about to be asked to run in further markets, and the client’s own project board cannot see any of it.</p></section><section id="built"><h2>What was built</h2><p class="lede">The method described as what happens to a recording, rather than as a philosophy.</p><div class="grid2"><div class="card"><h3>Intake</h3><p>A recording is dropped in a folder. It is transcribed, the speakers are named against stored voiceprints, a page is built so a person can check the naming by ear, and the file is filed under one name that carries its market, its language and its consent status.</p></div><div class="card"><h3>Claims</h3><p>Every factual claim in the conversation goes onto the Claims Register with who said it, where, what it rests on, and a verdict, which is supported, contested, or held until a source arrives. A held figure never reaches a page the client sees.</p></div><div class="card"><h3>Citation</h3><p>A figure carries its source with it. When a conversation happened in Finnish, the page that quotes it says how it became English. That note is derived from the tape itself, so a fourth market inherits it without anyone remembering to add it.</p></div><div class="card"><h3>Clearance</h3><p>What a surface may say depends on who reads it. The same fact can be internal, partner-safe or client-safe, and a generator refuses to write a page whose reader is not cleared for what is on it.</p></div><div class="card"><h3>The checks</h3><p>There are 23 checks that stop a send, alongside 61 smaller checks in the code, run by one command and reported as one verdict. They refuse a rate, a contested figure stated as fact, a retired name, an unsourced number, a status that disagrees with the artifact that settles it, and a count typed into a sentence.</p></div><div class="card"><h3>Close-out</h3><p>A market cannot close until what it taught has been logged and classed for the next one. The log is enforced rather than encouraged, because the checks fail a market that tries to finish without it.</p></div></div></section><section id="proof"><h2>What became provable this week</h2><p class="lede">Each of these was measured on 8 September, and each will be re-measured before it is repeated.</p><div class="grid2"><div class="card"><h3>The checks can be passed</h3><p>The full run ended green with nothing carried over, from a red that had stood for a fortnight, and every fix was made at the source. A method whose own check is permanently red is a checklist people ship past; this one is a check.</p></div><div class="card"><h3>A market’s vocabulary is derived</h3><p>The nine deliverable names, the translation note and the citation rules are read from one place. A new market has them on the day it is created, and a retired name cannot reach a page because the build fails when one does.</p></div><div class="card"><h3>A status comes from the artifact that settles it</h3><p>Eight settled items were reading open on the surface everyone looks at, five because a column was kept by hand and three because a later layer overwrote a source edit. The mechanism is fixed where it broke, and a check now fails the contradiction, so the sentence has a proof behind it.</p></div><div class="card"><h3>A check is tested against near-misses</h3><p>Six checks in two days were wrong the same way in first draft: each matched a pattern and was never asked whether it could tell its target from something that merely looked like it. Every one now has a test case that would have caught it, which is the difference between a checklist and a check, and it is what a second operator inherits.</p></div><div class="card"><h3>The estate can be measured by anyone</h3><p>One command answers what is in the build and whether anyone uses it. Thirty-eight decks that had never been sent came out of the build on the same day the verdict went green, and smaller and greener at once is the argument for the method rather than for the effort.</p></div><div class="card"><h3>The counting is honest, and the number went down</h3><p>An earlier index called every long turn in the transcripts a quotation. The method now counts only the turns tied to a commitment, and says how sure it is of each one. A smaller number with a confidence on it is worth more than a larger one without.</p></div></div></section><section id="asked"><h2>What the client asked for, in their own words</h2><p class="lede">From the working notes at the tail of their own interview-questions document, with the structure kept and nothing tidied.</p><div class="grid2"><div class="card"><h3>The formats</h3><p>They list local photography for mailers and out-of-home, stories for their own paid media, stories to gather at existing sites and at net-new communities, physical leave-behinds, one-page static testimonials, videos in flagship and social cuts, decks, in-person event engagements including town halls, and community-to-community dialogue, meaning how to support a community in the conversation, for community leaders getting questions and for chambers of commerce.</p></div><div class="card"><h3>The substance</h3><p>They want a place that has evolved and grown but retained its character, and they ask what a new community needs to know from a community that has a longstanding data center. They name retail, a way of life that is consistent, intergenerational families, businesses that are doing well, hard numbers and economic impact, and construction set against ongoing employment.</p></div></div></section><section id="asked2"><p class="para">Read the substance list again, because it is not a content brief. Six of the eight lines are evidence propositions: that businesses are doing well, that there are hard numbers behind the economic impact, that construction employment differs from ongoing employment, that the way of life is consistent. Each is either supported in a specific market by a specific source, or it is not. They have written a research brief and filed it under content.</p><p class="para">The single most consequential line is the one about what a new community needs to know from a community that has a longstanding data center. That is the whole product, a long-tenure market answering a new one. Community-to-community dialogue is the same thing again, and it is the format to build toward: not a film about a town, but a structured way for a town that has one to answer a town that is getting one. An agency cannot supply that, because it requires the older market’s evidence base, and that is what exists here.</p></section><section id="reach"><h2>Where the evidence already reaches</h2><p class="para">Roughly half of the list sent on 3 September already sits inside research that has been done. Loudoun County is on the list and is already the comparable in this evidence base, on the county’s own figure that data centers supply 38 percent of its general fund. The per-household offset that travels with that figure is modeled by an advocacy body and is attributed separately for that reason. Muskogee County and Stillwater sit in the same regulatory and ratepayer environment as Pryor, where the relevant state law and the ballot history are already worked.</p><p class="para">None of that is a coincidence. It is the answer to why this partnership rather than an agency, and it is an argument about what a further market inherits: the register, the checks, the citation rules and the source library. It is currently written down in one file inside the delivery project, where the expansion planning cannot see it.</p></section><section id="board"><h2>The failure mode only this fixes</h2><p class="para">On 4 September the client’s project board and the evidence base were compared line by line for the first time, and of the thirty-seven comparable lines, three were clean. The board tracks outputs, which film, which profile, which deck, and it cannot see the transcripts, the cleared quotations, the adjudicated claims or the source library that produced them.</p><p class="para">That is not carelessness on anyone’s part. It is what happens when an evidence method has no representation in the layer where decisions are taken. At three markets it costs a reconciliation session. At the scale now being discussed it is unmanageable, and it is precisely the thing a further market pays for: not fieldwork, but the layer that keeps the client’s own board honest about what the fieldwork found.</p></section><section id="not"><h2>What is deliberately not claimed</h2><p class="lede">The discipline the whole thing rests on. A claim on this page that could not survive a check would be the drift the method exists to prevent.</p><div class="grid2"><div class="card"><h3>Not that the product is built</h3><p>The part that travels is measured and ordered. The shared modules that block the most generators have been moved into a template that rebuilds on its own, and the rest are queued with their blockers named. A fourth market standing up from the template without reading a file from the pilot is the acceptance test, and it has not been passed yet.</p></div><div class="card"><h3>Not a market count</h3><p>Three numbers are in circulation for the expansion and they are not interchangeable. None goes on a surface until Dave says which list is the list, because a number chosen for him is exactly the drift the method exists to prevent.</p></div><div class="card"><h3>Not a rate, anywhere</h3><p>Every commercial figure lives in one private place. A planning surface carries a pointer and never the figure.</p></div><div class="card"><h3>Not a contested figure as fact</h3><p>Every figure that has been argued over has a say-safe wording and a do-not-say. This document uses only figures that are cleared, and only in the wording they are cleared in.</p></div><div class="card"><h3>Not that the method is safe to hand over yet</h3><p>As of this week the part that travels lives in one folder with a local history and no remote. Where it lives decides who can see it, which is a commercial decision rather than a housekeeping one, and it has not been taken. Saying we can hand you the method and leaving that unsaid would be the kind of gap the method exists to close.</p></div></div></section><section id="worth"><h2>What it is worth</h2><p class="para">Worth here is measured in what a fourth market inherits on the day it opens, because that is the only number a buyer can check. It inherits the shape of a market, four moves in ten phases, each phase with an owner, an instrument and a gate, and a budget that prices those same phases. It inherits the register and its verdict vocabulary, the listening lens, the interview instrument, the citation and clearance rules, the checks that stop a send, and the close-out that will not let a market finish until what it taught is written down. It inherits the learnings of the markets before it, classed as universal, conditional or local, so the fourth market starts where the third finished rather than where the first did. And it inherits the people trained against the method, which is the part that cannot be handed over as a document.</p><p class="para">Who owns which part of that is now described rather than assumed. The practice has written down its background intellectual property, what it brought in, what it built alongside the engagement for the method, and what it does not claim, which is every deliverable, every recording, every register row and every film, and the description of the method that the final phase of the statement of work hands the client. That document is with Dave. It proposes nothing; it exists so that the next conversation can be about terms rather than about definitions, and terms are that next conversation, not this page.</p></section><section id="next"><h2>Where this leaves the conversation</h2><p class="para">Two things are needed from Dave and nothing else is asked: which list is the list, and an hour with the board open, because the argument on this page is easier to see than to read.</p></section>
+<footer>Internal to the partnership. Every apparatus figure on this page was measured at build time and the build refuses a typed one; every dated count carries its date. Rebuild: <code>python3 01_Opportunity-Universe/_bench/build_dave_intro.py</code>.</footer>
+</main>
+<div class="toast" id="toast"></div><script>
+(function(){
+  var t=document.getElementById('toast');
+  window.gwToast=function(m){if(!t)return;t.textContent=m;t.classList.add('up');
+    setTimeout(function(){t.classList.remove('up');},1400);};
+})();
+
+(function(){
+  var KEY='jc-'+(document.body.dataset.board||'board');
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function tally(){
+    var t=document.getElementById('tally');if(!t)return;
+    var all=document.querySelectorAll('.chip');var on=document.querySelectorAll('.chip.on');
+    t.textContent=on.length+' of '+all.length+' spoken to';
+  }
+  document.querySelectorAll('[data-k]').forEach(function(el){
+    var k=el.getAttribute('data-k');
+    if(state[k]){el.classList.add('on');}
+    if(el.classList.contains('chip')||el.classList.contains('q')){
+      el.setAttribute('tabindex','0');
+      el.setAttribute('role','button');
+      var flip=function(){
+        el.classList.toggle('on');state[k]=el.classList.contains('on');save();tally();
+      };
+      el.addEventListener('click',flip);
+      el.addEventListener('keydown',function(e){
+        if(e.key===' '||e.key==='Enter'){e.preventDefault();flip();}
+      });
+    }
+  });
+  tally();
+  function say(m){if(window.gwToast)window.gwToast(m);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.querySelector(b.getAttribute('data-copy'));
+      if(!t)return;
+      var txt=t.innerText||t.textContent;
+      if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){say('Copied');},
+        function(){say('Select and copy');});}
+      else{say('Select and copy');}
+    });
+  });
+  var clear=document.getElementById('clear');
+  if(clear){clear.addEventListener('click',function(){
+    state={};save();
+    document.querySelectorAll('.on').forEach(function(e){e.classList.remove('on');});
+    tally();say('Cleared');
+  });}
+})();
+</script></body></html>
