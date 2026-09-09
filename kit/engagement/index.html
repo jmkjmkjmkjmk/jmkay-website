@@ -127,6 +127,10 @@ button.act:hover{border-color:var(--slate);color:var(--slate)}
   gap:11px;color:var(--slate)}
 .phase h3 .n{font-size:12px;color:var(--moss);font-weight:800;letter-spacing:.08em}
 .pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.movegrp{margin:26px 0 0;padding:20px 0 4px;border-top:2px solid var(--slate)}
+.movegrp h3.mv{font-size:21px;margin:0 0 4px;font-weight:800;display:flex;align-items:baseline;gap:12px;color:var(--slate)}
+.movegrp h3.mv .n{font-size:12px;color:var(--earth);font-weight:800;letter-spacing:.12em}
+.movegrp .stack{margin-top:12px}
 .q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:17px 19px;
   cursor:pointer;transition:border-color .12s,background .12s}
 .q:hover{border-color:var(--slate)}
@@ -162,48 +166,89 @@ button.act:hover{border-color:var(--slate);color:var(--slate)}
   <h1>Engagement shape<span class="d"></span></h1>
   <p class="sub">What a market engagement is, phase by phase — what the client receives at each one, and what the client has to supply for it to work.</p>
 </div></header>
-<nav><div class="inner"><a href="#phases">Six phases</a><a href="#standing">Always true</a><a href="#scope">What sits inside</a><a href="#route">Route these</a></div></nav>
+<nav><div class="inner"><a href="#phases">Four moves</a><a href="#standing">Always true</a><a href="#scope">What sits inside</a><a href="#route">Route these</a></div></nav>
 <main class="wrap"><section id="phases">
-<h2>Six phases</h2>
-<p class="lede">In order, and the order matters — verification cannot start before the field
-work and findings cannot start before verification. Phases overlap; they do not swap.</p>
-<div class="stack"><div class="phase">
-  <h3><span class="n">01</span>Scope and access</h3>
+<h2>Four moves, ten phases</h2>
+<p class="lede">In order, and the order matters: the ground cannot start before the audit, and
+synthesis cannot start before the ground. Phases overlap; they do not swap. The budget model
+prices these same ten phases.</p>
+<div class="movegrp">
+  <h3 class="mv"><span class="n">01</span>Audit and gap-find</h3>
+  <p class="lede" style="margin-top:0">What is already said about the market, and what nobody has checked.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">0</span>Spin-up</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>The market brief, the stakeholder universe, and the interview slate.</p></div>
-    <div class="rail ask"><p class="lbl">They supply</p><p>Site contacts, the claims you already publish, and one named person who can open doors.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>A dated calendar with every wall sourced, a market folder, and the citation prefix every later reference carries.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>The market brief, the dates your side already holds, and one named person who can open doors.</p></div>
   </div>
 </div><div class="phase">
-  <h3><span class="n">02</span>Field discovery</h3>
+  <h3><span class="n">1</span>Audit and gap-find</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>Long-form interviews in the market, on the record and consented. A first read within days of leaving the ground.</p></div>
-    <div class="rail ask"><p class="lbl">They supply</p><p>Nothing while we are there. That is the point of the phase.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>Every claim already published about the market, on the register with its source.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>The claims you already publish and the documents behind them.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">02</span>Baseline the before-picture</h3>
+  <p class="lede" style="margin-top:0">Where the market stood before, on an instrument every market shares.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">2</span>Baseline the before-picture</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The before-picture on two instruments, the material delta and the belief delta, on the same scale as every other market.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Access to your own baseline data where it exists.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">03</span>Discover on the ground</h3>
+  <p class="lede" style="margin-top:0">The rooms, the tape, and the register that grows from them.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">3</span>Champion mapping and outreach</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The champion map: who speaks for the market, tiered, with consent status and a contact path.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Site contacts, and introductions where a door needs opening.</p></div>
   </div>
 </div><div class="phase">
-  <h3><span class="n">03</span>Verification</h3>
+  <h3><span class="n">4</span>Discovery visit</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>Every claim registered, sourced and given a verdict. The ones that do not hold are flagged with the reason they do not.</p></div>
-    <div class="rail ask"><p class="lbl">They supply</p><p>Access to your own source documents for anything you already publish.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>Long-form conversations on the record, each recording named for its market, room and language, with consent captured where it happened.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Nothing while the team is on the ground. That is the point of the visit.</p></div>
   </div>
 </div><div class="phase">
-  <h3><span class="n">04</span>Findings</h3>
+  <h3><span class="n">5</span>Production visit</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>The assessment, the friction map, and the honest picture — including what did not hold.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>Film and photography per the deliverable set, with releases on file for everyone filmed.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Brand direction, and any subject your side wants in frame.</p></div>
+  </div>
+</div><div class="phase">
+  <h3><span class="n">6</span>Capture to transcript to intel-delta</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>Transcripts with speakers named and checked, every claim registered, and a read of what each conversation changed.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Your source documents for anything a conversation contradicts.</p></div>
+  </div>
+</div></div>
+</div><div class="movegrp">
+  <h3 class="mv"><span class="n">04</span>Synthesize</h3>
+  <p class="lede" style="margin-top:0">The findings, the review, and what the next market inherits.</p>
+  <div class="stack"><div class="phase">
+  <h3><span class="n">7</span>Synthesis</h3>
+  <div class="pair">
+    <div class="rail yes"><p class="lbl">They receive</p><p>The Market Impact Assessment, the story spines, the champion profiles, and the evidence and sources behind each.</p></div>
     <div class="rail ask"><p class="lbl">They supply</p><p>One review pass from your team.</p></div>
   </div>
 </div><div class="phase">
-  <h3><span class="n">05</span>Deliverables</h3>
+  <h3><span class="n">8</span>The review ramp</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>Whatever the engagement bought: the report, the film, the champion profiles, the index score. Each one traceable to the register behind it.</p></div>
-    <div class="rail ask"><p class="lbl">They supply</p><p>Approvals, and any brand direction your team wants applied.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>The team&#x27;s read, then your preview, then the wall: every send cleared the checks.</p></div>
+    <div class="rail ask"><p class="lbl">They supply</p><p>Approvals, on the dates the calendar names.</p></div>
   </div>
 </div><div class="phase">
-  <h3><span class="n">06</span>Close-out and handover</h3>
+  <h3><span class="n">9</span>Close-out and codify</h3>
   <div class="pair">
-    <div class="rail yes"><p class="lbl">They receive</p><p>The evidence base, the citation index and the market record, in a form your own team or your agency can work from.</p></div>
+    <div class="rail yes"><p class="lbl">They receive</p><p>The evidence base, the citation index and the market record in a form your own team or agency can work from; what the market taught, classed, in the next market&#x27;s kit.</p></div>
     <div class="rail ask"><p class="lbl">They supply</p><p>A decision on what stays live.</p></div>
   </div>
 </div></div>
+</div>
 </section><section id="standing">
 <h2>True of every engagement</h2>
 <p class="lede">Four facts that hold whatever was bought, and that can be said to a client
