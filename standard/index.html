@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="../favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<title>The Standard &mdash; J. M. Kay</title>
+<meta name="description" content="What a verification verdict means, what counts as an independent source, and the four things I will not do.">
+<meta property="og:title" content="The Standard &mdash; J. M. Kay">
+<meta property="og:description" content="What a verification verdict means, what counts as an independent source, and the four things I will not do.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://jmkay.com/standard/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Standard &mdash; J. M. Kay">
+<meta name="twitter:description" content="What a verification verdict means, what counts as an independent source, and the four things I will not do.">
+<link rel="canonical" href="https://jmkay.com/standard/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XM6RT038M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-6XM6RT038M');
+</script>
+
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('../KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  :root {
+    --warm-white: #FDFBF7;
+    --cream: #F5F0E8;
+    --sand: #D4C5A9;
+    --ink: #1C1917;
+    --ink-light: #44403C;
+    --ink-muted: #78716C;
+    --stone: #A8A29E;
+    --terracotta: #C2603F;
+    --terracotta-light: #E8A88C;
+    --deep-teal: #1A4A4A;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(253,251,247,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(212,197,169,0.3);
+    padding: 0 48px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 1;
+    font-family: 'Kay Display', serif;
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: var(--ink);
+    letter-spacing: 0.03em;
+    gap: 0;
+  }
+  .nav-brand .nav-dw {
+    position: relative;
+    width: 9px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-brand .nav-dp {
+    width: 5px; height: 5px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 0.8px;
+  }
+  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+  /* PAGE */
+  .page-header {
+    padding: 140px 48px 40px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .page-back {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--deep-teal);
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s ease;
+  }
+  .page-back:hover { color: var(--terracotta); }
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 46px;
+    color: var(--ink);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-light);
+    line-height: 1.6;
+  }
+  .rule {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .rule-inner {
+    height: 1px;
+    background: rgba(212,197,169,0.6);
+    margin: 8px 0 40px;
+  }
+
+  .body-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 48px 40px;
+  }
+  .body-wrap p {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+  .body-wrap p.lede {
+    font-size: 19px;
+    color: var(--ink);
+  }
+  .body-wrap h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 27px;
+    color: var(--ink);
+    line-height: 1.25;
+    margin: 46px 0 16px;
+  }
+  .body-wrap h2 .h2-dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1.4px;
+    margin-right: 12px;
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+  }
+  .refusals {
+    list-style: none;
+    margin: 4px 0 22px;
+    padding: 0;
+  }
+  .refusals li {
+    font-size: 17px;
+    color: var(--ink-light);
+    line-height: 1.75;
+    margin-bottom: 18px;
+    padding-left: 26px;
+    position: relative;
+  }
+  .refusals li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 11px;
+    width: 6px; height: 6px;
+    background: var(--terracotta);
+    transform: rotate(45deg);
+    border-radius: 1.2px;
+  }
+  .standing {
+    background: var(--cream);
+    border-left: 2px solid var(--terracotta);
+    padding: 26px 28px;
+    margin: 34px 0 8px;
+  }
+  .standing p { margin-bottom: 0; font-size: 16px; }
+  .stamp {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-top: 40px;
+  }
+  .stamp a { color: var(--deep-teal); text-decoration: none; }
+  .stamp a:hover { color: var(--terracotta); }
+
+  footer {
+    border-top: 1px solid rgba(212,197,169,0.4);
+    padding: 40px 48px;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .footer-brand {
+    font-family: 'Kay Display', serif;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .footer-sub { font-size: 13px; color: var(--ink-muted); }
+  .footer-sub a { color: var(--ink-muted); }
+  .footer-sub a:hover { color: var(--terracotta); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 12px; }
+    .page-header { padding: 110px 24px 32px; }
+    .page-title { font-size: 34px; }
+    .page-subtitle { font-size: 16px; }
+    .rule, .body-wrap { padding-left: 24px; padding-right: 24px; }
+    .body-wrap h2 { font-size: 23px; }
+    footer { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <div class="nav-links">
+    <a href="../index.html#work">Work</a>
+    <a href="../writing.html">Perspectives</a>
+    <a href="../index.html#services">Services</a>
+    <a href="../index.html#about">About</a>
+    <a href="../index.html#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <a href="../index.html" class="page-back">&larr; J. M. Kay</a>
+  <h1 class="page-title">The standard</h1>
+  <p class="page-subtitle">What a verdict means, what counts as a source, and what I will not do.</p>
+</div>
+<div class="rule"><div class="rule-inner"></div></div>
+
+<div class="body-wrap">
+
+  <p class="lede">Anyone can say their research is independent. The word costs nothing to use, which is why it is worth almost nothing to hear. What is worth something is a standard written down in advance, specific enough to be checked against the work, and awkward enough that publishing it closes some doors.</p>
+
+  <p>This is mine.</p>
+
+  <h2><span class="h2-dot"></span>What a verdict means</h2>
+
+  <p>Every load-bearing claim in my work gets tested against sources the client does not control, and comes back with a verdict. There are four, and the distance between them matters more than the words suggest.</p>
+
+  <p>A claim is <strong>supported</strong> when independent evidence agrees with it and the source is named in the deliverable. It is <strong>contested</strong> when credible sources disagree, or when the only source is the party making the claim. A contested figure can still be used, with its framing attached, but it never appears as settled. It is <strong>unverified</strong> when I could not find independent evidence in either direction, which is not a polite way of saying false. It means the work has not been done, or cannot be, and saying so is more useful than guessing. It is <strong>misframed</strong> when the number is real and the meaning attached to it is not.</p>
+
+  <p>Misframing is the most common failure and it does the most damage, because nothing in it is a lie. A true figure standing in for something it does not measure will survive internal review, clear legal, and then fall apart in front of the one person in the room who knows the underlying data.</p>
+
+  <p>Every figure carries its source. A number I cannot trace does not go in the deliverable.</p>
+
+  <h2><span class="h2-dot"></span>What counts as an independent source</h2>
+
+  <p>A source is independent when it is not the party making the claim, and does not depend on that party for its money, its access, or its answer.</p>
+
+  <p>That rules out more than people expect. A study commissioned by the subject is not independent, however good the firm that ran it. A local official whose budget depends on the project is a source worth having and not an independent one, and the deliverable says which he is. A trade body funded by the sector is the sector. So is a research institute, unless its funding is disclosed and it has published against its funders before.</p>
+
+  <p>Where the only available source is the interested party, the claim is contested by definition, and I mark it that way rather than laundering it through a citation.</p>
+
+  <h2><span class="h2-dot"></span>Unwelcome findings stay in the record</h2>
+
+  <p>The findings nobody wanted are the ones that make the rest of the document worth reading. A report in which everything came out well is a report nobody will believe, and they are right not to.</p>
+
+  <p>So the difficult findings go in, with an honest account of what saying them costs and to whom. Sensitivity is a real weight in this work. Some true things are not sayable yet, and knowing which is a service in itself. But that is a judgment about timing and audience, made in the open. It is not a mechanism for removing a finding from the record.</p>
+
+  <h2><span class="h2-dot"></span>Who decides what</h2>
+
+  <p>The client corrects facts. A wrong date, a wrong title, a figure I misread, a name I misspelled: all of that gets fixed, and I am glad to be told.</p>
+
+  <p>The client does not approve conclusions. What the evidence shows is not a negotiated position. A document whose findings were agreed in advance is worthless to the person who commissioned it as well as to everybody else, because the reason to bring in somebody from outside is to get a read that is not already yours.</p>
+
+  <h2><span class="h2-dot"></span>What I will not do</h2>
+
+  <p>Four refusals, published so they can be checked.</p>
+
+  <ul class="refusals">
+    <li>I do not do advocacy. I will not argue a client's case in public, in a hearing, or in a filing. Research and campaigning are different jobs and the same firm should not hold both.</li>
+    <li>I do not place comments. I will not organise, script, fund, or supply public comment, testimony, or correspondence, and not through anybody else either. Interview subjects are not paid.</li>
+    <li>I do not fund third parties. I will not pay, retain, or materially support a community group, an individual, or a coalition that then speaks in favour of a client.</li>
+    <li>I do not accept client edits to findings. This is the one above, repeated here, because it is the one most often breached quietly.</li>
+  </ul>
+
+  <h2><span class="h2-dot"></span>How to hold me to it</h2>
+
+  <div class="standing">
+    <p>If a piece of my work is in front of you and something on this page is not true of it, say so, and I will either fix the work or take the line off this page. A standard that cannot be checked against the thing is a marketing document, and this is not meant to be one.</p>
+  </div>
+
+  <p class="stamp">Published 2026 &middot; <a href="mailto:jonathan@jmkay.com">jonathan@jmkay.com</a></p>
+
+</div>
+
+<footer>
+  <div class="footer-brand">J.M.KAY</div>
+  <div class="footer-sub"><a href="mailto:jonathan@jmkay.com">jonathan@jmkay.com</a></div>
+</footer>
+
+</body>
+</html>
