@@ -235,6 +235,20 @@
   .hero-title {
     display: none;
   }
+  /* The visible lockup is drawn as individually animated letter spans, so it reads
+     as "JMKAY" to a crawler. The semantic h1 carries the readable text instead.
+     Visually hidden, not display:none — screen readers and search engines still get it. */
+  .hero-h1 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .hero-intro {
     font-family: 'DM Sans', sans-serif;
     font-size: 20px;
@@ -328,6 +342,7 @@
     text-transform: uppercase;
     color: var(--ink-muted);
     margin-bottom: 48px;
+    font-weight: 400;   /* pinned: this element is an h2, UA bold must not apply */
   }
   .project {
     display: flex;
@@ -434,6 +449,7 @@
     text-transform: uppercase;
     color: var(--ink-muted);
     margin-bottom: 14px;
+    font-weight: 400;   /* pinned: this element is an h2, UA bold must not apply */
   }
   .about-name {
     font-family: 'Instrument Serif', serif;
@@ -467,6 +483,7 @@
     font-size: 32px;
     color: var(--cream);
     margin-bottom: 12px;
+    font-weight: 400;   /* pinned: this element is an h2, UA bold must not apply */
   }
   .contact-sub {
     font-size: 15px;
@@ -579,6 +596,7 @@
     text-transform: uppercase;
     color: var(--ink-muted);
     margin-bottom: 40px;
+    font-weight: 400;   /* pinned: this element is an h2, UA bold must not apply */
   }
   .services-grid {
     display: grid;
@@ -805,6 +823,7 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
+  <h1 class="hero-h1">J. M. Kay &mdash; Story Producer</h1>
   <div class="wm-lockup" id="wmSvg">
     <!-- ─── WORDMARK: Kay Display + soft diamond dots ─── -->
     <div class="wm-main">
@@ -868,7 +887,7 @@
 <!-- ═══ SERVICES ═══ -->
 <section class="services" id="services">
   <div class="services-inner">
-    <div class="services-label">What I Produce</div>
+    <h2 class="services-label">What I Produce</h2>
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">&#9654;</div>
@@ -896,7 +915,7 @@
 
 <!-- ═══ SELECTED WORK ═══ -->
 <section class="work" id="work">
-  <div class="work-label">Selected Work</div>
+  <h2 class="work-label">Selected Work</h2>
 
   <!-- Project 1: Baselga -->
   <div class="project">
@@ -933,7 +952,7 @@
   <div class="about-inner">
     <img class="about-photo" src="JK%20profile.jpg" alt="Jonathan Michael Kay">
     <div class="about-text">
-      <div class="about-label">About</div>
+      <h2 class="about-label">About</h2>
       <div class="about-name">Jonathan Michael Kay</div>
       <div class="about-bio">Story producer with two decades on both the agency side and inside Fortune 100 communications operations. I&rsquo;ve worked in global health, scientific communications, and institutional storytelling &mdash; learning that every expert, breakthrough, and crisis contains a human story worth telling.</div>
       <div class="about-bio">My background is unusual. I started in neuropsychological research at Boston University, studying how the brain processes information and forms understanding. That foundation shapes everything I produce. When you understand how people think, you can build narratives that resonate at a deeper level.</div>
@@ -946,7 +965,7 @@
 
 <!-- ═══ CONTACT ═══ -->
 <section class="contact" id="contact">
-  <div class="contact-heading">Have a story to tell?</div>
+  <h2 class="contact-heading">Have a story to tell?</h2>
   <div class="contact-sub">I work with organizations, founders, and institutions on documentaries, video series, multimedia campaigns, and narrative strategy. First conversation is always free.</div>
   <div class="contact-links">
     <a class="contact-btn" href="mailto:jonmichaelkay@gmail.com">Get in touch →</a>
