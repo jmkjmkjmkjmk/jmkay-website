@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://jmkay.com/standard/</loc>
+    <lastmod>2026-09-09</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://jmkay.com/writing.html</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
