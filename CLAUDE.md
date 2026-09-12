@@ -7,10 +7,10 @@ There are TWO directories on this computer that look like the jmkay.com website.
 
 Before committing: `git fetch origin && git log origin/main` to see real remote state. If GitHub Desktop refuses to commit ("lock file already exists"), the fix is to clear all three locks from a Terminal: `rm .git/index.lock .git/HEAD.lock .git/objects/maintenance.lock` then commit.
 
-**Brand single source of truth:** `~/Desktop/CLAUDIUS/JMKay/Brand/Docs/BRAND-SYSTEM.md`. When the brand notes below disagree with it or the live site, BRAND-SYSTEM.md / the live site win.
+**Brand single source of truth:** `~/Desktop/CLAUDIUS/JMKay/Brand/Docs/BRAND-SYSTEM.md`, and for anything diamond-shaped the component that owns the geometry, `JMKay/Brand/ui_kits/jmkay-website/Wordmark.jsx` (run its gate: `node .../check-wordmark-geometry.mjs`). The current decision record is `JMKay/Brand/Docs/D3-descriptor-refresh.md`. When the brand notes below disagree with it or the live site, BRAND-SYSTEM.md / the live site win.
 
 ## Me
-Jonathan Michael Kay. Independent Story Producer building a solo consulting practice as J. M. Kay. Base rate $150/hr. Coding beginner — build things for me, don't explain how.
+Jonathan Michael Kay. Building a solo consulting practice as J. M. Kay: discovery, evidence, and narrative counsel for complex work. Base rate $150/hr. Coding beginner — build things for me, don't explain how.
 
 ## File Organization Rules
 Always save files to logical subfolders — never dump loose files at the top level. Current folder structure:
@@ -37,8 +37,14 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 | Google Search Console | Verified via DNS/CNAME. Sitemap submitted. Update `sitemap.xml` lastmod on any page change. |
 | Perspectives section | `writing.html` index + `writing/` folder for essay pages |
 | Nav order | Work, Perspectives, Services, About, Contact |
+| Nav wordmark | 0.05em letter-spacing on all fourteen pages, matching the hero (JK, 12 Sep 2026). The placement constants are measured at 0.05em, so the nav had to move to them; the old `.nav-dw` wrapper and the `.nav-kay` 0.04em override are retired. |
 | CSS font stack | Kay Display (wordmark), Instrument Serif (headlines), DM Sans (body), Space Mono (labels) |
 | Warm White | `--warm-white` #FDFBF7 (site background). #F5F0E8 is Cream (secondary ground). |
+
+**Diamond ornaments are retired (D3 decision 4, 12 Sep 2026).** The diamond divides the name and
+does nothing else. `h2-dot`, `dot-divider`, `dot-divider-gem`, `dot-sep`, `dot-list` and `dot-byline`
+are gone from every page; headings take a hairline rule, dividers take a plain rule (`.rule-div`),
+lists take an en dash. Only `jmk-d` (hero) and `nav-dp` (nav) survive, and both are generated.
 
 **Published Perspectives pages (keep current):**
 - Post 01 "The Work Had a Name" → `writing/jmkay.html` (Mar 12)
@@ -61,13 +67,13 @@ When creating new files: pick the right subfolder. If none fits, create a new na
 | Warm White | `--warm-white` #FDFBF7 — site background ground |
 | Cream | #F5F0E8 — secondary ground |
 | Ink | #1C1917 — body text |
-| Teal | #1A4A4A — accent |
+| Teal | #1A4A4A — accent. **The reversed mark on teal is HELD as of 12 Sep 2026** — nothing reversed ships until the decision is retaken; the rule is commented out in the generated CSS on purpose. |
 | The dots | Structural, not decorative — brand principle |
 | Wordmark font | **KayDisplay v4** (custom CFF OpenType, 58 glyphs; surgical K/Y/Q/R correction over v3, locked Apr 21 2026). Site-local `KayDisplay-Regular.otf` is a copy of v4 — keep md5-matched to `Brand/Font/KayDisplay-v4.otf`. |
-| Subtitle | "STORY PRODUCER" — **Space Mono 400, 13px, letter-spacing 0.28em, color `--ink`**. The O is replaced by a filled terracotta diamond (**D2.1**: 6.2×6.2px, rotate 45°, border-radius 1.35px; locked May 26 2026). |
-| Hero separator dot | CSS square, 14×14px, terracotta, rotate 45° (nav scale 5×5px). Not an SVG ring. |
+| Subtitle | **RETIRED 12 Sep 2026** (D3, decision 8). The line under the wordmark is dropped and nothing replaces it; `.wm-sub` / `.sub-dot` / `.sub-spacer` and the D2.1 numbers are gone from the site. Where words are needed the role line goes in body type: "Discovery, evidence, and narrative counsel for complex work." |
+| Hero separator dot | **Do not type this number.** The two diamonds are `.d1` and `.d2` and their geometry is GENERATED — `node ~/Desktop/CLAUDIUS/JMKay/Brand/ui_kits/jmkay-website/emit-wordmark-assets.mjs`, then paste `_generated/wordmark.generated.css`. `Wordmark.jsx` is the sole owner (D3/P2). Outline, terracotta center, 17% of the type size on light grounds; solid below the floor. |
 | Wordmark | J.M.KAY only (dots + letters). LinkedIn assets, banners, nav. |
-| Lockup | J.M.KAY + STORY PRODUCER combined unit. Hero, formal applications. |
+| Lockup | J.M.KAY alone. The lockup IS the wordmark since 12 Sep 2026. |
 | Full-name rule | "Jonathan Michael Kay" is STATIC ONLY — never animated. Only abbreviated J.M.Kay gets sting. |
 
 (Retired: KayDisplay v2, Josefin Sans subtitle, O-rings, the Mar/Apr 8 dot-geometry locks, and the "Still OPEN (Apr 8)" list — all superseded by the v3→v4 migration. See BRAND-SYSTEM.md for the full current spec + lock history.)
@@ -105,7 +111,7 @@ Warm but not soft. Confident but not boastful. Precise but not cold. Short sente
 10. **Be precise about production realities.** Don't say "we filmed in three countries" if the pandemic meant virtual interviews and archival footage.
 11. **Fact-check all specific claims.** Drug approvals, award credits, institutional roles — verify before including. If uncertain, soften or flag.
 12. **Soft CTAs only.** Never "the full case study is on my site." Instead: "Hear more about how we worked across..." or "Here's how the story developed..."
-13. **Semicolons for rhythm.** Can replace periods when two thoughts are closely linked. Paragraphs beginning with "And" are fine for emotional beats. Closing should connect back to Story Producer positioning without repeating it verbatim.
+13. **Semicolons for rhythm.** Can replace periods when two thoughts are closely linked. Paragraphs beginning with "And" are fine for emotional beats. Closing should connect back to the J.M.Kay positioning without repeating it verbatim.
 14. **No "LinkedIn twat."** LinkedIn includes Jonathan's personal contacts (old classmates, doc subjects, family friends) who clock anything performative. Disqualifying: "thrilled to share," "humbled to announce," "X lessons I learned," declaratory thesis sentences, process-flex, hashtag parades, "thinking partner," "journey," "reply below" CTAs, humble-brags. Sound like someone talking to a professionally-curious friend.
 15. **Two-lane copy.** jmkay.com Perspectives = professional-facing, confident, methodology-forward. LinkedIn = softer, more elliptical, cut the declaration. Shared: title, covers, themes, date, hero imagery. May differ: subhead, body voice, length. (Full rule in the master CLAUDIUS CLAUDE.md.)
 

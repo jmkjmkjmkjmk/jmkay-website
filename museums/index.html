@@ -91,25 +91,27 @@
     font-size: 20px;
     text-transform: uppercase;
     color: var(--ink);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     gap: 0;
   }
-  .nav-brand .nav-dw {
-    position: relative;
-    width: 9px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  /* --- generated, D3 2026-09-12 --- */
+  /* Generated from JMKay/Brand/ui_kits/jmkay-website/Wordmark.jsx — D3 spec, 2026-09-12.
+     Do not edit these values. Change the constant in Wordmark.jsx and re-run
+     emit-wordmark-assets.mjs. Every number below is computed, none is typed. */
+
+  /* Nav: the old .nav-dw fixed-width wrapper goes; the margins below do its job. */
   .nav-brand .nav-dp {
-    width: 5px;
-    height: 5px;
+    width: 2.6px; height: 2.6px;
+    border-radius: 0.36px;
     background: var(--terracotta);
+    box-sizing: border-box;
     transform: rotate(45deg);
-    border-radius: 0.8px;
+    flex-shrink: 0; display: inline-block;
   }
-  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-brand .nav-dp.d1 { margin-left: 0.45px; margin-right: 2px; }
+  .nav-brand .nav-dp.d2 { margin-left: 1.02px; margin-right: 1.43px; }
+  .nav-brand .jmk-j   { margin-right: -0.61px; }
+  .nav-brand .jmk-kay { margin-left: 0.61px; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a {
     font-family: 'DM Sans', sans-serif;
@@ -171,31 +173,8 @@
     color: var(--ink-muted);
   }
 
-  /* DOT DIVIDER */
-  .dot-divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 32px auto;
-    max-width: 960px;
-    padding: 0 48px;
-  }
-  .dot-divider::before,
-  .dot-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--sand);
-    opacity: 0.5;
-  }
-  .dot-divider-gem {
-    width: 7px;
-    height: 7px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 1px;
-    flex-shrink: 0;
-  }
+.rule-div { max-width: 960px; margin: 32px auto; padding: 0 48px; }
+  .rule-div::after { content: ''; display: block; height: 1px; background: var(--sand); opacity: 0.5; }
 
   /* CONTROLS */
   .controls {
@@ -430,7 +409,7 @@
     .nav-links { display: none; }
     .page-header { padding: 100px 24px 32px; }
     .page-header h1 { font-size: 28px; }
-    .dot-divider { padding: 0 24px; }
+    .rule-div { padding: 0 24px; }
     .controls { padding: 0 24px; }
     .museum-list { padding: 0 24px 40px; }
     .stats-row { gap: 20px; }
@@ -445,7 +424,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <a href="../index.html" class="nav-brand"><span class="jmk-j">J</span><span class="nav-dp d1"></span><span>M</span><span class="nav-dp d2"></span><span class="jmk-kay">KAY</span></a>
   <div class="nav-links">
     <a href="../index.html#work">Work</a>
     <a href="../writing.html">Perspectives</a>
@@ -484,7 +463,7 @@
   </div>
 </div>
 
-<div class="dot-divider"><span class="dot-divider-gem"></span></div>
+<div class="rule-div"></div>
 
 <!-- CONTROLS -->
 <div class="controls">
@@ -510,7 +489,8 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">J.M.KAY</div>
-  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+  <div class="footer-sub">Discovery, evidence, and narrative counsel for complex work</div>
+  <div class="footer-sub"><a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
 </footer>
 
 <script>

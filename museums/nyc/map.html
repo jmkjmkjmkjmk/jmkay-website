@@ -48,10 +48,26 @@
   .nav-brand {
     display: inline-flex; align-items: center; text-decoration: none; line-height: 1;
     font-family: 'Kay Display', serif; font-weight: 400; font-size: 20px;
-    text-transform: uppercase; color: var(--ink); letter-spacing: 0.03em;
+    text-transform: uppercase; color: var(--ink); letter-spacing: 0.05em;
   }
-  .nav-brand .nav-dw { position: relative; width: 9px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .nav-brand .nav-dp { width: 5px; height: 5px; background: var(--terracotta); transform: rotate(45deg); border-radius: 0.8px; }
+  /* --- generated, D3 2026-09-12 --- */
+  /* Generated from JMKay/Brand/ui_kits/jmkay-website/Wordmark.jsx — D3 spec, 2026-09-12.
+     Do not edit these values. Change the constant in Wordmark.jsx and re-run
+     emit-wordmark-assets.mjs. Every number below is computed, none is typed. */
+
+  /* Nav: the old .nav-dw fixed-width wrapper goes; the margins below do its job. */
+  .nav-brand .nav-dp {
+    width: 2.6px; height: 2.6px;
+    border-radius: 0.36px;
+    background: var(--terracotta);
+    box-sizing: border-box;
+    transform: rotate(45deg);
+    flex-shrink: 0; display: inline-block;
+  }
+  .nav-brand .nav-dp.d1 { margin-left: 0.45px; margin-right: 2px; }
+  .nav-brand .nav-dp.d2 { margin-left: 1.02px; margin-right: 1.43px; }
+  .nav-brand .jmk-j   { margin-right: -0.61px; }
+  .nav-brand .jmk-kay { margin-left: 0.61px; }
   .nav-right { display: flex; align-items: center; gap: 18px; }
   .nav-right a { font-size: 13px; color: var(--ink-muted); text-decoration: none; }
   .nav-right a:hover { color: var(--terracotta); }
@@ -128,7 +144,7 @@
 <body>
 
 <nav>
-  <a href="../../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span>KAY</span></a>
+  <a href="../../index.html" class="nav-brand"><span class="jmk-j">J</span><span class="nav-dp d1"></span><span>M</span><span class="nav-dp d2"></span><span class="jmk-kay">KAY</span></a>
   <div class="nav-right">
     <a href="index.html" class="list-link">View as list</a>
     <a href="../index.html">Full directory</a>
@@ -152,7 +168,8 @@
 
 <footer>
   <div class="footer-brand">J.M.KAY</div>
-  <div class="footer-sub">Story Producer &middot; <a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
+  <div class="footer-sub">Discovery, evidence, and narrative counsel for complex work</div>
+  <div class="footer-sub"><a href="mailto:jonmichaelkay@gmail.com">jonmichaelkay@gmail.com</a></div>
 </footer>
 
 <script>

@@ -86,24 +86,27 @@
     font-size: 20px;
     text-transform: uppercase;
     color: var(--ink);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     gap: 0;
   }
-  .nav-brand .nav-dw {
-    position: relative;
-    width: 9px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  /* --- generated, D3 2026-09-12 --- */
+  /* Generated from JMKay/Brand/ui_kits/jmkay-website/Wordmark.jsx — D3 spec, 2026-09-12.
+     Do not edit these values. Change the constant in Wordmark.jsx and re-run
+     emit-wordmark-assets.mjs. Every number below is computed, none is typed. */
+
+  /* Nav: the old .nav-dw fixed-width wrapper goes; the margins below do its job. */
   .nav-brand .nav-dp {
-    width: 5px; height: 5px;
+    width: 2.6px; height: 2.6px;
+    border-radius: 0.36px;
     background: var(--terracotta);
+    box-sizing: border-box;
     transform: rotate(45deg);
-    border-radius: 0.8px;
+    flex-shrink: 0; display: inline-block;
   }
-  .nav-brand .nav-kay { letter-spacing: 0.04em; }
+  .nav-brand .nav-dp.d1 { margin-left: 0.45px; margin-right: 2px; }
+  .nav-brand .nav-dp.d2 { margin-left: 1.02px; margin-right: 1.43px; }
+  .nav-brand .jmk-j   { margin-right: -0.61px; }
+  .nav-brand .jmk-kay { margin-left: 0.61px; }
   .nav-links { display: flex; gap: 32px; }
   .nav-links a {
     font-family: 'DM Sans', sans-serif;
@@ -182,17 +185,10 @@
     color: var(--ink);
     line-height: 1.25;
     margin: 46px 0 16px;
-  }
-  .body-wrap h2 .h2-dot {
-    display: inline-block;
-    width: 7px; height: 7px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 1.4px;
-    margin-right: 12px;
-    vertical-align: middle;
-    position: relative;
-    top: -3px;
+    padding-top: 22px;
+    /* D3, 2026-09-12: the diamond divides the name and nothing else. Headings take
+       a hairline rule, at the same weight the site's other rules already use. */
+    border-top: 1px solid rgba(212,197,169,0.5);
   }
   .refusals {
     list-style: none;
@@ -268,7 +264,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="../index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <a href="../index.html" class="nav-brand"><span class="jmk-j">J</span><span class="nav-dp d1"></span><span>M</span><span class="nav-dp d2"></span><span class="jmk-kay">KAY</span></a>
   <div class="nav-links">
     <a href="../index.html#work">Work</a>
     <a href="../writing.html">Perspectives</a>
@@ -291,7 +287,7 @@
 
   <p>This is mine.</p>
 
-  <h2><span class="h2-dot"></span>What a verdict means</h2>
+  <h2>What a verdict means</h2>
 
   <p>Every load-bearing claim in my work gets tested against sources the client does not control, and comes back with a verdict. There are four, and the distance between them matters more than the words suggest.</p>
 
@@ -301,7 +297,7 @@
 
   <p>Every figure carries its source. A number I cannot trace does not go in the deliverable.</p>
 
-  <h2><span class="h2-dot"></span>What counts as an independent source</h2>
+  <h2>What counts as an independent source</h2>
 
   <p>A source is independent when it is not the party making the claim, and does not depend on that party for its money, its access, or its answer.</p>
 
@@ -309,19 +305,19 @@
 
   <p>Where the only available source is the interested party, the claim is contested by definition, and I mark it that way rather than laundering it through a citation.</p>
 
-  <h2><span class="h2-dot"></span>Unwelcome findings stay in the record</h2>
+  <h2>Unwelcome findings stay in the record</h2>
 
   <p>The findings nobody wanted are the ones that make the rest of the document worth reading. A report in which everything came out well is a report nobody will believe, and they are right not to.</p>
 
   <p>So the difficult findings go in, with an honest account of what saying them costs and to whom. Sensitivity is a real weight in this work. Some true things are not sayable yet, and knowing which is a service in itself. But that is a judgment about timing and audience, made in the open. It is not a mechanism for removing a finding from the record.</p>
 
-  <h2><span class="h2-dot"></span>Who decides what</h2>
+  <h2>Who decides what</h2>
 
   <p>The client corrects facts. A wrong date, a wrong title, a figure I misread, a name I misspelled: all of that gets fixed, and I am glad to be told.</p>
 
   <p>The client does not approve conclusions. What the evidence shows is not a negotiated position. A document whose findings were agreed in advance is worthless to the person who commissioned it as well as to everybody else, because the reason to bring in somebody from outside is to get a read that is not already yours.</p>
 
-  <h2><span class="h2-dot"></span>What I will not do</h2>
+  <h2>What I will not do</h2>
 
   <p>Four refusals, published so they can be checked.</p>
 
@@ -332,7 +328,7 @@
     <li>I do not accept client edits to findings. This is the one above, repeated here, because it is the one most often breached quietly.</li>
   </ul>
 
-  <h2><span class="h2-dot"></span>How to hold me to it</h2>
+  <h2>How to hold me to it</h2>
 
   <div class="standing">
     <p>If a piece of my work is in front of you and something on this page is not true of it, say so, and I will either fix the work or take the line off this page. A standard that cannot be checked against the thing is a marketing document, and this is not meant to be one.</p>

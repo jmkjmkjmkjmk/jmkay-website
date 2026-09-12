@@ -16,9 +16,9 @@
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<title>J. M. Kay — Story Producer</title>
-<meta name="description" content="Jonathan Kay is a story producer who helps organizations find the human narrative inside complex work — then produces the content that carries it.">
-<meta property="og:title" content="J. M. Kay — Story Producer">
+<title>J. M. Kay — Discovery, evidence, and narrative counsel for complex work</title>
+<meta name="description" content="Discovery, evidence, and narrative counsel for complex work.">
+<meta property="og:title" content="J. M. Kay — Discovery, evidence, and narrative counsel for complex work">
 <meta property="og:description" content="I find the human narrative inside work that matters — then produce the content that carries it.">
 <meta property="og:image" content="https://jmkay.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -26,7 +26,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jmkay.com">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="J. M. Kay — Story Producer">
+<meta name="twitter:title" content="J. M. Kay — Discovery, evidence, and narrative counsel for complex work">
 <meta name="twitter:description" content="I find the human narrative inside work that matters — then produce the content that carries it.">
 <meta name="twitter:image" content="https://jmkay.com/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,11 +38,11 @@
   "@type": "Person",
   "name": "Jonathan Michael Kay",
   "alternateName": "J. M. Kay",
-  "jobTitle": "Story Producer",
+  "jobTitle": "Discovery, evidence, and narrative counsel for complex work",
   "url": "https://jmkay.com",
   "email": "jonathan@jmkay.com",
   "sameAs": ["https://linkedin.com/in/jonmichaelkay"],
-  "description": "Story Producer specializing in documentary, video series, and narrative strategy for complex, high-stakes organizations.",
+  "description": "Discovery, evidence, and narrative counsel for complex work: documentary, video series, and narrative strategy for complex, high-stakes organizations.",
   "knowsAbout": ["Documentary Production", "Narrative Strategy", "Scientific Communications", "Video Series Production"],
   "alumniOf": {
     "@type": "CollegeOrUniversity",
@@ -114,26 +114,8 @@
     font-size: 20px;
     text-transform: uppercase;
     color: var(--ink);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.05em;
     gap: 0;
-  }
-  .nav-brand .nav-dw {
-    position: relative;
-    width: 9px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .nav-brand .nav-dp {
-    width: 5px;
-    height: 5px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 0.8px;
-  }
-  .nav-brand .nav-kay {
-    letter-spacing: 0.04em;
   }
   .nav-links {
     display: flex;
@@ -190,48 +172,53 @@
     line-height: 1;
     gap: 0;
   }
+  /* Generated from JMKay/Brand/ui_kits/jmkay-website/Wordmark.jsx — D3 spec, 2026-09-12.
+     Do not edit these values. Change the constant in Wordmark.jsx and re-run
+     emit-wordmark-assets.mjs. Every number below is computed, none is typed. */
+
+  /* The two diamonds are .d1 and .d2 — they no longer carry equal margins. */
   .wm-main .jmk-d {
-    width: 14px;
-    height: 14px;
+    width: 12.24px; height: 12.24px;
+    border-radius: 1.71px;
     background: var(--terracotta);
+    border: 1px solid var(--ink);
+    box-sizing: border-box;
     transform: rotate(45deg);
-    border-radius: 2px;
-    margin: 0 5px;
-    flex-shrink: 0;
+    flex-shrink: 0; display: inline-block;
   }
-  .wm-sub {
-    display: inline-flex;
-    align-items: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.28em;
-    color: var(--ink);
-    margin-top: 14px;
-    gap: 0;
-  }
-  /* Subtitle diamond O replacement — D2.1 spec (locked May 26, 2026)
-     Dot scaled to sit inside Space Mono cap height at 13px subtitle.
-     Was 8.5/2/3-1 (D2, Apr 14 — archived) — read too heavy against Space Mono cap.
-     Base class defines shape; per-position modifiers allow independent fine-tuning. */
-  .wm-sub .sub-dot {
-    width: 6.2px;
-    height: 6.2px;
+  .wm-main .jmk-d.d1 { margin-left: 1.61px; margin-right: 7.21px; }
+  .wm-main .jmk-d.d2 { margin-left: 3.66px; margin-right: 5.16px; }
+  .wm-main .jmk-j   { margin-right: -2.2px; }
+  .wm-main .jmk-kay { margin-left: 2.2px; }
+
+  /* Nav: the old .nav-dw fixed-width wrapper goes; the margins below do its job. */
+  .nav-brand .nav-dp {
+    width: 2.6px; height: 2.6px;
+    border-radius: 0.36px;
     background: var(--terracotta);
+    box-sizing: border-box;
     transform: rotate(45deg);
-    border-radius: 1.35px;               /* softer corners, scaled with side */
-    margin: 0 2.25px 0 0.5px;            /* shifts left to optically center against heavy R / D */
-    vertical-align: middle;
-    flex-shrink: 0;
-    display: inline-block;
+    flex-shrink: 0; display: inline-block;
   }
-  /* Per-position modifiers — currently identical, but scaffolded for future divergence */
-  .wm-sub .sub-dot[data-pos="story"]    { /* margin: 0 2.25px 0 0.5px; */ }
-  .wm-sub .sub-dot[data-pos="producer"] { /* margin: 0 2.25px 0 0.5px; */ }
-  .wm-sub .sub-spacer {
-    width: 20px;
-    display: inline-block;
+  .nav-brand .nav-dp.d1 { margin-left: 0.45px; margin-right: 2px; }
+  .nav-brand .nav-dp.d2 { margin-left: 1.02px; margin-right: 1.43px; }
+  .nav-brand .jmk-j   { margin-right: -0.61px; }
+  .nav-brand .jmk-kay { margin-left: 0.61px; }
+
+  @media (max-width: 768px) {
+    .wm-main { font-size: 48px; }
+    .wm-main .jmk-d { width: 8.16px; height: 8.16px; border-radius: 1.14px; border-width: 1px; }
+    .wm-main .jmk-d.d1 { margin-left: 1.08px; margin-right: 4.8px; }
+    .wm-main .jmk-d.d2 { margin-left: 2.44px; margin-right: 3.44px; }
+    .wm-main .jmk-j   { margin-right: -1.47px; }
+    .wm-main .jmk-kay { margin-left: 1.47px; }
   }
+
+  /* HELD 2026-09-12 — the teal treatment is not settled, so it is
+     commented out rather than emitted. The reverse-all-white mark is not settled. No reversed master ships until it is.
+     Uncomment only after the decision is taken and recorded in D3.
+  .on-teal .wm-main .jmk-d { width: 11.52px; height: 11.52px; border-radius: 1.61px; background: transparent; border: 1px solid var(--paper); }
+  */
   .hero-title {
     display: none;
   }
@@ -552,12 +539,6 @@
   /* Wordmark letters — fade in */
   .wm-main .jmk-l { opacity: 0; transition: opacity 0.25s ease; }
   .wm-main .jmk-l.show { opacity: 1; }
-  /* Subtitle letters — type in at 65% (matches lockup spec) */
-  .sub-ch { opacity: 0; transition: opacity 0.12s ease; }
-  .sub-ch.on { opacity: 0.65; }
-  /* Subtitle O diamonds — drop in at full opacity */
-  .wm-sub .sub-dot { opacity: 0; transition: opacity 0.25s ease; }
-  .wm-sub .sub-dot.on { opacity: 1; }
 
   /* ═══ PROJECT LINK — FEATURED ═══ */
   .project-link-btn {
@@ -676,10 +657,6 @@
     .nav-links { display: none; }
 
     .hero { padding: 100px 28px 60px; min-height: 90vh; }
-    .wm-main { font-size: 48px; }
-    .wm-main .jmk-d { width: 9px; height: 9px; margin: 0 3px; border-radius: 1.5px; }
-    .wm-sub { font-size: 10px; margin-top: 10px; }
-    .wm-sub .sub-dot { width: 3.7px; height: 3.7px; border-radius: 0.6px; margin: 0 1.5px 0 0.5px; }  /* D2.1 mobile, May 26 2026 */
     .hero-intro { font-size: 17px; }
 
     .approach { padding: 56px 28px; }
@@ -707,111 +684,25 @@
   @media (prefers-reduced-motion: reduce) {
     .wm-main .jmk-d,
     .wm-main .jmk-l,
-    .sub-ch,
-    .wm-sub .sub-dot,
     .hero-scroll {
       transition: none !important;
       animation: none !important;
     }
     .wm-main .jmk-d { opacity: 1; transform: rotate(45deg); }
     .wm-main .jmk-l { opacity: 1; }
-    .sub-ch { opacity: 0.65; }
-    .wm-sub .sub-dot { opacity: 1; }
   }
 
-  /* ═══ DIAMOND DOT DESIGN SYSTEM ═══ */
-  /* Reusable brand atom. The diamond dot is structural, not decorative.
-     Use these classes anywhere the brand needs a visual breath or separator. */
 
-  /* 1. Section divider — full-width rule with centred terracotta diamond */
-  .dot-divider {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 64px 0;
-    width: 100%;
-  }
-  .dot-divider::before,
-  .dot-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--sand);
-    opacity: 0.5;
-  }
-  .dot-divider-gem {
-    width: 7px;
-    height: 7px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 1px;
-    flex-shrink: 0;
-  }
 
-  /* 2. Inline separator — between nav items, credits, metadata lists */
-  .dot-sep {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 10px;
-    vertical-align: middle;
-  }
-  .dot-sep::before {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 0.8px;
-  }
 
-  /* 3. List bullet — replaces default markers on branded lists */
-  ul.dot-list {
-    list-style: none;
-    padding-left: 0;
-  }
-  ul.dot-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-  ul.dot-list li::before {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    background: var(--terracotta);
-    transform: rotate(45deg);
-    border-radius: 1px;
-    flex-shrink: 0;
-    margin-top: 7px;
-  }
 
-  /* 4. Footer / byline dot separator — small, muted */
-  .dot-byline {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 8px;
-    vertical-align: middle;
-    opacity: 0.45;
-  }
-  .dot-byline::before {
-    content: '';
-    display: block;
-    width: 4px;
-    height: 4px;
-    background: var(--ink);
-    transform: rotate(45deg);
-    border-radius: 0.5px;
-  }
 </style>
 </head>
 <body>
 
 <!-- ═══ NAV ═══ -->
 <nav>
-  <a href="index.html" class="nav-brand"><span>J</span><span class="nav-dw"><span class="nav-dp"></span></span><span>M</span><span class="nav-dw"><span class="nav-dp"></span></span><span class="nav-kay">KAY</span></a>
+  <a href="index.html" class="nav-brand"><span class="jmk-j">J</span><span class="nav-dp d1"></span><span>M</span><span class="nav-dp d2"></span><span class="jmk-kay">KAY</span></a>
   <div class="nav-links">
     <a href="#work">Work</a>
     <a href="writing.html">Perspectives</a>
@@ -823,32 +714,17 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-  <h1 class="hero-h1">J. M. Kay &mdash; Story Producer</h1>
+  <h1 class="hero-h1">J. M. Kay &mdash; Discovery, evidence, and narrative counsel for complex work</h1>
   <div class="wm-lockup" id="wmSvg">
-    <!-- ─── WORDMARK: Kay Display + soft diamond dots ─── -->
+    <!-- ─── WORDMARK: Kay Display + the two dividing diamonds. The line under the
+         mark was dropped on 2026-09-12 (D3, decision 8): the lockup is the wordmark.
+         Geometry is generated from Brand/ui_kits/jmkay-website/Wordmark.jsx. ─── -->
     <div class="wm-main">
-      <span class="jmk-l" id="ltJ">J</span>
-      <span class="jmk-d" id="dot1"></span>
+      <span class="jmk-l jmk-j" id="ltJ">J</span>
+      <span class="jmk-d d1" id="dot1"></span>
       <span class="jmk-l" id="ltM">M</span>
-      <span class="jmk-d" id="dot2"></span>
-      <span class="jmk-l" id="ltKAY">KAY</span>
-    </div>
-    <!-- ─── SUBTITLE: STORY PRODUCER with terracotta diamond Os ─── -->
-    <div class="wm-sub">
-      <span class="sub-ch" id="s01">S</span>
-      <span class="sub-ch" id="s02">T</span>
-      <span class="sub-dot" id="s03" data-pos="story"></span>
-      <span class="sub-ch" id="s04">R</span>
-      <span class="sub-ch" id="s05">Y</span>
-      <span class="sub-spacer"></span>
-      <span class="sub-ch" id="s06">P</span>
-      <span class="sub-ch" id="s07">R</span>
-      <span class="sub-dot" id="s08" data-pos="producer"></span>
-      <span class="sub-ch" id="s09">D</span>
-      <span class="sub-ch" id="s10">U</span>
-      <span class="sub-ch" id="s11">C</span>
-      <span class="sub-ch" id="s12">E</span>
-      <span class="sub-ch" id="s13">R</span>
+      <span class="jmk-d d2" id="dot2"></span>
+      <span class="jmk-l jmk-kay" id="ltKAY">KAY</span>
     </div>
   </div>
   <div class="hero-intro" id="heroIntro" style="opacity:0;transform:translateY(16px)">I find the human narrative inside complex work &mdash;<br>then produce the content that carries it.</div>
@@ -954,7 +830,7 @@
     <div class="about-text">
       <h2 class="about-label">About</h2>
       <div class="about-name">Jonathan Michael Kay</div>
-      <div class="about-bio">Story producer with two decades on both the agency side and inside Fortune 100 communications operations. I&rsquo;ve worked in global health, scientific communications, and institutional storytelling &mdash; learning that every expert, breakthrough, and crisis contains a human story worth telling.</div>
+      <div class="about-bio">I have spent two decades on both the agency side and inside Fortune 100 communications operations. I&rsquo;ve worked in global health, scientific communications, and institutional storytelling, and learned that every expert, breakthrough, and crisis contains a human story worth telling.</div>
       <div class="about-bio">My background is unusual. I started in neuropsychological research at Boston University, studying how the brain processes information and forms understanding. That foundation shapes everything I produce. When you understand how people think, you can build narratives that resonate at a deeper level.</div>
       <div class="about-bio">Inside AstraZeneca, I executive-produced an award-winning documentary and created a video series seen by 375,000 people. Across earlier roles at Edelman in New York and Singapore, and at the agency now called Inizio Evoke in Los Angeles, I built communications operations across four continents and served as narrative advisor to C-suite leaders at some of the world&rsquo;s largest health and life-sciences organizations. I work best with teams doing complex, high-stakes work who struggle to communicate why it matters.</div>
       <div class="about-bio">Now independent as J. M. Kay &mdash; working with operating executives on transitions, founding moments, and unfamiliar narrative ground.</div>
@@ -986,7 +862,6 @@
   var ltJ=document.getElementById('ltJ');
   var ltM=document.getElementById('ltM');
   var ltKAY=document.getElementById('ltKAY');
-  var subEls=document.querySelectorAll('.wm-sub .sub-ch, .wm-sub .sub-dot');
   var intro=document.getElementById('heroIntro');
   var scroll=document.getElementById('heroScroll');
 
@@ -999,14 +874,7 @@
     ltJ.classList.add('show'); await d(120);
     ltM.classList.add('show'); await d(120);
     ltKAY.classList.add('show'); await d(650);
-    // Phase 3: Subtitle letters type in (SVG paths)
-    await d(200);
-    for(var i=0;i<subEls.length;i++){
-      subEls[i].classList.add('on');
-      await d(subEls[i].classList.contains('sub-dot')?110:75);
-    }
-    await d(400);
-    // Phase 4: Reveal intro + scroll
+    // Phase 3: Reveal intro + scroll
     intro.style.transition='opacity 0.6s ease, transform 0.6s ease';
     intro.style.opacity='1'; intro.style.transform='translateY(0)';
     await d(500);
