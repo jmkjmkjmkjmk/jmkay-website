@@ -5,10 +5,14 @@ organized into **groups**; each group has its own secret link showing only the
 chapters chosen for it. Hand a group's link to anyone you want in that group.
 Not indexed by Google, not in the site nav or sitemap.
 
-## Current groups
+## Current groups (2026-09-24; the generator's ROSTER owns this, this list is a convenience)
 - **Group 1 — A taste**: Prologue + Production Week
-- **Group 2 — The sampler**: Prologue + Production Week + Sunday + India
-- **Group 3 — The deeper cut**: + Bugis + Chinese New Year
+- **Group 2 — The sampler**: Prologue + Production Week + Sunday + The Onion (India swapped out 24 Sep)
+- **Group 3 — The deeper cut**: Prologue + Production Week + Bugis + Sunday + The Onion + Chinese New Year
+- **Group 4 — Editors**: Prologue + Bugis + Sunday
+- **Group 5 — Friends**: Bugis + Sunday + Chinese New Year
+- **Group 6 — Books pages**: Shadowy Passage + The Onion + The Farewell
+- **Group 7 — Singapore readers**: Production Week + Bugis + Chinese New Year
 
 ## To add a group or change a group's chapters
 1. Open `scripts/build_reading_pages.py`.

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>The Approved Version &mdash; a reading</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Kay Display';
+    src: url('/KayDisplay-Regular.otf') format('opentype');
+    font-weight: 400; font-style: normal;
+  }
+  :root {
+    --warm-white:#FDFBF7; --cream:#F5F0E8; --sand:#D4C5A9;
+    --ink:#1C1917; --ink-light:#44403C; --ink-muted:#78716C; --stone:#A8A29E;
+    --terracotta:#C2603F; --deep-teal:#1A4A4A; --line:#E4DDD0;
+    --prose-ink:#26211d; --panel:#FFFFFF;
+  }
+  html[data-theme="dark"] {
+    --warm-white:#191613; --cream:#211D18; --sand:#4A4238;
+    --ink:#EAE3D8; --ink-light:#C9C1B2; --ink-muted:#948C7E; --stone:#6E6659;
+    --line:#332E27; --prose-ink:#DFD8CB; --panel:#211D18;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    font-family:'DM Sans',sans-serif; background:var(--warm-white); color:var(--ink);
+    font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    transition:background 0.25s ease, color 0.25s ease;
+  }
+  button { font-family:inherit; }
+
+  /* reading progress */
+  .progress { position:fixed; top:0; left:0; height:3px; width:0%;
+    background:var(--terracotta); z-index:80; transition:width 0.1s linear; }
+
+  /* sticky top bar */
+  .topbar {
+    position:sticky; top:0; z-index:70;
+    padding:14px 18px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    background:color-mix(in srgb, var(--warm-white) 88%, transparent);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  }
+  @supports not (background: color-mix(in srgb, red 50%, blue)) {
+    .topbar { background:var(--warm-white); }
+  }
+  .wordmark {
+    font-family:'Kay Display',serif; font-size:18px; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--ink); text-decoration:none;
+    position:absolute; left:50%; transform:translateX(-50%);
+  }
+  .dot {
+    display:inline-block; width:5px; height:5px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:1px; margin:0 4px; vertical-align:middle;
+  }
+  .tb-btn {
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--ink-muted); background:none;
+    border:1px solid var(--line); border-radius:4px; padding:7px 12px; cursor:pointer;
+  }
+  .tb-btn:hover { color:var(--ink); border-color:var(--sand); }
+
+  /* panels */
+  .panel {
+    display:none; position:fixed; top:58px; z-index:75;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    box-shadow:0 12px 40px rgba(28,25,23,0.14); padding:14px;
+    max-width:340px; width:calc(100% - 28px);
+  }
+  .panel.open { display:block; }
+  #tocPanel { left:14px; }
+  #typePanel { right:14px; }
+  .panel-label {
+    font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.18em;
+    text-transform:uppercase; color:var(--ink-muted); margin:2px 4px 10px;
+  }
+  .toc-item {
+    display:flex; align-items:baseline; gap:10px; width:100%; text-align:left;
+    background:none; border:none; padding:9px 8px; border-radius:5px; cursor:pointer;
+    color:var(--ink); font-size:15px;
+  }
+  .toc-item:hover { background:var(--cream); }
+  .toc-item.current { background:var(--cream); }
+  .toc-item.current .toc-title { color:var(--terracotta); }
+  .toc-num {
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-muted); min-width:46px;
+  }
+  .toc-title { font-family:'Instrument Serif',serif; font-size:17px; flex:1; }
+  .toc-time { font-family:'Space Mono',monospace; font-size:10px; color:var(--stone); }
+  .toc-foot { border-top:1px solid var(--line); margin-top:10px; padding-top:12px; }
+  .spot-btn {
+    width:100%; background:none; border:1px dashed var(--sand); border-radius:5px;
+    padding:10px; cursor:pointer; color:var(--ink-light); font-size:13.5px;
+  }
+  .spot-btn:hover { border-color:var(--terracotta); color:var(--ink); }
+  .spot-done { font-size:13px; color:var(--deep-teal); padding:8px 2px 2px; display:none; }
+  html[data-theme="dark"] .spot-done { color:#7FB5B5; }
+
+  .type-row { display:flex; align-items:center; justify-content:space-between;
+    gap:10px; padding:6px 4px; }
+  .type-row .t-label { font-size:13.5px; color:var(--ink-light); }
+  .seg { display:flex; gap:6px; }
+  .seg button {
+    background:none; border:1px solid var(--line); border-radius:4px;
+    padding:6px 12px; cursor:pointer; color:var(--ink); font-size:14px;
+  }
+  .seg button:hover { border-color:var(--sand); }
+  .seg button.on { border-color:var(--terracotta); color:var(--terracotta); }
+
+  .wrap { max-width:680px; margin:0 auto; padding:0 28px; }
+
+  /* book title / framing */
+  .intro { padding:72px 0 8px; }
+  .eyebrow {
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--terracotta); margin-bottom:18px;
+  }
+  .book-title {
+    font-family:'Instrument Serif',serif; font-size:48px; line-height:1.05;
+    font-weight:400; letter-spacing:-0.01em; margin-bottom:10px;
+  }
+  .byline {
+    font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--ink-muted); margin-bottom:40px;
+  }
+  .framing {
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:32px 0; margin-bottom:8px;
+  }
+  .framing p { font-size:16.5px; color:var(--ink-light); margin-bottom:16px; }
+  .framing p:last-child { margin-bottom:0; }
+  .framing em { font-style:italic; }
+  .epub-line {
+    font-size:13.5px; color:var(--ink-muted); padding:14px 2px 0; text-align:center;
+  }
+  .epub-line a { color:var(--deep-teal); }
+  html[data-theme="dark"] .epub-line a { color:#7FB5B5; }
+
+  /* chapters */
+  .divider { text-align:center; padding:58px 0 0; }
+  .dmark {
+    display:inline-block; width:9px; height:9px; background:var(--terracotta);
+    transform:rotate(45deg); border-radius:1.5px;
+  }
+  .chapter { padding:56px 0 8px; }
+  .chapter-head { text-align:center; margin-bottom:44px; }
+  .chapter-num {
+    display:block; font-family:'Space Mono',monospace; font-size:12px;
+    letter-spacing:0.28em; text-transform:uppercase; color:var(--terracotta);
+    margin-bottom:12px;
+  }
+  .chapter-title {
+    font-family:'Instrument Serif',serif; font-weight:400; font-size:34px;
+    line-height:1.1; letter-spacing:-0.01em;
+  }
+  .prose {
+    font-family:'EB Garamond',serif; font-size:20px; line-height:1.66;
+    color:var(--prose-ink);
+  }
+  .prose p { margin-bottom:1.05em; }
+  .prose p:first-of-type { text-indent:0; }
+  .prose p + p { text-indent:1.4em; }
+  .prose em { font-style:italic; }
+  .prose hr { border:none; text-align:center; margin:34px 0; overflow:visible; }
+  .prose hr::before {
+    content:'\002A \00A0\00A0 \002A \00A0\00A0 \002A';
+    color:var(--stone); letter-spacing:0.1em; font-family:'EB Garamond',serif;
+    font-size:17px;
+  }
+  .prose figure.ms-figure { margin:6px 0 30px; }
+  .prose figure.ms-figure img {
+    width:100%; height:auto; display:block; border-radius:4px;
+    box-shadow:0 6px 22px rgba(28,25,23,0.10);
+  }
+  html[data-theme="dark"] .prose figure.ms-figure img {
+    box-shadow:0 6px 22px rgba(0,0,0,0.4);
+  }
+
+  /* gap notes */
+  .gap-note { padding:58px 0 0; text-align:center; }
+  .gap-note p {
+    display:inline-block; max-width:460px; font-size:14px; font-style:italic;
+    color:var(--ink-muted); line-height:1.55;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:14px 6px;
+  }
+
+  /* per-chapter reactions */
+  .cr { margin-top:44px; text-align:center; }
+  .cr-row { display:flex; align-items:center; justify-content:center; gap:10px;
+    flex-wrap:wrap; }
+  .cr-q {
+    font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--stone);
+  }
+  .cr-btn {
+    background:none; border:1px solid var(--line); border-radius:16px;
+    padding:7px 16px; cursor:pointer; color:var(--ink-light); font-size:13.5px;
+  }
+  .cr-btn:hover { border-color:var(--sand); color:var(--ink); }
+  .cr-btn.on { border-color:var(--terracotta); color:var(--terracotta); }
+  .cr-more { display:flex; gap:8px; justify-content:center; margin-top:12px;
+    flex-wrap:wrap; }
+  .cr-more[hidden] { display:none; }
+  .cr-line {
+    width:min(340px, 100%); font-family:'DM Sans',sans-serif; font-size:14px;
+    color:var(--ink); background:var(--warm-white); border:1px solid var(--sand);
+    border-radius:16px; padding:8px 14px;
+  }
+  .cr-line:focus { outline:none; border-color:var(--terracotta); }
+  .cr-send {
+    background:var(--deep-teal); color:#fff; border:none; border-radius:16px;
+    padding:8px 18px; cursor:pointer; font-size:13.5px;
+  }
+  .cr-send:hover { background:var(--terracotta); }
+  .cr-done { font-size:13.5px; color:var(--deep-teal); margin-top:10px; }
+  html[data-theme="dark"] .cr-done { color:#7FB5B5; }
+
+  /* closing + feedback */
+  .closing { margin-top:72px; padding-top:32px; border-top:1px solid var(--line); }
+  .closing p { font-size:16.5px; color:var(--ink-light); }
+  .feedback { margin:40px 0 0; padding:40px 0 0; border-top:1px solid var(--line); }
+  .feedback h3 {
+    font-family:'Instrument Serif',serif; font-weight:400; font-size:26px;
+    margin-bottom:8px;
+  }
+  .feedback .lead { color:var(--ink-light); margin-bottom:24px; font-size:16px; }
+  .field { margin-bottom:18px; }
+  .field label {
+    display:block; font-family:'Space Mono',monospace; font-size:11px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-muted);
+    margin-bottom:7px;
+  }
+  .field input, .field textarea {
+    width:100%; font-family:'DM Sans',sans-serif; font-size:16px; color:var(--ink);
+    background:var(--warm-white); border:1px solid var(--sand); border-radius:4px;
+    padding:12px 14px; line-height:1.5;
+  }
+  .field textarea { min-height:150px; resize:vertical; }
+  .field input:focus, .field textarea:focus { outline:none; border-color:var(--terracotta); }
+  .hp { position:absolute; left:-9999px; }
+  button.send {
+    font-family:'DM Sans',sans-serif; font-size:15px; font-weight:500;
+    color:#fff; background:var(--deep-teal); border:none; border-radius:4px;
+    padding:13px 30px; cursor:pointer; letter-spacing:0.01em;
+  }
+  button.send:hover { background:var(--terracotta); }
+  .thanks { display:none; color:var(--deep-teal); font-size:16.5px; padding:8px 0; }
+  html[data-theme="dark"] .thanks { color:#7FB5B5; }
+
+  /* continue pill */
+  .pill {
+    display:none; position:fixed; bottom:26px; left:50%; transform:translateX(-50%);
+    z-index:65; background:var(--ink); color:var(--warm-white);
+    border:none; border-radius:22px; padding:11px 22px; cursor:pointer;
+    font-size:14px; box-shadow:0 8px 28px rgba(28,25,23,0.25);
+  }
+  .pill.show { display:block; }
+  html[data-theme="dark"] .pill { background:var(--cream); color:var(--ink); }
+
+  footer {
+    margin-top:80px; padding:34px 0 60px; border-top:1px solid var(--line);
+    text-align:center; color:var(--ink-muted); font-size:13px;
+    font-family:'Space Mono',monospace; letter-spacing:0.06em;
+  }
+
+  @media (max-width:640px) {
+    .book-title { font-size:36px; }
+    .prose { font-size:18.5px; }
+    .chapter-title { font-size:28px; }
+    .intro { padding:56px 0 8px; }
+    .tb-btn { padding:6px 9px; font-size:10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<div class="topbar">
+  <button type="button" class="tb-btn" id="tocBtn" aria-expanded="false">Contents</button>
+  <a class="wordmark" href="https://jmkay.com">J<span class="dot"></span>M<span class="dot"></span>KAY</a>
+  <button type="button" class="tb-btn" id="typeBtn" aria-expanded="false">Aa</button>
+</div>
+
+<div class="panel" id="tocPanel" role="menu">
+  <div class="panel-label">Contents</div>
+  <button type="button" class="toc-item" data-target="ch-shadowy"><span class="toc-num">Four</span><span class="toc-title">Shadowy Passage</span><span class="toc-time">~20 minutes</span></button>
+  <button type="button" class="toc-item" data-target="ch-onion"><span class="toc-num"></span><span class="toc-title">The Onion</span><span class="toc-time">~10 minutes</span></button>
+  <button type="button" class="toc-item" data-target="ch-farewell"><span class="toc-num">Twelve</span><span class="toc-title">The Farewell</span><span class="toc-time">~20 minutes</span></button>
+  <div class="toc-foot">
+    <button type="button" class="spot-btn" id="spotBtn">Stopping for now? Tap to let Jonathan know where you got to.</button>
+    <p class="spot-done" id="spotDone">Sent &mdash; thank you for reading this far.</p>
+  </div>
+</div>
+
+<div class="panel" id="typePanel">
+  <div class="panel-label">Reading settings</div>
+  <div class="type-row">
+    <span class="t-label">Text size</span>
+    <span class="seg"><button type="button" id="sizeDown" aria-label="Smaller text">&minus;</button><button type="button" id="sizeUp" aria-label="Larger text">+</button></span>
+  </div>
+  <div class="type-row">
+    <span class="t-label">Theme</span>
+    <span class="seg"><button type="button" id="themeLight">Light</button><button type="button" id="themeDark">Dark</button></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro" id="top">
+    <div class="eyebrow">A reading &middot; in confidence</div>
+    <h1 class="book-title">The Approved Version</h1>
+    <div class="byline">a novel &middot; Jonathan Michael Kay</div>
+    <div class="framing">
+      <p>Thank you for reading some of this. The book is a novel called
+<em>The Approved Version</em>.</p>
+
+<p>It follows Daniel Reiss, an American who moves to Singapore in 2012 for a
+two-year job and stays three. His work is making things safe to say: he sits in
+the room where the real thing gets said, then hands back the version that can go
+out. While he is there, a television crew films his life, and the version they
+air is missing someone. The book is about the years that version covers, and the
+person it leaves out.</p>
+
+<p>What you have here is three chapters from across the book, about 50 minutes of reading in all. They run in the book&rsquo;s order, and where some are skipped a short note says what the gap holds.</p>
+
+<p>Read it however you like, in one sitting or five &mdash; the page remembers
+where you stopped. If you want to tell me something along the way, each chapter
+has a small row at the end for it, and there is a box at the very end for
+anything bigger. You can also just text me.</p>
+
+<p style="text-align:right;">&mdash; Jonathan</p>
+
+    </div>
+    <p class="epub-line">Prefer an e-reader? <a href="the-approved-version-sample.epub" download>Download this sample as an EPUB</a>.</p>
+  </div>
+
+  
+  
+  <section class="chapter" id="ch-shadowy" data-title="Shadowy Passage">
+    <header class="chapter-head">
+      <span class="chapter-num">Four</span>
+      <h2 class="chapter-title">Shadowy Passage</h2>
+    </header>
+    <div class="prose">
+      <p>I have kept the legal pad from that Friday. My pen was making curlicues, then commas and periods, winding, stretching, fully stopping. The marginalia left a residue on the palm side of my left hand that outlasted the meeting, the next steps, the key metrics. Left-handed, I had been dragging my palm through my own ink since grade school; somewhere along the way I learned to get the handshakes in early, before the pen came out. The meeting was a Friday working session with Tanaka, the client, on the screening campaign the firm was implementing across the region; I had come over from Stanley Street with the account team.</p>
+<p>The Regional Medical Director kicked off as diplomatically as possible. &ldquo;We&rsquo;re so glad you can join us in our new Asia headquarters, and thank you to everyone who could make it to Singapore on such short notice.&rdquo;</p>
+<p>A voice came from the ceiling. &ldquo;Oh — sorry to interrupt, this is Ben in Sydney, representing our ANZ affiliates, thanks for including us.&rdquo;</p>
+<p>The conference room on the third floor ran its air conditioning at a temperature that felt like a decision someone else had made about your comfort. I had been sitting in it ten minutes, half paying attention.</p>
+<p>The cold started at the wrists, where the shirt cuff ended and the table&rsquo;s edge drew the warmth out of my forearms, and moved inward on its own schedule. Three months in, I had taken to keeping a jacket over the back of every office chair I sat in for longer than an hour, and mine was on its hook back at the firm, because the invitation had said working session, which I had read as short, and was wrong. Under the table I pressed the soles of my shoes flat to the carpet, the one surface in the room the air conditioning had not reached, and I watched a bead of water slide down the side of the Regional Medical Director&rsquo;s carafe and wanted to be outside in the heat I had spent the walk over resenting. I wanted it because out there my body was at least on my side. In here it was a thing that had to be kept from shivering in front of a client.</p>
+<p>&ldquo;You&rsquo;ll see some unfamiliar faces —&rdquo; the Regional Medical Director waved generally in my direction — &ldquo;representatives from the communications firm implementing our HPV education campaign across Asia Pacific markets.&rdquo;</p>
+<p>Nothing in the room belonged to anyone until you looked at the branding, and then all of it did. The calendar on the wall was Tanaka-branded, the client&rsquo;s logo on every month, January through December. The water glasses had the logo etched small near the rim, so that you drank the client through the client. A folded tent card at each place gave the meeting&rsquo;s name, <em>Patient-Comprehension Working Session</em> (no patients were in the room), in the client&rsquo;s typeface, beside a smaller line — <em>Confidential. Working draft. Do not distribute.</em> Outside the window the November sky sat white and close, the heat pressing flat against the glass. When the room went quiet between slides the traffic came up from the street below, a continuous pour of air and engine.</p>
+<p>The phrase that made me look up was <em>shadowy passage.</em></p>
+<p>The Regional Medical Director said it on the upbeat of what had otherwise been a Friday-morning slide deck. She had spent the first part of the meeting on why we were in the room: a cervical-screening push, Pap smears and HPV, the vaccine new enough that a lot of the women in the target group had heard the word <em>HPV</em> without being sure it was meant for them. The whole campaign came down to one thing — getting women through the door of a polyclinic to be tested — and the pamphlet was the thing that was supposed to get them there. In English the pamphlet was not working. In Chinese, with one word changed, it was.</p>
+<p>&ldquo;We&rsquo;ve had tremendous pickup,&rdquo; she said, &ldquo;in the Chinese-speaking communities. For <em>yīndào.</em>&rdquo; She put the characters on the slide. 阴道.</p>
+<p>She talked about the word for a while, and enjoyed it. The first character, 阴, was <em>yīn</em>: the shaded side of a hill, the north face, the slope the sun does not reach. The <em>yīn</em> of <em>yīn and yáng</em>. The inward, the hidden, the feminine. The second, 道, was <em>dào</em>: the way, the path, the passage. The same <em>dào</em> as in the Dao, she said, the Way that cannot be named. Put the two together and you had something a person could render, feeling literary about it, as <em>the shadowed way.</em> The team had been feeling literary about it. Beneath the characters they had set the English the focus groups were testing. <em>Shadowy passage.</em></p>
+<p>&ldquo;But I want to be clear about what the word is doing,&rdquo; she said. &ldquo;In Chinese this is not the poetry. It is the word. It is what the doctor writes in the file. There is no euphemism in it at all. The shadow and the way are inside the characters the way they are inside any character, if you go looking, but the patient does not hear them, any more than you hear <em>good</em> and <em>bye</em> when you say goodbye. She hears the clinical term. That is the whole point. That is why it tested.&rdquo;</p>
+<p>On the speaker, Ben said, &ldquo;Sorry. For those of us on the line who can&rsquo;t see the slide. What does it actually mean? In English?&rdquo;</p>
+<p>There was the small pause of a room discovering it had skipped a step.</p>
+<p>&ldquo;The vagina,&rdquo; the Regional Medical Director said. &ldquo;<em>Yīndào.</em> The clinical term. The vagina.&rdquo; She let the English the team had been testing sit under it. &ldquo;Shadowy passage.&rdquo;</p>
+<p>On the speaker, Ben said he thought that was a strong direction.</p>
+<p>I looked up.</p>
+<p>She said the English again, in the tone of mild professional triumph, the data now behind her. She advanced her slide. She had a graph: a bar chart with a trend line and numbers I didn&rsquo;t bother to read from where I sat.</p>
+<p>The phrase did something in my ear it was plainly not doing in hers. It went gothic — a corridor, a held candle, a draft from a room upstairs, the foil-stamped cover of a paperback. It was the opposite of a word you would write in a chart. The heat came up the back of my neck and into the ears, the schoolboy heat, and I bit the inside of my cheek so that nothing would get as far as the face. No one else at the table looked as though they had heard it.</p>
+<p>&ldquo;The response in our Singapore and Malaysia focus groups exceeded the medical-term arm of the test by a meaningful margin. Patients reported that the phrase landed as the native anatomical word.&rdquo;</p>
+<p>She was Malaysian-Chinese, in her fifties, in a navy linen jacket and the blunt haircut of a person who does not style it in the morning. Two seats down from her sat a physician the client had asked in from a polyclinic in Jurong, an hour west, who had spent forty minutes on the phone the previous evening telling the account director&rsquo;s assistant she would not be able to make the Friday meeting. She had made the Friday meeting, and she had brought her own numbers. The water that had been set in front of the polyclinic doctor at the start of the meeting had not been touched.</p>
+<p>The women who did not come in were the women the screening existed for. In this cancer the gap between caught early and caught late was, more or less, the prognosis.</p>
+<p>The Jurong doctor had brought one of them into the room without naming her: a woman off her own list who had come in three weeks back, too late, the thing already through the wall of the place it started, because the leaflet in the waiting room had never once used a word that woman would have stopped on.</p>
+<p>She set the case on the table, quietly, and no one picked it up.</p>
+<hr />
+<p>The account director said, &ldquo;So the obvious next question. Can we carry that over to English?&rdquo;</p>
+<p>Adeline, at the head of the table — she had taken the head of the table without anyone having offered it — said, &ldquo;Mmm.&rdquo;</p>
+<p>Ben-in-Sydney, on the speaker, said, &ldquo;I was about to ask the same thing.&rdquo; His voice arrived a beat behind the room, so that he was always agreeing with something the rest of us had finished saying.</p>
+<p>I wrote, in the left margin of my legal pad, <em>SP — English port</em>, and put a question mark at the end. I drew a small box around the phrase <em>shadowy passage.</em> Above it I copied the two characters off the slide, drawing them more than writing them, and underlined the English half. I did this while the account director was still talking.</p>
+<p>There was a version of what was wrong with it that I could have stood up and said. I had most of the sentence. I wrote a second item on the pad instead — <em>&ldquo;literal&rdquo; from which side?</em> — and kept the face you keep in a room where the decision has already been made and the data has been invited to agree with it.</p>
+<p>What I was listening to, two seats away, was Adeline saying, &ldquo;I like the literary quality.&rdquo;</p>
+<p>The account director said, &ldquo;I think the register is right. It&rsquo;s indirect without being clinical. It&rsquo;s respectful. You can put this in a pamphlet.&rdquo;</p>
+<hr />
+<p>The Chinese-language consultant, a woman named Laura Tan, had been sitting at the far end of the table in a navy skirt, holding a pen she was not using. The account director had brought her in for two hours from an outside translation agency, and the invite introduced her as <em>SME support — translation register</em>. Until now she had not spoken.</p>
+<p>She said, &ldquo;I do want to be careful.&rdquo;</p>
+<p>She said it carefully.</p>
+<p>&ldquo;In Chinese,&rdquo; she said, &ldquo;the term is not a euphemism. It is the anatomical word. It is literal, but not indirect. This is a feature of the language.&rdquo;</p>
+<p>There was a silence. The account director&rsquo;s pen was still. Adeline&rsquo;s face had the composure of a person who has already decided and is watching the room catch up. Ben-in-Sydney had not un-muted. The condensation on the Regional Medical Director&rsquo;s carafe had reached the table in two rivulets, and the ring they were making on the lacquer would still be there Monday morning. Laura Tan picked up the pen she had not been using, set it down, and waited.</p>
+<p>Nobody spoke. The air conditioning was the only sound.</p>
+<p>A junior from the brand practice said, &ldquo;But it sounds so respectful.&rdquo;</p>
+<p>Laura Tan said, &ldquo;Respectful of what.&rdquo;</p>
+<p>Adeline said, &ldquo;Carry on.&rdquo;</p>
+<p>The account director carried on. &ldquo;What we&rsquo;re trying to solve is a patient-comprehension issue. Uptake is low in the English-speaking population segment. The current screening language is landing wrong. If there&rsquo;s a term the Chinese-speaking segment responded to, and we can reverse-engineer a culturally resonant English analogue —&rdquo;</p>
+<p>Laura Tan said, &ldquo;You would be translating into a euphemism that doesn&rsquo;t exist and then telling the English-speaking doctors that the euphemism is the original meaning.&rdquo;</p>
+<p>She said it without raising her voice. Then she added, &ldquo;The word you are describing is a word for a feeling about a place. It is not a word for the place.&rdquo;</p>
+<p>The account director wrote <em>culturally resonant</em> on the whiteboard and underlined it.</p>
+<p>She did not write down the second thing Laura Tan had said.</p>
+<p>I wrote, on the legal pad, <em>translate the anatomy out of the anatomy.</em></p>
+<p>What I remember, still, is what the account director did next. She looked at the whiteboard. She looked at Adeline. She looked at me. I was the newest person in the room; I had transferred from New York three months earlier; I was the health writer whose science background was, in the firm&rsquo;s working mythology, still a selling point. She said, &ldquo;Dan, how does it sound to you?&rdquo;</p>
+<p>I was thirty-one and I was hungry. Not the way a performance review means it. I had been eating peanut butter off a knife at my desk because the Amex had bounced the week before and I had not told anyone, including the Amex, and the shirt I was sweating through was from Paragon, on Orchard Road, and had cost more than a month of the lunches I was not buying. The week before, Jason and Priya had taken me down to the chicken-rice stall, and I had stood there while the uncle&rsquo;s cleaver went, smelling the fat in the rice, and I had wanted it the way you want a person, whole, now, and it had cost less than a coffee, and I had eaten it so fast Priya looked at me. Then I went back to my desk drawer. Because going down meant going down with people, and people could see you eat.</p>
+<p>Every professional incentive in the room was pushing me toward <em>it sounds useful,</em> or <em>it has a cadence,</em> or <em>I think it could work with the right copy system around it.</em></p>
+<p>The air conditioning cycled through one of its colder registers. It found the back of my neck first, a thin cold that slid under the collar and sat there, the industrial-grade cold Singapore office buildings run as institutional signal. My legal pad had the curlicues and the periods and <em>SP — English port?</em> and <em>&ldquo;literal&rdquo; from which side?</em>, and I was aware, the way your own voice goes unfamiliar in your ear the instant you understand it is being recorded, that the next thing I said would be the thing the account director reported upward.</p>
+<p>I said, &ldquo;It sounds like a room.&rdquo;</p>
+<p>Laura Tan looked at me for two beats, her pen already going back into her bag, a look that took my whole measure and did not need a second one. Adeline looked at me for one.</p>
+<p>Adeline said, &ldquo;Let&rsquo;s move on.&rdquo;</p>
+<p>We moved on. The account director added the phrase to the candidate column on the whiteboard with a blue marker. Three other candidates were in the column already, in the account director&rsquo;s hand, from earlier; she had been keeping a list. <em>Shadowy passage</em> went on the bottom and then, in the way of these things, moved to the top, because it was the one with a graph behind it. She drew a small box around it. Beside the box she wrote <em>pending English-pilot A/B.</em> The pilot was the machine that would decide: two versions of the same pamphlet, the old screening language and the new term, sent to two matched sets of polyclinics, the uptake numbers compared at ninety days. The term that pulled the higher number would not be the more accurate term. It would be the term that pulled the higher number.</p>
+<p>The polyclinic doctor had watched all of this from her seat without interjecting. Her glass was empty. When the account director drew the box, the Regional Medical Director nodded once.</p>
+<hr />
+<p>The meeting closes at half past twelve. I go down in the elevator with Graham, who is on the account and had come over for the session, though he had spent it at a hot desk outside the glass, headset on, minding the three other clients.</p>
+<p>&ldquo;How was it?&rdquo; he says.</p>
+<p>&ldquo;Fine.&rdquo;</p>
+<p>&ldquo;That means bad.&rdquo;</p>
+<p>&ldquo;It means interesting.&rdquo;</p>
+<p>He looks at me. &ldquo;Also bad,&rdquo; he says.</p>
+<p>The heat takes me back at the building&rsquo;s front doors and I am glad of it, wet under the arms inside a minute. The hawker center below the building is a covered square of plastic tables and ceiling fans turning at the speed that moves the air without cooling it. Graham takes us to a corner stall without asking what I want and orders two bowls of bak chor mee. He says something in Mandarin to the auntie, one sentence, and she laughs. He does not translate.</p>
+<p>&ldquo;So,&rdquo; Graham says.</p>
+<p>&ldquo;A phrase came up,&rdquo; I say. &ldquo;A translation thing.&rdquo;</p>
+<p>&ldquo;Medical?&rdquo;</p>
+<p>&ldquo;Cervical screening.&rdquo;</p>
+<p>He is already eating, twirling the noodles with two chopsticks in a motion that looks like it shouldn&rsquo;t work and does. He asks nothing. I explain it anyway — the characters, the two meanings, the focus group data, the English team&rsquo;s version, Laura Tan&rsquo;s objection, the account director&rsquo;s whiteboard, the decision that was finished before the meeting began.</p>
+<p>Graham listens without nodding along. He holds the chopsticks over the bowl and watches me across the table, as he would a presentation, and when I finish he says, &ldquo;What did you say?&rdquo;</p>
+<p>&ldquo;I said it sounds like a room.&rdquo;</p>
+<p>He considers this. Takes a bite. &ldquo;That&rsquo;s not wrong.&rdquo;</p>
+<p>&ldquo;No.&rdquo;</p>
+<p>&ldquo;It&rsquo;s also not helpful to them.&rdquo;</p>
+<p>&ldquo;No.&rdquo;</p>
+<p>He looks at his bowl. A ceiling fan ticks twice on each rotation. &ldquo;And now you&rsquo;re writing the deck.&rdquo;</p>
+<p>&ldquo;This afternoon.&rdquo;</p>
+<p>&ldquo;And the deck will say.&rdquo;</p>
+<p>&ldquo;That it&rsquo;s a strong candidate for the pilot.&rdquo;</p>
+<p>He has the look he gets in meetings when an account exec presents something he considers mildly absurd but is not prepared to fight: a patient, almost entertained containment.</p>
+<p>&ldquo;You knew it was wrong,&rdquo; he says. Noting it, not accusing.</p>
+<p>&ldquo;Laura Tan said so, in the room.&rdquo;</p>
+<p>&ldquo;And the deck will say strong candidate.&rdquo;</p>
+<p>&ldquo;That&rsquo;s the brief.&rdquo;</p>
+<p>He takes a drink. Sets it down. &ldquo;Right,&rdquo; he says. Which is not absolution and not condemnation. It is what Graham says when a thing is what it is and he has decided, in the next second, to eat his lunch.</p>
+<p>I eat mine. I eat it the way I ate the chicken rice, fast and sweating, the vinegar and the chili and the lard going down quicker than I can be embarrassed about it, and Graham watches me do it and says nothing, which I take as a grade. Two tables over, a woman in a pink blazer is reading something on her phone with the intense private pleasure of a person reading something that has nothing to do with work. I want what she has. I would settle for the chili.</p>
+<p>&ldquo;The auntie makes it with extra chili if you ask,&rdquo; Graham says. &ldquo;Next time.&rdquo;</p>
+<hr />
+<p>That evening I wrote the deck.</p>
+<p>The apartment was quiet. Friday evening at Fortuna Court: the corridor outside emptied of its weekday foot traffic, the aircon running its loop, the neighbor&rsquo;s television a low unintelligible rhythm through the wall, a language I did not have and a laugh track I did. I worked at the small table by the window where the laptop lived when it wasn&rsquo;t on the bed. The window faced the canal, black at this hour, giving nothing back but a man at a laptop. The fluorescent strip above the counter threw its circle to the table&rsquo;s edge, and beyond that the room was dark enough that the screen was the brightest thing in it. I had a Tiger from the FairPrice bag in the refrigerator, and then I had the second one, which is the one you have because the first one did not do anything. The condensation ran down the can and onto the table at Singapore speed. Somewhere around slide twenty I was talking to the laptop, out loud, in the voice I use for a client, and it was the most anyone had heard me say since Graham.</p>
+<p>The deck was thirty-eight slides. Most of them were the architecture a deck has so the recommendation at its center does not arrive naked, and the morning&rsquo;s focus-group graph was among them, redrawn in the firm&rsquo;s template so the bars were the firm&rsquo;s blue.</p>
+<p>I built slide fourteen last, because it is the one slide that says the thing. I set the recommendation in the candidate format the client&rsquo;s medical-affairs group would recognize. I wrote:</p>
+<blockquote>
+<p><strong>SP candidate term: &ldquo;shadowy passage.&rdquo;</strong> Rationale: preserves the literal Mandarin register (阴道, <em>yīndào</em>), which lifted screening bookings 38% in the Chinese-language pilot. Recommended for A/B testing in English-language polyclinic pilot, Q1 2013.</p>
+</blockquote>
+<p>I chose the word <em>literal</em> on purpose. I used it because, if anyone ever came back to the deck to ask where the English term came from, I could point to the slide and say: <em>translated literally.</em> Nobody made me. Laura Tan warned me against it, in the same room, and I listened and understood and built the slide anyway.</p>
+<p>I sent the deck to the account director at 9:47 p.m. and sat with my hand flat on the closed lid.</p>
+<p>The account director approved it with <em>looks great</em> and two exclamation points and forwarded it to Tanaka&rsquo;s medical-affairs group — the doctors and scientists inside the client whose entire job was to make sure a claim was true before it went on a page — with me on the cc line and the subject header <em>For Friday pilot kickoff — thanks all!!</em></p>
+<p>I had not eaten since the noodles, and the two Tigers were sitting in the hollow under the ribs where the food should have been, and the hollow had started to ache in the way that is not quite hunger, the way that has the whole day in it. I went out for food.</p>
+<p>The night was the same temperature it had been at noon, which in Singapore in November is what nights are, and the beer met the heat on the first landing and I felt it at the knees, a loosening, a pleasant one. The provision shop at the corner was lit and open, the aunty behind the counter folding something with a slow competence, her hands sure of the work without her watching. The street smelled of drains and, from somewhere a block over, of something frying — the particular late-night smell of pork fat on a hot plate, the smell that means a hawker somewhere is running his last service of the evening, and my mouth went toward it before my feet did. I could not have told you if the smell was from a specific stall or if it was just the city releasing the day&rsquo;s heat back into the dark; it was both.</p>
+<p>The phone buzzed against my leg on Balestier Road. I took it out under the light of the hawker stall, where the auntie sold curry puff and kaya toast to the late-shift expats, three dollars. What I want to be honest about is the first thing I felt when I understood the deck was already moving, which was not alarm.</p>
+<p>The first thing I felt was a small, clean, professional satisfaction. The slide had worked. The pamphlet would go into the English-language A/B pilot with the new term on it.</p>
+<p>The alarm came a beat behind the satisfaction, the way the sound arrives after the flash. The satisfaction said: <em>and I am good at it.</em></p>
+<p>By Monday the term would be off slide fourteen and into the pilot brief, set in a sentence of its own, and the brief would not carry the rationale, because a brief carries decisions. From the brief it would go into the one-pager the polyclinics would hand across a counter, and from there into the translation memory the firm kept: a glossary, 阴道 in one column and <em>shadowy passage</em> in the next, approved, reusable, the pairing a thing the next writer would inherit without having been in the room where it was decided. The pilot would read out the following March, three lines and a table, the term pulling its number again, outside the margin, and the account director would reply-all with a word of thanks and the word <em>rollout</em>, and the small clean feeling would arrive again, fainter.</p>
+<p>There was no column in the memory for the thing Laura Tan had said. Her name was on the meeting invite. It was on nothing the term traveled into after. By the time the phrase reached anyone it was meant for, it carried no fingerprints at all. Mine included.</p>
+<p>I walked the rest of the way home.</p>
+<p>The hawker stall had closed but the smell was still there, charcoal and curry leaf. I let myself in.</p>
+<p>I stood in the cold the aircon had been making for twelve hours and felt the day&rsquo;s heat come off my own skin into it, the two temperatures meeting somewhere at the surface of me. The shirt I had worn into the meeting smelled of the third floor and the noodles and the walk. I did not take it off. I wanted, for about a minute, someone to take it off me, and there was no one on the island I could have asked. I sat on the edge of the bed with the laptop already shut and the canal black in the window, and for a while I did not think about the slide at all, and then I did.</p>
+<hr />
+<p>On Monday I passed the account director in the corridor outside the elevators on the way to the third-floor kitchen. She said, &ldquo;Nice work.&rdquo;</p>
+<p>I said, &ldquo;Thanks.&rdquo;</p>
+    </div>
+    <div class="cr" data-chapter="Shadowy Passage" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
+  </section>
+
+  <aside class="gap-note">
+    <p>Between these two the book moves through Daniel&rsquo;s first year with Arjun, then stops in Doha, where he is writing all of this down. This one goes back before Singapore, to a year in New York.</p>
+  </aside>
+
+  <div class="divider" aria-hidden="true"><span class="dmark"></span></div>
+  <section class="chapter" id="ch-onion" data-title="The Onion">
+    <header class="chapter-head">
+      
+      <h2 class="chapter-title">The Onion</h2>
+    </header>
+    <div class="prose">
+      <p>When the production flew me back to New York for a day, it was to stand on my old block in Brooklyn. Nothing about that day took me up to Ridgewood. The block they wanted was the one with a story on it, and I gave them the block. The apartment was up there all the same: a third-floor walk-up over a key-cutter&rsquo;s, four rooms strung in a line the way the old railroad flats ran, each one opening into the next, so that to reach the back bedroom you went through the kitchen and the middle room and whatever was happening in them. There was a bathtub in the kitchen with a hinged enamel lid that became counter space when the lid was down. The radiator knocked on a schedule the super could not account for and would not fix. The bedroom window faced the airshaft and did not close all the way; in winter a rolled towel went into the gap and grayed there until spring, and in summer the window stayed open because it could not do otherwise, and the airshaft carried up the building&rsquo;s whole unguarded life, a downstairs radio and someone&rsquo;s frying and a dog and the sound of people who were not arranging themselves for anyone. On the fire escape there was a folding chair and a coffee can for the ash. The man whose apartment it was had lived there eight years and hung nothing on the walls, on the standing theory that he was about to leave, which he never was.</p>
+<p>Nothing in those rooms had ever been set down with a camera in mind, and no camera had ever wanted them. They were not a place a production company would fly to. The building I lived in by then, in Singapore, was exactly that: the air held at one even temperature, the pool kept the blue of a pool in a brochure, the elevator that hummed, the whole bright machine the show had already come for. Ridgewood had none of that.</p>
+<p>I am not going to write his name. I did not write it on the address line of a postcard either, with the pen already down.</p>
+<p>I called it staying. The lease in Brooklyn stayed in my name and my roommate Reuben&rsquo;s, my mail went there, my winter coat hung in its closet, and for a year I slept in Ridgewood six nights in seven and carried my clothes north one bag at a time, the way you carry a thing you are not going to admit to in one trip. Reuben watched the bags go and said nothing, which is a thing Reuben can do for a year. Staying. I was thirty and I had a word for it that a man uses for a hotel.</p>
+<p>The hours I want back are the ones on the fire escape. I would come up the three flights with the day still on me, a whole afternoon of sentences sent up for approval and sent back down with a comment in the margin, and the key-cutter&rsquo;s grinder would have stopped at six, and the building would be doing what it did at seven, which was nothing in particular, loudly. He would already be out there in the folding chair. I sat on the steps beside it, one rung down, because there was one chair and he had had it eight years, with a beer sweating through my fingers and my tie off and my shoes off and my socks off, and we looked into the shaft at the back of somebody&rsquo;s kitchen and said very little for an hour. That is not a figure of speech. I have had an hour timed by a boom operator and I know how long one is. Nobody came to the window. Nobody wanted the take again. I would go in and start dinner when the shaft got dark enough that I could not see my own feet, and I looked forward to that hour across whole meetings, across whole clients, and I never told anyone at the office where I was going at five-thirty, because there was no cleared version of it, and I could not have gotten one past myself.</p>
+<p>That October, then. I was at the tub with the lid down, cutting an onion on it, because the lid was the only surface in that kitchen that held still, and he was out on the fire escape in the folding chair with the paper and the coffee can, and the window between us was open the eight inches it was ever going to open. It was warm for October. I had my shirt off, which I would not have done in any kitchen I paid for, and the onion was in my eyes, and up the shaft came the whole building: the radio on two with somebody&rsquo;s team losing on it, a pan going somewhere with garlic in it, the dog on four that barked at pigeons and not at people. Nobody in that shaft knew there was a man at a bathtub lid with an onion, and nobody would have looked if they had. For whole evenings in those rooms nobody was reading anything. Nobody was going to send the onion back with notes. My whole trade went quiet in there the way a fridge goes quiet, and I only heard that it had when I went back down to Brooklyn for a shirt and heard it start up again in the hallway. I liked it the way you like a room where you can eat with your hands, and I did, standing, off the tub lid, more often that year than I have eaten sitting down since.</p>
+<p>He said my name a lot. The whole of it, every time, as if checking it was still the one. From the fire escape, from the bed, from the shower with the curtain half across: Daniel, is there beer. Daniel, come look at this. He is the only person I have known who used it as punctuation. That night he said it through the window with the paper still up in front of his face, and then he called me the other thing, the short one, the one people use across dinner tables without lowering their voices, in the register he used to say the coffee was on. He did not put the paper down for it. That was the thing about him, and it is the thing I have never gotten level with: he could set it out on the sill like a cup and go on reading.</p>
+<p>Mine went up. I felt it go, from under the ribs up to the hinge of the jaw, and it stopped there with the onion in my eyes and my hands wet, and what came out of my mouth instead was that the onion was strong. He laughed. It was funny. I had made the joke, and the joke was the near-one, and he took it, and that was the first time the word did not come. I filed it, standing there, as a thing that would come next time. You know already that it never did; I told you at the start. This was the first time, and it was over an onion, and he laughed.</p>
+<p>We went to bed through the middle room, past the one lamp and the chair with his jeans on it. The mattress gave toward his side, eight years of him in it, so that whichever side you started on you were rolled against him by one in the morning, and after the first week I stopped fighting it. He was heavier than me and warmer, hair on his forearms and his chest and not much anywhere else, and he slept with one foot out from under the sheet on the window side no matter the month. I wanted him that night and I had him, and that part was never the trouble. I could want a man in Ridgewood with the window open eight inches and the whole shaft listening, and I did, on my back and then not on my back, with his hand over my mouth at one point because the radio on two had gone off and the quiet was worse, both of us laughing into the hand. After, he wiped his palm on his own thigh and not on mine, which I noticed every time and never said, and put the foot back out from under the sheet, and was asleep inside two minutes, the way the rest of the building was asleep, without arranging it. I lay awake under the window that would not close. The shaft breathed on us all night, a cool wet breath with somebody&rsquo;s cigarette in it, and I lay in it with my mouth still full of the word, and it was the happiest I have been in a bed, and I knew it while it was happening.</p>
+<p>In November the towel went into the gap and grayed there. The radiator knocked and I learned its schedule, which the super never did. I wrote none of that year down. I carried each piece of it at cost, and I did not know yet that one day I would have to write it down.</p>
+<p>Then July. The heat in a railroad flat in July has nowhere to go but through you, and the window that would not close was the only thing in the apartment on my side. Eric had called in the spring, and his word for what I did was compliance. Reuben had known since March. There was a number in an email from a city I could not have placed on a map the year before, and I had read the number enough times to have stopped seeing it, and nothing was signed, and I had not said the name of that city inside those four rooms, not once, not to the man who lived in them, who was asleep two rooms back with his foot out of the sheet.</p>
+<p>We had eaten on the fire escape that night, off one plate, because the plate was the thing that had to be washed and the fire escape was the thing that had to be sat on: cold chicken, tomatoes with salt, a beer each and then the second beer split, his mouth on the bottle and then mine, the shaft giving up nothing cooler than what we had. He had the paper. He read me a thing about the Mets that he thought was funny and it was, and I laughed, and the laugh went down into the shaft and somebody on two laughed too, at something else. He went in at eleven and did what he always did, which was be asleep by the time I had rinsed the plate. I stood in the kitchen in my T-shirt, and it was stuck to me between the shoulder blades in the shape of a hand, and I peeled it off and hung it on the tub faucet and stood there bare to the waist at one in the morning with the whole building asleep around me and the one man in it who knew my name asleep too. Nobody was looking. I had a year of that, and I had learned to do things in it.</p>
+<p>I put the tub lid down. I put the laptop on it, and the enamel was the one cool thing in the kitchen and I set my forearms on it and let them cool. It was after one. The shaft was carrying up somebody&rsquo;s fan and somebody&rsquo;s argument and the dog, who had opinions about the heat. I had found the casting team&rsquo;s address that afternoon, on the third page of a site I had been on for a reason I would have described, if anyone had asked, as idle. Nobody asked. I opened a message to it and I wrote about a man.</p>
+<p>I wrote him in the third person and it was the easiest paragraph I have ever written, and I have written for lawyers. He was thirty-one. He worked in compliance and was comfortable in the gray. He was about to take a big chance; he was about to accept a transfer to his company&rsquo;s Singapore office. He was single. He lived in Brooklyn with a roommate. Every sentence was true and every sentence had been arranged so that the true thing was not in it. The man on the page had no bathtub in his kitchen. He had no window that would not close. He was not bare to the waist at a tub lid at one in the morning with his forearms going warm on the enamel, and nobody in his paragraph was asleep in a back room with one foot out of the sheet, and he did not have a word stuck behind his teeth since October. He was single. I had written <em>single</em> and looked at it and left it. I gave him the Brooklyn address, where the mail went. I did not describe the man in the back room, because the man on the page did not know him, and for the length of a paragraph I was the man on the page, and it was the most comfortable I had been all July.</p>
+<p>I read it back once and did not need to read it twice, which should have told me something. It told me it was good. I sent it at one-forty in the morning to people I had never met, and the laptop made the small sound it makes for sending, and the sound went up the shaft with the rest of the building&rsquo;s noise.</p>
+<p>What I did not do was go back through the middle room, past the lamp, and wake him, and say the name of the city. I had had a year to do it and I did not do it that night either. It was not that I could not find the words. I had just found them. I had found them for strangers and they had come out perfect, a man about to take a big chance, and a man who could write that to a casting department at one in the morning could have said it to a man forty feet away, through two open doorways, in his own kitchen. He could have. He sent it to the strangers instead, because the strangers could not say Daniel back.</p>
+<p>I closed the laptop and went back through the two rooms. He turned when the mattress went, and his hand came out and found my hip, and he said my name with the question in it that he only put on it when he was mostly asleep, and I said, it&rsquo;s me, and the mattress rolled me in against him. The window was open on the shaft. The email was gone. I did not sleep and he did.</p>
+<p>I never told him. I mean that exactly. A bag went south in August and then another, and the reply came from the casting people, and I felt picked. He watched the bags go and hung nothing on the walls, and near the end, with the paper up, he said he supposed I was about to leave, and I said something about the lease. Eight years he had kept those walls bare so as to be ready to go. I was in and out of those rooms in twelve months and never hung anything either, and I was the one who went.</p>
+<p>The postcard is in this account already, the one with no name on the address line. He wrote back and asked for a real one. He was asking for the paragraph I had already written, in the third person, to somebody else.</p>
+    </div>
+    <div class="cr" data-chapter="The Onion" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
+  </section>
+
+  <aside class="gap-note">
+    <p>A long stretch of the book sits between these two, from 2012 to the middle of 2015. This one is the last weeks before Arjun leaves.</p>
+  </aside>
+
+  <div class="divider" aria-hidden="true"><span class="dmark"></span></div>
+  <section class="chapter" id="ch-farewell" data-title="The Farewell">
+    <header class="chapter-head">
+      <span class="chapter-num">Twelve</span>
+      <h2 class="chapter-title">The Farewell</h2>
+    </header>
+    <div class="prose">
+      <p>The boxes come from the firm&rsquo;s relocation vendor, flat-packed, a stack of them against the wall of the front room with the vendor&rsquo;s name on the side in a blue the flat has never once contained. On a Saturday in June I build them, one at a time, the tape gun in my hand because I picked it up when I arrived and nobody has asked for it back. I am good at boxes. I square the folds, I run the tape in one pass, I stand each finished box on the counter with its mouth open, and Arjun fills them. He packs the way he closes out a quarter, every object on its own line: the spice tins in a single layer with a dish towel over them, the good knife wrapped in the <em>Business Times</em>, the pressure cooker nested with its own lid so it cannot argue in transit. For most of an hour the flat has a working quiet I know from Sundays, two people moving on learned routes around a small kitchen, except that the routes are what we are taking apart. By mid-morning both our shirts are dark down the spine. Twice, on the turn between counter and box, an arm crosses an arm, bare skin for the length of the turn, and neither of us adjusts the route, and I want the third time before the second is over. The radio is on low, the station I have never once found without him, and it goes into no box.</p>
+<p>The landlord&rsquo;s agent comes at eleven, a woman with a lanyard and a phone she uses as a clipboard. She walks the flat photographing the things a deposit is made of: the aircon units, the ring of tea-stain on the counter that was here before him, the window latch that has not latched since before either of us knew the other existed. Arjun answers her in the voice from the balcony, the one that arrives already processed. At the door she looks past him at me, at the tape gun, and says, &ldquo;And this is the,&rdquo; and leaves the end of it in the air, a form with one field lit.</p>
+<p>I have the beat I always have.</p>
+<p>&ldquo;Colleague,&rdquo; Arjun says, from inside a box. &ldquo;He&rsquo;s good with tape.&rdquo;</p>
+<p>She types nothing, because it was not information, and the door closes on her. He goes back to packing.</p>
+<p>I stand there holding the tape gun and the beat he took off me. At a hotel desk two years ago, on a weekend away, a clerk asked after my friend and I used that word with him standing behind me, and he has never once mentioned it, then or now.</p>
+<p>He is only using it, on a stranger with a lanyard, at its exact market rate, and the rate turns out to be the thing I cannot stand. The word clears. For the length of the agent&rsquo;s pause I am glad it clears. The anger came after, once the gladness needed covering. It costs him nothing. It was mine, and it fit him perfectly.</p>
+<p>By mid-afternoon the flat is mostly line items. The Piketty goes into the book box with its bookmark still in the first third, unbothered, emigrating unfinished. The Tamil paperback off the arm of the chair goes into his carry-on, in with the passport and the charger. The English goes to the hold and the Tamil goes on his lap, and I understand the sorting, and run the tape on the next box. The herb tins from the balcony go down two floors to the neighbor who has admired them politely for years, the chilli plant with them, and he comes back up with his hands empty and does not look at the balcony rail. The two mugs stay on their hooks over the sink until four o&rsquo;clock. Then the clean one goes into newsprint and into the box. The chipped one, the tea-ringed one, the one I learned without being told and set in front of him a hundred times, he takes off its hook, turns once in his hand, and sets back on the hook. Not packed. Not thrown away. Left, on its hook, in a flat neither of us will stand in again, and I want to steal it, and I say nothing, because if I ask whose it is now he will tell me.</p>
+<p>We do the kitchen shelves last, which is a mistake, or a mercy, or just packing logic, the load-bearing wall left for the end. The steel bowl is upside down in the rack, the big one, twin to the one on my own counter across the city. He dries it with the towel that is going in the next box. At my flat there is a smaller bowl soaking since Thursday, set down ahead of anyone&rsquo;s need, the way he has done every week for a year and a half, so there is always one going.</p>
+<p>&ldquo;I can take the bowl,&rdquo; I say.</p>
+<p>He keeps his eyes on the bowl. &ldquo;Take it where. You have one.&rdquo;</p>
+<p>&ldquo;My place. So there&rsquo;s.&rdquo;</p>
+<p>The sentence runs out. He waits the length of time a man is owed for finishing his own sentence, and then, for the first time, he does not finish it for me. He wraps the bowl in the towel and sets it in the box with the tins.</p>
+<p>&ldquo;I stopped sending them in March,&rdquo; he says, to the box. &ldquo;You didn&rsquo;t notice.&rdquo;</p>
+<p>The listings. The folder on my desktop with the name of this neighborhood on it. I had stopped opening it around the turn of the year, and he had stopped asking whether I had, and I had filed the stopping under our silences, the comfortable kind, the kind that is full. It was March. It is June. He is telling me the folder has been empty for three months, that the emptiness had a start date, that he sat somewhere one evening and chose it. And I, whose whole profession is noticing what a document no longer contains, did not notice, and it goes hot under my eyes.</p>
+<p>&ldquo;You stopped, so I.&rdquo;</p>
+<p>&ldquo;You didn&rsquo;t notice.&rdquo; Not louder. Flatter. He folds the box flaps in sequence, four of them, each under the last. &ldquo;I&rsquo;m not asking you for anything, Daniel. I&rsquo;m doing the inventory. It goes in the record.&rdquo; The last flap goes under. &ldquo;You would call it the record.&rdquo;</p>
+<p>And what comes up isn&rsquo;t the word. It&rsquo;s heat, and it comes up with no permission asked, chest, throat, and my voice comes out at a volume this flat has never heard from me, this country has never heard from me, and I can feel it in my face, the whole face gone hot and stupid and open, three years of the good face and I lose it over a steel bowl, in a kitchen with the balcony door half open, and I don&rsquo;t care, I have never once in this country not cared, and it feels, I&rsquo;m sorry, it feels wonderful.</p>
+<p>&ldquo;Then ask. You want to know what it was, the folder, the listings, two years of Sundays, then ask. You never once asked. You put the fronts of sentences on the table and graded what I did with them. You left a folder on my desktop and called it asking. That isn&rsquo;t asking. That&rsquo;s a test with the question withheld. Ask.&rdquo;</p>
+<p>He straightens up. The deadpan is not gone; it is working, I can see it working, a man holding a face the way I have held faces, and under it something looks to have come up as far as mine has. The fan turns. The balcony door stands half open on the rail where the tins no longer are, and the whole block can hear us, and for once I have not priced that first.</p>
+<p>&ldquo;You want me to ask you,&rdquo; he says. &ldquo;Out loud, in words, in a kitchen, with the door open.&rdquo;</p>
+<p>&ldquo;One time.&rdquo;</p>
+<p>&ldquo;No.&rdquo; No heat in it at all, which is how I decide it is the true answer and not the argument&rsquo;s. He picks the tape gun up off the counter, the handle slick from my palm; I do not remember setting it down. &ldquo;You answer things out loud for a living. I have watched you do it. Three years I have watched you do it, since the week we met, and it comes out right every time. Exactly right. On the first take.&rdquo; He runs the tape across the box in one pass. &ldquo;I never wanted the take.&rdquo;</p>
+<p>The word is in my mouth. It has come up further than it has ever come, past the place where I keep it, all the way to the teeth, it has a weight and a temperature and the first letter of it is touching the air, and he is watching me. Not helping. Not stepping into the pause the way he has stepped into every pause I have ever left him. Doing me the one cruelty he has never done me, which is to wait. I want it out, plainly. I swallow. It goes down whole, as it always goes down, and what leaves me instead, warm, level, exactly right, is:</p>
+<p>&ldquo;You&rsquo;ll want the bowl in London.&rdquo;</p>
+<p>Arjun looks at me a long moment. Then he laughs, once, and rubs his eyes with the heel of one hand, and is done.</p>
+<p>&ldquo;Okay, Daniel,&rdquo; he says. He says my name the way you initial the bottom of a page.</p>
+<p>We finish the kitchen. We finish it well, quickly, on the learned routes, the two of us better at this than any two people should be. Our fingers touch on the lid of the last tin and my hands take the tin. That is the part I would strike from the record if striking were a thing the record allowed. Not the shouting. The finishing.</p>
+<p>The Saturday we tape the last of the boxes, the fireworks start at nine. Not National Day itself, the ninth of August, but a rehearsal, the full display, the state running the celebration entire on a wrong Saturday to be sure of it on the right one. They do this for weeks, every year, whole skyfuls spent on dates that are not the date. The bursts reach the flat as a shudder in the window glass a half-beat before they reach the room. Neither of us goes to the window. Arjun folds the flap of a box and runs the tape gun along it, and over the marina the finale goes twice.</p>
+<p>The boxes stand three high by the door under the spare racquet, the old one, the grip gone hard, which is not going to London and is not coming to me. At the door, with my hand on the latch, he puts the steel bowl into my hands. Unwrapped again. The towel has gone back into its box.</p>
+<p>&ldquo;Yours is from Thursday,&rdquo; he says. &ldquo;It wants Sunday. After that you start the next one.&rdquo;</p>
+<p>He does not say with what. I carry the bowl down the stairwell, where the light on the second landing comes on a beat after you pass the sensor, so that you take the first steps in the dark and are lit the rest of the way down. The dark ones are where I could have cried. I took them fast.</p>
+<hr />
+<p>He leaves in late July, a week ahead of the induction the London posting begins with. We have dinner the night before, at the café on Lorong Mambong. I could set that table for you now. The same table for four, the two of us at it. We order the way we always do, which is him choosing and me agreeing. &ldquo;The fish,&rdquo; he tells the waiter, &ldquo;and the greens. And bring one more plate. He will say he is not hungry and then eat half of mine.&rdquo; The waiter smiles. It is true, and it is warm, and it is ours, and I hear it the way you hear a thing said about you in another room: exactly, and from a distance that was not there last week. The food comes and I am hungry and cannot get it down. I take a piece off his plate anyway, so the line comes true. It was on my own balcony, the winter before, that he had told me London was confirmed. London had sat between us since. Some weeks it was small enough to eat around, a thing on the table you could move a plate past. Other weeks it took the whole table, and we leaned in over it to hear each other, and by tonight it had a date on it, and the date had a flight number, and there was nowhere left on the table to put a glass.</p>
+<p>The conversation is the one we have been having for months, the one made of logistics, because logistics are what we have agreed to have words for: the dates, the shipment, the induction. It has worn a groove. We know where it turns and we take the turns slowly, a road we have driven at night a hundred times. He is in the gray shirt and I want my mouth on his throat, in the middle of Lorong Mambong, and I fold my napkin, the paper gone soft in my hands. The waiter clears the plates we have left full and does not ask, the way the staff here have learned not to ask, and brings the bill before we want it and sets it at the edge and walks away.</p>
+<p>Near the end he does the thing he never does.</p>
+<p>Tonight he sets the fork down on the cleared table and says the whole of it. He says what the nearly three years have been, plainly, without the deadpan running under it, in the low register I have heard from him maybe twice — once in a guesthouse in Pondicherry, with the fan turning, and once now. He does not leave this one in the air. He says it to the end.</p>
+<p>&ldquo;It was a life, Daniel. I am not going to call it anything smaller to make it easier to leave. I had a key and a bowl going and a corner for the racquet, and a man who watched me drink milk at his own counter as if it were news, and I knew what it was every Sunday. I am saying so once, out loud, in words, so that one of us has.&rdquo;</p>
+<p>Then he leaves the turn open. He looks at me across the table and waits for me to say what it has been from where I sit.</p>
+<p>And for a moment I have all of it.</p>
+<p>It comes up the way the life has always come up — not as a sentence but as its furniture. The racquet against the wall of my entryway, where it has stood since a Saturday I could name. The key gone smooth on his ring. The dosa my hand can tear now without my watching it tear. The pan we warm the milk in. The Sundays. Any one of them, set on the table between us, would be a true answer to what he has asked, and a sayable one. I have them all. The table is four hours long and we are not at the end of it. There is time.</p>
+<p>I feel the turn arrive. I know exactly what it is, the way I know the angle from the kitchen doorway.</p>
+<p>I produce a sentence.</p>
+<p>I say, &ldquo;You know.&rdquo;</p>
+<p>It is warm. It is sayable. It tells him that he already knows. I hear it leave me. There is no mark on it. The two words go out flat across the cleared table and land. There is nothing on the end of them but the period I always leave.</p>
+<p>He hears it. He understands that it is the answer. He does not ask again.</p>
+<p>After a moment he says, &ldquo;I do know.&rdquo; A pause. &ldquo;That wasn&rsquo;t what I asked you for.&rdquo;</p>
+<p>Not with anger. The way you note a thing for the record.</p>
+<p>I look for his face then. I want what is behind it. His face gives me the outside of itself and nothing else. The eyes, the set of the mouth, a small movement at the jaw that could be anything. I have read this face in the dark and over a hundred breakfasts, read it asleep with my hand on the back of his neck, read it before it decided to laugh, and now I read it and it tells me nothing, because for the first time it is not turned toward me and has no edge left for me to catch. He does not look like a man withholding it. The face is just a face now.</p>
+<p>He pays. He will not let me. He pays the way he bought the kurta, with the back of his hand, no heat in it.</p>
+<p>He walks me out to the road.</p>
+<hr />
+<p>The drivers were idling at the rank past the noodle stalls and one of them flashed his lights when he saw us coming, and Arjun lifted a hand at him, and the cab swung in.</p>
+<p>We stood at the open door. He said, &ldquo;Daniel.&rdquo; Then: &ldquo;One doesn&rsquo;t —&rdquo; and he stopped.</p>
+<p>He had stopped that way a hundred times. Every other time the stopping had been a kind of generosity, or a kind of test — a place left for me to step into. This time it was neither. It was a sentence with nowhere left to go. He had set the front of it down and there was no back, and there was no one on the other side of the table to make one, because the table was gone and we were on Lorong Mambong and the cab was running.</p>
+<p>The driver asked where to.</p>
+<p>I said, &ldquo;Moulmein Rise.&rdquo;</p>
+<p>He pulled out without asking me to repeat it. I did not look back through the rear glass and I did not roll the window down. I wanted out, the door open and my hands on him in front of the noodle stalls, and I sat on both hands. The café fell behind. Arjun stood on the curb where I had left him and did not wave, or waved, or had already turned to go back in. I did not see which — had decided not to, before the cab finished the turn.</p>
+<p>He flew out the next morning. I did not go. We had agreed, without either of us saying it, that I would not. The seat beside me in the cab was empty all the way up Balestier Road, and I rode home with it empty, and let myself into the apartment where the racquet was still against the wall. I did not touch it. I wanted to, and I was sober, so I didn&rsquo;t.</p>
+<p>He did not come back for it.</p>
+<hr />
+<p>Three weeks passed after the cab, and I can give you almost nothing from inside them: a man who accounts for everything, and three weeks missing from the account. The office happened; my sent folder says so, a file of dated, correctly worded mail I have read since the way you read another man&rsquo;s correspondence. The flat happened; one plate went from the rack to the table to the sink and back to the rack, and the rack was never fuller than that. The other side of the bed stayed made, and the phone rang only when the office rang it. He had said it once, in the pool, to the sky, in the third person: a man who had lit a gallery he was not standing in. I laughed, because the planning was funny and because a laugh was all I could do with the rest of the sentence on the spot. I had the rest of the sentence those three weeks. I have it now. I did nothing with it in the water and I did nothing with it in August, and I am not going to pretend the second nothing was different from the first. The evenings were longest at the hour he would have let himself in, the way they had been while he was in Chennai, except that Chennai had come with a return date. On a Friday night in August, I broke the rule about the wine.</p>
+<p>I had made the rule the year before, for the nights he left in the morning: one glass, because the second had a way of becoming a phone call I was not, in the morning, glad I had made. The rule had held since he left. There was still no one to call. I poured the second glass anyway, on the arithmetic that the rule was about a man coming back in the morning, and there was no such man, which I found very clever. Then the rule was gone, and I sat on the floor of the living room with my back against the couch, because the couch was a thing two people sat on, and drank the third at the pace of a man reading a document he has decided to sign.</p>
+<p>The apartment did its late things. The fridge cycled. A last bus went down Moulmein Rise with its light on, empty. At three in the morning Singapore is seven hours ahead of London; I had done the arithmetic the first night and every night since, and did it again now, wrong once, then right. Eight in the evening, there. A man back from work, fed or deciding not to bother, a lamp on in a terraced house with a study in it.</p>
+<p>I called him.</p>
+<p>He answered on the fourth ring, and I have had years to consider the fourth ring, because it is not the ring of a man startled by a name on a screen. It is the ring of a man who saw the name, and set down what he was holding, and stood a moment, and decided.</p>
+<p>&ldquo;Daniel.&rdquo;</p>
+<p>The name as a whole sentence. Behind him London made a sound and stopped making it. I had the room built around him before the second syllable landed, the lamp, the boxes with the vendor&rsquo;s blue on them, the bowl I did not know whether he had unpacked, and I wanted my face against the back of his neck. The building of rooms was the last part of me still working.</p>
+<p>&ldquo;Ask me again,&rdquo; I said.</p>
+<p>The line hummed its one note.</p>
+<p>&ldquo;You&rsquo;re drunk.&rdquo; Not a verdict. An entry.</p>
+<p>&ldquo;Ask me again. The thing at the table. You said it wasn&rsquo;t what you asked me for, so ask it again. I&rsquo;m asking you to ask me.&rdquo; I could hear myself. It was a terrible voice. Loud where it shouldn&rsquo;t be, the ends of words going wet, d&rsquo;s and t&rsquo;s melting, whole words coming out as a kind of moan, a noise I wouldn&rsquo;t take from a grown man in a bar, and I was making it at three in the morning to the one person on earth I&rsquo;d spent three years sounding good for. Then it squealed. Actually squealed, high, short, a sound like a chair pushed back, and I heard it and thought, there, that&rsquo;s the take, that&rsquo;s the one, and I did not stop. I got louder. I wanted him to hear the whole ugly instrument, the one voice I had never once cleared for him, and I kept talking through it with the glass still in my hand and the wine going over my knuckles. &ldquo;You leave every door one inch open. Three years of doors, one inch. And the one time I ask you to say the whole of a thing out loud, to ask me so that I can.&rdquo;</p>
+<p>&ldquo;So that you can what.&rdquo;</p>
+<p>Very quiet. Not the deadpan. I had heard this register twice, a guesthouse with a fan in it, a cleared table on Lorong Mambong, and it stopped me, a hand laid flat on a swinging door.</p>
+<p>&ldquo;So that you can what, Daniel.&rdquo;</p>
+<p>And it rose. The whole of it, the heat and the weight, up past the place I keep it, teeth, air, the first letter forming, three words I had written in my head ten thousand times and never once aloud, and I stood in my living room with the phone hot against my ear and the city black and orange below the window, and what came out of me was not the sentence. It was a sound. The front of a word with the body torn off it. And then I was crying, which I had not done, not at the table, not at the curb, not at the airport I did not go to, and I did it badly, loudly, wet, bent over the phone with my nose running onto the back of my hand, and I could not stop it and did not try, and the line hummed under it and carried it to London.</p>
+<p>He did not say my name. He did not say it&rsquo;s late, or you should sleep, or any of the sentences on the rack of available sentences, and I understood, through it, that he was declining them one at a time, the way he had declined, in the kitchen in June, to finish mine. He stayed on the line and let it be heard. It went on a long time. The fridge cycled twice.</p>
+<p>Then he made a sound. One. Low, short, cut off at its own front edge, and I stopped breathing to hear whether there would be a second one, and there was not. What there was, after, was his voice, level again, or one degree off level, the smallest amount a thing can be off and still be off.</p>
+<p>&ldquo;I know,&rdquo; he said.</p>
+<p>My own two words, given back. At the table I had handed him <em>you know</em> because it was true and it was nothing, and he had taken it onto the plane, and now at three in the morning he set the matching half down where I could hear it. It was true, and it was nothing, and it was everything he was going to spend.</p>
+<p>&ldquo;Arjun.&rdquo;</p>
+<p>&ldquo;Don&rsquo;t.&rdquo; Quietly. Not unkind. &ldquo;Not like this. Not at a distance, at three o&rsquo;clock, on the wine. It would be true and I would never be able to trust it, and you would never be able to say it again sober without both of us hearing this version underneath. You would have spent it here, where it costs the least. You know that better than anyone alive.&rdquo;</p>
+<p>I did know it. It was an exact read, delivered flat, and it was also, I have thought since, a door being held shut by a man using both hands to hold it, and I will never know which it was, because the instrument that reads men has never once returned a reading on him, and it did not start that night.</p>
+<p>Neither of us hung up. That is the part I have kept. The talk was over and the line stayed open, seven hours of ocean humming on it, his evening laid against my night, a lamp on in a study or what his agent in London called a study, a man on the floor of a flat on Moulmein Rise with wine dried on his knuckles and a steel bowl dry in the cupboard, washed and not started again. I listened to him breathe until the breathing had a rhythm I knew. At some point the line closed. In the morning I was still on the floor with a tongue that tasted of the bottle, sorry about the wine and the squeal, and not sorry about the call, because the sound had got out once ahead of the sentence and he had heard it. I never established which of us closed the line, and I have declined, all the years since, to check the log, because there is a version where it was me, and I do not want the record.</p>
+    </div>
+    <div class="cr" data-chapter="The Farewell" hidden>
+      <div class="cr-row">
+        <span class="cr-q">This chapter &middot;</span>
+        <button type="button" class="cr-btn" data-r="leaned in">I leaned in</button>
+        <button type="button" class="cr-btn" data-r="drifted">I drifted</button>
+      </div>
+      <div class="cr-more" hidden>
+        <input class="cr-line" type="text" maxlength="500" placeholder="a line about it, if you like (optional)">
+        <button type="button" class="cr-send">Send</button>
+      </div>
+      <p class="cr-done" hidden></p>
+    </div>
+  </section>
+
+  <div class="closing">
+    <p>That is the end of this sample. There is a whole book on the other side of
+it; if you want the rest, say so below and I will send it.</p>
+
+  </div>
+
+  <div class="feedback">
+    <h3>Tell me what you think</h3>
+    <p class="lead">Where did you lean in, where did you drift, and how did the
+    last chapter sit with you? Say as much or as little as you like &mdash;
+    nothing is too small, and no need to be tidy about it.</p>
+    <form name="reading-feedback" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="fbform">
+      <input type="hidden" name="form-name" value="reading-feedback">
+      <input type="hidden" name="reader" value="Group 6 — Books pages">
+      <input type="hidden" name="chapter" value="the end box">
+      <input type="hidden" name="reaction" value="">
+      <p class="hp"><label>Leave this empty <input name="bot-field"></label></p>
+      <div class="field">
+        <label for="thoughts">Your thoughts</label>
+        <textarea id="thoughts" name="thoughts" required></textarea>
+      </div>
+      <div class="field">
+        <label for="who">Your name (optional)</label>
+        <input id="who" name="who" type="text">
+      </div>
+      <button class="send" type="submit">Send to Jonathan</button>
+      <p class="thanks" id="thanks">Thank you &mdash; that came through. It means a lot that you read it.</p>
+    </form>
+  </div>
+
+  <footer>The Approved Version &middot; shared privately &middot; please don&rsquo;t forward</footer>
+
+</div>
+
+<button type="button" class="pill" id="pill">Continue where you left off &darr;</button>
+
+<script>
+(function () {
+  var SLUG = 'tav-books-m2u772ct';
+  var READER = 'Group 6 — Books pages';
+
+  function store(k, v) { try { localStorage.setItem('tav:' + SLUG + ':' + k, v); } catch (e) {} }
+  function read(k) { try { return localStorage.getItem('tav:' + SLUG + ':' + k); } catch (e) { return null; } }
+
+  function post(fields) {
+    fields['form-name'] = 'reading-feedback';
+    fields['reader'] = READER;
+    var data = new URLSearchParams(fields).toString();
+    return fetch('/', { method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data });
+  }
+
+  /* ---- theme + text size ---- */
+  var sizes = [17, 18.5, 20, 21.5, 23];
+  var sizeIdx = parseInt(read('size') || '2', 10);
+  if (isNaN(sizeIdx) || sizeIdx < 0 || sizeIdx > 4) sizeIdx = 2;
+  function applySize() {
+    document.querySelectorAll('.prose').forEach(function (p) {
+      p.style.fontSize = sizes[sizeIdx] + 'px';
+    });
+  }
+  document.getElementById('sizeDown').addEventListener('click', function () {
+    if (sizeIdx > 0) { sizeIdx--; applySize(); store('size', sizeIdx); }
+  });
+  document.getElementById('sizeUp').addEventListener('click', function () {
+    if (sizeIdx < sizes.length - 1) { sizeIdx++; applySize(); store('size', sizeIdx); }
+  });
+  if (sizeIdx !== 2) applySize();
+
+  var themeL = document.getElementById('themeLight');
+  var themeD = document.getElementById('themeDark');
+  function applyTheme(t) {
+    if (t === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+    else { document.documentElement.removeAttribute('data-theme'); }
+    themeD.classList.toggle('on', t === 'dark');
+    themeL.classList.toggle('on', t !== 'dark');
+  }
+  themeL.addEventListener('click', function () { applyTheme('light'); store('theme', 'light'); });
+  themeD.addEventListener('click', function () { applyTheme('dark'); store('theme', 'dark'); });
+  applyTheme(read('theme') === 'dark' ? 'dark' : 'light');
+
+  /* ---- panels ---- */
+  var tocBtn = document.getElementById('tocBtn'), tocPanel = document.getElementById('tocPanel');
+  var typeBtn = document.getElementById('typeBtn'), typePanel = document.getElementById('typePanel');
+  function closePanels() {
+    tocPanel.classList.remove('open'); typePanel.classList.remove('open');
+    tocBtn.setAttribute('aria-expanded', 'false'); typeBtn.setAttribute('aria-expanded', 'false');
+  }
+  tocBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = tocPanel.classList.contains('open');
+    closePanels();
+    if (!open) { tocPanel.classList.add('open'); tocBtn.setAttribute('aria-expanded', 'true'); }
+  });
+  typeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var open = typePanel.classList.contains('open');
+    closePanels();
+    if (!open) { typePanel.classList.add('open'); typeBtn.setAttribute('aria-expanded', 'true'); }
+  });
+  document.addEventListener('click', function (e) {
+    if (!tocPanel.contains(e.target) && !typePanel.contains(e.target)) closePanels();
+  });
+
+  /* ---- chapters / TOC position ---- */
+  var chapters = Array.prototype.slice.call(document.querySelectorAll('.chapter'));
+  var tocItems = Array.prototype.slice.call(document.querySelectorAll('.toc-item'));
+  tocItems.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = document.getElementById(b.getAttribute('data-target'));
+      closePanels();
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+  function currentChapter() {
+    var y = window.scrollY + 140, cur = null;
+    chapters.forEach(function (c) { if (c.offsetTop <= y) cur = c; });
+    return cur;
+  }
+  function markCurrent() {
+    var cur = currentChapter();
+    tocItems.forEach(function (b) {
+      b.classList.toggle('current', !!cur && b.getAttribute('data-target') === cur.id);
+    });
+  }
+
+  /* ---- progress + position memory ---- */
+  var bar = document.getElementById('progress');
+  var saveTimer = null;
+  function onScroll() {
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+    bar.style.width = (pct * 100) + '%';
+    markCurrent();
+    if (saveTimer) return;
+    saveTimer = setTimeout(function () {
+      saveTimer = null;
+      if (window.scrollY > 300) { store('pos', String(window.scrollY)); store('pct', String(Math.round(pct * 100))); }
+    }, 800);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  var pill = document.getElementById('pill');
+  var savedPos = parseInt(read('pos') || '0', 10);
+  var savedPct = parseInt(read('pct') || '0', 10);
+  if (savedPos > 900 && savedPct < 97 && window.scrollY < 300) {
+    pill.classList.add('show');
+    pill.addEventListener('click', function () {
+      pill.classList.remove('show');
+      window.scrollTo({ top: savedPos, behavior: 'smooth' });
+    });
+    setTimeout(function () { pill.classList.remove('show'); }, 12000);
+    window.addEventListener('scroll', function hidePill() {
+      if (window.scrollY > 600) { pill.classList.remove('show'); window.removeEventListener('scroll', hidePill); }
+    }, { passive: true });
+  }
+
+  /* ---- per-chapter reactions (reader-initiated only) ---- */
+  document.querySelectorAll('.cr').forEach(function (cr) {
+    cr.removeAttribute('hidden');
+    var chapter = cr.getAttribute('data-chapter');
+    var done = cr.querySelector('.cr-done');
+    var more = cr.querySelector('.cr-more');
+    var line = cr.querySelector('.cr-line');
+    var prior = read('r:' + chapter);
+    if (prior) {
+      cr.querySelector('.cr-row').style.display = 'none';
+      done.textContent = 'You said: ' + prior + '. Thank you.';
+      done.removeAttribute('hidden');
+      return;
+    }
+    var choice = null;
+    cr.querySelectorAll('.cr-btn').forEach(function (b) {
+      b.addEventListener('click', function () {
+        choice = b.getAttribute('data-r');
+        cr.querySelectorAll('.cr-btn').forEach(function (x) { x.classList.toggle('on', x === b); });
+        more.removeAttribute('hidden');
+        line.focus();
+      });
+    });
+    cr.querySelector('.cr-send').addEventListener('click', function () {
+      if (!choice) return;
+      post({ chapter: chapter, reaction: choice, thoughts: line.value || '' })
+        .then(function () {
+          store('r:' + chapter, choice);
+          cr.querySelector('.cr-row').style.display = 'none';
+          more.setAttribute('hidden', '');
+          done.textContent = 'Noted — thank you.';
+          done.removeAttribute('hidden');
+        })
+        .catch(function () {
+          done.textContent = 'That did not send — the box at the end works too.';
+          done.removeAttribute('hidden');
+        });
+    });
+  });
+
+  /* ---- "where I got to" (reader-initiated) ---- */
+  var spotBtn = document.getElementById('spotBtn');
+  spotBtn.addEventListener('click', function () {
+    var cur = currentChapter();
+    var pct = read('pct') || '0';
+    post({
+      chapter: cur ? cur.getAttribute('data-title') : 'the letter',
+      reaction: 'stopped here',
+      thoughts: 'Reader marked their spot: about ' + pct + '% down the page.'
+    }).then(function () {
+      spotBtn.style.display = 'none';
+      document.getElementById('spotDone').style.display = 'block';
+    }).catch(function () {
+      spotBtn.textContent = 'That did not send — the box at the end works too.';
+    });
+  });
+
+  /* ---- end box ---- */
+  var f = document.getElementById('fbform');
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = new URLSearchParams(new FormData(f)).toString();
+    fetch('/', { method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: data })
+      .then(function () {
+        f.querySelector('button.send').style.display = 'none';
+        document.getElementById('thoughts').closest('.field').style.display = 'none';
+        document.getElementById('who').closest('.field').style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
+      })
+      .catch(function () {
+        var t = document.getElementById('thanks');
+        t.textContent = 'Hmm, that did not send — you can also just email me.';
+        t.style.display = 'block';
+      });
+  });
+})();
+</script>
+
+</body>
+</html>

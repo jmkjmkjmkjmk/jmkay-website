@@ -87,6 +87,10 @@ CHAPTER_PREFIXES = {
     "sunday":   "Ch08_Sunday",
     "india":    "Ch13_India",
     "cny":      "Ch14_Chinese_New_Year",
+    # added 2026-09-24 (whole-novel board READ1 + READ2, DECISIONS latest+189)
+    "shadowy":  "Ch05_Shadowy_Passage",
+    "onion":    "The_Onion",
+    "farewell": "Ch15_The_Farewell",
 }
 
 def _canonical_rows():
@@ -142,6 +146,30 @@ GAP_NOTES = {
         "Between these two chapters the book goes back two years, to Daniel&rsquo;s "
         "arrival in Singapore and the start of things with Arjun. Four chapters are "
         "not included here; this one is a Sunday from the middle of those years.",
+    # added 2026-09-24 for the India-to-Onion swap (READ1) and the four reader-type groups (READ2)
+    ("prologue", "bugis"):
+        "Between the prologue and this chapter the book opens on the week the show filmed, "
+        "in 2014, then goes back to Daniel&rsquo;s first months in Singapore. Four chapters "
+        "are not included here; this one picks up how he and Arjun met.",
+    ("sunday", "onion"):
+        "Between these two the book stops in Doha, where Daniel is writing all of this "
+        "down. This one goes back before Singapore, to a year in New York.",
+    ("onion", "cny"):
+        "Between these two the book comes back to Singapore for the back half of 2014 "
+        "and a trip to India. This one is the Lunar New Year that follows.",
+    ("sunday", "cny"):
+        "A stretch of the book sits between these two, covering the back half of 2014 "
+        "and a trip to India. This one is the Lunar New Year that follows.",
+    ("bugis", "cny"):
+        "A stretch of the book sits between these two, covering the middle years and a "
+        "trip to India. This one is the Lunar New Year that follows.",
+    ("shadowy", "onion"):
+        "Between these two the book moves through Daniel&rsquo;s first year with Arjun, then "
+        "stops in Doha, where he is writing all of this down. This one goes back before "
+        "Singapore, to a year in New York.",
+    ("onion", "farewell"):
+        "A long stretch of the book sits between these two, from 2012 to the middle of "
+        "2015. This one is the last weeks before Arjun leaves.",
     ("sunday", "india"):
         "A stretch of the book sits between these two, covering the back half "
         "of 2014. This one is December: Chennai, a family wedding, Daniel as "
@@ -167,22 +195,63 @@ ROSTER = {
     },
     "Group 2 — The sampler": {
         "slug": "tav-sampler-3p8w1ztc",
-        "chapters": ["prologue", "ch01", "sunday", "india"],
+        "chapters": ["prologue", "ch01", "sunday", "onion"],   # India swapped for The Onion 2026-09-24 (READ1)
         "holding": (
             "What you have here is a sample: the opening of the book plus two "
-            "chapters from the middle years, about {time} of reading in all. The "
-            "chapters run in the book&rsquo;s order, and where some are skipped a "
-            "short note says what the gap holds."
+            "more chapters, about {time} of reading in all. The chapters run in the "
+            "book&rsquo;s order, and where some are skipped a short note says what the "
+            "gap holds. (If you read an earlier version of this page, the India chapter "
+            "has come off it for now, and The Onion is in its place.)"
         ),
     },
     "Group 3 — The deeper cut": {
         "slug": "tav-deeper-6r4n8vbd",
-        "chapters": ["prologue", "ch01", "bugis", "sunday", "india", "cny"],
+        "chapters": ["prologue", "ch01", "bugis", "sunday", "onion", "cny"],   # India swapped for The Onion 2026-09-24 (READ1)
         "holding": (
             "What you have here is the longer sample: the opening of the book plus "
-            "four chapters from across the three years, about {time} of reading in "
-            "all. The chapters run in the book&rsquo;s order, and where some are "
+            "four more chapters, about {time} of reading in all. The chapters run in "
+            "the book&rsquo;s order, and where some are skipped a short note says what "
+            "the gap holds. (If you read an earlier version of this page, the India "
+            "chapter has come off it for now, and The Onion is in its place.)"
+        ),
+    },
+    # READ2 (2026-09-24): four reader-type groups, each its own unlisted link.
+    "Group 4 — Editors": {
+        "slug": "tav-editors-5dryasnu",   # fixed 2026-09-24; immutable once sent
+        "chapters": ["prologue", "bugis", "sunday"],
+        "holding": (
+            "What you have here is the prologue and two chapters from Daniel&rsquo;s "
+            "first years in Singapore, about {time} of reading in all. The chapters run "
+            "in the book&rsquo;s order, and where some are skipped a short note says what "
+            "the gap holds."
+        ),
+    },
+    "Group 5 — Friends": {
+        "slug": "tav-friends-h4q34kjt",   # fixed 2026-09-24; immutable once sent
+        "chapters": ["bugis", "sunday", "cny"],
+        "holding": (
+            "What you have here is three chapters from the middle of the book, about "
+            "{time} of reading in all. They run in the book&rsquo;s order, and where some "
+            "are skipped a short note says what the gap holds."
+        ),
+    },
+    "Group 6 — Books pages": {
+        "slug": "tav-books-m2u772ct",   # fixed 2026-09-24; immutable once sent
+        "chapters": ["shadowy", "onion", "farewell"],
+        "holding": (
+            "What you have here is three chapters from across the book, about {time} "
+            "of reading in all. They run in the book&rsquo;s order, and where some are "
             "skipped a short note says what the gap holds."
+        ),
+    },
+    "Group 7 — Singapore readers": {
+        "slug": "tav-sg-fqtw02gr",   # fixed 2026-09-24; immutable once sent
+        "chapters": ["ch01", "bugis", "cny"],
+        "holding": (
+            "What you have here is three chapters set in Singapore, the first chapter of "
+            "the book and two from the years before it, about {time} of reading in all. "
+            "They run in the book&rsquo;s order, and where some are skipped a short note "
+            "says what the gap holds."
         ),
     },
 }
